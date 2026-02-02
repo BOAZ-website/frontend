@@ -1,18 +1,17 @@
 import { Suspense } from 'react';
 import { QueryErrorResetBoundary } from '@tanstack/react-query';
-// import { AppLayout } from '@widgets/layout';
 import { Outlet } from 'react-router';
 
-const GlobalLayout = () => {
+// import * as styles from './GlobalLayout.css';
+
+export const GlobalLayout = () => {
   return (
-    // <AppLayout>
     <QueryErrorResetBoundary>
-      <Suspense fallback={<div>Loading...</div>}>
+      {/* <Header /> */}
+      <Suspense fallback={<>Loading...</>}>
         <Outlet />
       </Suspense>
+      {/* <Footer /> */}
     </QueryErrorResetBoundary>
-    // </AppLayout>
   );
 };
-
-export default GlobalLayout;

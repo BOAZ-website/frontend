@@ -1,12 +1,12 @@
-import { lazy, Suspense } from 'react';
-import { ROUTE_PATH } from '@shared/routes/path';
+import { lazy } from 'react';
 import { createBrowserRouter } from 'react-router';
 
-import LoginPage from '@/pages/loginPage';
+import { ROUTE_PATH } from '@/shared/config/path';
 
-import { GlobalLayout } from '../layouts/GlobalLayout';
+import { GlobalLayout } from '../layouts/ui/GlobalLayout';
 
-const HomePage = lazy(() => import('@/pages/homePage'));
+const HomePage = lazy(() => import('@/pages/HomePage'));
+const LoginPage = lazy(() => import('@/pages/LoginPage'));
 
 export const router = createBrowserRouter([
   {
@@ -14,19 +14,11 @@ export const router = createBrowserRouter([
     children: [
       {
         path: ROUTE_PATH.HOME,
-        element: (
-          <Suspense fallback={<div>Loading...</div>}>
-            <HomePage />
-          </Suspense>
-        ),
+        element: <HomePage />,
       },
       {
         path: ROUTE_PATH.LOGIN,
-        element: (
-          <Suspense fallback={<div>Loading...</div>}>
-            <LoginPage />
-          </Suspense>
-        ),
+        element: <LoginPage />,
       },
     ],
   },
