@@ -8,7 +8,7 @@
     },
     {
       "files": ["*.css.ts", "*.css.tsx"],
-      "customSyntax": "@stylelint/postcss-css-in-js",
+      "customSyntax": "postcss-styled-syntax",
       "rules": {
         "function-no-unknown": null,
         "value-keyword-case": null,
@@ -54,14 +54,7 @@
         "groupName": "Typography",
         "emptyLineBefore": "always",
         "noEmptyLineBetween": true,
-        "properties": [
-          "color",
-          "font",
-          "font-size",
-          "font-weight",
-          "line-height",
-          "text-align"
-        ]
+        "properties": ["color", "font", "font-size", "font-weight", "line-height", "text-align"]
       }
     ],
     "no-empty-source": null,
