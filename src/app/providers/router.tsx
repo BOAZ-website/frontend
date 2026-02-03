@@ -1,7 +1,7 @@
 import { lazy } from 'react';
 import { createBrowserRouter } from 'react-router';
 
-import { ROUTE_PATH } from '@/shared/config/path';
+import { ROUTE_PATH } from '@/shared/configs/path';
 
 import { GlobalLayout } from '../layouts/ui/GlobalLayout';
 
@@ -10,15 +10,15 @@ const LoginPage = lazy(() => import('@/pages/LoginPage'));
 
 export const router = createBrowserRouter([
   {
-    element: <GlobalLayout />,
+    Component: GlobalLayout,
     children: [
       {
         path: ROUTE_PATH.HOME,
-        element: <HomePage />,
+        Component: HomePage,
       },
       {
         path: ROUTE_PATH.LOGIN,
-        element: <LoginPage />,
+        Component: LoginPage,
       },
     ],
   },
