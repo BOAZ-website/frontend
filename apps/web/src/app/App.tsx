@@ -1,9 +1,9 @@
 import { RouterProvider } from 'react-router/dom';
 
+import './styles/global.css.ts';
+
 import { router } from '@/app/providers';
 import { QueryProvider } from '@/shared/providers/QueryProvider';
-
-import './styles/global.css.ts';
 
 function App() {
   return (

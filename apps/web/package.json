@@ -1,7 +1,7 @@
 {
   "name": "@boaz/web",
-  "version": "0.0.0",
   "private": true,
+  "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -21,20 +21,28 @@
     "react-router": "^7.13.0"
   },
   "devDependencies": {
-    "@boaz/eslint-config": "workspace:*",
-    "@boaz/prettier-config": "workspace:*",
-    "@boaz/typescript-config": "workspace:*",
-    "@eslint/js": "catalog:",
+    "@eslint/js": "^9.39.1",
     "@types/node": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
     "@vitejs/plugin-react": "catalog:",
     "eslint": "catalog:",
-    "globals": "catalog:",
-    "prettier": "catalog:",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-only-warn": "^1.1.0",
+    "eslint-plugin-prettier": "^5.5.5",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-react-refresh": "^0.4.24",
+    "eslint-plugin-simple-import-sort": "^12.1.1",
+    "globals": "^16.5.0",
+    "postcss-styled-syntax": "^0.7.1",
+    "prettier": "^3.8.1",
+    "stylelint": "^17.1.0",
+    "stylelint-config-standard": "^40.0.0",
+    "stylelint-order": "^7.0.1",
     "typescript": "catalog:",
-    "vercel": "catalog:",
+    "typescript-eslint": "^8.46.4",
+    "vercel": "^50.9.6",
     "vite": "catalog:"
-  },
-  "prettier": "@boaz/prettier-config"
+  }
 }

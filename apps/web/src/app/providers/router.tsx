@@ -1,9 +1,9 @@
 import { lazy } from 'react';
 import { createBrowserRouter } from 'react-router';
 
-import { ROUTE_PATH } from '@/shared/configs/path';
-
 import { GlobalLayout } from '../layouts/ui/GlobalLayout';
+
+import { ROUTE_PATH } from '@/shared/configs/path';
 
 const HomePage = lazy(() => import('@/pages/HomePage'));
 const LoginPage = lazy(() => import('@/pages/LoginPage'));

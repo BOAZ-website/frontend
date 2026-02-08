@@ -1,0 +1,28 @@
+packages:
+  - "apps/*"
+  - "packages/**"
+
+catalog:
+  # Build & Runner
+  turbo: "^2.4.2"
+  vercel: "^50.9.6"
+  prettier: "^3.8.1"
+
+  # React
+  react: "^19.2.0"
+  react-dom: "^19.2.0"
+  "@types/react": "^19.2.5"
+  "@types/react-dom": "^19.2.3"
+
+  # TypeScript
+  typescript: "^5.9.2"
+  "@types/node": "^22.15.3"
+
+  # Build
+  vite: "^7.2.4"
+  "@vitejs/plugin-react": "^5.1.1"
+
+  # Lint & Common
+  eslint: "^9.39.1"
+  "@eslint/js": "^9.39.1"
+  globals: "^16.5.0"
