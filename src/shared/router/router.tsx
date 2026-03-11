@@ -1,4 +1,5 @@
 import { createBrowserRouter } from 'react-router';
+
 import { HomePage } from '@/shared/router/lazy';
 import { ROUTE_PATH } from '@/shared/router/path';
 

@@ -18,4 +18,4 @@ pre-push:
 commit-msg:
   commands:
     lint-commit-msg:
-      run: node commitlint.config.ts {1}
+      run: pnpm exec tsx commitlint.config.ts {1}
