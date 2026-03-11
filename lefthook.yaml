@@ -9,6 +9,10 @@ pre-commit:
       glob: '*.{js,ts,jsx,tsx,json,yaml,yml,md}'
       run: pnpm format
       stage_fixed: true
+    
+    stylelint:
+      glob: '*.{css,css.ts,css.tsx}'
+      run: pnpm lint:css
 
 pre-push:
   commands:
@@ -18,4 +22,4 @@ pre-push:
 commit-msg:
   commands:
     lint-commit-msg:
-      run: node commitlint.config.ts {1}
+      run: pnpm exec tsx commitlint.config.ts {1}

@@ -1,14 +1,13 @@
-const fs = require('fs');
+import fs from 'node:fs';
 
 const commitMsgFilePath = process.argv[2];
+if (!commitMsgFilePath) {
+  process.exit(1);
+}
+
 const commitMessage = fs.readFileSync(commitMsgFilePath, 'utf8').trim();
 
-const mergePatterns = [
-  /^Merge pull request #\d+/,
-  /^Merge branch/,
-  /^Merge remote-tracking branch/,
-];
-
+const mergePatterns = [/^Merge pull request #\d+/, /^Merge branch/, /^Merge remote-tracking branch/];
 const isMergeCommit = mergePatterns.some((pattern) => pattern.test(commitMessage));
 
 if (isMergeCommit) {
@@ -28,7 +27,7 @@ const allowedTypes = [
   'deploy',
 ];
 
-const firstLine = commitMessage.split('\n')[0];
+const firstLine = commitMessage.split('\n')[0] ?? '';
 const commitRegex = /^(\w+):\s{1,}(.+)$/;
 const match = firstLine.match(commitRegex);
 
@@ -40,7 +39,7 @@ if (!match) {
   process.exit(1);
 }
 
-const type = match[1];
+const type = match[1] ?? '';
 
 if (!allowedTypes.includes(type.toLowerCase())) {
   console.error(`
@@ -51,3 +50,4 @@ if (!allowedTypes.includes(type.toLowerCase())) {
 }
 
 console.log('커밋 성공!');
+
