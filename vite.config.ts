@@ -4,7 +4,7 @@ import path from 'path';
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), svgr()],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
@@ -17,3 +17,6 @@ export default defineConfig({
     },
   },
 });
+function svgr(): import('vite').PluginOption {
+  throw new Error('Function not implemented.');
+}
