@@ -1,14 +1,14 @@
+import { Suspense } from 'react';
 import { RouterProvider } from 'react-router/dom';
-
-import { router } from '@/app/providers';
+import { router } from '@/shared/router/router';
 import { QueryProvider } from '@/shared/providers/QueryProvider';
-
-import './styles/global.css.ts';
 
 function App() {
   return (
     <QueryProvider>
-      <RouterProvider router={router} />
+      <Suspense fallback={<div>Loading...</div>}>
+        <RouterProvider router={router} />
+      </Suspense>
     </QueryProvider>
   );
 }
