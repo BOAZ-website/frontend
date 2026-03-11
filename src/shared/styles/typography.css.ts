@@ -30,7 +30,7 @@ export const typography = {
     lineHeight: themeVars.lineHeight.normal,
     letterSpacing: themeVars.letterSpacing.tight,
   },
-  head3_bd_24: {
+  h3_bd_24: {
     fontSize: themeVars.fontSize[24],
     fontWeight: themeVars.fontWeight.bold,
     lineHeight: themeVars.lineHeight.normal,
