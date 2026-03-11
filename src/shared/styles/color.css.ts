@@ -1,4 +1,4 @@
-export const color = {
+export const lightColors = {
   primary: {
     100: '#7A64F9',
     200: '#6250C7',
@@ -21,4 +21,6 @@ export const color = {
     red_100: '#F96466',
     red_200: '#190A0A',
   },
-} as const;
+};
+
+export const darkColors = {};
