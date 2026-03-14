@@ -3,6 +3,7 @@ import SearchIcon from '@/shared/assets/icon/ic_search.svg?react';
 import Button from '@/shared/components/button/button';
 const HomePage = () => {
   return (
+    // 버튼 컴포넌트 사용 예시
     <div>
       <Button preset="large-round_primary">
         <ChatIcon />
