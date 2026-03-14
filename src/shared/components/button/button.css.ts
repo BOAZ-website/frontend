@@ -24,7 +24,7 @@ export const button = recipe({
       },
       'large-round': {
         ...typography.body2_bd_20,
-        padding: '2rem 2.8rem',
+        padding: '1.6rem 3.65rem',
         borderRadius: '40px',
       },
       medium: {
@@ -38,13 +38,13 @@ export const button = recipe({
       },
       'small-round': {
         ...typography.body3_bd_18,
-        padding: '1.15rem 3.35rem',
+        padding: '1.1rem 3.35rem',
         borderRadius: '40px',
       },
       mini: {
-        ...typography.text1_rg_14,
+        ...typography.text_md_22,
         gap: '0.5rem',
-        padding: '0.85rem 1.7rem 0.85rem 1.4rem',
+        padding: '0.8rem 1.3rem',
         borderRadius: '40px',
       },
     },
@@ -65,13 +65,7 @@ export const button = recipe({
         backgroundColor: 'transparent',
         border: `1px solid ${themeVars.color.grayscale.white}`,
         ':hover': {
-          backgroundColor: themeVars.color.grayscale[100],
-        },
-        ':disabled': {
-          // 임시
-          color: themeVars.color.grayscale[400],
-          backgroundColor: themeVars.color.grayscale[100],
-          cursor: 'not-allowed',
+          backgroundColor: themeVars.color.grayscale[900],
         },
       },
       white: {
@@ -102,7 +96,7 @@ export const button = recipe({
   compoundVariants: [
     {
       variants: { variant: 'small-round', color: 'dark' },
-      style: { padding: '1.15rem 4.55rem' },
+      style: { padding: '1.2rem 5rem' },
     },
   ],
 });

@@ -70,7 +70,14 @@ export const typography = {
   },
 
   // Text
-  text1_rg_14: {
+  text_md_22: {
+    fontSize: themeVars.fontSize[22],
+    fontWeight: themeVars.fontWeight.medium,
+    lineHeight: themeVars.lineHeight.normal,
+    letterSpacing: themeVars.letterSpacing.tight,
+  },
+
+  text_rg_14: {
     fontSize: themeVars.fontSize[14],
     fontWeight: themeVars.fontWeight.regular,
     lineHeight: themeVars.lineHeight.normal,
