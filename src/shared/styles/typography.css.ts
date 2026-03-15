@@ -45,7 +45,7 @@ export const typography = {
     letterSpacing: themeVars.letterSpacing.tight,
   },
   body2_bd_20: {
-    fontSize: themeVars.fontSize[18],
+    fontSize: themeVars.fontSize[20],
     fontWeight: themeVars.fontWeight.bold,
     lineHeight: themeVars.lineHeight.normal,
     letterSpacing: themeVars.letterSpacing.tight,
