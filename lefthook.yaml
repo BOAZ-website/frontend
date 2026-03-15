@@ -9,7 +9,7 @@ pre-commit:
       glob: '*.{js,ts,jsx,tsx,json,yaml,yml,md}'
       run: pnpm format
       stage_fixed: true
-    
+
     stylelint:
       glob: '*.{css,css.ts,css.tsx}'
       run: pnpm lint:css
