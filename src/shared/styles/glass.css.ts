@@ -27,7 +27,6 @@ export const glassEffect = style({
       height: '100%',
       background:
         'radial-gradient(circle at bottom right, rgba(208, 207, 249, 0.08) 0%, transparent 10%)',
-      pointerEvents: 'none',
     },
   },
 });
