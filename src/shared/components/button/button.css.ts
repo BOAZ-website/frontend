@@ -89,9 +89,6 @@ export const button = recipe({
         },
       },
     },
-    fullWidth: {
-      true: { width: '100%' },
-    },
     hasIcon: {
       true: {},
     },
