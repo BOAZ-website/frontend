@@ -2,8 +2,8 @@ import type { RecipeVariants } from '@vanilla-extract/recipes';
 import clsx from 'clsx';
 import type { ComponentProps, ReactNode } from 'react';
 
+import { glassEffect } from '../../styles/glass.css';
 import { button } from './button.css';
-import { glassEffect } from './glass.css';
 
 type ButtonVariants = NonNullable<RecipeVariants<typeof button>>;
 type VariantType = NonNullable<ButtonVariants['variant']>;

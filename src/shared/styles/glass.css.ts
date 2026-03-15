@@ -5,8 +5,8 @@ export const glassEffect = style({
   WebkitBackdropFilter: 'blur(8px) saturate(80%)',
   boxShadow: [
     '0 8px 32px rgba(0, 0, 0, 0.1)',
-    'inset 0 1px 0 rgba(255, 255, 255, 0.15)',
-    'inset 0 -1px 0 rgba(255, 255, 255, 0.05)',
+    'inset 0 1px 0 rgba(255, 255, 255, 0.3)',
+    'inset 0 -1px 0 rgba(255, 255, 255, 0.1)',
   ].join(', '),
   position: 'relative',
   overflow: 'hidden',
@@ -16,9 +16,10 @@ export const glassEffect = style({
       position: 'absolute',
       top: 0,
       left: 0,
-      width: '50%',
-      height: '50%',
-      background: 'radial-gradient(circle at top left, rgba(255, 255, 255, 0.08), transparent 70%)',
+      width: '100%',
+      height: '100%',
+      background:
+        'radial-gradient(circle at top left, rgba(255, 255, 255, 0.08) 0%, transparent 50%)',
       pointerEvents: 'none',
     },
     '&::after': {
@@ -26,10 +27,10 @@ export const glassEffect = style({
       position: 'absolute',
       bottom: 0,
       right: 0,
-      width: '50%',
-      height: '50%',
+      width: '100%',
+      height: '100%',
       background:
-        'radial-gradient(circle at bottom right, rgba(208, 207, 249, 0.08), transparent 70%)',
+        'radial-gradient(circle at bottom right, rgba(208, 207, 249, 0.08) 0%, transparent 50%)',
       pointerEvents: 'none',
     },
   },
