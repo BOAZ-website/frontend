@@ -1,7 +1,9 @@
 import type { RecipeVariants } from '@vanilla-extract/recipes';
+import clsx from 'clsx';
 import type { ComponentProps, ReactNode } from 'react';
 
 import { button } from './button.css';
+import { glassEffect } from './glass.css';
 
 type ButtonVariants = NonNullable<RecipeVariants<typeof button>>;
 type VariantType = NonNullable<ButtonVariants['variant']>;
@@ -12,10 +14,9 @@ type ButtonPreset =
   | 'large-round_primary'
   | 'medium_primary'
   | 'medium_white'
-  | 'medium_dark'
   | 'medium-round_primary'
   | 'small-round_primary'
-  | 'small-round_dark'
+  | 'small-round_glass'
   | 'mini_outlined';
 
 interface ButtonProps extends Omit<ComponentProps<'button'>, 'className'> {
@@ -28,7 +29,11 @@ const Button = ({ preset, fullWidth, children, ...rest }: ButtonProps) => {
   const [variant, color] = preset.split('_') as [VariantType, ColorType];
 
   return (
-    <button type="button" className={button({ variant, color, fullWidth })} {...rest}>
+    <button
+      type="button"
+      className={clsx(button({ variant, color, fullWidth }), color === 'glass' && glassEffect)}
+      {...rest}
+    >
       {children}
     </button>
   );

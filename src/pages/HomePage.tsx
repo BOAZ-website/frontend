@@ -10,8 +10,9 @@ const HomePage = () => {
         카카오톡 문의하기
       </Button>
       <Button preset="small-round_primary">지원하기</Button>
-      <Button preset="small-round_dark">지원하기</Button>
+
       <div style={{ backgroundColor: 'black' }}>
+        <Button preset="small-round_glass">지원하기</Button>
         <Button preset="mini_outlined">
           <SearchIcon />
           Tag

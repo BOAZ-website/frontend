@@ -33,7 +33,7 @@ export const button = recipe({
       },
       'medium-round': {
         ...typography.body2_bd_20,
-        padding: '2.95rem 1.65rem',
+        padding: '1.65rem 2.95rem',
         borderRadius: '40px',
       },
       'small-round': {
@@ -77,11 +77,11 @@ export const button = recipe({
           cursor: 'not-allowed',
         },
       },
-      dark: {
+      glass: {
         color: themeVars.color.grayscale.white,
-        backgroundColor: themeVars.color.grayscale[800],
-        ':hover': { backgroundColor: themeVars.color.grayscale[900] },
-        ':active': { backgroundColor: themeVars.color.grayscale[950] },
+        backgroundColor: 'rgba(208, 207, 249, 0.10)',
+        border: '1px solid rgba(208, 207, 249, 0.20)',
+        ':hover': { backgroundColor: 'rgba(208, 207, 249, 0.20)' },
         ':disabled': {
           color: themeVars.color.grayscale[400],
           backgroundColor: themeVars.color.grayscale[100],
@@ -95,8 +95,8 @@ export const button = recipe({
   },
   compoundVariants: [
     {
-      variants: { variant: 'small-round', color: 'dark' },
-      style: { padding: '1.2rem 5rem' },
+      variants: { variant: 'small-round', color: 'glass' },
+      style: { padding: '1.15rem 5rem' },
     },
   ],
 });
