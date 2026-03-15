@@ -15,12 +15,12 @@ const SNS_LINKS = [
 
 const Footer = () => {
   return (
-    <footer className={styles.footer}>
+    <footer className={styles.container}>
       <div className={styles.footerInner}>
-        <div className={styles.col.left}>
+        <section className={styles.col.left}>
           <HSpaceLogo width={122} height={18} />
           <small className={styles.copyright}>© 2026 BOAZ. All rights reserved.</small>
-        </div>
+        </section>
         <section className={styles.col.center}>
           <h4 className={styles.heading}>SNS</h4>
           <ul className={styles.snsLinks}>

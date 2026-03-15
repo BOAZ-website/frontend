@@ -3,7 +3,7 @@ import { style, styleVariants } from '@vanilla-extract/css';
 import { themeVars } from '@/shared/styles/theme.css';
 import { typography } from '@/shared/styles/typography.css';
 
-export const footer = style({
+export const container = style({
   width: '100%',
   boxSizing: 'border-box',
   backgroundColor: themeVars.color.grayscale.white,
