@@ -6,7 +6,7 @@ export const container = style({
   height: '6.5rem',
   backgroundColor: 'rgba(217, 217, 217, 0.10)',
   borderRadius: '1rem',
-  padding: '1.5rem 4.2rem', 
+  padding: '1.5rem 4.2rem',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',

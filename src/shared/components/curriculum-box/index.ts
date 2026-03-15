@@ -1,1 +1,1 @@
-export * from "./curriculum-box";
+export * from './curriculum-box';
