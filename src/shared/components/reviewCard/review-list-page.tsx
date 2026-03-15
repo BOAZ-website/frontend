@@ -4,7 +4,7 @@ import { REVIEW_LIST } from '@/shared/components/reviewCard/review-card.constant
 
 const ReviewListPage = () => {
   return (
-    <main style={{ backgroundColor: '#000', minHeight: '100vh' }}>
+    <main style={{ backgroundColor: 'white', minHeight: '100vh' }}>
       <h1 style={{ color: 'white' }}>리뷰 페이지 접속 성공!</h1>
       <div className={styles.cardGrid}>
         {REVIEW_LIST.map((review) => (

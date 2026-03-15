@@ -1,7 +1,7 @@
 import { style } from '@vanilla-extract/css';
 
 export const cardWrapper = style({
-  backgroundColor: '#fff',
+  backgroundColor: 'white',
   borderRadius: '1.25rem',
   padding: '2.5rem',
   display: 'flex',
@@ -17,26 +17,38 @@ export const cardHeader = style({
 });
 
 export const title = style({
-  fontSize: '1.75rem',
-  fontWeight: '800',
-  color: '#000',
+  fontSize: '2rem',
+  fontWeight: '700',
+  color: 'black',
+  textAlign: 'center',
+  fontStyle: 'normal',
+  lineHeight: 'normal',
 });
 
 export const subTitle = style({
-  fontSize: '1.25rem',
-  fontWeight: '600',
-  color: '#A1A1A1',
+  fontFamily: 'Pretendard',
+  fontSize: '1.8rem',
+  fontWeight: '700',
+  color: 'grayscale[400]',
+  textAlign: 'center',
+  fontStyle: 'normal',
+  lineHeight: 'normal',
 });
 
 export const descriptionText = style({
-  fontSize: '1rem',
-  lineHeight: '1.6',
-  color: '#333',
+  fontSize: '1.2rem',
+  fontStyle: 'normal',
+  fontWeight: '300',
+  lineHeight: 'normal',
+  color: 'black',
 });
 
 export const cardGrid = style({
-  display: 'grid',
-  gridTemplateColumns: 'repeat(2, 1fr)',
-  gap: '1.5rem', // 24px랑 같은 크기..
-  padding: '2rem',
+  display: 'inline-grid',
+  rowGap: '2.3rem',
+  columnGap: '33px',
+  gridTemplateRows: 'repeat(3, fit-content(100%))',
+  gridTemplateColumns: 'repeat(2, fit-content(100%))',
+  gap: '2.4rem', // 24px랑 같은 크기..
+  padding: '3.5rem',
 });
