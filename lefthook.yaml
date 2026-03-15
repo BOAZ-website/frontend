@@ -10,6 +10,10 @@ pre-commit:
       run: pnpm format
       stage_fixed: true
 
+    stylelint:
+      glob: '*.{css,css.ts,css.tsx}'
+      run: pnpm lint:css
+
 pre-push:
   commands:
     type-check:

@@ -1,0 +1,9 @@
+node_modules
+dist
+dist-ssr
+build
+
+.vercel
+.vite
+
+pnpm-lock.yaml
