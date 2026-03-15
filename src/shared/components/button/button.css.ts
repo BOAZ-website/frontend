@@ -29,11 +29,11 @@ export const button = recipe({
       },
       medium: {
         ...typography.body2_bd_20,
-        padding: '2rem 5.85rem',
+        padding: '2.2rem 6.5rem',
       },
       'medium-round': {
         ...typography.body2_bd_20,
-        padding: '1.65rem 2.95rem',
+        padding: '1.6rem 3.8rem',
         borderRadius: '40px',
       },
       'small-round': {
@@ -92,8 +92,15 @@ export const button = recipe({
     fullWidth: {
       true: { width: '100%' },
     },
+    hasIcon: {
+      true: {},
+    },
   },
   compoundVariants: [
+    {
+      variants: { variant: 'medium', hasIcon: true },
+      style: { padding: '2.2rem 3.7rem' },
+    },
     {
       variants: { variant: 'small-round', color: 'glass' },
       style: { padding: '1.15rem 5rem' },

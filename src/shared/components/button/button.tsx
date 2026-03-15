@@ -14,6 +14,7 @@ type ButtonPreset =
   | 'large-round_primary'
   | 'medium_primary'
   | 'medium_white'
+  | 'medium-icon_white'
   | 'medium-round_primary'
   | 'small-round_primary'
   | 'small-round_glass'
@@ -22,16 +23,20 @@ type ButtonPreset =
 interface ButtonProps extends Omit<ComponentProps<'button'>, 'className'> {
   preset: ButtonPreset;
   fullWidth?: boolean;
+  hasIcon?: boolean;
   children: ReactNode;
 }
 
-const Button = ({ preset, fullWidth, children, ...rest }: ButtonProps) => {
+const Button = ({ preset, fullWidth, hasIcon, children, ...rest }: ButtonProps) => {
   const [variant, color] = preset.split('_') as [VariantType, ColorType];
 
   return (
     <button
       type="button"
-      className={clsx(button({ variant, color, fullWidth }), color === 'glass' && glassEffect)}
+      className={clsx(
+        button({ variant, color, fullWidth, hasIcon }),
+        color === 'glass' && glassEffect
+      )}
       {...rest}
     >
       {children}
