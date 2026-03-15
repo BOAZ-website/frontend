@@ -1,5 +1,5 @@
-import * as styles from '@/shared/components/curriculum-box/curriculum-box.css';
 import CurriculumBox from '@/shared/components/curriculum-box/curriculum-box';
+import * as styles from '@/shared/components/curriculum-box/curriculum-box.css';
 
 // 나중에 백엔드 API에서 받을 데이터의 예상 구조
 const CURRICULUM_DATA = [
