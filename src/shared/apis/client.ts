@@ -4,10 +4,6 @@ const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 export const instance = axios.create({
   baseURL: BASE_URL,
-<<<<<<< HEAD
-=======
-  withCredentials: true,
->>>>>>> origin/main
 });
 
 export const get = async <T>(...args: Parameters<typeof instance.get>) => {
