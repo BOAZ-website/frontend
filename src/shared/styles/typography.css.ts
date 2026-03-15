@@ -45,7 +45,7 @@ export const typography = {
     letterSpacing: themeVars.letterSpacing.tight,
   },
   body2_bd_20: {
-    fontSize: themeVars.fontSize[18],
+    fontSize: themeVars.fontSize[20],
     fontWeight: themeVars.fontWeight.bold,
     lineHeight: themeVars.lineHeight.normal,
     letterSpacing: themeVars.letterSpacing.tight,
@@ -70,7 +70,14 @@ export const typography = {
   },
 
   // Text
-  text1_rg_14: {
+  text_md_22: {
+    fontSize: themeVars.fontSize[22],
+    fontWeight: themeVars.fontWeight.medium,
+    lineHeight: themeVars.lineHeight.normal,
+    letterSpacing: themeVars.letterSpacing.tight,
+  },
+
+  text_rg_14: {
     fontSize: themeVars.fontSize[14],
     fontWeight: themeVars.fontWeight.regular,
     lineHeight: themeVars.lineHeight.normal,
