@@ -2,14 +2,15 @@ import { style } from '@vanilla-extract/css';
 
 export const container = style({
   width: '100%',
-  maxWidth: '40rem', 
+  maxWidth: '35.5rem',
+  height: '6.5rem',
   backgroundColor: 'rgba(217, 217, 217, 0.10)',
   borderRadius: '1rem',
   padding: '1.5rem 4.2rem', 
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  border: '0.1rem solid #333',
+  border: '0.1rem solid grayscale[800]',
 });
 
 export const contentText = style({
