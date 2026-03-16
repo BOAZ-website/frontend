@@ -1,18 +1,19 @@
+import { themeVars } from '@/shared/styles/theme.css';
 import { style } from '@vanilla-extract/css';
 
 export const wrapper = style({
   // 1. Layout Group
   display: 'flex',
-  justifyContent: 'center',
-  position: 'sticky',
-  top: 0,
+  justifyContent: 'space-between',
+  alignItems: 'center',
 
   // 2. Box Group
   width: '100%',
-  height: '5rem',
+  height: '6.4rem',
+  padding: '2.5em',
 
   // 3. Typography Group
-  backgroundColor: '#000',
+  backgroundColor: themeVars.color.grayscale.black,
 });
 
 export const container = style({
@@ -23,7 +24,7 @@ export const container = style({
   maxWidth: '1440rem',
   padding: '0 4rem',
 
-  color: '#fff',
+  color: themeVars.color.grayscale.white,
 
   '@media': {
     'screen and (max-width: 768px)': {
