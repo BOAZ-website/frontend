@@ -1,8 +1,8 @@
 import { Suspense } from 'react';
 import { RouterProvider } from 'react-router/dom';
 
-import { QueryProvider } from '@/shared/providers/QueryProvider';
-import { ThemeProvider } from '@/shared/providers/ThemeProvider';
+import { QueryProvider } from '@/app/providers/QueryProvider';
+import { ThemeProvider } from '@/app/providers/ThemeProvider';
 import { router } from '@/shared/router/router';
 
 import '@/shared/styles/reset.css';

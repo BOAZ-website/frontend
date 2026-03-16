@@ -2,7 +2,7 @@ import { Suspense } from 'react';
 import { QueryErrorResetBoundary } from '@tanstack/react-query';
 import { Outlet } from 'react-router';
 
-// import * as styles from './GlobalLayout.css';
+// import * as styles from './global-layout.css';
 
 export const GlobalLayout = () => {
   return (
