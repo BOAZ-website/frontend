@@ -29,6 +29,7 @@ globalStyle('a', {
 
 globalStyle('ul, ol', {
   listStyle: 'none',
+  margin: 0,
   padding: 0,
 });
 

@@ -79,14 +79,7 @@ export const button = recipe({
       },
       glass: {
         color: themeVars.color.grayscale.white,
-        backgroundColor: 'rgba(208, 207, 249, 0.10)',
-        border: '1px solid rgba(208, 207, 249, 0.20)',
         ':hover': { backgroundColor: 'rgba(208, 207, 249, 0.20)' },
-        ':disabled': {
-          color: themeVars.color.grayscale[400],
-          backgroundColor: themeVars.color.grayscale[100],
-          cursor: 'not-allowed',
-        },
       },
     },
     hasIcon: {
