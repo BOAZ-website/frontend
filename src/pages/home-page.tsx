@@ -13,14 +13,16 @@ const HomePage = () => {
           backgroundColor: 'black',
           width: '100%',
           boxSizing: 'border-box',
-          gap: '3rem',
+          gap: '1rem',
           padding: '2rem',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'flex-start',
         }}
       >
-        <CurriculumBoxGroup week={1} content="딥러닝 기초 : ANN, DNN, CNN" />
+        <CurriculumBoxGroup content="딥러닝 기초 : ANN, DNN, CNN" week={1} weekPosition="left" />
+        <CurriculumBoxGroup content="딥러닝 기초 : ANN, DNN, CNN" week={1} weekPosition="right" />
+
         <Button preset="large-round_primary">
           <ChatIcon />
           카카오톡 문의하기
