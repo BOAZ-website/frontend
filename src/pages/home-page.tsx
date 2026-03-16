@@ -1,3 +1,4 @@
+import CountDown from '@/widgets/count-down/count-down';
 import CurriculumBoxGroup from '@/widgets/curriculum-box-group/curriculum-box-group';
 import ArrowRightIcon from '@/shared/assets/icon/ic_arrow_right_black.svg?react';
 import ChatIcon from '@/shared/assets/icon/ic_chat.svg?react';
@@ -20,6 +21,7 @@ const HomePage = () => {
           alignItems: 'flex-start',
         }}
       >
+        <CountDown />
         <CurriculumBoxGroup content="딥러닝 기초 : ANN, DNN, CNN" week={1} weekPosition="left" />
         <CurriculumBoxGroup content="딥러닝 기초 : ANN, DNN, CNN" week={1} weekPosition="right" />
 

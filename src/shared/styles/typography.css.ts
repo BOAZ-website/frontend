@@ -7,7 +7,7 @@ export const typography = {
   display_bd_72: {
     fontSize: themeVars.fontSize[72],
     fontWeight: themeVars.fontWeight.bold,
-    lineHeight: themeVars.lineHeight.normal,
+    lineHeight: themeVars.lineHeight.tight,
     letterSpacing: themeVars.letterSpacing.tight,
   },
 
