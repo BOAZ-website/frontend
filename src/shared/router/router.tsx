@@ -1,6 +1,6 @@
 import { createBrowserRouter, Outlet } from 'react-router';
-import { TabBar } from '@/widgets/tab-bar';
 
+import { TabBar } from '@/widgets/tab-bar';
 // TODO: 에러 페이지 추가 예정
 import { CurriculumPage, HomePage } from '@/shared/router/lazy';
 import { ROUTE_PATH } from '@/shared/router/path';
