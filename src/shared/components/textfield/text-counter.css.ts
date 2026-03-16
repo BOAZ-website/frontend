@@ -7,7 +7,8 @@ export const textCounterRecipe = recipe({
   base: {
     ...typography.text_rg_14,
     color: themeVars.color.grayscale[400],
-    display: 'flex-end',
+    display: 'flex',
+    justifyContent: 'flex-end',
     alignContent: 'center',
 
     ':focus': {
@@ -23,6 +24,11 @@ export const textCounterRecipe = recipe({
         ':focus': {
           color: themeVars.color.error.red_100,
         },
+      },
+    },
+    completed: {
+      true: {
+        color: themeVars.color.primary[100],
       },
     },
   },

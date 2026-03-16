@@ -1,3 +1,5 @@
+import TextFieldWithCounter from '@/shared/components/textfield-with-counter/textfield-with-counter';
+
 const HomePage = () => {
   return (
     // 버튼 컴포넌트 사용 예시
@@ -13,7 +15,9 @@ const HomePage = () => {
           flexDirection: 'column',
           alignItems: 'flex-start',
         }}
-      ></div>
+      >
+        <TextFieldWithCounter maxLength={10} placeholder="텍스트를 입력하세요" />
+      </div>
     </>
   );
 };

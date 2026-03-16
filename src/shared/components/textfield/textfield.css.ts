@@ -35,5 +35,10 @@ export const textFieldRecipe = recipe({
         },
       },
     },
+    completed: {
+      true: {
+        borderColor: themeVars.color.primary[100],
+      },
+    },
   },
 });
