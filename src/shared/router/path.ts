@@ -1,5 +1,6 @@
 export const ROUTE_PATH = {
   HOME: '/',
+  CURRICULUM: '/curriculum',
   // 페이지 추가
 } as const;
 

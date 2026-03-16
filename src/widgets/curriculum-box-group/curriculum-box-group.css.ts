@@ -1,0 +1,15 @@
+import { style } from '@vanilla-extract/css';
+
+import { themeVars } from '@/shared/styles/theme.css';
+import { typography } from '@/shared/styles/typography.css';
+
+export const container = style({
+  display: 'flex',
+  gap: '5.7rem',
+  alignItems: 'center',
+});
+
+export const weekLabel = style({
+  ...typography.body3_bd_18,
+  color: themeVars.color.sub.lightblue_100,
+});
