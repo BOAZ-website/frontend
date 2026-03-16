@@ -5,6 +5,8 @@ import { typography } from '@/shared/styles/typography.css';
 
 export const container = style({
   gap: '1rem',
+  display: 'flex',
+  flexDirection: 'column',
 });
 
 export const title = style({
