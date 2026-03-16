@@ -1,13 +1,14 @@
+import { themeVars } from '@/shared/styles/theme.css';
 import { style } from '@vanilla-extract/css';
 
 export const cardWrapper = style({
-  backgroundColor: 'white',
+  backgroundColor: themeVars.color.grayscale.white,
   borderRadius: '1.25rem',
-  padding: '2.5rem',
+  padding: '3rem',
   display: 'flex',
   flexDirection: 'column',
   gap: '1.5rem',
-  boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
+  boxShadow: '0 0.4rem 2rem rgba(0, 0, 0, 0.1)',
 });
 
 export const cardHeader = style({
@@ -17,12 +18,8 @@ export const cardHeader = style({
 });
 
 export const title = style({
-  fontSize: '2rem',
-  fontWeight: '700',
-  color: 'black',
+  color: themeVars.color.grayscale.black,
   textAlign: 'center',
-  fontStyle: 'normal',
-  lineHeight: 'normal',
 });
 
 export const subTitle = style({
