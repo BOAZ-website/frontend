@@ -4,6 +4,7 @@ import ChatIcon from '@/shared/assets/icon/ic_chat.svg?react';
 import SearchIcon from '@/shared/assets/icon/ic_search.svg?react';
 import Button from '@/shared/components/button/button';
 import Footer from '@/shared/components/footer/footer';
+import ProgressBarSection from '@/shared/components/progress-bar/progress-bar-section';
 const HomePage = () => {
   return (
     // 버튼 컴포넌트 사용 예시
@@ -22,7 +23,7 @@ const HomePage = () => {
       >
         <CurriculumBoxGroup content="딥러닝 기초 : ANN, DNN, CNN" week={1} weekPosition="left" />
         <CurriculumBoxGroup content="딥러닝 기초 : ANN, DNN, CNN" week={1} weekPosition="right" />
-
+        <ProgressBarSection />
         <Button preset="large-round_primary">
           <ChatIcon />
           카카오톡 문의하기
