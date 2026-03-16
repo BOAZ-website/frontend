@@ -18,14 +18,3 @@ export const contentText = style({
   color: themeVars.color.grayscale.white,
   ...typography.body4_rg_18,
 });
-
-// 유보수용 페이지 레이아웃 스타일
-export const pageWrapper = style({
-  backgroundColor: '#000',
-  minHeight: '100vh',
-  padding: '6rem 2rem', // 60px 20px
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '2rem', // 20px
-  alignItems: 'center',
-});
