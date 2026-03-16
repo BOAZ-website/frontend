@@ -5,7 +5,7 @@ import { typography } from '@/shared/styles/typography.css';
 
 export const container = style({
   width: '100%',
-  maxWidth: '35.5rem',
+  minWidth: '35.5rem',
   backgroundColor: 'rgba(217, 217, 217, 0.10)',
   borderRadius: '10px',
   padding: '1.5rem',
