@@ -1,5 +1,7 @@
-import { themeVars } from '@/shared/styles/theme.css';
 import { style } from '@vanilla-extract/css';
+
+import { themeVars } from '@/shared/styles/theme.css';
+import { typography } from '@/shared/styles/typography.css';
 
 export const cardWrapper = style({
   backgroundColor: themeVars.color.grayscale.white,
@@ -19,25 +21,19 @@ export const cardHeader = style({
 
 export const title = style({
   color: themeVars.color.grayscale.black,
+  ...typography.body2_bd_20,
   textAlign: 'center',
 });
 
 export const subTitle = style({
-  fontFamily: 'Pretendard',
-  fontSize: '1.8rem',
-  fontWeight: '700',
-  color: 'grayscale[400]',
+  color: themeVars.color.grayscale[400],
+  ...typography.body3_bd_18,
   textAlign: 'center',
-  fontStyle: 'normal',
-  lineHeight: 'normal',
 });
 
 export const descriptionText = style({
-  fontSize: '1.2rem',
-  fontStyle: 'normal',
-  fontWeight: '300',
-  lineHeight: 'normal',
-  color: 'black',
+  color: themeVars.color.grayscale.black,
+  ...typography.body5_rg_16,
 });
 
 export const cardGrid = style({
@@ -46,6 +42,6 @@ export const cardGrid = style({
   columnGap: '33px',
   gridTemplateRows: 'repeat(3, fit-content(100%))',
   gridTemplateColumns: 'repeat(2, fit-content(100%))',
-  gap: '2.4rem', // 24px랑 같은 크기..
+  gap: '2.4rem',
   padding: '3.5rem',
 });
