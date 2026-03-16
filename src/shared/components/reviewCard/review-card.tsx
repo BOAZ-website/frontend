@@ -17,10 +17,8 @@ const ReviewCard = ({ title, generation, track, description }: ReviewCardProps) 
             {generation} {track}
           </span>
         </header>
-        
-        <article className={styles.descriptionText}>
-          {description}
-        </article>
+
+        <article className={styles.descriptionText}>{description}</article>
       </div>
     </>
   );

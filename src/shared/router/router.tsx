@@ -1,11 +1,10 @@
 import { createBrowserRouter } from 'react-router';
 
+// 리뷰 카드 확인용 임시 코드
+import ReviewListPage from '@/shared/components/reviewCard/review-list-page';
 // TODO: 에러 페이지 추가 예정
 import { HomePage } from '@/shared/router/lazy';
 import { ROUTE_PATH } from '@/shared/router/path';
-
-// 리뷰 카드 확인용 임시 코드
-import ReviewListPage from '@/shared/components/reviewCard/review-list-page';
 
 export const router = createBrowserRouter([
   {

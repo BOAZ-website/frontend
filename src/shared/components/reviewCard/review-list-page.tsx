@@ -1,6 +1,7 @@
 import ReviewCard from '@/shared/components/reviewCard/review-card';
-import * as styles from '@/shared/components/reviewCard/review-card.css';
 import { REVIEW_LIST } from '@/shared/components/reviewCard/review-card.constants';
+
+import * as styles from '@/shared/components/reviewCard/review-card.css';
 
 const ReviewListPage = () => {
   return (
