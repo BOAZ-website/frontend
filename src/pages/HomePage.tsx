@@ -3,6 +3,7 @@ import ChatIcon from '@/shared/assets/icon/ic_chat.svg?react';
 import SearchIcon from '@/shared/assets/icon/ic_search.svg?react';
 import Button from '@/shared/components/button/button';
 import Footer from '@/shared/components/footer/footer';
+import FormHeader from '@/shared/components/form-header/form-header';
 const HomePage = () => {
   return (
     // 버튼 컴포넌트 사용 예시
@@ -13,11 +14,17 @@ const HomePage = () => {
           width: '100%',
           boxSizing: 'border-box',
           gap: '1rem',
+          padding: '2rem',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'flex-start',
         }}
       >
+        <FormHeader
+          title="연락처"
+          description="합격 결과가 전달될 예정이므로 정확하게 작성해주세요"
+        />
+        <FormHeader title="개인정보" />
         <Button preset="large-round_primary">
           <ChatIcon />
           카카오톡 문의하기
