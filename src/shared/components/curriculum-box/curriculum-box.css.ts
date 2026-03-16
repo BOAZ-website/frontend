@@ -1,27 +1,21 @@
+import { themeVars } from '@/shared/styles/theme.css';
+import { typography } from '@/shared/styles/typography.css';
 import { style } from '@vanilla-extract/css';
 
 export const container = style({
   width: '100%',
   maxWidth: '35.5rem',
-  height: '6.5rem',
   backgroundColor: 'rgba(217, 217, 217, 0.10)',
-  borderRadius: '1rem',
-  padding: '1.5rem 4.2rem',
+  borderRadius: '10px',
+  padding: '1.5rem', 
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  border: '0.1rem solid grayscale[800]',
 });
 
 export const contentText = style({
-  color: 'white',
-  fontSize: '1.6rem',
-  fontWeight: '400',
-  textAlign: 'center',
-  lineHeight: '3.5rem',
-  letterSpacing: '-0.02em',
-  fontFamily: 'Inter',
-  fontStyle: 'normal',
+  color: themeVars.color.grayscale.white,
+  ...typography.body4_rg_18,
 });
 
 // 유보수용 페이지 레이아웃 스타일
