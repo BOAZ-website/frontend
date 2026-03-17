@@ -1,31 +1,33 @@
-import { createBrowserRouter, Outlet } from 'react-router';
+import { createBrowserRouter } from 'react-router';
 
-import { TabBar } from '@/widgets/tab-bar';
-// TODO: 에러 페이지 추가 예정
-import { CurriculumPage, HomePage } from '@/shared/router/lazy';
+import {
+  ArchivePage,
+  CurriculumPage,
+  FAQPage,
+  HomePage,
+  RecruitingPage,
+} from '@/shared/router/lazy';
 import { ROUTE_PATH } from '@/shared/router/path';
 
 export const router = createBrowserRouter([
   {
     path: ROUTE_PATH.HOME,
-    element: (
-      <>
-        <TabBar handleApplyClick={() => console.log('지원하기 클릭!')} />
-        <main>
-          <Outlet />
-        </main>
-      </>
-    ),
-    children: [
-      {
-        index: true,
-        element: <HomePage />,
-      },
-    ],
-    // Component: HomePage,
+    Component: HomePage,
   },
   {
     path: ROUTE_PATH.CURRICULUM,
     Component: CurriculumPage,
+  },
+  {
+    path: ROUTE_PATH.RECRUITING,
+    Component: RecruitingPage,
+  },
+  {
+    path: ROUTE_PATH.ARCHIVE,
+    Component: ArchivePage,
+  },
+  {
+    path: ROUTE_PATH.FAQ,
+    Component: FAQPage,
   },
 ]);
