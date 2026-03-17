@@ -1,4 +1,5 @@
 import { style } from '@vanilla-extract/css';
+
 import { themeVars } from '@/shared/styles/theme.css';
 import { typography } from '@/shared/styles/typography.css';
 
@@ -22,7 +23,7 @@ export const hiddenInput = style({
 });
 
 export const radioCircle = style({
-  width: '1.6rem', 
+  width: '1.6rem',
   height: '1.6rem',
   borderRadius: '50%',
   border: `0.1rem solid ${themeVars.color.primary[100]}`,
