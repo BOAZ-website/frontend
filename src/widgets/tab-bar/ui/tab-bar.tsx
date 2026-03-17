@@ -13,10 +13,10 @@ const TabBar = ({ handleApplyClick }: TabBarProps) => {
   const navigate = useNavigate();
 
   const NAV_MENU_LIST = [
-    { id: 1, label: '커리큘럼', path: '/curriculum' },
-    { id: 2, label: '리크루팅', path: '/recruiting' },
-    { id: 3, label: '아카이브', path: '/archive' },
-    { id: 4, label: '자주 묻는 질문', path: '/faq' },
+    { id: 1, label: '커리큘럼', path: ROUTE_PATH.CURRICULUM },
+    { id: 2, label: '리크루팅', path: ROUTE_PATH.RECRUITING },
+    { id: 3, label: '아카이브', path: ROUTE_PATH.ARCHIVE },
+    { id: 4, label: '자주 묻는 질문', path: ROUTE_PATH.FAQ },
   ];
 
   return (
