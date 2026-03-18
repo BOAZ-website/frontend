@@ -39,3 +39,12 @@ globalStyle('button', {
   background: 'none',
   padding: 0,
 });
+
+globalStyle('button , input', {
+  cursor: 'pointer',
+  border: 'none',
+  background: 'none',
+  padding: 0,
+  margin: 0,
+  outline: 'none',
+});
