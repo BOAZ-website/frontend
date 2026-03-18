@@ -1,4 +1,5 @@
 import { useState } from 'react';
+
 import * as styles from './dropdown.css';
 
 interface DropdownProps {
@@ -22,7 +23,8 @@ const Dropdown = ({ options, onSelect }: DropdownProps) => {
         <div
           key={option}
           className={option === selectedValue ? styles.selectedItem : styles.dropdownItem}
-          onClick={() => handleSelect(option)}>
+          onClick={() => handleSelect(option)}
+        >
           <span className={option === selectedValue ? styles.selectedText : styles.itemText}>
             {option}
           </span>
