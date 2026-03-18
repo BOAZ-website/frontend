@@ -1,0 +1,29 @@
+import { type ChangeEvent, useState } from 'react';
+
+import Button from '@/shared/components/button/button';
+
+import * as styles from '@/features/notice/notice-form.css';
+
+const NoticeForm = () => {
+  const [email, setEmail] = useState('');
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+  };
+
+  return (
+    <form className={styles.container}>
+      <input
+        type="email"
+        className={styles.inputField}
+        placeholder="이메일을 입력해주세요"
+        value={email}
+        onChange={handleChange}
+        required
+      />
+      <Button preset="medium-round_primary">사전 알림 신청</Button>
+    </form>
+  );
+};
+
+export default NoticeForm;
