@@ -1,7 +1,8 @@
 import { type ChangeEvent, useState } from 'react';
-import * as styles from '@/features/notice/notice-form.css';
 
 import Button from '@/shared/components/button/button';
+
+import * as styles from '@/features/notice/notice-form.css';
 
 const NoticeForm = () => {
   const [email, setEmail] = useState('');
