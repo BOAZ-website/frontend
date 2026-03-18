@@ -1,8 +1,9 @@
 export const ROUTE_PATH = {
   HOME: '/',
   CURRICULUM: '/curriculum',
-  // 페이지 추가
-  REVIEW: '/review',
+  RECRUITING: '/recruiting',
+  ARCHIVE: '/archive',
+  FAQ: '/faq',
 } as const;
 
 export type Routes = (typeof ROUTE_PATH)[keyof typeof ROUTE_PATH];
