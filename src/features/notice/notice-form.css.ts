@@ -8,7 +8,7 @@ export const container = style({
   alignItems: 'center',
   width: '70.6rem',
   height: '6.5rem',
-  padding: '2rem 1rem 2rem 5.3rem', // 위 오 아래 왼 간격
+  padding: '2rem 1rem 2rem 3rem', // 위 오 아래 왼 간격
   backgroundColor: themeVars.color.grayscale.white,
   boxSizing: 'border-box',
   overflow: 'hidden',

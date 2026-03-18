@@ -1,5 +1,5 @@
 import { type ChangeEvent, useState } from 'react';
-import * as styles from 'src/shared/notice-form/notice-form.css.ts';
+import * as styles from '@/features/notice/notice-form.css';
 
 import Button from '@/shared/components/button/button';
 
