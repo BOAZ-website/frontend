@@ -28,30 +28,3 @@ export const inputField = style({
     color: themeVars.color.grayscale[400],
   },
 });
-
-export const submitButton = style({
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  padding: 0,
-  height: '5.6rem',
-  width: '18rem',
-  backgroundColor: themeVars.color.primary[100],
-  color: themeVars.color.grayscale.white,
-  borderRadius: '4rem',
-  border: 'none',
-  cursor: 'pointer',
-  ...typography.body2_bd_20,
-  whiteSpace: 'nowrap',
-  transition: 'all 0.2s ease',
-
-  selectors: {
-    '&:hover': {
-      filter: 'brightness(1.1)',
-      transform: 'translateY(-1px)',
-    },
-    '&:active': {
-      transform: 'translateY(0)',
-    },
-  },
-});
