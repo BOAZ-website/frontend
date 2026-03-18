@@ -1,36 +1,59 @@
 import { useState } from 'react';
-import * as styles from './trackcard.css';
+
 import TrackCardImg from '@/shared/assets/icon/ic_track_character.svg';
+
+import Button from '../button/button';
+
+import * as styles from './trackcard.css';
+import { themeVars } from '@/shared/styles/theme.css';
 
 interface CardProps {
   title: string;
-  description: string;                                                                                                                                                                                                          
+  description: string;
+  backTitle: string;
+  backDescription: string;
 }
 
-const Card = ({ title, description }: CardProps) => {
+const Card = ({ title, description, backTitle, backDescription }: CardProps) => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
     <div
-      className={isHovered ? styles.cardHovered : styles.cardContainer}
+      className={`${styles.cardContainer} ${isHovered ? styles.cardHovered : ''}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* 앞 */}
       <div className={styles.cardFront}>
         <div className={styles.cardTitle}>{title}</div>
         <div className={styles.cardDesc}>{description}</div>
-        <img src={TrackCardImg} alt="character" style={{ marginTop: 'auto', width: '20rem' }} />
+        <img src={TrackCardImg} className={styles.cardImage} alt="front" />
+        <div className={styles.cardButtonWrapper}>
+          <Button preset="small-round_primary">지원하기</Button>
+        </div>
       </div>
 
-      {/* 뒤 */}
       <div className={styles.cardBack}>
-        <div className={styles.cardTitle}>뒤집혔어요!</div>
-        <div className={styles.cardDesc}>여기는 뒷면입니다.</div>
-        <img src={TrackCardImg} alt="character" style={{ marginTop: 'auto', width: '20rem' }} />
+        <div
+          className={styles.cardTitle}
+          style={{
+            color: themeVars.color.grayscale.white,
+          }}
+        >
+          {backTitle}
+        </div>
+        <div
+          className={styles.cardDesc}
+          style={{
+            color: themeVars.color.grayscale.white,
+          }}
+        >
+          {backDescription}
+        </div>
+        <img src={TrackCardImg} className={styles.cardImage} alt="back" />
+        <div className={styles.cardButtonWrapper}>
+          <Button preset="small-round_primary">지원하기</Button>
+        </div>
       </div>
-
-      <div className={styles.cardButton}>지원하기</div>
     </div>
   );
 };
