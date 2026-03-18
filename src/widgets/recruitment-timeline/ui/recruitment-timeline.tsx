@@ -2,6 +2,7 @@ import TimelineStep from './timeline-step';
 
 import * as styles from './recruitment-timeline.css';
 
+// TODO: API 연동 시 삭제 예정
 const MOCK_TIMELINE_STEPS = [
   { id: '1', date: '12.08 ~ 12.22', stepLabel: '서류 모집' },
   { id: '2', date: '12.23 ~ 12.30', stepLabel: '서류 발표' },

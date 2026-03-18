@@ -27,7 +27,7 @@ export const timelineDot = style({
   boxSizing: 'content-box',
   borderRadius: '50%',
   backgroundColor: themeVars.color.grayscale[100],
-  border: `10px solid ${themeVars.color.grayscale.black}`,
+  outline: `10px solid ${themeVars.color.grayscale.black}`,
   marginBottom: '5.2rem',
   zIndex: 2,
 });
@@ -41,6 +41,5 @@ export const stepLabel = style({
   padding: '1.75rem 0',
   ...typography.body1_rg_24,
   whiteSpace: 'nowrap',
-  cursor: 'pointer',
   textAlign: 'center',
 });
