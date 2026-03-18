@@ -8,9 +8,8 @@ export const container = style({
   alignItems: 'center',
   width: '70.6rem',
   height: '6.5rem',
-  padding: '0.5rem 1.0rem 0.4rem 3.91rem', // 왼,위,아래,버튼 간격
+  padding: '2rem 1rem 2rem 5.3rem', // 위 오 아래 왼 간격
   backgroundColor: themeVars.color.grayscale.white,
-  borderRadius: '4rem',
   boxSizing: 'border-box',
   overflow: 'hidden',
 });
