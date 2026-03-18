@@ -3,16 +3,14 @@ import { themeVars } from '@/shared/styles/theme.css';
 import { typography } from '@/shared/styles/typography.css';
 
 export const cardContainer = style({
-  width: '100%',
-  maxWidth: '30rem', 
-  height: '40rem', 
-  borderRadius: '2rem', 
+  width: '31rem', 
+  height: '35rem', 
+  borderRadius: '1.2rem', 
   overflow: 'hidden',
   position: 'relative', 
   transition: 'transform 0.6s ease',
   transformStyle: 'preserve-3d',
-  backgroundColor: themeVars.color.grayscale.white,
-  boxShadow: '0 1rem 2.5rem rgba(0, 0, 0, 0.3)', 
+  backgroundColor: themeVars.color.grayscale[800],
 });
 
 export const cardFront = style({
@@ -20,8 +18,8 @@ export const cardFront = style({
   height: '100%',
   display: 'flex',
   flexDirection: 'column', 
-  alignItems: 'center',
-  justifyContent: 'center',
+  alignItems: 'flex-start',
+  justifyContent: 'flex-start',
   position: 'absolute',
   backfaceVisibility: 'hidden', 
   padding: '2.5rem', 
@@ -41,8 +39,8 @@ export const cardBack = style({
 });
 
 export const cardTitle = style({
-  color: themeVars.color.grayscale.black, 
-  ...typography.body3_bd_18, 
+  color: themeVars.color.grayscale.white, 
+  ...typography.h2_bd_30, 
   marginBottom: '1rem', 
 });
 
@@ -52,16 +50,27 @@ export const cardDesc = style({
   marginBottom: '2rem',
 });
 
+export const cardImage = style({
+  position: 'absolute',
+  right: '-1rem',
+  bottom: '-1rem',
+  width: '24rem',
+  height: 'auto',
+  objectFit: 'contain',
+});
+
 export const cardButton = style({
   position: 'absolute', 
   bottom: '2.5rem',
   left: '2.5rem',
-  padding: '1rem 2rem', 
+  padding: '1.2rem 3rem', 
   backgroundColor: themeVars.color.primary[100],
   color: themeVars.color.grayscale.white,
-  borderRadius: '2rem',
+  ...typography.body3_bd_18,
+  borderRadius: '4rem',
   cursor: 'pointer',
   transition: 'background-color 0.2s ease',
+  zIndex: 10,
 
   ':hover': {
     backgroundColor: themeVars.color.primary[200],

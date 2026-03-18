@@ -1,11 +1,10 @@
 import { useState } from 'react';
-import * as styles from './card.css';
-import { ReactComponent as RobotSvgFront } from './robot-svg-front.svg'; // 앞
-import { ReactComponent as RobotSvgBack } from './robot-svg-back.svg'; // 뒷
+import * as styles from './trackcard.css';
+import TrackCardImg from '@/shared/assets/icon/ic_track_character.svg';
 
 interface CardProps {
   title: string;
-  description: string;
+  description: string;                                                                                                                                                                                                          
 }
 
 const Card = ({ title, description }: CardProps) => {
@@ -21,16 +20,14 @@ const Card = ({ title, description }: CardProps) => {
       <div className={styles.cardFront}>
         <div className={styles.cardTitle}>{title}</div>
         <div className={styles.cardDesc}>{description}</div>
-        {/* SVG 이미지 */}
-        <RobotSvgFront />
+        <img src={TrackCardImg} alt="character" style={{ marginTop: 'auto', width: '20rem' }} />
       </div>
 
       {/* 뒤 */}
       <div className={styles.cardBack}>
         <div className={styles.cardTitle}>뒤집혔어요!</div>
         <div className={styles.cardDesc}>여기는 뒷면입니다.</div>
-        {/* SVG 이미지 */}
-        <RobotSvgBack />
+        <img src={TrackCardImg} alt="character" style={{ marginTop: 'auto', width: '20rem' }} />
       </div>
 
       <div className={styles.cardButton}>지원하기</div>
