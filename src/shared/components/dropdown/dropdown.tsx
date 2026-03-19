@@ -8,7 +8,7 @@ interface DropdownProps {
 }
 
 const Dropdown = ({ options, onSelect }: DropdownProps) => {
-  const [selectedValue, setSelectedValue] = useState<string | null>('4월');
+  const [selectedValue, setSelectedValue] = useState<string | null>(options[0] ?? null);
 
   const handleSelect = (value: string) => {
     setSelectedValue(value);
@@ -19,16 +19,18 @@ const Dropdown = ({ options, onSelect }: DropdownProps) => {
 
   return (
     <div className={styles.menuContainer}>
-      {options.map((option) => (
-        <div
-          key={option}
+      {options.map((option, index) => (
+        <button
+          type="button"
+          key={`${option}-${index}`}
           className={option === selectedValue ? styles.selectedItem : styles.dropdownItem}
           onClick={() => handleSelect(option)}
+          aria-pressed={option === selectedValue}
         >
           <span className={option === selectedValue ? styles.selectedText : styles.itemText}>
             {option}
           </span>
-        </div>
+        </button>
       ))}
     </div>
   );
