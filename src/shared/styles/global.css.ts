@@ -33,13 +33,6 @@ globalStyle('ul, ol', {
   padding: 0,
 });
 
-globalStyle('button', {
-  cursor: 'pointer',
-  border: 'none',
-  background: 'none',
-  padding: 0,
-});
-
 globalStyle('button , input', {
   cursor: 'pointer',
   border: 'none',
