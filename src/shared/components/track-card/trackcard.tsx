@@ -19,34 +19,28 @@ const Card = ({ title, description, backTitle, backDescription }: CardProps) => 
 
   return (
     <div
-      className={`${styles.cardContainer} ${isHovered ? styles.cardHovered : ''}`}
+      className={styles.cardContainer}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className={styles.cardFront}>
-        <div className={styles.cardTitle}>{title}</div>
-        <div className={styles.cardDesc}>{description}</div>
+      <div className={`${styles.cardFront} ${isHovered ? styles.frontHovered : ''}`}>
+        <div className={styles.cardTitle} style={{ color: themeVars.color.grayscale.black }}>
+          {title}
+        </div>
+        <div className={styles.cardDesc} style={{ color: themeVars.color.grayscale[600] }}>
+          {description}
+        </div>
         <img src={TrackCardImg} className={styles.cardImage} alt="front" />
         <div className={styles.cardButtonWrapper}>
           <Button preset="small-round_primary">지원하기</Button>
         </div>
       </div>
 
-      <div className={styles.cardBack}>
-        <div
-          className={styles.cardTitle}
-          style={{
-            color: themeVars.color.grayscale.white,
-          }}
-        >
+      <div className={`${styles.cardBack} ${isHovered ? styles.backHovered : ''}`}>
+        <div className={styles.cardTitle} style={{ color: themeVars.color.grayscale.white }}>
           {backTitle}
         </div>
-        <div
-          className={styles.cardDesc}
-          style={{
-            color: themeVars.color.grayscale.white,
-          }}
-        >
+        <div className={styles.cardDesc} style={{ color: themeVars.color.grayscale.white }}>
           {backDescription}
         </div>
         <img src={TrackCardImg} className={styles.cardImage} alt="back" />

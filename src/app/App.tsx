@@ -21,7 +21,7 @@ function App() {
             justifyContent: 'center', 
             alignItems: 'center', 
             height: '100vh',
-            backgroundColor: '#f0f0f0' // 카드 구분이 잘 되도록 배경색 추가
+              backgroundColor: '#f0f0f0' // 카드 구분이 잘 되도록 배경색 추가
           }}>
             <Card 
               title="데이터 분석"
