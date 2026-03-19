@@ -21,7 +21,7 @@ export const cardContainer = style({
   height: '35rem',
   borderRadius: '1.2rem',
   position: 'relative',
-  transition: 'transform 0.6s ease',
+  transition: 'transform 0.2s ease',
   transformStyle: 'preserve-3d',
   cursor: 'pointer',
 });
