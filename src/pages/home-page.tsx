@@ -1,10 +1,16 @@
-import FixedButton from '@/shared/components/fixed-button/fixed-button';
+import TrackTabGroup from '@/features/track/ui/track-select-button/track-tab-group';
 
 const HomePage = () => {
   return (
-    <>
-      <FixedButton>Fixed Button</FixedButton>
-    </>
+    <div
+      style={{
+        padding: '20px',
+        display: 'flex',
+        backgroundColor: '#f0f0f0',
+      }}
+    >
+      <TrackTabGroup />
+    </div>
   );
 };
 
