@@ -15,13 +15,6 @@ export const menuContainer = style({
   backgroundColor: themeVars.color.grayscale[900],
   borderRadius: '1.2rem',
   boxShadow: '1rem 1rem 2rem 0 rgba(0, 0, 0, 0.25)',
-  '::-webkit-scrollbar': {
-    width: '0.6rem',
-  },
-  '::-webkit-scrollbar-thumb': {
-    backgroundColor: themeVars.color.grayscale[800],
-    borderRadius: '1rem',
-  },
 });
 
 export const dropdownItem = style({
@@ -33,6 +26,14 @@ export const dropdownItem = style({
   alignSelf: 'stretch',
   cursor: 'pointer',
   transition: 'all 0.2s ease',
+
+  '::-webkit-scrollbar': {
+    width: '0.6rem',
+  },
+  '::-webkit-scrollbar-thumb': {
+    backgroundColor: themeVars.color.grayscale[400],
+    borderRadius: '1rem',
+  },
 
   flexShrink: 0,
 
