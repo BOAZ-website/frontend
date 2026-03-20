@@ -1,25 +1,25 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
-const ANIMATION_DURATION = 300;
+export const ACCORDION_DURATION_MS = 300;
 
-interface UseAccordionReturn {
-  isOpen: boolean;
-  shouldRender: boolean;
-  toggle: () => void;
-}
-
-export const useAccordion = (duration = ANIMATION_DURATION): UseAccordionReturn => {
+export const useAccordion = (duration = ACCORDION_DURATION_MS) => {
   const [isOpen, setIsOpen] = useState(false);
   const [shouldRender, setShouldRender] = useState(false);
 
-  const toggle = () => {
+  const open = useCallback(() => setShouldRender(true), []);
+
+  const close = useCallback(() => {
+    setIsOpen(false);
+    setTimeout(() => setShouldRender(false), duration);
+  }, [duration]);
+
+  const toggle = useCallback(() => {
     if (!isOpen) {
-      setShouldRender(true);
+      open();
     } else {
-      setIsOpen(false);
-      setTimeout(() => setShouldRender(false), duration);
+      close();
     }
-  };
+  }, [isOpen, open, close]);
 
   useEffect(() => {
     if (!shouldRender) {
@@ -33,5 +33,5 @@ export const useAccordion = (duration = ANIMATION_DURATION): UseAccordionReturn 
     return () => cancelAnimationFrame(id);
   }, [shouldRender]);
 
-  return { isOpen, shouldRender, toggle };
+  return { isOpen, shouldRender, toggle, open, close };
 };

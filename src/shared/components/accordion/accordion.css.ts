@@ -1,10 +1,12 @@
 import { style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 
+import { ACCORDION_DURATION_MS } from '@/shared/hooks/use-accordion';
+
 import { themeVars } from '@/shared/styles/theme.css';
 import { typography } from '@/shared/styles/typography.css';
 
-const TRANSITION_DURATION = '300ms';
+const TRANSITION = `${ACCORDION_DURATION_MS}ms ease`;
 
 export const itemStyle = style({
   borderBottom: `0.5px solid ${themeVars.color.grayscale[400]}`,
@@ -22,28 +24,34 @@ export const questionStyle = style({
 export const questionText = recipe({
   base: {
     ...typography.body3_bd_18,
-    transition: `color ${TRANSITION_DURATION} ease`,
+    color: themeVars.color.grayscale.white,
+    transition: `color ${TRANSITION}`,
   },
   variants: {
     open: {
       true: { color: themeVars.color.primary[100] },
-      false: {},
     },
   },
+  defaultVariants: { open: false },
 });
 
 export const answerWrapper = recipe({
   base: {
-    overflow: 'hidden',
-    maxHeight: 0,
-    transition: `max-height ${TRANSITION_DURATION} ease`,
+    display: 'grid',
+    transition: `grid-template-rows ${TRANSITION}`,
   },
   variants: {
     open: {
-      true: { maxHeight: 'var(--accordion-content-height)' },
-      false: {},
+      true: { gridTemplateRows: '1fr' },
+      false: { gridTemplateRows: '0fr' },
     },
   },
+  defaultVariants: { open: false },
+});
+
+export const answerInner = style({
+  minHeight: 0,
+  overflow: 'hidden',
 });
 
 export const answerContent = style({
