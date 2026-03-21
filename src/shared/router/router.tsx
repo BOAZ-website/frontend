@@ -8,7 +8,7 @@ import {
   HomePage,
   RecruitingPage,
 } from '@/shared/router/lazy';
-import { ROUTE_PATH } from '@/shared/router/path';
+import { ROUTE_PATH } from '@/shared/router/paths';
 
 export const router = createBrowserRouter([
   {
