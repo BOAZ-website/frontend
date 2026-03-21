@@ -2,10 +2,6 @@ import { style } from '@vanilla-extract/css';
 
 import { themeVars } from '@/shared/styles/theme.css';
 
-const DATE_LABEL_HEIGHT = '2.4rem'; // body1_rg_24 line-height
-const DATE_LABEL_MB = '4.3rem'; // dateLabel marginBottom
-const DOT_HALF = '2rem'; // timelineDot height 4rem / 2
-
 export const wrapper = style({
   position: 'relative',
   maxWidth: '101.6rem',
@@ -14,26 +10,32 @@ export const wrapper = style({
   '::before': {
     content: '""',
     position: 'absolute',
-    top: `calc(${DATE_LABEL_HEIGHT} + ${DATE_LABEL_MB} + ${DOT_HALF} )`,
+    top: 'calc(var(--date-label-height) + var(--date-label-mb) + var(--dot-half))',
     left: 0,
     right: 0,
     height: '0.2rem',
     background: `linear-gradient(
-    to right,
-    transparent 0%,
-    ${themeVars.color.grayscale[100]} 45%,
-    ${themeVars.color.grayscale.white} 50%,
-    ${themeVars.color.grayscale[100]} 65%,
-    transparent 100%
-  )`,
+      to right,
+      transparent 0%,
+      ${themeVars.color.grayscale[100]} 45%,
+      ${themeVars.color.grayscale.white} 50%,
+      ${themeVars.color.grayscale[100]} 65%,
+      transparent 100%
+    )`,
     zIndex: 1,
+  },
+
+  vars: {
+    '--date-label-height': '2.4rem', // body1_rg_24 line-height
+    '--date-label-mb': '4.3rem', // dateLabel marginBottom
+    '--dot-half': '2rem', // dot height(4rem) / 2
   },
 });
 
 export const track = style({
   display: 'flex',
+  flexDirection: 'row',
   gap: '2.9rem',
-  position: 'relative',
   overflowX: 'auto',
 
   '::-webkit-scrollbar': {

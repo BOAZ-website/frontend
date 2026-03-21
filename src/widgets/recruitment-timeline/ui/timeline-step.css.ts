@@ -21,15 +21,22 @@ export const dateLabel = style({
   marginBottom: '4.3rem',
 });
 
+export const dotContainer = style({
+  display: 'flex',
+  justifyContent: 'center',
+  width: '100%',
+  marginBottom: '5.2rem',
+});
+
 export const timelineDot = style({
   width: '4rem',
   height: '4rem',
-  boxSizing: 'content-box',
   borderRadius: '50%',
   backgroundColor: themeVars.color.grayscale[100],
-  outline: `10px solid ${themeVars.color.grayscale.black}`,
-  marginBottom: '5.2rem',
+  boxShadow: `0 0 0 10px ${themeVars.color.grayscale.black}`,
+  position: 'relative',
   zIndex: 2,
+  flexShrink: 0,
 });
 
 export const stepLabel = style({
