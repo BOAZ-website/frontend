@@ -8,7 +8,7 @@ interface SectionHeaderProps {
 const SectionHeader = ({ subTitle, title }: SectionHeaderProps) => {
   return (
     <div className={styles.sectionHeader}>
-      <h3 className={styles.subTitle}>{subTitle}</h3>
+      <span className={styles.subTitle}>{subTitle}</span>
       <h2 className={styles.title}>{title}</h2>
     </div>
   );
