@@ -1,17 +1,9 @@
-import Accordion from '@/shared/components/accordion/accordion';
+import RecruitmentTimeline from '@/widgets/recruitment-timeline/ui/recruitment-timeline';
 
 const HomePage = () => {
   return (
-    <div style={{ padding: '2rem', backgroundColor: 'black' }}>
-      <Accordion trigger="제목입니다.">
-        <p>내용입니다.</p>
-      </Accordion>
-      <Accordion trigger="제목입니다.">
-        <p>내용입니다.</p>
-      </Accordion>
-      <Accordion trigger="제목입니다.">
-        <p>내용입니다.</p>
-      </Accordion>
+    <div style={{ background: 'black' }}>
+      <RecruitmentTimeline />
     </div>
   );
 };
