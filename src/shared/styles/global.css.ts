@@ -29,12 +29,15 @@ globalStyle('a', {
 
 globalStyle('ul, ol', {
   listStyle: 'none',
+  margin: 0,
   padding: 0,
 });
 
-globalStyle('button', {
+globalStyle('button , input', {
   cursor: 'pointer',
   border: 'none',
   background: 'none',
   padding: 0,
+  margin: 0,
+  outline: 'none',
 });

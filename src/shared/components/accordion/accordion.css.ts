@@ -1,0 +1,61 @@
+import { style } from '@vanilla-extract/css';
+import { recipe } from '@vanilla-extract/recipes';
+
+import { ACCORDION_DURATION_MS } from '@/shared/hooks/use-accordion';
+
+import { themeVars } from '@/shared/styles/theme.css';
+import { typography } from '@/shared/styles/typography.css';
+
+const TRANSITION = `${ACCORDION_DURATION_MS}ms ease`;
+
+export const itemStyle = style({
+  borderBottom: `0.5px solid ${themeVars.color.grayscale[400]}`,
+});
+
+export const questionStyle = style({
+  width: '100%',
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  padding: '3.9rem 2.4rem 3.9rem 0',
+  color: themeVars.color.grayscale.white,
+});
+
+export const questionText = recipe({
+  base: {
+    ...typography.body3_bd_18,
+    color: themeVars.color.grayscale.white,
+    transition: `color ${TRANSITION}`,
+  },
+  variants: {
+    open: {
+      true: { color: themeVars.color.primary[100] },
+    },
+  },
+  defaultVariants: { open: false },
+});
+
+export const answerWrapper = recipe({
+  base: {
+    display: 'grid',
+    transition: `grid-template-rows ${TRANSITION}`,
+  },
+  variants: {
+    open: {
+      true: { gridTemplateRows: '1fr' },
+      false: { gridTemplateRows: '0fr' },
+    },
+  },
+  defaultVariants: { open: false },
+});
+
+export const answerInner = style({
+  minHeight: 0,
+  overflow: 'hidden',
+});
+
+export const answerContent = style({
+  ...typography.body5_rg_16,
+  color: themeVars.color.grayscale.white,
+  padding: '3.5rem 0 3.5rem 2.4rem',
+});
