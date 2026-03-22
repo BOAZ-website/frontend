@@ -30,6 +30,11 @@ export const cardFront = style([
     backgroundColor: themeVars.color.grayscale.white,
     zIndex: 1,
     opacity: 1,
+    selectors: {
+      [`${cardContainer}: hover &`]: {
+        opacity: 0,
+      },
+    },
   },
 ]);
 
@@ -39,16 +44,13 @@ export const cardBack = style([
     backgroundColor: themeVars.color.grayscale[800],
     zIndex: 2,
     opacity: 0,
+    selectors: {
+      [`${cardContainer}: hover &`]: {
+        opacity: 1,
+      },
+    },
   },
 ]);
-
-export const frontHovered = style({
-  opacity: 0,
-});
-
-export const backHovered = style({
-  opacity: 1,
-});
 
 export const cardTitle = style({
   ...typography.h2_bd_30,
@@ -61,6 +63,14 @@ export const cardDesc = style({
   marginTop: '1.6rem',
   marginBottom: '2rem',
 });
+
+export const cardTitleFront = style([cardTitle, { color: themeVars.color.grayscale.black }]);
+
+export const cardTitleBack = style([cardTitle, { color: themeVars.color.grayscale.white }]);
+
+export const cardDescFront = style([cardDesc, { color: themeVars.color.grayscale[600] }]);
+
+export const cardDescBack = style([cardDesc, { color: themeVars.color.grayscale.white }]);
 
 export const cardImage = style({
   position: 'absolute',

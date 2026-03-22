@@ -1,11 +1,8 @@
-import { useState } from 'react';
-
 import TrackCardImg from '@/shared/assets/icon/ic_track_character.svg';
 
 import Button from '../button/button';
 
 import * as styles from './trackcard.css';
-import { themeVars } from '@/shared/styles/theme.css';
 
 interface CardProps {
   title: string;
@@ -14,42 +11,28 @@ interface CardProps {
   backDescription: string;
 }
 
-const Card = ({ title, description, backTitle, backDescription }: CardProps) => {
-  const [isHovered, setIsHovered] = useState(false);
-
+const TrackCard = ({ title, description, backTitle, backDescription }: CardProps) => {
   return (
-    <div
-      className={styles.cardContainer}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      <div className={`${styles.cardFront} ${isHovered ? styles.frontHovered : ''}`}>
-        <div className={styles.cardTitle} style={{ color: themeVars.color.grayscale.black }}>
-          {title}
-        </div>
-        <div className={styles.cardDesc} style={{ color: themeVars.color.grayscale[600] }}>
-          {description}
-        </div>
-        <img src={TrackCardImg} className={styles.cardImage} alt="front" />
+    <article className={styles.cardContainer}>
+      <div className={styles.cardFront}>
+        <h3 className={styles.cardTitleFront}>{title}</h3>
+        <p className={styles.cardDescFront}>{description}</p>
+        <TrackCardImg />
         <div className={styles.cardButtonWrapper}>
           <Button preset="small-round_primary">지원하기</Button>
         </div>
       </div>
 
-      <div className={`${styles.cardBack} ${isHovered ? styles.backHovered : ''}`}>
-        <div className={styles.cardTitle} style={{ color: themeVars.color.grayscale.white }}>
-          {backTitle}
-        </div>
-        <div className={styles.cardDesc} style={{ color: themeVars.color.grayscale.white }}>
-          {backDescription}
-        </div>
-        <img src={TrackCardImg} className={styles.cardImage} alt="back" />
+      <div className={styles.cardBack}>
+        <h3 className={styles.cardTitleBack}>{backTitle}</h3>
+        <p className={styles.cardDescBack}>{backDescription}</p>
+        <TrackCardImg />
         <div className={styles.cardButtonWrapper}>
           <Button preset="small-round_primary">지원하기</Button>
         </div>
       </div>
-    </div>
+    </article>
   );
 };
 
-export default Card;
+export default TrackCard;
