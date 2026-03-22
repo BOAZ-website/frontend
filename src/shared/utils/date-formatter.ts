@@ -1,18 +1,14 @@
 export const formatRecruitDate = (startDate: string, endDate: string): string => {
-  const formatWithYear = (iso: string) => {
-    const date = new Date(iso);
-    const yyyy = date.getFullYear();
-    const mm = String(date.getMonth() + 1).padStart(2, '0');
-    const dd = String(date.getDate()).padStart(2, '0');
-    return `${yyyy}.${mm}.${dd}`;
+  const parseDate = (iso: string): [string, string, string] => {
+    const match = iso.match(/^(\d{4})-(\d{2})-(\d{2})/);
+    if (!match) {
+      throw new Error(`Invalid date format: ${iso}`);
+    }
+    return [match[1], match[2], match[3]];
   };
 
-  const formatWithoutYear = (iso: string) => {
-    const date = new Date(iso);
-    const mm = String(date.getMonth() + 1).padStart(2, '0');
-    const dd = String(date.getDate()).padStart(2, '0');
-    return `${mm}.${dd}`;
-  };
+  const [yyyy, startMm, startDd] = parseDate(startDate);
+  const [, endMm, endDd] = parseDate(endDate);
 
-  return `${formatWithYear(startDate)} - ${formatWithoutYear(endDate)}`;
+  return `${yyyy}.${startMm}.${startDd} - ${endMm}.${endDd}`;
 };
