@@ -1,8 +1,8 @@
-import HSpaceLogo from '@/shared/assets/icon/hspace_logo.svg?react';
-import InstagramIcon from '@/shared/assets/icon/ic_instagram.svg?react';
-import MediumIcon from '@/shared/assets/icon/ic_medium.svg?react';
-import SlideShareIcon from '@/shared/assets/icon/ic_slideshare.svg?react';
-import YouTubeIcon from '@/shared/assets/icon/ic_youtube.svg?react';
+import HSpaceLogo from '@/shared/assets/icons/hspace_logo.svg?react';
+import InstagramIcon from '@/shared/assets/icons/ic_instagram.svg?react';
+import MediumIcon from '@/shared/assets/icons/ic_medium.svg?react';
+import SlideShareIcon from '@/shared/assets/icons/ic_slideshare.svg?react';
+import YouTubeIcon from '@/shared/assets/icons/ic_youtube.svg?react';
 
 import * as styles from './footer.css';
 

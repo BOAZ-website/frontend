@@ -12,7 +12,7 @@ export const fontSize = {
   32: '3.2rem',
   36: '3.6rem',
   40: '4rem',
-  72: '7.2rem',
+  80: '8rem',
 } as const;
 
 export const fontWeight = {
