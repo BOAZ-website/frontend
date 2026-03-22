@@ -2,8 +2,8 @@ import { Suspense } from 'react';
 import { QueryErrorResetBoundary } from '@tanstack/react-query';
 import { Outlet } from 'react-router';
 
-import TabBar from '@/widgets/tab-bar/ui/tab-bar';
-import Footer from '@/shared/components/footer/footer';
+import Footer from '@/widgets/common/ui/footer/footer';
+import TabBar from '@/widgets/common/ui/tab-bar/tab-bar';
 
 import * as styles from './global-layout.css';
 
