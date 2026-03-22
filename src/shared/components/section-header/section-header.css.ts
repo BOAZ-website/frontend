@@ -6,7 +6,7 @@ import { typography } from '@/shared/styles/typography.css';
 export const sectionHeader = style({
   display: 'flex',
   flexDirection: 'column',
-  gap: '2.3rem',
+  gap: '2.5rem',
   alignItems: 'center',
   textAlign: 'center',
 });
