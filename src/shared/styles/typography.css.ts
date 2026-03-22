@@ -36,7 +36,7 @@ export const typography = {
     lineHeight: themeVars.lineHeight.tight,
     letterSpacing: themeVars.letterSpacing.normal,
   },
-  h3_sd_30: {
+  h3_sb_30: {
     fontSize: themeVars.fontSize[30],
     fontWeight: themeVars.fontWeight.semibold,
     lineHeight: themeVars.lineHeight.tight,
