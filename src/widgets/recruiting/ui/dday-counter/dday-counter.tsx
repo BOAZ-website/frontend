@@ -1,4 +1,4 @@
-import { useDDay } from '@/shared/hooks/use-dday';
+import { calcDDay } from '@/shared/utils/calc-dday';
 
 import * as styles from './dday-counter.css';
 
@@ -7,7 +7,7 @@ interface DDayCounterProps {
 }
 
 const DDayCounter = ({ startDate }: DDayCounterProps) => {
-  const dDay = useDDay(startDate);
+  const dDay = calcDDay(startDate);
 
   return <span className={styles.dDay}>D-{dDay}</span>;
 };
