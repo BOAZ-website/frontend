@@ -5,7 +5,7 @@ import { themeVars } from './theme.css';
 globalStyle('html', {
   fontSize: '62.5%',
   width: '100%',
-  height: '100dvh',
+  minWidth: '1366px',
   wordBreak: 'keep-all',
   WebkitTextSizeAdjust: '100%',
 });
@@ -26,7 +26,8 @@ globalStyle('body', {
 
 globalStyle('#root', {
   width: '100%',
-  height: '100dvh',
+  minHeight: '100dvh',
+  boxShadow: '0 0 24px rgba(0, 0, 0, 0.12)',
 });
 
 globalStyle('a', {
