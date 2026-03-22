@@ -10,7 +10,7 @@ import * as styles from './textfield-with-counter.css';
 
 interface TextFieldWithCounterProps extends Omit<
   ComponentProps<'textarea'>,
-  'className' | 'maxLength' | 'onChange'
+  'className' | 'maxLength'
 > {
   maxLength: number;
 }
