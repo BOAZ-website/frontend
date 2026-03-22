@@ -27,7 +27,7 @@ export const lineHeight = {
   tight: '1.0',
   snug: '1.2',
   normal: '1.4',
-  relaxed: '1.6',
+  card: '1.6',
 } as const;
 
 export const letterSpacing = {
