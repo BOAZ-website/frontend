@@ -16,7 +16,7 @@ export const subTitle = style({
 });
 
 export const title = style({
-  ...typography.display_bd_80,
+  ...typography.display1_bd_80,
   marginBottom: '5rem',
 });
 

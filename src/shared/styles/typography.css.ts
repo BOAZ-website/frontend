@@ -80,6 +80,12 @@ export const typography = {
     lineHeight: themeVars.lineHeight.tight,
     letterSpacing: themeVars.letterSpacing.normal,
   },
+  body4_rg_18_card: {
+    fontSize: themeVars.fontSize[18],
+    fontWeight: themeVars.fontWeight.regular,
+    lineHeight: themeVars.lineHeight.card,
+    letterSpacing: themeVars.letterSpacing.normal,
+  },
   body5_rg_16: {
     fontSize: themeVars.fontSize[16],
     fontWeight: themeVars.fontWeight.regular,
