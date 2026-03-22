@@ -1,5 +1,11 @@
+import RecruitingHeroSection from '@/widgets/recruiting/ui/recruiting-hero-section/recruiting-hero-section';
+
 const RecruitingPage = () => {
-  return <div>RecruitingPage</div>;
+  return (
+    <>
+      <RecruitingHeroSection />
+    </>
+  );
 };
 
 export default RecruitingPage;

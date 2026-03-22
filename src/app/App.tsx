@@ -1,4 +1,3 @@
-import { Suspense } from 'react';
 import { RouterProvider } from 'react-router/dom';
 
 import { QueryProvider } from '@/app/providers/QueryProvider';
@@ -12,9 +11,7 @@ function App() {
   return (
     <ThemeProvider>
       <QueryProvider>
-        <Suspense fallback={<div>Loading...</div>}>
-          <RouterProvider router={router} />
-        </Suspense>
+        <RouterProvider router={router} />
       </QueryProvider>
     </ThemeProvider>
   );

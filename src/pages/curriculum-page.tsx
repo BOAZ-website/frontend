@@ -1,5 +1,5 @@
 const CurriculumPage = () => {
-  return <></>;
+  return <>CurriculumPage</>;
 };
 
 export default CurriculumPage;
