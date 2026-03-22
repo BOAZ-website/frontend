@@ -8,7 +8,6 @@ export const container = style({
   flexDirection: 'column',
   alignItems: 'center',
   color: `color-mix(in srgb, ${themeVars.color.grayscale.white} 30%, transparent)`,
-  marginBottom: '4.5rem',
 });
 
 export const subTitle = style({

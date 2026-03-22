@@ -7,7 +7,9 @@ const RecruitingPage = () => {
   return (
     <main className={styles.page}>
       <RecruitingHeroSection />
-      <RecruitmentStatusSection startDate="2026-10-08" endDate="2026-12-10" isActive={false} />
+      <section className={styles.statusSection}>
+        <RecruitmentStatusSection startDate="2026-10-08" endDate="2026-12-10" isActive={false} />
+      </section>
     </main>
   );
 };
