@@ -10,22 +10,16 @@ import * as styles from './textfield-with-counter.css';
 
 interface TextFieldWithCounterProps extends Omit<
   ComponentProps<'textarea'>,
-  'className' | 'maxLength' | 'onChange' | 'defaultValue'
+  'className' | 'maxLength' | 'onChange'
 > {
   maxLength: number;
-  isError?: boolean;
 }
 
-const TextFieldWithCounter = ({
-  maxLength,
-  isError = false,
-  ...textareaProps
-}: TextFieldWithCounterProps) => {
+const TextFieldWithCounter = ({ maxLength, ...textareaProps }: TextFieldWithCounterProps) => {
   const [value, setValue] = useState('');
 
   const isOverLimit = value.length > maxLength;
-  const hasError = isError || isOverLimit;
-  const isCompleted = value.length > 0 && !hasError;
+  const isCompleted = value.length > 0 && !isOverLimit;
 
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setValue(e.target.value);
@@ -36,7 +30,7 @@ const TextFieldWithCounter = ({
       <TextField
         {...textareaProps}
         value={value}
-        isError={hasError}
+        isError={isOverLimit}
         isCompleted={isCompleted}
         onChange={handleChange}
       />
@@ -52,7 +46,7 @@ const TextFieldWithCounter = ({
         <TextCounter
           currentLength={value.length}
           maxLength={maxLength}
-          isError={hasError}
+          isError={isOverLimit}
           isCompleted={isCompleted}
         />
       </div>
