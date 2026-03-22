@@ -4,8 +4,14 @@ import { themeVars } from './theme.css';
 // weight: rg(regular), md(medium), sb(semibold), bd(bold)
 export const typography = {
   // Display
-  display_bd_80: {
+  display1_bd_80: {
     fontSize: themeVars.fontSize[80],
+    fontWeight: themeVars.fontWeight.bold,
+    lineHeight: themeVars.lineHeight.tight,
+    letterSpacing: themeVars.letterSpacing.normal,
+  },
+  display2_bd_72: {
+    fontSize: themeVars.fontSize[72],
     fontWeight: themeVars.fontWeight.bold,
     lineHeight: themeVars.lineHeight.tight,
     letterSpacing: themeVars.letterSpacing.normal,
