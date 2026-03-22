@@ -2,9 +2,9 @@ import TextFieldWithCounter from '@/shared/components/textfield-with-counter/tex
 
 const HomePage = () => {
   return (
-    <>
-      <TextFieldWithCounter maxLength={1} />
-    </>
+    <div style={{ width: '300px' }}>
+      <TextFieldWithCounter maxLength={1} placeholder="Enter text..." />
+    </div>
   );
 };
 

@@ -6,7 +6,6 @@ import { typography } from '@/shared/styles/typography.css';
 export const textFieldRecipe = recipe({
   base: {
     width: '100%',
-    padding: '1rem 0',
     backgroundColor: 'transparent',
     color: themeVars.color.grayscale[100],
     ...typography.body4_rg_18,

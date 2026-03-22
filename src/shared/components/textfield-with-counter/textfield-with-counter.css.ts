@@ -10,16 +10,16 @@ export const textFieldWithCounterWrapper = style({
   width: '100%',
 });
 
+export const fieldBottom = style({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+});
+
 export const errorMessage = style({
   display: 'flex',
   alignItems: 'center',
   gap: '0.5rem',
   color: themeVars.color.error.red_100,
   ...typography.text_rg_14,
-});
-
-export const fieldBottom = style({
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
 });
