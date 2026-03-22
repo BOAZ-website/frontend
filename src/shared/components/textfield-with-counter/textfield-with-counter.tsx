@@ -10,9 +10,10 @@ import * as styles from './textfield-with-counter.css';
 
 interface TextFieldWithCounterProps extends Omit<
   ComponentProps<'textarea'>,
-  'className' | 'maxLength' | 'onChange'
+  'className' | 'maxLength' | 'onChange' | 'defaultValue'
 > {
   maxLength: number;
+  defaultValue?: string;
   isError?: boolean;
   onChange?: (value: string) => void;
 }
@@ -24,7 +25,7 @@ const TextFieldWithCounter = ({
   defaultValue = '',
   ...textareaProps
 }: TextFieldWithCounterProps) => {
-  const [value, setValue] = useState(String(defaultValue));
+  const [value, setValue] = useState(defaultValue);
 
   const isOverLimit = value.length > maxLength;
   const hasError = isError || isOverLimit;

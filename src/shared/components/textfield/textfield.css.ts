@@ -13,7 +13,6 @@ export const textFieldRecipe = recipe({
     border: 'none',
     borderBottom: `1px solid ${themeVars.color.grayscale[400]}`,
     resize: 'none',
-    alignContent: 'center',
 
     '::placeholder': {
       color: themeVars.color.grayscale[400],

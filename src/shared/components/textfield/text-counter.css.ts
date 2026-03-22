@@ -7,9 +7,6 @@ export const textCounterRecipe = recipe({
   base: {
     ...typography.text_rg_14,
     color: themeVars.color.grayscale[400],
-    display: 'flex',
-    justifyContent: 'flex-end',
-    alignContent: 'center',
 
     ':focus': {
       color: themeVars.color.primary[100],
