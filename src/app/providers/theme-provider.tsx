@@ -1,9 +1,16 @@
-import { useEffect, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import type { ReactNode } from 'react';
 
-import { ThemeContext } from '../../shared/lib/theme/theme-context';
-
 type Theme = 'dark' | 'light';
+
+interface ThemeContextValue {
+  theme: Theme;
+  toggleTheme: () => void;
+}
+
+const ThemeContext = createContext<ThemeContextValue | null>(null);
+
+export { ThemeContext };
 
 const getInitialTheme = (): Theme => {
   const stored = localStorage.getItem('boaz-theme') as Theme | null;
