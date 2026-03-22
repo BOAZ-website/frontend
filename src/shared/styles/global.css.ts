@@ -1,5 +1,7 @@
 import { globalStyle } from '@vanilla-extract/css';
 
+import { themeVars } from './theme.css';
+
 globalStyle('html', {
   fontSize: '62.5%',
   width: '100%',
@@ -15,6 +17,11 @@ globalStyle('html, body', {
 globalStyle('body', {
   fontFamily: "'Pretendard Variable', Pretendard, sans-serif",
   WebkitFontSmoothing: 'antialiased',
+
+  // 다크모드 테마 기본값
+  backgroundColor: themeVars.color.grayscale.black,
+  color: themeVars.color.grayscale.white,
+  transition: 'background-color 0.3s ease, color 0.3s ease',
 });
 
 globalStyle('#root', {
