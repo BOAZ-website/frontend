@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import type { ReactNode } from 'react';
 
-import { ThemeContext } from './theme-context';
+import { ThemeContext } from '../../shared/lib/theme/theme-context';
 
 type Theme = 'dark' | 'light';
 
