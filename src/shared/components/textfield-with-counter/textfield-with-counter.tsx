@@ -13,19 +13,15 @@ interface TextFieldWithCounterProps extends Omit<
   'className' | 'maxLength' | 'onChange' | 'defaultValue'
 > {
   maxLength: number;
-  defaultValue?: string;
   isError?: boolean;
-  onChange?: (value: string) => void;
 }
 
 const TextFieldWithCounter = ({
   maxLength,
   isError = false,
-  onChange,
-  defaultValue = '',
   ...textareaProps
 }: TextFieldWithCounterProps) => {
-  const [value, setValue] = useState(defaultValue);
+  const [value, setValue] = useState('');
 
   const isOverLimit = value.length > maxLength;
   const hasError = isError || isOverLimit;
@@ -33,7 +29,6 @@ const TextFieldWithCounter = ({
 
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setValue(e.target.value);
-    onChange?.(e.target.value);
   };
 
   return (

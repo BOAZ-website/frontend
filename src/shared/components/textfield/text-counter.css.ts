@@ -17,16 +17,14 @@ export const textCounterRecipe = recipe({
     error: {
       true: {
         color: themeVars.color.error.red_100,
-
-        ':focus': {
-          color: themeVars.color.error.red_100,
-        },
       },
+      false: {},
     },
     completed: {
       true: {
         color: themeVars.color.primary[100],
       },
+      false: {},
     },
   },
 });
