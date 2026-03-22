@@ -4,8 +4,8 @@ import { themeVars } from './theme.css';
 // weight: rg(regular), md(medium), sb(semibold), bd(bold)
 export const typography = {
   // Display
-  display_bd_72: {
-    fontSize: themeVars.fontSize[72],
+  display_bd_80: {
+    fontSize: themeVars.fontSize[80],
     fontWeight: themeVars.fontWeight.bold,
     lineHeight: themeVars.lineHeight.tight,
     letterSpacing: themeVars.letterSpacing.normal,
@@ -30,7 +30,13 @@ export const typography = {
     lineHeight: themeVars.lineHeight.tight,
     letterSpacing: themeVars.letterSpacing.normal,
   },
-  h3_bd_24: {
+  h3_sd_30: {
+    fontSize: themeVars.fontSize[30],
+    fontWeight: themeVars.fontWeight.semibold,
+    lineHeight: themeVars.lineHeight.tight,
+    letterSpacing: themeVars.letterSpacing.normal,
+  },
+  h4_bd_24: {
     fontSize: themeVars.fontSize[24],
     fontWeight: themeVars.fontWeight.bold,
     lineHeight: themeVars.lineHeight.tight,
