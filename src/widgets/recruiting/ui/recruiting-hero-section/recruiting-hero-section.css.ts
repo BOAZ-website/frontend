@@ -1,0 +1,30 @@
+import { style } from '@vanilla-extract/css';
+
+import { themeVars } from '@/shared/styles/theme.css';
+import { typography } from '@/shared/styles/typography.css';
+
+export const container = style({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  color: `color-mix(in srgb, ${themeVars.color.grayscale.white} 30%, transparent)`,
+});
+
+export const subTitle = style({
+  ...typography.h3_sb_30,
+  marginBottom: '2.5rem',
+});
+
+export const title = style({
+  ...typography.display_bd_80,
+  marginBottom: '5rem',
+});
+
+export const emphasis = style({
+  color: `color-mix(in srgb, ${themeVars.color.primary[100]} 30%, transparent)`,
+  fontStyle: 'normal',
+});
+
+export const description = style({
+  ...typography.h1_md_40,
+});
