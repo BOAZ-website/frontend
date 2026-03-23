@@ -1,4 +1,4 @@
-export const lightColors = {
+export const darkColors = {
   primary: {
     100: '#7A64F9',
     200: '#6250C7',
@@ -23,4 +23,5 @@ export const lightColors = {
   },
 };
 
-export const darkColors = {};
+// TODO: 라이트모드 컬러 추가
+export const lightColors = darkColors;

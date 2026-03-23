@@ -1,6 +1,6 @@
 import { Link } from 'react-router';
 
-import BOAZLogo from '@/shared/assets/icon/BOAZ_logo.svg?react';
+import BOAZLogo from '@/shared/assets/icons/BOAZ_logo.svg?react';
 import Button from '@/shared/components/button/button';
 import { EXTERNAL_LINKS } from '@/shared/configs/external-links';
 import { ROUTE_PATH } from '@/shared/router/paths';
