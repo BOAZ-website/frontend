@@ -1,8 +1,8 @@
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 import TrackCardIcon from '@/shared/assets/icons/ic_track_character.svg?react';
 import Button from '@/shared/components/button/button';
-import { ROUTE_PATH } from '@/shared/router/path';
+import { ROUTE_PATH } from '@/shared/router/paths';
 
 import * as styles from './track-card.css';
 
