@@ -1,6 +1,8 @@
-import * as styles from '@/pages/faq-page.css';
 import Accordion from '@/shared/components/accordion/accordion';
-import { type CategoryType, type FaqItem, CATEGORIES } from './faq.types'
+
+import { CATEGORIES, type CategoryType, type FaqItem } from './faq.types';
+
+import * as styles from '@/pages/faq-page.css';
 
 interface FAQContentSectionProps {
   activeCategory: CategoryType;
@@ -8,7 +10,11 @@ interface FAQContentSectionProps {
   currentList: FaqItem[];
 }
 
-export const FAQContentSection = ({ activeCategory, onCategoryChange, currentList }: FAQContentSectionProps) => (
+export const FAQContentSection = ({
+  activeCategory,
+  onCategoryChange,
+  currentList,
+}: FAQContentSectionProps) => (
   <div className={styles.mainLayout}>
     <nav className={styles.sideNavigation}>
       {CATEGORIES.map((category) => (

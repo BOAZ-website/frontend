@@ -1,4 +1,5 @@
 import { style, styleVariants } from '@vanilla-extract/css';
+
 import { themeVars } from '@/shared/styles/theme.css';
 import { typography } from '@/shared/styles/typography.css';
 
@@ -75,13 +76,13 @@ export const accordionContainer = style({
   borderTop: `0.5px solid ${themeVars.color.grayscale[400]}`,
 });
 
-export const chatContent = style({ 
-  display: 'flex', 
-  alignItems: 'center', 
-  gap: '0.8rem' 
+export const chatContent = style({
+  display: 'flex',
+  alignItems: 'center',
+  gap: '0.8rem',
 });
 
-export const chatIcon = style({ 
-  width: '2.4rem', 
-  height: '2.4rem' 
+export const chatIcon = style({
+  width: '2.4rem',
+  height: '2.4rem',
 });

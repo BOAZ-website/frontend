@@ -1,8 +1,10 @@
 import { useState } from 'react';
-import * as styles from './faq-page.css';
-import { FAQTitleSection } from '@/widgets/faq/faq-title-section';
+
+import { type CategoryType, FAQ_DATA } from '@/widgets/faq/faq.types';
 import { FAQContentSection } from '@/widgets/faq/faq-content-section';
-import { type CategoryType, FAQ_DATA } from '@/widgets/faq/faq.types'; 
+import { FAQTitleSection } from '@/widgets/faq/faq-title-section';
+
+import * as styles from './faq-page.css';
 
 const FAQPage = () => {
   const [activeCategory, setActiveCategory] = useState<CategoryType>('지원');
@@ -12,7 +14,7 @@ const FAQPage = () => {
     <main className={styles.container}>
       <section className={styles.contentWrapper}>
         <FAQTitleSection />
-        <FAQContentSection 
+        <FAQContentSection
           activeCategory={activeCategory}
           onCategoryChange={setActiveCategory}
           currentList={currentList}
