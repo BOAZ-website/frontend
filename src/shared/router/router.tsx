@@ -7,6 +7,7 @@ import {
   FAQPage,
   HomePage,
   RecruitingPage,
+  ApplyPage,
 } from '@/shared/router/lazy';
 import { ROUTE_PATH } from '@/shared/router/paths';
 
@@ -34,6 +35,10 @@ export const router = createBrowserRouter([
         path: ROUTE_PATH.FAQ,
         Component: FAQPage,
       },
+      {
+        path: ROUTE_PATH.APPLY,
+        Component: ApplyPage,
+      }
     ],
   },
 ]);

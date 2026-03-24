@@ -6,3 +6,4 @@ export const ArchivePage = lazy(() => import('@/pages/archive-page'));
 export const FAQPage = lazy(() => import('@/pages/faq-page'));
 export const RecruitingPage = lazy(() => import('@/pages/recruiting-page'));
 // 페이지 추가
+export const ApplyPage = lazy(() => import('@/pages/apply-page'));
