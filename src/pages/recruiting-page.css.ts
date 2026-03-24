@@ -14,3 +14,7 @@ export const statusSection = style({
 export const targetSection = style({
   marginTop: '12.5rem',
 });
+
+export const valueSection = style({
+  marginTop: '25rem',
+});
