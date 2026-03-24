@@ -21,6 +21,7 @@ export const iconWrapper = style({
   height: '9.7rem',
   borderRadius: '50%',
   display: 'flex',
+  alignItems: 'center',
   justifyContent: 'center',
   backgroundColor: themeVars.color.grayscale[100],
   overflow: 'hidden',
@@ -35,11 +36,10 @@ export const textWrapper = style({
   whiteSpace: 'pre-wrap',
 });
 
-export const titleWrapper = style({
+export const title = style({
   ...typography.body2_bd_20,
 });
 
-export const descriptionWrapper = style({
-  display: 'flex',
+export const description = style({
   ...typography.text_rg_20,
 });

@@ -10,3 +10,7 @@ export const page = style({
 export const statusSection = style({
   marginTop: '17rem',
 });
+
+export const targetSection = style({
+  marginTop: '12.5rem',
+});

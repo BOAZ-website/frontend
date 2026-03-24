@@ -10,13 +10,13 @@ interface ValueCardProps {
 
 const ValueCard = ({ icon, title, description }: ValueCardProps) => {
   return (
-    <div className={styles.cardContainer}>
+    <article className={styles.cardContainer}>
       <div className={styles.iconWrapper}>{icon}</div>
       <div className={styles.textWrapper}>
-        <h3 className={styles.titleWrapper}>{title}</h3>
-        <p className={styles.descriptionWrapper}>{description}</p>
+        <h3 className={styles.title}>{title}</h3>
+        <p className={styles.description}>{description}</p>
       </div>
-    </div>
+    </article>
   );
 };
 
