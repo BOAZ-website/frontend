@@ -13,7 +13,7 @@ export const cardContainer = style({
   justifyContent: 'center',
   padding: '2.8rem 6.65rem 4rem',
   gap: '4rem',
-  backgroundColor: themeVars.color.grayscale[800], // 임시
+  backgroundColor: 'transparent',
 });
 
 export const iconWrapper = style({
