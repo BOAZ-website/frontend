@@ -35,6 +35,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }: PaginationProps) 
         onClick={goPrevPage}
         disabled={!hasPrevious}
         className={styles.arrowButton}
+        aria-label="이전 페이지"
       >
         <IconChevronLeft width={35} height={35} />
       </button>
@@ -49,6 +50,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }: PaginationProps) 
               onClick={() => goToPage(page)}
               disabled={isActive}
               className={styles.dotButton}
+              aria-label={`페이지 ${page}`}
             >
               <span className={styles.dot[isActive ? 'active' : 'default']} />
             </button>
@@ -56,7 +58,13 @@ const Pagination = ({ currentPage, totalPages, onPageChange }: PaginationProps) 
         })}
       </div>
 
-      <button type="button" onClick={goNextPage} disabled={!hasNext} className={styles.arrowButton}>
+      <button
+        type="button"
+        onClick={goNextPage}
+        disabled={!hasNext}
+        className={styles.arrowButton}
+        aria-label="다음 페이지"
+      >
         <IconChevronRight width={35} height={35} />
       </button>
     </nav>
