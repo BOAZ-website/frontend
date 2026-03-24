@@ -8,18 +8,15 @@ export const container = style({
   alignItems: 'center',
   width: '70.6rem',
   height: '6.5rem',
-  padding: '2rem 1rem 2rem 3rem', // 위 오 아래 왼 간격
+  padding: '2rem 1rem 2rem 3rem',
   backgroundColor: themeVars.color.grayscale.white,
   boxSizing: 'border-box',
   overflow: 'hidden',
+  borderRadius: '40px',
 });
 
 export const inputField = style({
   flex: 1,
-  border: 'none',
-  outline: 'none',
-  padding: 0,
-  margin: 0,
   backgroundColor: 'transparent',
   color: themeVars.color.grayscale.black,
   ...typography.body4_rg_18,
