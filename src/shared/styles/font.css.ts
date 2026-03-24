@@ -13,6 +13,7 @@ export const fontSize = {
   36: '3.6rem',
   40: '4rem',
   72: '7.2rem',
+  80: '8rem',
 } as const;
 
 export const fontWeight = {
@@ -26,7 +27,7 @@ export const lineHeight = {
   tight: '1.0',
   snug: '1.2',
   normal: '1.4',
-  relaxed: '1.6',
+  card: '1.6',
 } as const;
 
 export const letterSpacing = {

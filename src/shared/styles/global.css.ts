@@ -1,9 +1,11 @@
 import { globalStyle } from '@vanilla-extract/css';
 
+import { themeVars } from './theme.css';
+
 globalStyle('html', {
   fontSize: '62.5%',
   width: '100%',
-  height: '100dvh',
+  minWidth: '1366px',
   wordBreak: 'keep-all',
   WebkitTextSizeAdjust: '100%',
 });
@@ -15,11 +17,17 @@ globalStyle('html, body', {
 globalStyle('body', {
   fontFamily: "'Pretendard Variable', Pretendard, sans-serif",
   WebkitFontSmoothing: 'antialiased',
+
+  // 다크모드 테마 기본값
+  backgroundColor: themeVars.color.grayscale.black,
+  color: themeVars.color.grayscale.white,
+  transition: 'background-color 0.3s ease, color 0.3s ease',
 });
 
 globalStyle('#root', {
   width: '100%',
-  height: '100dvh',
+  minHeight: '100dvh',
+  boxShadow: '0 0 24px rgba(0, 0, 0, 0.12)',
 });
 
 globalStyle('a', {
@@ -30,13 +38,6 @@ globalStyle('a', {
 globalStyle('ul, ol', {
   listStyle: 'none',
   margin: 0,
-  padding: 0,
-});
-
-globalStyle('button', {
-  cursor: 'pointer',
-  border: 'none',
-  background: 'none',
   padding: 0,
 });
 

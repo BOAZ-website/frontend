@@ -1,8 +1,7 @@
-import { Suspense } from 'react';
 import { RouterProvider } from 'react-router/dom';
 
-import { QueryProvider } from '@/shared/providers/QueryProvider';
-import { ThemeProvider } from '@/shared/providers/ThemeProvider';
+import { QueryProvider } from '@/app/providers/query-provider';
+import { ThemeProvider } from '@/app/providers/theme-provider';
 import { router } from '@/shared/router/router';
 
 import '@/shared/styles/reset.css';
@@ -12,9 +11,7 @@ function App() {
   return (
     <ThemeProvider>
       <QueryProvider>
-        <Suspense fallback={<div>Loading...</div>}>
-          <RouterProvider router={router} />
-        </Suspense>
+        <RouterProvider router={router} />
       </QueryProvider>
     </ThemeProvider>
   );
