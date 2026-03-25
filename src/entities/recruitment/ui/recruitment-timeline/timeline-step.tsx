@@ -1,13 +1,9 @@
 import * as styles from './timeline-step.css';
 
-export interface TimelineStep {
-  id: string;
-  date: string;
-  stepLabel: string;
-}
+import type { RecruitmentStep } from '@/entities/recruitment/model/types';
 
 interface TimelineStepProps {
-  step: TimelineStep;
+  step: RecruitmentStep;
 }
 
 const TimelineStep = ({ step }: TimelineStepProps) => {
