@@ -20,3 +20,7 @@ export const applySection = style({
   marginTop: '25rem',
   flexDirection: 'row',
 });
+
+export const bottomSection = style({
+  marginTop: '25rem',
+});

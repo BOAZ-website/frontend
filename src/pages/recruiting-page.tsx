@@ -1,4 +1,5 @@
 import ApplySection from '@/widgets/recruiting/ui/apply-section/apply-section';
+import RecruitingBottomSection from '@/widgets/recruiting/ui/recruiting-bottom-section/recruiting-bottom-section';
 import RecruitingHeroSection from '@/widgets/recruiting/ui/recruiting-hero-section/recruiting-hero-section';
 import RecruitmentStatusSection from '@/widgets/recruiting/ui/recruitment-status-section/recruitment-status-section';
 import TimelineSection from '@/widgets/recruiting/ui/timeline-section/timeline-section';
@@ -17,6 +18,9 @@ const RecruitingPage = () => {
       </section>
       <section className={styles.applySection}>
         <ApplySection />
+      </section>
+      <section className={styles.bottomSection}>
+        <RecruitingBottomSection brochureUrl="#" />
       </section>
     </main>
   );
