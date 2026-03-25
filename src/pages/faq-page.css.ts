@@ -63,7 +63,10 @@ const tabBase = style({
 });
 
 export const tabVariants = styleVariants({
-  default: [tabBase, { color: themeVars.color.grayscale[400], ':hover': { color: themeVars.color.grayscale.white } }],
+  default: [
+    tabBase,
+    { color: themeVars.color.grayscale[400], ':hover': { color: themeVars.color.grayscale.white } },
+  ],
   active: [tabBase, { color: themeVars.color.grayscale.white }],
 });
 
