@@ -2,12 +2,12 @@ import { createBrowserRouter } from 'react-router';
 
 import { GlobalLayout } from '@/app/layouts/global-layout/global-layout';
 import {
+  ApplyPage,
   ArchivePage,
   CurriculumPage,
   FAQPage,
   HomePage,
   RecruitingPage,
-  ApplyPage,
 } from '@/shared/router/lazy';
 import { ROUTE_PATH } from '@/shared/router/paths';
 
@@ -38,7 +38,7 @@ export const router = createBrowserRouter([
       {
         path: ROUTE_PATH.APPLY,
         Component: ApplyPage,
-      }
+      },
     ],
   },
 ]);
