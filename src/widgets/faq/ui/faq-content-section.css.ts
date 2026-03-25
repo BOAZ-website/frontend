@@ -37,5 +37,4 @@ export const listSection = style({
 export const accordionContainer = style({
   display: 'flex',
   flexDirection: 'column',
-  borderTop: `1px solid ${themeVars.color.grayscale[800]}`,
 });
