@@ -73,7 +73,6 @@ export const accordionContainer = style({
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
-  borderTop: `0.5px solid ${themeVars.color.grayscale[400]}`,
 });
 
 export const chatContent = style({
