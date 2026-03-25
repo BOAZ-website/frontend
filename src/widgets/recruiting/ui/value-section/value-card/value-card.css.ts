@@ -11,9 +11,9 @@ export const cardContainer = style({
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'center',
-  padding: '3.8rem 3.25rem 4.5rem',
-  gap: '3rem',
-  backgroundColor: themeVars.color.grayscale[800],
+  padding: '2.8rem 6.65rem 4rem',
+  gap: '4rem',
+  backgroundColor: 'transparent',
 });
 
 export const iconWrapper = style({
@@ -21,6 +21,7 @@ export const iconWrapper = style({
   height: '9.7rem',
   borderRadius: '50%',
   display: 'flex',
+  alignItems: 'center',
   justifyContent: 'center',
   backgroundColor: themeVars.color.grayscale[100],
   overflow: 'hidden',
@@ -31,7 +32,14 @@ export const textWrapper = style({
   flexDirection: 'column',
   alignItems: 'center',
   textAlign: 'center',
+  gap: '1.5rem',
   whiteSpace: 'pre-wrap',
-  color: themeVars.color.grayscale.white,
-  ...typography.body4_rg_18,
+});
+
+export const title = style({
+  ...typography.body2_bd_20,
+});
+
+export const description = style({
+  ...typography.text_rg_20,
 });

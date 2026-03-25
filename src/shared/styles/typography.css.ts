@@ -100,7 +100,12 @@ export const typography = {
     lineHeight: themeVars.lineHeight.tight,
     letterSpacing: themeVars.letterSpacing.normal,
   },
-
+  text_rg_20: {
+    fontSize: themeVars.fontSize[20],
+    fontWeight: themeVars.fontWeight.regular,
+    lineHeight: themeVars.lineHeight.tight,
+    letterSpacing: themeVars.letterSpacing.normal,
+  },
   text_rg_14: {
     fontSize: themeVars.fontSize[14],
     fontWeight: themeVars.fontWeight.regular,

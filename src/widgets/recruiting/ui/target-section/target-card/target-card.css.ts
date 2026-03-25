@@ -10,10 +10,10 @@ export const cardContainer = style({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  justifyContent: 'center', // space-between 제거
+  justifyContent: 'center',
   backgroundColor: themeVars.color.grayscale[800],
-  gap: '3rem', // 아이콘 ↔ 텍스트 간격
-  padding: '3.8rem 3.25rem 4.5rem', // 좌우 여백만 유지
+  gap: '3rem',
+  padding: '3.8rem 3.25rem 4.5rem',
 });
 
 export const iconWrapper = style({
@@ -29,8 +29,8 @@ export const iconWrapper = style({
 export const textWrapper = style({
   display: 'flex',
   flexDirection: 'column',
-  alignItems: 'center', // alignSelf: stretch 제거
-  textAlign: 'center', // 텍스트 중앙 정렬 명시
+  alignItems: 'center',
+  textAlign: 'center',
   whiteSpace: 'pre-wrap',
   color: themeVars.color.grayscale.white,
   ...typography.body4_rg_18_card,

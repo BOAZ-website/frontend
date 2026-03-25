@@ -1,7 +1,7 @@
 import { type ReactNode } from 'react';
 
-import MinusIcon from '@/shared/assets/icon/ic_minus.svg?react';
-import PlusIcon from '@/shared/assets/icon/ic_plus.svg?react';
+import MinusIcon from '@/shared/assets/icons/ic_minus.svg?react';
+import PlusIcon from '@/shared/assets/icons/ic_plus.svg?react';
 import { useAccordion } from '@/shared/hooks/use-accordion';
 
 import * as styles from './accordion.css';
