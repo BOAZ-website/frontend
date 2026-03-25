@@ -1,20 +1,27 @@
-import { style } from '@vanilla-extract/css';
+import { useState } from 'react';
 
-import { themeVars } from '@/shared/styles/theme.css';
+import { type CategoryType, FAQ_DATA } from '@/widgets/faq/faq.types';
+import { FAQContentSection } from '@/widgets/faq/ui/faq-content-section';
+import { FAQTitleSection } from '@/widgets/faq/ui/faq-title-section';
 
-export const container = style({
-  width: '100%',
-  minHeight: '100%',
-  backgroundColor: themeVars.color.grayscale.black,
-  paddingTop: '13.5rem',
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-});
+import * as styles from './faq-page.css';
 
-export const contentWrapper = style({
-  width: '100%',
-  maxWidth: '120rem',
-  display: 'flex',
-  flexDirection: 'column',
-});
+const FAQPage = () => {
+  const [activeCategory, setActiveCategory] = useState<CategoryType>('지원');
+  const currentList = FAQ_DATA[activeCategory];
+
+  return (
+    <main className={styles.container}>
+      <section className={styles.contentWrapper}>
+        <FAQTitleSection />
+        <FAQContentSection
+          activeCategory={activeCategory}
+          onCategoryChange={setActiveCategory}
+          currentList={currentList}
+        />
+      </section>
+    </main>
+  );
+};
+
+export default FAQPage;
