@@ -12,6 +12,11 @@ export const statusSection = style({
 });
 
 export const timelineSection = style({
-  marginTop: '17rem',
+  marginTop: '25rem',
   width: '100%',
+});
+
+export const applySection = style({
+  marginTop: '25rem',
+  flexDirection: 'row',
 });
