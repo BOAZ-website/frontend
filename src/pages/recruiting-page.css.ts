@@ -10,3 +10,8 @@ export const page = style({
 export const statusSection = style({
   marginTop: '17rem',
 });
+
+export const timelineSection = style({
+  marginTop: '17rem',
+  width: '100%',
+});

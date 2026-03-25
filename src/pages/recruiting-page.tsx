@@ -11,7 +11,9 @@ const RecruitingPage = () => {
       <section className={styles.statusSection}>
         <RecruitmentStatusSection startDate="2026-10-08" endDate="2026-12-10" isActive={true} />
       </section>
-      <TimelineSection />
+      <section className={styles.timelineSection}>
+        <TimelineSection />
+      </section>
     </main>
   );
 };
