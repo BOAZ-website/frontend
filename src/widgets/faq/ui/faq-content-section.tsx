@@ -1,6 +1,6 @@
 import Accordion from '@/shared/components/accordion/accordion';
 
-import { CATEGORIES, type CategoryType, type FaqItem } from '../widgets/faq/faq.types';
+import { CATEGORIES, type CategoryType, type FaqItem } from '../faq.types';
 
 import * as styles from '@/pages/faq-page.css';
 
