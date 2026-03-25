@@ -17,6 +17,13 @@ import * as styles from './personal-info-section.css';
 
 export const PersonalInfoSection = () => {
   const [additionalDegrees, setAdditionalDegrees] = useState<string[]>([]);
+  const [birthYear, setBirthYear] = useState('2026년');
+  const [birthMonth, setBirthMonth] = useState('3월');
+  const [birthDay, setBirthDay] = useState('25일');
+  const [academicGrades, setAcademicGrade] = useState('4학년');
+  const [semesters, setSemesters] = useState('1학기');
+  const [graduationYears, setGraduationYears] = useState('2027년');
+  const [graduationMonth, setGraduationMonth] = useState('8월');
 
   const handleAddDegree = () => {
     setAdditionalDegrees([...additionalDegrees, '']);
@@ -28,9 +35,19 @@ export const PersonalInfoSection = () => {
         <Textfield placeholder="보아즈 디자인 노예" />
 
         <div className={styles.row}>
-          <DropdownField options={BIRTH_YEARS} defaultValue="2026년" />
-          <DropdownField options={MONTHS} defaultValue="3월" />
-          <DropdownField options={DAYS} defaultValue="25일" />
+          <DropdownField
+            label="연도"
+            options={BIRTH_YEARS}
+            defaultValue={birthYear}
+            onChange={setBirthYear}
+          />
+          <DropdownField
+            label="월"
+            options={MONTHS}
+            defaultValue={birthMonth}
+            onChange={setBirthMonth}
+          />
+          <DropdownField label="일" options={DAYS} defaultValue={birthDay} onChange={setBirthDay} />
         </div>
       </section>
 
@@ -55,6 +72,11 @@ export const PersonalInfoSection = () => {
         <h2 className={styles.sectionTitle}>학력사항</h2>
         <Textfield placeholder="재학 학교명" />
         <Textfield placeholder="컴퓨터공학과" />
+
+        {additionalDegrees.map((_, index) => (
+          <Textfield key={index} placeholder="학과명" />
+        ))}
+
         <div className={styles.addDegree} onClick={handleAddDegree}>
           + 복수/부전공
         </div>
@@ -63,16 +85,36 @@ export const PersonalInfoSection = () => {
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>마지막 재학 학기</h2>
         <div className={styles.row}>
-          <DropdownField options={ACADEMIC_GRADES} defaultValue="4학년" />
-          <DropdownField options={SEMESTERS} defaultValue="1학기" />
+          <DropdownField
+            label="재학학년"
+            options={ACADEMIC_GRADES}
+            defaultValue={academicGrades}
+            onChange={setAcademicGrade}
+          />
+          <DropdownField
+            label="재학학기"
+            options={SEMESTERS}
+            defaultValue={semesters}
+            onChange={setSemesters}
+          />
         </div>
       </section>
 
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>졸업 예정시점</h2>
         <div className={styles.row}>
-          <DropdownField options={GRADUATION_YEARS} defaultValue="2026년" />
-          <DropdownField options={MONTHS} defaultValue="8월" />
+          <DropdownField
+            label="졸업년도"
+            options={GRADUATION_YEARS}
+            defaultValue={graduationYears}
+            onChange={setGraduationYears}
+          />
+          <DropdownField
+            label="졸업월"
+            options={MONTHS}
+            defaultValue={graduationMonth}
+            onChange={setGraduationMonth}
+          />
         </div>
       </section>
 

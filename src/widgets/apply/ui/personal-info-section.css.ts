@@ -56,3 +56,22 @@ export const addDegree = style({
     color: themeVars.color.grayscale.white,
   },
 });
+
+export const dropdownWrapper = style({
+  position: 'relative',
+  flex: 1,
+  
+  selectors: {
+    '& button': {
+      backgroundColor: 'transparent !important',
+      border: 'none !important',
+      padding: '0 !important',
+      height: 'auto !important',
+      textAlign: 'left',
+    },
+    '& div[class*="menuContainer"]': {
+      top: '100% !important',
+      marginTop: '0.8rem',
+    }
+  }
+});
