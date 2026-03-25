@@ -1,7 +1,7 @@
 import ChatIcon from '@/shared/assets/icons/ic_chat.svg?react';
 import Button from '@/shared/components/button/button';
 
-import * as styles from '@/pages/faq-page.css';
+import * as styles from './faq-title-section.css';
 
 export const FAQTitleSection = () => (
   <div className={styles.titleContainer}>

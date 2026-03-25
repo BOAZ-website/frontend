@@ -1,4 +1,5 @@
 import { style, styleVariants } from '@vanilla-extract/css';
+
 import { themeVars } from '@/shared/styles/theme.css';
 import { typography } from '@/shared/styles/typography.css';
 
