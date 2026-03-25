@@ -1,19 +1,19 @@
 import type { ReactNode } from 'react';
 
-import * as styles from './valuecard.css';
+import * as styles from './target-card.css';
 
 interface ValueCardProps {
   icon: ReactNode;
   text: string;
 }
 
-const ValueCard = ({ icon, text }: ValueCardProps) => {
+const TargetCard = ({ icon, text }: ValueCardProps) => {
   return (
-    <div className={styles.cardContainer}>
+    <article className={styles.cardContainer}>
       <div className={styles.iconWrapper}>{icon}</div>
       <p className={styles.textWrapper}>{text}</p>
-    </div>
+    </article>
   );
 };
 
-export default ValueCard;
+export default TargetCard;

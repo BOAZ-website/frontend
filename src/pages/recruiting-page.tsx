@@ -1,5 +1,7 @@
 import RecruitingHeroSection from '@/widgets/recruiting/ui/recruiting-hero-section/recruiting-hero-section';
 import RecruitmentStatusSection from '@/widgets/recruiting/ui/recruitment-status-section/recruitment-status-section';
+import TargetSection from '@/widgets/recruiting/ui/target-section/target-section';
+import ValueSection from '@/widgets/recruiting/ui/value-section/value-section';
 
 import * as styles from './recruiting-page.css';
 
@@ -9,6 +11,12 @@ const RecruitingPage = () => {
       <RecruitingHeroSection />
       <section className={styles.statusSection}>
         <RecruitmentStatusSection startDate="2026-10-08" endDate="2026-12-10" isActive={true} />
+      </section>
+      <section className={styles.targetSection}>
+        <TargetSection />
+      </section>
+      <section className={styles.valueSection}>
+        <ValueSection />
       </section>
     </main>
   );
