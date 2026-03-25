@@ -1,6 +1,6 @@
 import Accordion from '@/shared/components/accordion/accordion';
 
-import { CATEGORIES, type CategoryType, type FaqItem } from './faq.types';
+import { CATEGORIES, type CategoryType, type FaqItem } from '../widgets/faq/faq.types';
 
 import * as styles from '@/pages/faq-page.css';
 
@@ -32,8 +32,8 @@ export const FAQContentSection = ({
     <article className={styles.listSection}>
       <div className={styles.accordionContainer}>
         {currentList.map((item) => (
-          <Accordion key={item.id} trigger={item.q}>
-            {item.a}
+          <Accordion key={item.id} trigger={item.question}>
+            {item.answer}
           </Accordion>
         ))}
       </div>
