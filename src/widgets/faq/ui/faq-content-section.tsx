@@ -1,8 +1,7 @@
 import Accordion from '@/shared/components/accordion/accordion';
-
 import { CATEGORIES, type CategoryType, type FaqItem } from '../faq.types';
 
-import * as styles from '@/pages/faq-page.css';
+import * as styles from './faq-content-section.css';
 
 interface FAQContentSectionProps {
   activeCategory: CategoryType;
