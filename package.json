@@ -13,6 +13,7 @@
     "format": "prettier --write \"src/**/*.{ts,tsx,css}\"",
     "preview": "vite preview",
     "check-types": "tsc -b --noEmit",
+    "prepare": "lefthook install",
     "generate:types": "openapi-typescript https://dev.bigdataboaz.com/api-docs -o ./src/shared/api/schema.d.ts"
   },
   "dependencies": {
@@ -42,6 +43,7 @@
     "eslint-plugin-react-refresh": "^0.4.24",
     "eslint-plugin-simple-import-sort": "^12.1.1",
     "globals": "^16.5.0",
+    "lefthook": "^2.1.4",
     "openapi-typescript": "^7.13.0",
     "postcss-styled-syntax": "^0.7.1",
     "prettier": "^3.8.1",
