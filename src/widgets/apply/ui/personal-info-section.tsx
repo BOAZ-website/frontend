@@ -15,7 +15,11 @@ import Textfield from '@/shared/components/textfield/textfield';
 
 import * as styles from './personal-info-section.css';
 
-export const PersonalInfoSection = () => {
+interface PersonalInfoSectionProps {
+  onNext: () => void;
+}
+
+export const PersonalInfoSection = ({ onNext }: PersonalInfoSectionProps) => {
   const [additionalDegrees, setAdditionalDegrees] = useState<string[]>([]);
   const [birthYear, setBirthYear] = useState('2026년');
   const [birthMonth, setBirthMonth] = useState('3월');
@@ -126,7 +130,7 @@ export const PersonalInfoSection = () => {
         </div>
       </section>
 
-      <div className={styles.footer}>
+      <div className={styles.footer} onClick={onNext} style={{ cursor: 'pointer' }}>
         <div>다음페이지</div> <ArrowRight />
       </div>
     </div>

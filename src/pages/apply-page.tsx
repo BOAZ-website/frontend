@@ -23,7 +23,13 @@ const ApplyPage = () => {
       />
 
       <section className={styles.content}>
-        {currentStep === 0 && <PersonalInfoSection />}
+        {currentStep === 0 && (
+          <PersonalInfoSection
+            onNext={function (): void {
+              throw new Error('Function not implemented.');
+            }}
+          />
+        )}
         {currentStep === 1 && <div>공통 질문 위젯 준비 중...</div>}
         {currentStep === 2 && <div>부문 질문 위젯 준비 중...</div>}
       </section>

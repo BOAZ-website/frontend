@@ -44,7 +44,18 @@ export const radioButton = style({
 export const footer = style({
   display: 'flex',
   justifyContent: 'flex-end',
+  cursor: 'pointer',
   ...typography.h4_bd_24,
+  transition: 'opacity 0.2s ease',
+
+  selectors: {
+    '&:hover': {
+      opacity: 0.7,
+    },
+    '&:active': {
+      transform: 'scale(0.98)',
+    },
+  },
 });
 
 export const addDegree = style({
@@ -60,18 +71,4 @@ export const addDegree = style({
 export const dropdownWrapper = style({
   position: 'relative',
   flex: 1,
-  
-  selectors: {
-    '& button': {
-      backgroundColor: 'transparent !important',
-      border: 'none !important',
-      padding: '0 !important',
-      height: 'auto !important',
-      textAlign: 'left',
-    },
-    '& div[class*="menuContainer"]': {
-      top: '100% !important',
-      marginTop: '0.8rem',
-    }
-  }
 });
