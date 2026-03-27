@@ -20,9 +20,7 @@ export const EngineeringQuestionSection = ({ onPrev, onNext }: EngineeringQuesti
   return (
     <div className={styles.container}>
       <section className={styles.section}>
-        <div className={styles.sectionExperienceTitle}>
-          데이터 엔지니어링 관련 경험
-        </div>
+        <div className={styles.sectionExperienceTitle}>데이터 엔지니어링 관련 경험</div>
       </section>
       <section className={styles.section}>
         <div className={styles.titleContainer}>

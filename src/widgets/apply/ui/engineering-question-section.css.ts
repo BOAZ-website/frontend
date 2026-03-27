@@ -36,7 +36,7 @@ export const sectionDescription = style({
 export const sectionExperienceTitle = style({
   color: themeVars.color.grayscale.white,
   ...typography.h3_sb_30,
-})
+});
 
 export const footer = style({
   display: 'flex',
