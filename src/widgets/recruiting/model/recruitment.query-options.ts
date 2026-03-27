@@ -11,10 +11,10 @@ export const RECRUITMENT_QUERY_OPTIONS = {
       queryFn: getRecruitmentStatus,
     }),
 
-  DETAIL: (term: number) =>
+  DETAIL: (term: number | undefined) =>
     queryOptions({
-      queryKey: RECRUITMENT_QUERY_KEY.DETAIL(term),
-      queryFn: () => getRecruitment(term),
-      enabled: !!term,
+      queryKey: RECRUITMENT_QUERY_KEY.DETAIL(term ?? 0),
+      queryFn: () => getRecruitment(term!),
+      enabled: term !== undefined && term !== 0,
     }),
 };

@@ -11,8 +11,7 @@ import * as styles from './recruitment-status-section.css';
 
 const RecruitmentStatusSection = () => {
   const { data: status } = useQuery(RECRUITMENT_QUERY_OPTIONS.STATUS());
-
-  const { data: recruitment } = useQuery(RECRUITMENT_QUERY_OPTIONS.DETAIL(status?.term ?? 0));
+  const { data: recruitment } = useQuery(RECRUITMENT_QUERY_OPTIONS.DETAIL(status?.term));
 
   if (!status || !recruitment) {
     return null;
