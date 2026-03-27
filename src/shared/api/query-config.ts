@@ -1,8 +1,9 @@
-import { HTTP_STATUS } from '@/shared/constants/http-status';
+import { HTTP_STATUS } from '@/shared/constant/http-status';
 import { isAxiosError } from '@/shared/utils/is-axios-error';
 
 const RETRY_BLACKLIST = new Set<number>([
   HTTP_STATUS.BAD_REQUEST,
+  HTTP_STATUS.FORBIDDEN,
   HTTP_STATUS.NOT_FOUND,
   HTTP_STATUS.CONFLICT,
 ]);
