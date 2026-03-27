@@ -33,6 +33,11 @@ export const sectionDescription = style({
   ...typography.text_rg_14,
 });
 
+export const sectionExperienceTitle = style({
+  color: themeVars.color.grayscale.white,
+  ...typography.h3_sb_30,
+})
+
 export const footer = style({
   display: 'flex',
   justifyContent: 'space-between', // 이전/다음 페이지 양끝 정렬
@@ -52,6 +57,20 @@ export const navButton = style({
   selectors: {
     '&:hover': {
       opacity: 0.7,
+    },
+  },
+});
+
+export const addProject = style({
+  color: themeVars.color.grayscale[400],
+  cursor: 'pointer',
+  marginTop: '-1.2rem',
+  ...typography.text_rg_14,
+  alignSelf: 'flex-start',
+
+  selectors: {
+    '&:hover': {
+      color: themeVars.color.grayscale.white,
     },
   },
 });
