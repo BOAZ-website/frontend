@@ -257,7 +257,7 @@ export interface components {
     };
     ApplicationRequest: {
       /** @enum {string} */
-      track: '전부문' | '시각화' | '분석' | '엔지니어링';
+      track: 'ALL' | 'ANALYSIS' | 'VISUALIZATION' | 'ENGINEERING';
       name: string;
       email: string;
       phone: string;
@@ -270,7 +270,7 @@ export interface components {
       /** Format: int32 */
       last_semester: number;
       /** @enum {string} */
-      military_status: '필_또는_면제' | '미필';
+      military_status: 'COMPLETED_OR_EXEMPT' | 'NOT_COMPLETED';
       birth_date: string;
       graduation_date: string;
       grad_school_plan: boolean;
@@ -456,7 +456,7 @@ export interface components {
       title?: string;
       teamName?: string;
       /** @enum {string} */
-      track?: '전부문' | '시각화' | '분석' | '엔지니어링';
+      track?: 'ALL' | 'ANALYSIS' | 'VISUALIZATION' | 'ENGINEERING';
       imageUrl?: string;
       links?: {
         [key: string]: string;
@@ -508,7 +508,7 @@ export interface components {
        * @example 지원
        * @enum {string}
        */
-      category?: '지원' | '활동' | '기타';
+      category?: 'RECRUITMENT' | 'ACTIVITY' | 'ETC';
       /**
        * Format: int32
        * @description 정렬 순서
@@ -600,7 +600,7 @@ export interface operations {
   getReviews: {
     parameters: {
       query?: {
-        track?: string;
+        track?: 'ALL' | 'ANALYSIS' | 'VISUALIZATION' | 'ENGINEERING';
         term?: number;
       };
       header?: never;
@@ -666,7 +666,7 @@ export interface operations {
     parameters: {
       query: {
         recruitmentId: number;
-        track: '전부문' | '시각화' | '분석' | '엔지니어링';
+        track: 'ALL' | 'ANALYSIS' | 'VISUALIZATION' | 'ENGINEERING';
       };
       header?: never;
       path?: never;
@@ -708,7 +708,7 @@ export interface operations {
   getCurriculums: {
     parameters: {
       query?: {
-        track?: string;
+        track?: 'ALL' | 'ANALYSIS' | 'VISUALIZATION' | 'ENGINEERING';
       };
       header?: never;
       path?: never;
@@ -730,7 +730,7 @@ export interface operations {
   getProjects: {
     parameters: {
       query?: {
-        track?: '전부문' | '시각화' | '분석' | '엔지니어링';
+        track?: 'ALL' | 'ANALYSIS' | 'VISUALIZATION' | 'ENGINEERING';
         term?: number;
         keyword?: string;
         page?: number;
@@ -756,7 +756,7 @@ export interface operations {
   getFaqs: {
     parameters: {
       query: {
-        category: '지원' | '활동' | '기타';
+        category: 'RECRUITMENT' | 'ACTIVITY' | 'ETC';
       };
       header?: never;
       path?: never;
@@ -778,7 +778,7 @@ export interface operations {
   getBlogs: {
     parameters: {
       query?: {
-        track?: '전부문' | '시각화' | '분석' | '엔지니어링';
+        track?: 'ALL' | 'ANALYSIS' | 'VISUALIZATION' | 'ENGINEERING';
         keyword?: string;
         page?: number;
         size?: number;
