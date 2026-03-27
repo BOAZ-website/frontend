@@ -3,6 +3,7 @@ import ArrowRight from '@/shared/assets/icons/ic_arrow_right.svg?react';
 import TextField from '@/shared/components/textfield/textfield';
 
 import * as styles from './common-question-section.css';
+import TextFieldWithCounter from '@/shared/components/textfield-with-counter/textfield-with-counter';
 
 interface CommonQuestionSectionProps {
   onPrev: () => void;
@@ -19,7 +20,7 @@ export const CommonQuestionSection = ({ onPrev, onNext }: CommonQuestionSectionP
           </h2>
           <p className={styles.sectionDescription}>(공백 포함 500자 이내)</p>
         </div>
-        <TextField placeholder="내용을 입력해주세요." maxLength={500} />
+        <TextFieldWithCounter maxLength={500} />
       </section>
 
       <section className={styles.section}>
@@ -29,7 +30,7 @@ export const CommonQuestionSection = ({ onPrev, onNext }: CommonQuestionSectionP
           </h2>
           <p className={styles.sectionDescription}>(공백 포함 500자 이내)</p>
         </div>
-        <TextField placeholder="내용을 입력해주세요." maxLength={500} />
+        <TextFieldWithCounter maxLength={500} />
       </section>
 
       <section className={styles.section}>
@@ -40,7 +41,7 @@ export const CommonQuestionSection = ({ onPrev, onNext }: CommonQuestionSectionP
           </h2>
           <p className={styles.sectionDescription}>(공백 포함 500자 이내)</p>
         </div>
-        <TextField placeholder="내용을 입력해주세요." maxLength={500} />
+        <TextFieldWithCounter maxLength={500} />
       </section>
 
       <section className={styles.section}>
@@ -50,7 +51,7 @@ export const CommonQuestionSection = ({ onPrev, onNext }: CommonQuestionSectionP
           </h2>
           <p className={styles.sectionDescription}>(공백 포함 400자 이내)</p>
         </div>
-        <TextField placeholder="내용을 입력해주세요." maxLength={500} />
+        <TextFieldWithCounter maxLength={400} />
       </section>
 
       <div className={styles.footer}>

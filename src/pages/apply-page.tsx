@@ -4,6 +4,7 @@ import { ApplyTitleSection } from '@/widgets/apply/ui/apply-title-section';
 import { PersonalInfoSection } from '@/widgets/apply/ui/personal-info-section';
 
 import * as styles from './apply-page.css'; // 페이지 전체 레이아웃 스타일
+import { CommonQuestionSection } from '@/widgets/apply/ui/common-question-section';
 
 const STEPS = ['지원자 정보', '공통 질문', '부문 질문'] as const;
 
@@ -30,8 +31,18 @@ const ApplyPage = () => {
             }}
           />
         )}
-        {currentStep === 1 && <div>공통 질문 위젯 준비 중...</div>}
+        <section className={styles.content}>
+        {currentStep === 1 && (
+          <CommonQuestionSection
+              onNext={function (): void {
+                throw new Error('Function not implemented.');
+              } } onPrev={function (): void {
+                throw new Error('Function not implemented.');
+              } }          
+          />
+        )}
         {currentStep === 2 && <div>부문 질문 위젯 준비 중...</div>}
+        </section>
       </section>
     </main>
   );
