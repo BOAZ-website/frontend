@@ -4,14 +4,18 @@ import * as styles from './value-card.css';
 
 interface ValueCardProps {
   icon: ReactNode;
-  text: string;
+  title: string;
+  description: string;
 }
 
-const ValueCard = ({ icon, text }: ValueCardProps) => {
+const ValueCard = ({ icon, title, description }: ValueCardProps) => {
   return (
     <article className={styles.cardContainer}>
       <div className={styles.iconWrapper}>{icon}</div>
-      <p className={styles.textWrapper}>{text}</p>
+      <div className={styles.textWrapper}>
+        <h3 className={styles.title}>{title}</h3>
+        <p className={styles.description}>{description}</p>
+      </div>
     </article>
   );
 };

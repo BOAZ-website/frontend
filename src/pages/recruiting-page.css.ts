@@ -24,3 +24,11 @@ export const applySection = style({
 export const bottomSection = style({
   marginTop: '25rem',
 });
+
+export const targetSection = style({
+  marginTop: '12.5rem',
+});
+
+export const valueSection = style({
+  marginTop: '25rem',
+});
