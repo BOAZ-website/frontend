@@ -64,9 +64,10 @@ export const EngineeringQuestionSection = ({ onPrev, onNext }: EngineeringQuesti
       <section className={styles.section}>
         <div className={styles.sectionExperienceTitle}>언어 (Python, Java, Scala 중 1)</div>
         <div className={styles.radioButton}>
-          <RadioButton label="Python" value="python" />
-          <RadioButton label="Java" value="java" />
-          <RadioButton label="Scala" value="scala" />
+          <RadioButton label="경험 없음" value="no" />
+          <RadioButton label="학교 수업 수강 경험 있음" value="yesinschool" />
+          <RadioButton label="관련 프로젝트 경험 있음" value="yesinproject" />
+          <RadioButton label="실무에서 사용 중임" value="usingfield" />
         </div>
       </section>
       <section className={styles.section}>
