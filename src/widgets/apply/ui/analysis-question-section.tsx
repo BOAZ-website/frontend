@@ -22,8 +22,8 @@ export const AnalysisQuestionSection = ({ onPrev, onNext }: AnalysisQuestionSect
       <section className={styles.section}>
         <div className={styles.titleContainer}>
           <h2 className={styles.sectionTitle}>
-            [빅데이터 / 인공지능 / 머신러닝 / 통계 및 수학]
-            관련 수강 과목 혹은 세미나 경험이 있다면 적어주세요.
+            [빅데이터 / 인공지능 / 머신러닝 / 통계 및 수학] 관련 수강 과목 혹은 세미나 경험이 있다면
+            적어주세요.
           </h2>
           <p className={styles.sectionDescription}>(공백 포함 300자 이내)</p>
         </div>
@@ -33,8 +33,8 @@ export const AnalysisQuestionSection = ({ onPrev, onNext }: AnalysisQuestionSect
       <section className={styles.section}>
         <div className={styles.titleContainer}>
           <h2 className={styles.sectionTitle}>
-            본인이 진행했던 [머신러닝 / 딥러닝 / 데이터분석] 관련 프로젝트를 소개해주세요.
-            만약 프로젝트 경험이 없다면 관련 활동, 학습 경험을 구체적으로 서술해주세요.
+            본인이 진행했던 [머신러닝 / 딥러닝 / 데이터분석] 관련 프로젝트를 소개해주세요. 만약
+            프로젝트 경험이 없다면 관련 활동, 학습 경험을 구체적으로 서술해주세요.
           </h2>
           <p className={styles.sectionDescription}>(공백 포함 700자 이내)</p>
         </div>
@@ -44,8 +44,8 @@ export const AnalysisQuestionSection = ({ onPrev, onNext }: AnalysisQuestionSect
       <section className={styles.section}>
         <div className={styles.titleContainer}>
           <h2 className={styles.sectionTitle}>
-            최근 학습한 기술/모델/논문 중 가장 흥미롭던 내용을 하나 선택해, 
-            어떤 부분이 인상적이었는지 구체적으로 서술해주세요.
+            최근 학습한 기술/모델/논문 중 가장 흥미롭던 내용을 하나 선택해, 어떤 부분이
+            인상적이었는지 구체적으로 서술해주세요.
           </h2>
           <p className={styles.sectionDescription}>(공백 포함 700자 이내)</p>
         </div>
