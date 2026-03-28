@@ -74,3 +74,15 @@ export const addProject = style({
     },
   },
 });
+
+export const stackQuestion = style({
+  color: themeVars.color.primary[100],
+  ...typography.h4_bd_24,
+});
+
+export const radioButton = style({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '2rem',
+  marginTop: '0.8rem',
+});

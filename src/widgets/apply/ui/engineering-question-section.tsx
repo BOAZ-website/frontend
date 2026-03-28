@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 import ArrowLeft from '@/shared/assets/icons/ic_arrow_left.svg?react';
 import ArrowRight from '@/shared/assets/icons/ic_arrow_right.svg?react';
+import RadioButton from '@/shared/components/radio-button/radio-button';
 import TextFieldWithCounter from '@/shared/components/textfield-with-counter/textfield-with-counter';
 
 import * as styles from '@/widgets/apply/ui/engineering-question-section.css';
@@ -21,6 +22,52 @@ export const EngineeringQuestionSection = ({ onPrev, onNext }: EngineeringQuesti
     <div className={styles.container}>
       <section className={styles.section}>
         <div className={styles.sectionExperienceTitle}>데이터 엔지니어링 관련 경험</div>
+      </section>
+      <section className={styles.section}>
+        <div className={styles.stackQuestion}>데이터베이스(관계형 DB, NoSQL 등)</div>
+        <div className={styles.radioButton}>
+          <RadioButton label="경험 없음" value="no" />
+          <RadioButton label="학교 수업 수강 경험 있음" value="yesinschool" />
+          <RadioButton label="관련 프로젝트 경험 있음" value="yesinproject" />
+          <RadioButton label="실무에서 사용 중임" value="usingfield" />
+        </div>
+      </section>
+      <section className={styles.section}>
+        <div className={styles.stackQuestion}>서버 및 클라우드 서비스(Linux, Docker, AWS 등)</div>
+        <div className={styles.radioButton}>
+          <RadioButton label="경험 없음" value="no" />
+          <RadioButton label="학교 수업 수강 경험 있음" value="yesinschool" />
+          <RadioButton label="관련 프로젝트 경험 있음" value="yesinproject" />
+          <RadioButton label="실무에서 사용 중임" value="usingfield" />
+        </div>
+      </section>
+      <section className={styles.section}>
+        <div className={styles.stackQuestion}>데이터 엔지니어링 오픈 소스(Spark, Kafaka 등)</div>
+        <div className={styles.radioButton}>
+          <RadioButton label="경험 없음" value="no" />
+          <RadioButton label="학교 수업 수강 경험 있음" value="yesinschool" />
+          <RadioButton label="관련 프로젝트 경험 있음" value="yesinproject" />
+          <RadioButton label="실무에서 사용 중임" value="usingfield" />
+        </div>
+      </section>
+      <section className={styles.section}>
+        <div className={styles.sectionExperienceTitle}>
+          컨테이너 오케스트레이션 도구(Kubernetes 등)
+        </div>
+        <div className={styles.radioButton}>
+          <RadioButton label="경험 없음" value="no" />
+          <RadioButton label="학교 수업 수강 경험 있음" value="yesinschool" />
+          <RadioButton label="관련 프로젝트 경험 있음" value="yesinproject" />
+          <RadioButton label="실무에서 사용 중임" value="usingfield" />
+        </div>
+      </section>
+      <section className={styles.section}>
+        <div className={styles.sectionExperienceTitle}>언어 (Python, Java, Scala 중 1)</div>
+        <div className={styles.radioButton}>
+          <RadioButton label="Python" value="python" />
+          <RadioButton label="Java" value="java" />
+          <RadioButton label="Scala" value="scala" />
+        </div>
       </section>
       <section className={styles.section}>
         <div className={styles.titleContainer}>
@@ -60,16 +107,6 @@ export const EngineeringQuestionSection = ({ onPrev, onNext }: EngineeringQuesti
         <div className={styles.addProject} onClick={handleAddProject}>
           + 프로젝트 추가하기
         </div>
-      </section>
-
-      <section className={styles.section}>
-        <div className={styles.titleContainer}>
-          <h2 className={styles.sectionTitle}>
-            BOAZ 참여를 통해 기대하는 역량 성장 및 경험을 서술해주세요.
-          </h2>
-          <p className={styles.sectionDescription}>(공백 포함 400자 이내)</p>
-        </div>
-        <TextFieldWithCounter maxLength={400} />
       </section>
 
       <div className={styles.footer}>
