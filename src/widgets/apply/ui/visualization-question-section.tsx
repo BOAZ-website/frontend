@@ -12,7 +12,10 @@ interface VisualizationQuestionSectionProps {
   onNext: () => void;
 }
 
-export const VisualizationQuestionSection = ({ onPrev, onNext }: VisualizationQuestionSectionProps) => {
+export const VisualizationQuestionSection = ({
+  onPrev,
+  onNext,
+}: VisualizationQuestionSectionProps) => {
   const [additionalProjects, setAdditionalProjects] = useState<string[]>([]);
 
   const handleAddProject = () => {
@@ -90,7 +93,8 @@ export const VisualizationQuestionSection = ({ onPrev, onNext }: VisualizationQu
       <section className={styles.section}>
         <div className={styles.titleContainer}>
           <h2 className={styles.sectionTitle}>
-            본인이 진행했던 시각화를 통해 인사이트를 도출한 경험을 소개해주세요. 만약 경험이 없다면 프로젝트 혹은 시각화와 관련한 공부 경험을 구체적으로 서술해주세요.
+            본인이 진행했던 시각화를 통해 인사이트를 도출한 경험을 소개해주세요. 만약 경험이 없다면
+            프로젝트 혹은 시각화와 관련한 공부 경험을 구체적으로 서술해주세요.
           </h2>
           <p className={styles.sectionDescription}>(공백 포함 700자 이내)</p>
         </div>
