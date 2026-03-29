@@ -13,7 +13,7 @@ const RecruitingPage = () => {
     <main className={styles.page}>
       <RecruitingHeroSection />
       <section className={styles.statusSection}>
-        <RecruitmentStatusSection startDate="2026-10-08" endDate="2026-12-10" isActive={true} />
+        <RecruitmentStatusSection />
       </section>
       <section className={styles.targetSection}>
         <TargetSection />

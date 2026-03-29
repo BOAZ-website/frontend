@@ -1,0 +1,22 @@
+export const END_POINT = {
+  RECRUITMENT: {
+    GET_STATUS: 'api/v1/recruitment/status',
+    GET_DETAIL: 'api/v1/recruitment/{term}',
+    GET_DEADLINE: 'api/v1/recruitment/deadline',
+    GET_QUESTIONS: 'api/v1/recruitment/questions',
+    POST_SUBSCRIPTION: 'api/v1/recruitment/subscriptions',
+    POST_APPLICATION: 'api/v1/recruitment/applications',
+  },
+  REVIEW: {
+    GET_REVIEWS: 'api/v1/reviews',
+  },
+  CURRICULUM: {
+    GET_CURRICULUMS: 'api/v1/curriculums',
+  },
+  ARCHIVING: {
+    GET_PROJECTS: 'api/v1/archiving/projects',
+    GET_FAQS: 'api/v1/archiving/faqs',
+    GET_BLOGS: 'api/v1/archiving/blogs',
+    GET_ACTIVITIES: 'api/v1/archiving/activities',
+  },
+} as const;

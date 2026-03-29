@@ -7,11 +7,15 @@ if (!commitMsgFilePath) {
 
 const commitMessage = fs.readFileSync(commitMsgFilePath, 'utf8').trim();
 
-const mergePatterns = [/^Merge pull request #\d+/, /^Merge branch/, /^Merge remote-tracking branch/];
+const mergePatterns = [
+  /^Merge pull request #\d+/,
+  /^Merge branch/,
+  /^Merge remote-tracking branch/,
+];
 const isMergeCommit = mergePatterns.some((pattern) => pattern.test(commitMessage));
 
 if (isMergeCommit) {
-  console.log('Merge 성공!');
+  console.log('🎉 Merge 성공!');
   process.exit(0);
 }
 
@@ -25,6 +29,9 @@ const allowedTypes = [
   'chore',
   'test',
   'deploy',
+  'add',
+  'del',
+  'types',
 ];
 
 const firstLine = commitMessage.split('\n')[0] ?? '';
@@ -45,9 +52,9 @@ if (!allowedTypes.includes(type.toLowerCase())) {
   console.error(`
 ❌ 커밋 실패!
 ❗ "${type}"는 허용되지 않은 커밋 타입입니다.
+허용된 타입: ${allowedTypes.join(', ')}
 `);
   process.exit(1);
 }
 
 console.log('커밋 성공!');
-
