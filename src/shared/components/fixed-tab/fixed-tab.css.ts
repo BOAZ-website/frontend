@@ -1,7 +1,14 @@
+import { style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 
 import { themeVars } from '@/shared/styles/theme.css';
 import { typography } from '@/shared/styles/typography.css';
+
+export const container = style({
+  display: 'flex',
+  gap: '8rem',
+  flexDirection: 'row',
+});
 
 export const fixedTab = recipe({
   base: {

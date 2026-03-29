@@ -6,6 +6,7 @@ export const wrapper = style({
   position: 'relative',
   maxWidth: '101.6rem',
   width: '100%',
+  margin: '0 auto',
 
   '::before': {
     content: '""',

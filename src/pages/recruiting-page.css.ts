@@ -11,6 +11,20 @@ export const statusSection = style({
   marginTop: '17rem',
 });
 
+export const timelineSection = style({
+  marginTop: '25rem',
+  width: '100%',
+});
+
+export const applySection = style({
+  marginTop: '25rem',
+  flexDirection: 'row',
+});
+
+export const bottomSection = style({
+  marginTop: '25rem',
+});
+
 export const targetSection = style({
   marginTop: '12.5rem',
 });
