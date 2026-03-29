@@ -245,7 +245,7 @@ export interface components {
       /** Format: int32 */
       status?: number;
       data?: components['schemas']['SubscriptionResponse'];
-      errorCode?: string;
+      error_code?: string;
       message?: string;
     };
     SubscriptionResponse: {
@@ -275,12 +275,12 @@ export interface components {
       graduation_date: string;
       grad_school_plan: boolean;
     };
-    JsonNode: Record<string, never>;
+    JsonNode: unknown;
     ApiResponseApplicationResponse: {
       /** Format: int32 */
       status?: number;
       data?: components['schemas']['ApplicationResponse'];
-      errorCode?: string;
+      error_code?: string;
       message?: string;
     };
     ApplicationResponse: {
@@ -293,14 +293,14 @@ export interface components {
       /** Format: int32 */
       status?: number;
       data?: Record<string, never>;
-      errorCode?: string;
+      error_code?: string;
       message?: string;
     };
     ApiResponseListReviewResponse: {
       /** Format: int32 */
       status?: number;
       data?: components['schemas']['ReviewResponse'][];
-      errorCode?: string;
+      error_code?: string;
       message?: string;
     };
     ReviewResponse: {
@@ -342,29 +342,29 @@ export interface components {
       /** Format: int32 */
       status?: number;
       data?: components['schemas']['RecruitmentResponse'];
-      errorCode?: string;
+      error_code?: string;
       message?: string;
     };
     RecruitmentResponse: {
       /** Format: int32 */
       term?: number;
       /** Format: date-time */
-      startDate?: string;
+      start_date?: string;
       /** Format: date-time */
-      endDate?: string;
+      end_date?: string;
       schedule?: components['schemas']['JsonNode'];
-      brochureUrl?: string;
-      isActive?: boolean;
+      brochure_url?: string;
+      is_active?: boolean;
     };
     ApiResponseRecruitmentStatusResponse: {
       /** Format: int32 */
       status?: number;
       data?: components['schemas']['RecruitmentStatusResponse'];
-      errorCode?: string;
+      error_code?: string;
       message?: string;
     };
     RecruitmentStatusResponse: {
-      isActive?: boolean;
+      is_active?: boolean;
       /** Format: int32 */
       term?: number;
     };
@@ -372,26 +372,26 @@ export interface components {
       /** Format: int32 */
       status?: number;
       data?: components['schemas']['QuestionResponse'][];
-      errorCode?: string;
+      error_code?: string;
       message?: string;
     };
     QuestionResponse: {
-      questionId?: string;
+      question_id?: string;
       category?: string;
       type?: string;
       content?: string;
       /** Format: int32 */
-      limitLength?: number;
+      limit_length?: number;
       metadata?: components['schemas']['JsonNode'];
       /** Format: int32 */
-      orderNum?: number;
-      isRequired?: boolean;
+      order_num?: number;
+      is_required?: boolean;
     };
     ApiResponseDeadlineResponse: {
       /** Format: int32 */
       status?: number;
       data?: components['schemas']['DeadlineResponse'];
-      errorCode?: string;
+      error_code?: string;
       message?: string;
     };
     DeadlineResponse: {
@@ -404,7 +404,7 @@ export interface components {
       /** Format: int32 */
       status?: number;
       data?: components['schemas']['CurriculumResponse'][];
-      errorCode?: string;
+      error_code?: string;
       message?: string;
     };
     CurriculumResponse: {
@@ -423,6 +423,7 @@ export interface components {
       /** @description 커리큘럼 단계 목록 */
       curriculum_steps?: components['schemas']['CurriculumStepResponse'][];
     };
+    /** @description 커리큘럼 단계 목록 */
     CurriculumStepResponse: {
       /**
        * Format: int32
@@ -445,7 +446,7 @@ export interface components {
       /** Format: int32 */
       status?: number;
       data?: components['schemas']['ArchivePageResponse'];
-      errorCode?: string;
+      error_code?: string;
       message?: string;
     };
     ArchiveItemResponse: {
@@ -454,36 +455,36 @@ export interface components {
       /** Format: int32 */
       term?: number;
       title?: string;
-      teamName?: string;
+      team_name?: string;
       /** @enum {string} */
       track?: 'ALL' | 'ANALYSIS' | 'VISUALIZATION' | 'ENGINEERING';
-      imageUrl?: string;
+      image_url?: string;
       links?: {
         [key: string]: string;
       };
       /** Format: date */
-      contentDate?: string;
+      content_date?: string;
     };
     ArchivePageResponse: {
       /** Format: int32 */
-      currentPage?: number;
+      current_page?: number;
       /** Format: int32 */
-      totalPages?: number;
+      total_pages?: number;
       /** Format: int32 */
       size?: number;
       /** Format: int32 */
-      currentSize?: number;
+      current_size?: number;
       /** Format: int64 */
-      totalSize?: number;
-      hasPrevious?: boolean;
-      hasNext?: boolean;
+      total_size?: number;
+      has_previous?: boolean;
+      has_next?: boolean;
       posts?: components['schemas']['ArchiveItemResponse'][];
     };
     ApiResponseListFaqResponse: {
       /** Format: int32 */
       status?: number;
       data?: components['schemas']['FaqResponse'][];
-      errorCode?: string;
+      error_code?: string;
       message?: string;
     };
     FaqResponse: {
