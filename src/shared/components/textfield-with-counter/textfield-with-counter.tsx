@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { ChangeEvent, ComponentProps } from 'react';
 
 import WarningIcon from '@/shared/assets/icons/ic_warning.svg?react';
@@ -17,9 +17,18 @@ interface TextFieldWithCounterProps extends Omit<
 
 const TextFieldWithCounter = ({ maxLength, ...textareaProps }: TextFieldWithCounterProps) => {
   const [value, setValue] = useState('');
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const isOverLimit = value.length > maxLength;
   const isCompleted = value.length > 0 && !isOverLimit;
+
+  useEffect(() => {
+    const textarea = textareaRef.current;
+    if (textarea) {
+      textarea.style.height = 'auto'; // 높이 초기화
+      textarea.style.height = `${textarea.scrollHeight}px`; // 내용 높이만큼 설정
+    }
+  }, [value]);
 
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setValue(e.target.value);
@@ -29,6 +38,7 @@ const TextFieldWithCounter = ({ maxLength, ...textareaProps }: TextFieldWithCoun
     <div className={styles.textFieldWithCounterWrapper}>
       <TextField
         {...textareaProps}
+        ref={textareaRef}
         value={value}
         isError={isOverLimit}
         isCompleted={isCompleted}
