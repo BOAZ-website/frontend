@@ -7,7 +7,7 @@ interface CardProps {
   generation: string;
 }
 
-const Card = ({ imageSrc, title, date, generation }: CardProps) => {
+const ActiveCard = ({ imageSrc, title, date, generation }: CardProps) => {
   return (
     <article className={styles.cardContainer}>
       {imageSrc ? (
@@ -21,11 +21,13 @@ const Card = ({ imageSrc, title, date, generation }: CardProps) => {
 
         <div className={styles.bottomInfo}>
           <span className={styles.date}>{date}</span>
-          <div className={styles.tag}>{generation}기</div>
+          <button className={styles.tagButton({ variant: 'mini', color: 'outlined' })}>
+            {generation}기
+          </button>
         </div>
       </div>
     </article>
   );
 };
 
-export default Card;
+export default ActiveCard;
