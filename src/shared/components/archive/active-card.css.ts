@@ -14,7 +14,7 @@ export const cardContainer = style({
   overflow: 'hidden',
   backgroundColor: themeVars.color.grayscale[900],
 
-  border: `2px solid transparent`, 
+  border: `2px solid transparent`,
   transition: 'border-color 0.2s ease-in-out',
   cursor: 'pointer',
 
