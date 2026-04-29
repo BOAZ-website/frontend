@@ -10,9 +10,19 @@ export const cardContainer = style({
   width: '33.3rem',
   height: '35rem',
   borderRadius: '2rem',
-  border: `1px solid ${themeVars.color.grayscale[800]}`,
+  //border: `1px solid ${themeVars.color.grayscale[800]}`,
   overflow: 'hidden',
   backgroundColor: themeVars.color.grayscale[900],
+
+  border: `2px solid transparent`, 
+  transition: 'border-color 0.2s ease-in-out',
+  cursor: 'pointer',
+
+  selectors: {
+    [`&:hover`]: {
+      borderColor: themeVars.color.grayscale[800],
+    },
+  },
 });
 
 export const imageSection = style({
@@ -27,8 +37,7 @@ export const contentSection = style({
   display: 'flex',
   flexDirection: 'column',
   flex: 1,
-  padding: '2.0rem',
-  gap: '1.2rem',
+  padding: '1.2rem 1.0rem 0.8rem',
   justifyContent: 'space-between',
 });
 
