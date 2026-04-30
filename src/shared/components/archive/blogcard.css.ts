@@ -14,7 +14,7 @@ export const cardContainer = style({
   backgroundColor: themeVars.color.grayscale[900],
   padding: '3.2rem',
   gap: '4.8rem',
-  border: '2px solid transparent',
+  border: `2px solid ${themeVars.color.grayscale[800]}`,
   transition: 'all 0.3s ease-in-out',
   cursor: 'pointer',
   boxSizing: 'border-box',
@@ -23,16 +23,7 @@ export const cardContainer = style({
 
 export const tagWrapper = style({
   width: 'fit-content',
-  padding: '0.4rem 1.2rem',
-  display: 'inline-flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  gap: '1rem',
-  borderRadius: '2rem',
-  border: '1px solid var(--color-primary-100)',
-  marginBottom: '1.3rem',
-  marginTop: '2rem',
-  ...typography.text_rg_14,
+  marginBottom: '1.2rem',
 });
 
 export const textSection = style({
@@ -40,6 +31,7 @@ export const textSection = style({
   flexDirection: 'column',
   flex: 1,
   overflow: 'hidden',
+  height: '100%',
 });
 
 export const title = style({
@@ -63,6 +55,7 @@ export const description = style({
   display: '-webkit-box',
   WebkitLineClamp: 3,
   WebkitBoxOrient: 'vertical',
+  marginBottom: '1.2rem',
 });
 
 export const date = style({
@@ -78,7 +71,7 @@ export const imageSection = style({
   borderRadius: '1.7192rem',
   backgroundColor: themeVars.color.grayscale.white,
   overflow: 'hidden',
-  marginTop: 'center',
+  flexShrink: 0,
 });
 
 export const cardImage = style({
