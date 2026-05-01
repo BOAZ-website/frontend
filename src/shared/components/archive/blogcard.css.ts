@@ -45,6 +45,7 @@ export const title = style({
   WebkitLineClamp: 3,
   WebkitBoxOrient: 'vertical',
   flexShrink: 0,
+  fontWeight: 700,
 });
 
 export const description = style({
@@ -56,6 +57,7 @@ export const description = style({
   WebkitLineClamp: 3,
   WebkitBoxOrient: 'vertical',
   marginBottom: '1.2rem',
+  fontWeight: 400,
 });
 
 export const date = style({
