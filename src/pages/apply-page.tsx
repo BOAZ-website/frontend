@@ -3,12 +3,12 @@ import { useQuery } from '@tanstack/react-query';
 
 import { APPLY_QUERY_OPTIONS } from '@/widgets/apply/model/query-options';
 import { usePersonalInfoForm } from '@/widgets/apply/model/use-personal-info-form';
-import { AnalysisQuestionSection } from '@/widgets/apply/ui/analysis-question-section';
-import { ApplyTitleSection } from '@/widgets/apply/ui/apply-title-section';
-import { CommonQuestionSection } from '@/widgets/apply/ui/common-question-section';
-import { EngineeringQuestionSection } from '@/widgets/apply/ui/engineering-question-section';
-import { PersonalInfoSection } from '@/widgets/apply/ui/personal-info-section';
-import { VisualizationQuestionSection } from '@/widgets/apply/ui/visualization-question-section';
+import AnalysisQuestionSection from '@/widgets/apply/ui/analysis-question-section';
+import ApplyTitleSection from '@/widgets/apply/ui/apply-title-section';
+import CommonQuestionSection from '@/widgets/apply/ui/common-question-section';
+import EngineeringQuestionSection from '@/widgets/apply/ui/engineering-question-section';
+import PersonalInfoSection from '@/widgets/apply/ui/personal-info-section';
+import VisualizationQuestionSection from '@/widgets/apply/ui/visualization-question-section';
 import { useRecruitmentDeadline } from '@/shared/queries/use-recruitment-deadline';
 
 import * as styles from './apply-page.css';
