@@ -55,3 +55,9 @@ export const navButton = style({
     },
   },
 });
+
+export const errorText = style({
+  color: themeVars.color.error.red_100,
+  ...typography.text_rg_14,
+  textAlign: 'center',
+});

@@ -18,6 +18,19 @@ interface VisualizationQuestionSectionProps {
   onNext: () => void;
 }
 
+const isTableAnswerComplete = (question: QuestionResponse, answer: string): boolean => {
+  if (!answer) {
+    return false;
+  }
+  try {
+    const metadata = question.metadata as unknown as { rows: string[] };
+    const data = JSON.parse(answer) as Record<string, string>;
+    return metadata.rows.every((row) => !!data[row]);
+  } catch {
+    return false;
+  }
+};
+
 const VisualizationQuestionSection = ({
   questions,
   answers,
@@ -26,12 +39,27 @@ const VisualizationQuestionSection = ({
   onNext,
 }: VisualizationQuestionSectionProps) => {
   const [additionalProjectCount, setAdditionalProjectCount] = useState(0);
+  const [showError, setShowError] = useState(false);
 
   const sorted = [...questions].sort((a, b) => (a.order_num ?? 0) - (b.order_num ?? 0));
   const tableQuestions = sorted.filter((q) => q.type === 'TABLE');
   const textQuestions = sorted.filter((q) => q.type !== 'TABLE');
   const projectQuestion = textQuestions.at(-1);
   const regularTextQuestions = textQuestions.slice(0, -1);
+
+  const handleNext = () => {
+    const requiredQuestions = [...tableQuestions, ...textQuestions].filter((q) => q.is_required);
+    const allAnswered = requiredQuestions.every((q) => {
+      const answer = answers[String(q.question_id)] ?? '';
+      return q.type === 'TABLE' ? isTableAnswerComplete(q, answer) : answer.trim().length > 0;
+    });
+    if (!allAnswered) {
+      setShowError(true);
+      return;
+    }
+    setShowError(false);
+    onNext();
+  };
 
   return (
     <div className={styles.container}>
@@ -108,11 +136,13 @@ const VisualizationQuestionSection = ({
           );
         })()}
 
+      {showError && <p className={styles.errorText}>필수 항목을 모두 입력해주세요.</p>}
+
       <div className={styles.footer}>
         <div className={styles.navButton} onClick={onPrev}>
           <ArrowLeft /> 이전 페이지
         </div>
-        <div className={styles.navButton} onClick={onNext}>
+        <div className={styles.navButton} onClick={handleNext}>
           다음 페이지 <ArrowRight />
         </div>
       </div>

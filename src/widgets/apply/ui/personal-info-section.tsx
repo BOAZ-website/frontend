@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import {
   ACADEMIC_GRADES,
   BIRTH_YEARS,
@@ -38,18 +40,28 @@ interface PersonalInfoSectionProps {
 
 const PersonalInfoSection = ({ formContext, onNext }: PersonalInfoSectionProps) => {
   const { form, setField, addDegree, setDegree } = formContext;
+  const [showError, setShowError] = useState(false);
 
   const handleNext = () => {
-    if (!form.track) {
-      alert('지원 부문을 선택해주세요.');
+    const hasEmptyRequired = [form.name, form.email, form.phone, form.university, form.major].some(
+      (v) => !v.trim()
+    );
+
+    if (
+      !form.track ||
+      hasEmptyRequired ||
+      form.militaryStatus === null ||
+      form.gradSchoolPlan === null
+    ) {
+      setShowError(true);
       return;
     }
+    setShowError(false);
     onNext(form.track);
   };
 
   return (
     <div className={styles.container}>
-      {/* 지원 부문 */}
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>지원 부문</h2>
         <RadioGroup
@@ -61,7 +73,6 @@ const PersonalInfoSection = ({ formContext, onNext }: PersonalInfoSectionProps) 
         />
       </section>
 
-      {/* 개인정보 */}
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>개인정보</h2>
         <Textfield
@@ -91,7 +102,6 @@ const PersonalInfoSection = ({ formContext, onNext }: PersonalInfoSectionProps) 
         </div>
       </section>
 
-      {/* 연락처 */}
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>연락처</h2>
         <p className={styles.sectionDescription}>
@@ -109,7 +119,6 @@ const PersonalInfoSection = ({ formContext, onNext }: PersonalInfoSectionProps) 
         />
       </section>
 
-      {/* 병역 이수 여부 */}
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>병역 이수 여부</h2>
         <RadioGroup
@@ -121,7 +130,6 @@ const PersonalInfoSection = ({ formContext, onNext }: PersonalInfoSectionProps) 
         />
       </section>
 
-      {/* 학력사항 */}
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>학력사항</h2>
         <Textfield
@@ -142,12 +150,11 @@ const PersonalInfoSection = ({ formContext, onNext }: PersonalInfoSectionProps) 
             onChange={(e) => setDegree(index, e.target.value)}
           />
         ))}
-        <div className={styles.addDegree} onClick={addDegree} style={{ cursor: 'pointer' }}>
+        <div className={styles.addDegree} onClick={addDegree}>
           + 복수/부전공
         </div>
       </section>
 
-      {/* 마지막 재학 학기 */}
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>마지막 재학 학기</h2>
         <div className={styles.row}>
@@ -166,7 +173,6 @@ const PersonalInfoSection = ({ formContext, onNext }: PersonalInfoSectionProps) 
         </div>
       </section>
 
-      {/* 졸업 예정시점 */}
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>졸업 예정시점</h2>
         <div className={styles.row}>
@@ -185,7 +191,6 @@ const PersonalInfoSection = ({ formContext, onNext }: PersonalInfoSectionProps) 
         </div>
       </section>
 
-      {/* 대학원 진학 여부 */}
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>대학원 진학 여부</h2>
         <RadioGroup
@@ -197,8 +202,9 @@ const PersonalInfoSection = ({ formContext, onNext }: PersonalInfoSectionProps) 
         />
       </section>
 
-      {/* 하단 네비게이션 */}
-      <div className={styles.footer} onClick={handleNext} style={{ cursor: 'pointer' }}>
+      {showError && <p className={styles.errorText}>필수 항목을 모두 입력해주세요.</p>}
+
+      <div className={styles.footer} onClick={handleNext}>
         <div>다음페이지</div> <ArrowRight />
       </div>
     </div>

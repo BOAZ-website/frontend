@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import type { ChangeEvent } from 'react';
 
 import type { QuestionResponse } from '@/shared/api/types';
@@ -22,7 +23,20 @@ const CommonQuestionSection = ({
   onPrev,
   onNext,
 }: CommonQuestionSectionProps) => {
+  const [showError, setShowError] = useState(false);
   const sorted = [...questions].sort((a, b) => (a.order_num ?? 0) - (b.order_num ?? 0));
+
+  const handleNext = () => {
+    const unanswered = sorted.filter(
+      (q) => q.is_required && !answers[String(q.question_id)]?.trim()
+    );
+    if (unanswered.length > 0) {
+      setShowError(true);
+      return;
+    }
+    setShowError(false);
+    onNext();
+  };
 
   return (
     <div className={styles.container}>
@@ -49,11 +63,13 @@ const CommonQuestionSection = ({
         );
       })}
 
+      {showError && <p className={styles.errorText}>필수 항목을 모두 입력해주세요.</p>}
+
       <div className={styles.footer}>
         <div className={styles.navButton} onClick={onPrev}>
           <ArrowLeft /> 이전 페이지
         </div>
-        <div className={styles.navButton} onClick={onNext}>
+        <div className={styles.navButton} onClick={handleNext}>
           다음 페이지 <ArrowRight />
         </div>
       </div>

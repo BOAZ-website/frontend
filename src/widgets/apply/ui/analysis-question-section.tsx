@@ -24,11 +24,24 @@ const AnalysisQuestionSection = ({
   onNext,
 }: AnalysisQuestionSectionProps) => {
   const [additionalProjectCount, setAdditionalProjectCount] = useState(0);
+  const [showError, setShowError] = useState(false);
 
   const sorted = [...questions].sort((a, b) => (a.order_num ?? 0) - (b.order_num ?? 0));
   const textQuestions = sorted.filter((q) => q.type !== 'TABLE');
   const projectQuestion = textQuestions.at(-1);
   const regularQuestions = textQuestions.slice(0, -1);
+
+  const handleNext = () => {
+    const unanswered = textQuestions.filter(
+      (q) => q.is_required && !answers[String(q.question_id)]?.trim()
+    );
+    if (unanswered.length > 0) {
+      setShowError(true);
+      return;
+    }
+    setShowError(false);
+    onNext();
+  };
 
   return (
     <div className={styles.container}>
@@ -95,11 +108,13 @@ const AnalysisQuestionSection = ({
           );
         })()}
 
+      {showError && <p className={styles.errorText}>필수 항목을 모두 입력해주세요.</p>}
+
       <div className={styles.footer}>
         <div className={styles.navButton} onClick={onPrev}>
           <ArrowLeft /> 이전 페이지
         </div>
-        <div className={styles.navButton} onClick={onNext}>
+        <div className={styles.navButton} onClick={handleNext}>
           다음 페이지 <ArrowRight />
         </div>
       </div>

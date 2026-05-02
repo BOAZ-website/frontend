@@ -42,17 +42,12 @@ const ApplyPage = () => {
 
   return (
     <main className={styles.container}>
-      <ApplyTitleSection
-        currentStep={currentStep}
-        onStepClick={setCurrentStep}
-        title={`${STEPS[currentStep]} 입력`}
-      />
+      <ApplyTitleSection currentStep={currentStep} title={`${STEPS[currentStep]} 입력`} />
 
       <section className={styles.content}>
         {currentStep === 0 && (
           <PersonalInfoSection formContext={personalInfo} onNext={handleNext} />
         )}
-
         {currentStep === 1 && (
           <CommonQuestionSection
             questions={commonQuestions}
@@ -62,7 +57,6 @@ const ApplyPage = () => {
             onNext={handleNext}
           />
         )}
-
         {currentStep === 2 && track === 'ANALYSIS' && (
           <AnalysisQuestionSection
             questions={trackQuestions}
