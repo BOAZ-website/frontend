@@ -30,6 +30,7 @@ export const title = style({
 
 export const description = style({
   ...typography.body4_rg_18,
+  lineHeight: '3rem',
   color: themeVars.color.grayscale.white,
   whiteSpace: 'pre-line',
 });

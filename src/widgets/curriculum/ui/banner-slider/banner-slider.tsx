@@ -10,7 +10,7 @@ import banner5 from '@/shared/assets/temp_banner/banner5.webp';
 import * as styles from './banner-slider.css';
 
 const BANNERS = [banner1, banner2, banner3, banner4, banner5];
-const INTERVAL_MS = 5000;
+const INTERVAL_MS = 3000;
 
 const BannerSlider = () => {
   const [current, setCurrent] = useState(0);

@@ -27,6 +27,7 @@ export const image = style({
 
 export const dotsWrapper = style({
   position: 'absolute',
+  flexDirection: 'column',
   bottom: '14rem',
   right: '9rem',
   transform: 'translateX(-50%)',
