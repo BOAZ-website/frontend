@@ -1,6 +1,8 @@
 import type { QuestionResponse } from '@/shared/api/types';
 import RadioGroup from '@/shared/components/radio-button/radio-group';
 
+import * as styles from './table-question.css';
+
 type TableMetadata = { rows: string[]; columns: string[] };
 
 interface TableQuestionProps {
@@ -37,7 +39,7 @@ const TableQuestion = ({
   return (
     <>
       {metadata.rows.map((row, i) => (
-        <section key={row} style={{ display: 'flex', flexDirection: 'column', gap: '2.4rem' }}>
+        <section key={row} className={styles.row}>
           <div className={stackClassName}>{row}</div>
           <RadioGroup
             name={`${questionId}_row_${i}`}

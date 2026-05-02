@@ -92,3 +92,9 @@ export const errorText = style({
   ...typography.text_rg_14,
   textAlign: 'center',
 });
+
+export const tableSection = style({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '8rem',
+});

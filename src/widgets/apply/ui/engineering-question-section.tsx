@@ -75,7 +75,7 @@ const EngineeringQuestionSection = ({
         if (question.type === 'TABLE') {
           const tableIncomplete = submitted && !isTableAnswerComplete(question);
           return (
-            <div key={qId} style={{ display: 'flex', flexDirection: 'column', gap: '8rem' }}>
+            <div key={qId} className={styles.tableSection}>
               <div className={styles.sectionExperienceTitle}>{question.content}</div>
               <TableQuestion
                 question={question}
