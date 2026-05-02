@@ -1,8 +1,9 @@
 import { useState } from 'react';
 
-import Dropdown from './dropdown';
+import Dropdown from '@/shared/components/dropdown/dropdown';
 
 interface DropdownFieldProps {
+  label: string;
   options: string[];
   defaultValue?: string;
   onChange?: (value: string) => void;

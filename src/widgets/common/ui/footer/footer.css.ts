@@ -31,6 +31,7 @@ export const col = styleVariants({
 
 export const heading = style({
   ...typography.body3_bd_18,
+  color: themeVars.color.grayscale.black,
 });
 
 export const snsLinks = style({

@@ -7,6 +7,7 @@ import simpleImportSort from 'eslint-plugin-simple-import-sort';
 import tseslint from 'typescript-eslint';
 import prettier from 'eslint-plugin-prettier';
 import eslintConfigPrettier from 'eslint-config-prettier';
+import reactCompiler from 'eslint-plugin-react-compiler';
 
 export default tseslint.config(
   {
@@ -41,11 +42,14 @@ export default tseslint.config(
       '@typescript-eslint': tseslint.plugin,
       prettier: prettier,
       'simple-import-sort': simpleImportSort,
+      'react-compiler': reactCompiler,
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
       'react/react-in-jsx-scope': 'off',
       'react/prop-types': 'off',
+
+      'react-compiler/react-compiler': 'error',
 
       // React Refresh
       'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
