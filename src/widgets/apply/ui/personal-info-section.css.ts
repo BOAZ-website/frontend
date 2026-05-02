@@ -28,6 +28,12 @@ export const sectionDescription = style({
   marginTop: '-1.4rem',
 });
 
+export const groupContainer = style({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '1.2rem',
+});
+
 export const row = style({
   display: 'flex',
   gap: '2.4rem',
@@ -77,4 +83,12 @@ export const errorText = style({
   color: themeVars.color.error.red_100,
   ...typography.text_rg_14,
   textAlign: 'center',
+});
+
+export const fieldError = style({
+  display: 'flex',
+  alignItems: 'center',
+  gap: '0.5rem',
+  color: themeVars.color.error.red_100,
+  ...typography.text_rg_14,
 });

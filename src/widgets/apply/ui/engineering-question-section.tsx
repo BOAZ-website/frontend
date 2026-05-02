@@ -50,10 +50,16 @@ const EngineeringQuestionSection = ({
 
   const handleNext = () => {
     setSubmitted(true);
+
+    const hasOverLimit = questions
+      .filter((q) => q.type !== 'TABLE')
+      .some((q) => (answers[String(q.question_id)]?.length ?? 0) > (q.limit_length ?? 500));
+
     const hasEmpty = questions.some((q) =>
       q.type === 'TABLE' ? !isTableAnswerComplete(q) : !answers[String(q.question_id)]?.trim()
     );
-    if (hasEmpty) {
+
+    if (hasEmpty || hasOverLimit) {
       return;
     }
     onNext();
