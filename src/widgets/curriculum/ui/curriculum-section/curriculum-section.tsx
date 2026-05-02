@@ -15,44 +15,44 @@ const CurriculumSection = ({ steps }: CurriculumSectionProps) => {
 
   return (
     <div className={styles.wrapper}>
-      {/* 방학세션 */}
-      <div className={styles.column}>
-        <span className={styles.sessionLabel}>
+      <div className={styles.baseLabel}>
+        <span className={styles.sessionLabelText}>
           BASE
           <br />
           방학세션
         </span>
-        <div className={styles.stepList}>
-          {baseSteps.map((step) => (
-            <CurriculumBoxGroup
-              key={step.step}
-              content={step.title ?? ''}
-              week={step.step ?? 0}
-              weekPosition="right"
-            />
-          ))}
-        </div>
       </div>
 
       <div className={styles.divider} />
 
-      {/* 학기세션 */}
-      <div className={styles.column}>
-        <span className={styles.sessionLabelRight}>
+      <div className={styles.baseStepList}>
+        {baseSteps.map((step) => (
+          <CurriculumBoxGroup
+            key={step.step}
+            content={step.title ?? ''}
+            week={step.step ?? 0}
+            weekPosition="left"
+          />
+        ))}
+      </div>
+
+      <div className={styles.semesterStepList}>
+        {semesterSteps.map((step) => (
+          <CurriculumBoxGroup
+            key={step.step}
+            content={step.title ?? ''}
+            week={step.step ?? 0}
+            weekPosition="right"
+          />
+        ))}
+      </div>
+
+      <div className={styles.semesterLabel}>
+        <span className={styles.sessionLabelText}>
           BASE
           <br />
           학기세션
         </span>
-        <div className={styles.stepList}>
-          {semesterSteps.map((step) => (
-            <CurriculumBoxGroup
-              key={step.step}
-              content={step.title ?? ''}
-              week={step.step ?? 0}
-              weekPosition="left"
-            />
-          ))}
-        </div>
       </div>
     </div>
   );

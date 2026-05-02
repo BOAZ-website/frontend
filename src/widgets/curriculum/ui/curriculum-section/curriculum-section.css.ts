@@ -4,39 +4,67 @@ import { themeVars } from '@/shared/styles/theme.css';
 import { typography } from '@/shared/styles/typography.css';
 
 export const wrapper = style({
-  display: 'flex',
+  display: 'grid',
+  gridTemplateColumns: '1fr 1px 1fr',
+  gridTemplateRows: 'auto auto',
   width: '100%',
-  gap: '5rem',
+  marginBottom: '8.7rem',
 });
 
-export const column = style({
-  flex: 1,
+export const baseLabel = style({
+  gridColumn: '1',
+  gridRow: '1',
+  display: 'flex',
+  justifyContent: 'flex-end',
+  alignItems: 'flex-start',
+  paddingRight: '5rem',
+});
+
+export const baseStepList = style({
+  gridColumn: '3',
+  gridRow: '1',
   display: 'flex',
   flexDirection: 'column',
-  gap: '1rem',
+  gap: '5.5rem',
+  paddingLeft: '5rem',
+  paddingBottom: '10rem',
 });
 
-export const sessionLabel = style({
-  ...typography.h1_sb_40,
-  color: themeVars.color.grayscale.white,
-  textAlign: 'right',
+export const divider = style({
+  gridColumn: '2',
+  gridRow: '1 / 3',
+  backgroundColor: themeVars.color.grayscale[600],
+  width: '1px',
 });
 
-export const sessionLabelRight = style({
+export const semesterStepList = style({
+  gridColumn: '1',
+  gridRow: '2',
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '5.5rem',
+  alignItems: 'flex-end',
+  paddingRight: '5rem',
+});
+
+export const semesterLabel = style({
+  gridColumn: '3',
+  gridRow: '2',
+  display: 'flex',
+  justifyContent: 'flex-start',
+  alignItems: 'flex-start',
+  paddingLeft: '5rem',
+});
+
+export const sessionLabelText = style({
   ...typography.h1_sb_40,
   color: themeVars.color.grayscale.white,
-  textAlign: 'left',
+  lineHeight: '1.5',
+  whiteSpace: 'nowrap',
 });
 
 export const stepList = style({
   display: 'flex',
   flexDirection: 'column',
   gap: '5.5rem',
-});
-
-export const divider = style({
-  width: '1px',
-  backgroundColor: themeVars.color.grayscale[600],
-  alignSelf: 'stretch',
-  flexShrink: 0,
 });
