@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 import {
   ACADEMIC_GRADES,
   BIRTH_YEARS,
@@ -7,130 +5,200 @@ import {
   GRADUATION_YEARS,
   MONTHS,
   SEMESTERS,
-} from '@/widgets/apply/apply-dropdown.ts';
+} from '@/widgets/apply/apply-dropdown';
+import { usePersonalInfoForm } from '@/widgets/apply/model/use-personal-info-form';
+import type { MilitaryStatus, Track } from '@/shared/api/types';
 import ArrowRight from '@/shared/assets/icons/ic_arrow_right.svg?react';
 import DropdownField from '@/shared/components/dropdown/dropdownField';
-import RadioButton from '@/shared/components/radio-button/radio-button';
+import RadioGroup from '@/shared/components/radio-button/radio-group';
 import Textfield from '@/shared/components/textfield/textfield';
 
 import * as styles from './personal-info-section.css';
 
+const TRACK_OPTIONS = [
+  { label: '데이터 분석', value: 'ANALYSIS' },
+  { label: '데이터 시각화', value: 'VISUALIZATION' },
+  { label: '데이터 엔지니어링', value: 'ENGINEERING' },
+];
+
+const MILITARY_OPTIONS = [
+  { label: '필 또는 면제(여성)', value: 'COMPLETED_OR_EXEMPT' },
+  { label: '미필', value: 'NOT_COMPLETED' },
+];
+
+const GRAD_SCHOOL_OPTIONS = [
+  { label: '예', value: 'true' },
+  { label: '아니오', value: 'false' },
+];
+
 interface PersonalInfoSectionProps {
-  onNext: () => void;
+  formContext: ReturnType<typeof usePersonalInfoForm>;
+  onNext: (track: Track) => void;
 }
 
-export const PersonalInfoSection = ({ onNext }: PersonalInfoSectionProps) => {
-  const [additionalDegrees, setAdditionalDegrees] = useState<string[]>([]);
-  const [birthYear, setBirthYear] = useState('2026년');
-  const [birthMonth, setBirthMonth] = useState('3월');
-  const [birthDay, setBirthDay] = useState('25일');
-  const [academicGrades, setAcademicGrade] = useState('4학년');
-  const [semesters, setSemesters] = useState('1학기');
-  const [graduationYears, setGraduationYears] = useState('2027년');
-  const [graduationMonth, setGraduationMonth] = useState('8월');
+export const PersonalInfoSection = ({ formContext, onNext }: PersonalInfoSectionProps) => {
+  const { form, setField, addDegree, setDegree } = formContext;
 
-  const handleAddDegree = () => {
-    setAdditionalDegrees([...additionalDegrees, '']);
+  const handleNext = () => {
+    if (!form.track) {
+      alert('지원 부문을 선택해주세요.');
+      return;
+    }
+    onNext(form.track);
   };
+
   return (
     <div className={styles.container}>
+      {/* 지원 부문 */}
+      <section className={styles.section}>
+        <h2 className={styles.sectionTitle}>지원 부문</h2>
+        <RadioGroup
+          name="track"
+          options={TRACK_OPTIONS}
+          value={form.track}
+          className={styles.radioButton}
+          onChange={(value) => setField('track', value as Track | null)}
+        />
+      </section>
+
+      {/* 개인정보 */}
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>개인정보</h2>
-        <Textfield placeholder="보아즈 디자인 노예" />
-
+        <Textfield
+          placeholder="이름"
+          value={form.name}
+          onChange={(e) => setField('name', e.target.value)}
+        />
         <div className={styles.row}>
           <DropdownField
             label="연도"
             options={BIRTH_YEARS}
-            defaultValue={birthYear}
-            onChange={setBirthYear}
+            defaultValue={form.birthYear}
+            onChange={(v) => setField('birthYear', v)}
           />
           <DropdownField
             label="월"
             options={MONTHS}
-            defaultValue={birthMonth}
-            onChange={setBirthMonth}
+            defaultValue={form.birthMonth}
+            onChange={(v) => setField('birthMonth', v)}
           />
-          <DropdownField label="일" options={DAYS} defaultValue={birthDay} onChange={setBirthDay} />
+          <DropdownField
+            label="일"
+            options={DAYS}
+            defaultValue={form.birthDay}
+            onChange={(v) => setField('birthDay', v)}
+          />
         </div>
       </section>
 
+      {/* 연락처 */}
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>연락처</h2>
         <p className={styles.sectionDescription}>
           합격 결과가 전달될 예정이므로 정확하게 작성해 주세요.
         </p>
-        <Textfield placeholder="이메일" />
-        <Textfield placeholder="010-1234-1234" />
+        <Textfield
+          placeholder="이메일"
+          value={form.email}
+          onChange={(e) => setField('email', e.target.value)}
+        />
+        <Textfield
+          placeholder="01012345678"
+          value={form.phone}
+          onChange={(e) => setField('phone', e.target.value)}
+        />
       </section>
 
+      {/* 병역 이수 여부 */}
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>병역 이수 여부</h2>
-        <div className={styles.radioButton}>
-          <RadioButton label="필 또는 면제(여성)" value="yes" />
-          <RadioButton label="미필" value="no" />
-        </div>
+        <RadioGroup
+          name="military"
+          options={MILITARY_OPTIONS}
+          value={form.militaryStatus}
+          className={styles.radioButton}
+          onChange={(value) => setField('militaryStatus', value as MilitaryStatus | null)}
+        />
       </section>
 
+      {/* 학력사항 */}
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>학력사항</h2>
-        <Textfield placeholder="재학 학교명" />
-        <Textfield placeholder="컴퓨터공학과" />
-
-        {additionalDegrees.map((_, index) => (
-          <Textfield key={index} placeholder="학과명" />
+        <Textfield
+          placeholder="재학 학교명"
+          value={form.university}
+          onChange={(e) => setField('university', e.target.value)}
+        />
+        <Textfield
+          placeholder="컴퓨터공학과"
+          value={form.major}
+          onChange={(e) => setField('major', e.target.value)}
+        />
+        {form.additionalDegrees.map((degree, index) => (
+          <Textfield
+            key={index}
+            placeholder="학과명"
+            value={degree}
+            onChange={(e) => setDegree(index, e.target.value)}
+          />
         ))}
-
-        <div className={styles.addDegree} onClick={handleAddDegree}>
+        <div className={styles.addDegree} onClick={addDegree} style={{ cursor: 'pointer' }}>
           + 복수/부전공
         </div>
       </section>
 
+      {/* 마지막 재학 학기 */}
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>마지막 재학 학기</h2>
         <div className={styles.row}>
           <DropdownField
             label="재학학년"
             options={ACADEMIC_GRADES}
-            defaultValue={academicGrades}
-            onChange={setAcademicGrade}
+            defaultValue={form.academicGrade}
+            onChange={(v) => setField('academicGrade', v)}
           />
           <DropdownField
             label="재학학기"
             options={SEMESTERS}
-            defaultValue={semesters}
-            onChange={setSemesters}
+            defaultValue={form.semester}
+            onChange={(v) => setField('semester', v)}
           />
         </div>
       </section>
 
+      {/* 졸업 예정시점 */}
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>졸업 예정시점</h2>
         <div className={styles.row}>
           <DropdownField
             label="졸업년도"
             options={GRADUATION_YEARS}
-            defaultValue={graduationYears}
-            onChange={setGraduationYears}
+            defaultValue={form.graduationYear}
+            onChange={(v) => setField('graduationYear', v)}
           />
           <DropdownField
             label="졸업월"
             options={MONTHS}
-            defaultValue={graduationMonth}
-            onChange={setGraduationMonth}
+            defaultValue={form.graduationMonth}
+            onChange={(v) => setField('graduationMonth', v)}
           />
         </div>
       </section>
 
+      {/* 대학원 진학 여부 */}
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>대학원 진학 여부</h2>
-        <div className={styles.radioButton}>
-          <RadioButton label="예" value="yes" />
-          <RadioButton label="아니오" value="no" />
-        </div>
+        <RadioGroup
+          name="gradSchool"
+          options={GRAD_SCHOOL_OPTIONS}
+          value={form.gradSchoolPlan === null ? null : String(form.gradSchoolPlan)}
+          className={styles.radioButton}
+          onChange={(value) => setField('gradSchoolPlan', value === null ? null : value === 'true')}
+        />
       </section>
 
-      <div className={styles.footer} onClick={onNext} style={{ cursor: 'pointer' }}>
+      {/* 하단 네비게이션 */}
+      <div className={styles.footer} onClick={handleNext} style={{ cursor: 'pointer' }}>
         <div>다음페이지</div> <ArrowRight />
       </div>
     </div>
