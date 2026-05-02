@@ -2,7 +2,6 @@ import { useState } from 'react';
 
 import ArrowLeft from '@/shared/assets/icons/ic_arrow_left.svg?react';
 import ArrowRight from '@/shared/assets/icons/ic_arrow_right.svg?react';
-import RadioButton from '@/shared/components/radio-button/radio-button';
 import TextFieldWithCounter from '@/shared/components/textfield-with-counter/textfield-with-counter';
 
 import * as styles from '@/widgets/apply/ui/engineering-question-section.css';
@@ -25,50 +24,25 @@ export const EngineeringQuestionSection = ({ onPrev, onNext }: EngineeringQuesti
       </section>
       <section className={styles.section}>
         <div className={styles.stackQuestion}>데이터베이스(관계형 DB, NoSQL 등)</div>
-        <div className={styles.radioButton}>
-          <RadioButton label="경험 없음" value="no" />
-          <RadioButton label="학교 수업 수강 경험 있음" value="yesinschool" />
-          <RadioButton label="관련 프로젝트 경험 있음" value="yesinproject" />
-          <RadioButton label="실무에서 사용 중임" value="usingfield" />
-        </div>
+        <div className={styles.radioButton}></div>
       </section>
       <section className={styles.section}>
         <div className={styles.stackQuestion}>서버 및 클라우드 서비스(Linux, Docker, AWS 등)</div>
-        <div className={styles.radioButton}>
-          <RadioButton label="경험 없음" value="no" />
-          <RadioButton label="학교 수업 수강 경험 있음" value="yesinschool" />
-          <RadioButton label="관련 프로젝트 경험 있음" value="yesinproject" />
-          <RadioButton label="실무에서 사용 중임" value="usingfield" />
-        </div>
+        <div className={styles.radioButton}></div>
       </section>
       <section className={styles.section}>
         <div className={styles.stackQuestion}>데이터 엔지니어링 오픈 소스(Spark, Kafaka 등)</div>
-        <div className={styles.radioButton}>
-          <RadioButton label="경험 없음" value="no" />
-          <RadioButton label="학교 수업 수강 경험 있음" value="yesinschool" />
-          <RadioButton label="관련 프로젝트 경험 있음" value="yesinproject" />
-          <RadioButton label="실무에서 사용 중임" value="usingfield" />
-        </div>
+        <div className={styles.radioButton}></div>
       </section>
       <section className={styles.section}>
         <div className={styles.sectionExperienceTitle}>
           컨테이너 오케스트레이션 도구(Kubernetes 등)
         </div>
-        <div className={styles.radioButton}>
-          <RadioButton label="경험 없음" value="no" />
-          <RadioButton label="학교 수업 수강 경험 있음" value="yesinschool" />
-          <RadioButton label="관련 프로젝트 경험 있음" value="yesinproject" />
-          <RadioButton label="실무에서 사용 중임" value="usingfield" />
-        </div>
+        <div className={styles.radioButton}></div>
       </section>
       <section className={styles.section}>
         <div className={styles.sectionExperienceTitle}>언어 (Python, Java, Scala 중 1)</div>
-        <div className={styles.radioButton}>
-          <RadioButton label="경험 없음" value="no" />
-          <RadioButton label="학교 수업 수강 경험 있음" value="yesinschool" />
-          <RadioButton label="관련 프로젝트 경험 있음" value="yesinproject" />
-          <RadioButton label="실무에서 사용 중임" value="usingfield" />
-        </div>
+        <div className={styles.radioButton}></div>
       </section>
       <section className={styles.section}>
         <div className={styles.titleContainer}>

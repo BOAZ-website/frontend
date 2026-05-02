@@ -22,7 +22,6 @@ const ApplyPage = () => {
   const { track } = personalInfo.form;
 
   const { data: deadlineData } = useRecruitmentDeadline();
-  const recruitmentId = deadlineData?.recruitment_id ?? 0;
 
   const handleNext = () => setCurrentStep((prev) => Math.min(prev + 1, LAST_STEP));
   const handlePrev = () => setCurrentStep((prev) => Math.max(prev - 1, 0));
