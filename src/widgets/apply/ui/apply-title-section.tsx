@@ -11,6 +11,7 @@ const ApplyTitleSection = ({ currentStep, title }: ApplyTitleSectionProps) => {
   return (
     <div className={styles.container}>
       <ProgressBarSection currentStep={currentStep} />
+
       <h1 className={styles.title}>{title}</h1>
     </div>
   );

@@ -4,6 +4,6 @@ import { getDeadline } from '@/shared/api/recruitment';
 
 export const useRecruitmentDeadline = () =>
   useQuery({
-    queryKey: ['recruitment', 'deadline'],
+    queryKey: ['recruitment', 'deadline'] as const,
     queryFn: getDeadline,
   });

@@ -46,7 +46,6 @@ const PersonalInfoSection = ({ formContext, onNext }: PersonalInfoSectionProps) 
     const hasEmptyRequired = [form.name, form.email, form.phone, form.university, form.major].some(
       (v) => !v.trim()
     );
-
     if (
       !form.track ||
       hasEmptyRequired ||
@@ -202,7 +201,10 @@ const PersonalInfoSection = ({ formContext, onNext }: PersonalInfoSectionProps) 
         />
       </section>
 
-      {showError && <p className={styles.errorText}>필수 항목을 모두 입력해주세요.</p>}
+      {showError && (
+        // TODO: 모달로 변경
+        <p className={styles.errorText}>모든 필수 항목을 입력해 주세요.</p>
+      )}
 
       <div className={styles.footer} onClick={handleNext}>
         <div>다음페이지</div> <ArrowRight />

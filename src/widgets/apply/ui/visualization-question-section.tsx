@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import type { ChangeEvent } from 'react';
 
 import type { QuestionResponse } from '@/shared/api/types';
 import ArrowLeft from '@/shared/assets/icons/ic_arrow_left.svg?react';
@@ -8,7 +7,7 @@ import TextFieldWithCounter from '@/shared/components/textfield-with-counter/tex
 
 import TableQuestion from './table-question';
 
-import * as styles from './visualization-question-section.css';
+import * as styles from '@/widgets/apply/ui/visualization-question-section.css';
 
 interface VisualizationQuestionSectionProps {
   questions: QuestionResponse[];
@@ -16,20 +15,10 @@ interface VisualizationQuestionSectionProps {
   onAnswerChange: (questionId: string, value: string) => void;
   onPrev: () => void;
   onNext: () => void;
+  nextLabel?: string;
 }
 
-const isTableAnswerComplete = (question: QuestionResponse, answer: string): boolean => {
-  if (!answer) {
-    return false;
-  }
-  try {
-    const metadata = question.metadata as unknown as { rows: string[] };
-    const data = JSON.parse(answer) as Record<string, string>;
-    return metadata.rows.every((row) => !!data[row]);
-  } catch {
-    return false;
-  }
-};
+const ADDABLE_LABEL = '프로젝트';
 
 const VisualizationQuestionSection = ({
   questions,
@@ -37,23 +26,38 @@ const VisualizationQuestionSection = ({
   onAnswerChange,
   onPrev,
   onNext,
+  nextLabel = '다음 페이지',
 }: VisualizationQuestionSectionProps) => {
-  const [additionalProjectCount, setAdditionalProjectCount] = useState(0);
+  const [extraCounts, setExtraCounts] = useState<Record<string, number>>({});
   const [showError, setShowError] = useState(false);
 
-  const sorted = [...questions].sort((a, b) => (a.order_num ?? 0) - (b.order_num ?? 0));
-  const tableQuestions = sorted.filter((q) => q.type === 'TABLE');
-  const textQuestions = sorted.filter((q) => q.type !== 'TABLE');
-  const projectQuestion = textQuestions.at(-1);
-  const regularTextQuestions = textQuestions.slice(0, -1);
+  const isTableAnswerComplete = (question: QuestionResponse): boolean => {
+    if (question.type !== 'TABLE') {
+      return true;
+    }
+    const metadata = question.metadata as unknown as { rows: string[] };
+    if (!metadata?.rows) {
+      return false;
+    }
+    const tableData = answers[String(question.question_id)];
+    if (!tableData) {
+      return false;
+    }
+    try {
+      const parsed = JSON.parse(tableData) as Record<string, string>;
+      return metadata.rows.every((row) => !!parsed[row]);
+    } catch {
+      return false;
+    }
+  };
 
   const handleNext = () => {
-    const requiredQuestions = [...tableQuestions, ...textQuestions].filter((q) => q.is_required);
-    const allAnswered = requiredQuestions.every((q) => {
-      const answer = answers[String(q.question_id)] ?? '';
-      return q.type === 'TABLE' ? isTableAnswerComplete(q, answer) : answer.trim().length > 0;
-    });
-    if (!allAnswered) {
+    const hasEmpty = questions
+      .filter((q) => q.is_required)
+      .some((q) =>
+        q.type === 'TABLE' ? !isTableAnswerComplete(q) : !answers[String(q.question_id)]?.trim()
+      );
+    if (hasEmpty) {
       setShowError(true);
       return;
     }
@@ -61,22 +65,33 @@ const VisualizationQuestionSection = ({
     onNext();
   };
 
+  const sortedQuestions = questions.slice().sort((a, b) => (a.order_num ?? 0) - (b.order_num ?? 0));
+
   return (
     <div className={styles.container}>
-      {tableQuestions.map((question) => (
-        <section key={question.question_id} className={styles.section}>
-          <TableQuestion
-            question={question}
-            answer={answers[String(question.question_id)] ?? ''}
-            onChange={onAnswerChange}
-          />
-        </section>
-      ))}
+      {sortedQuestions.map((question) => {
+        const qId = String(question.question_id);
 
-      {regularTextQuestions.map((question) => {
-        const qid = String(question.question_id);
+        if (question.type === 'TABLE') {
+          return (
+            <div key={qId} style={{ display: 'flex', flexDirection: 'column', gap: '8rem' }}>
+              <div className={styles.sectionExperienceTitle}>{question.content}</div>
+              <TableQuestion
+                question={question}
+                answer={answers[qId] ?? ''}
+                onChange={onAnswerChange}
+                radioClassName={styles.radioButton}
+                stackClassName={styles.stackQuestion}
+              />
+            </div>
+          );
+        }
+
+        const isAddable = question.label?.includes(ADDABLE_LABEL) ?? false;
+        const extraCount = extraCounts[qId] ?? 0;
+
         return (
-          <section key={qid} className={styles.section}>
+          <section key={qId} className={styles.section}>
             <div className={styles.titleContainer}>
               <h2 className={styles.sectionTitle}>{question.content}</h2>
               {question.limit_length && (
@@ -87,63 +102,40 @@ const VisualizationQuestionSection = ({
             </div>
             <TextFieldWithCounter
               maxLength={question.limit_length ?? 500}
-              value={answers[qid] ?? ''}
-              onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
-                onAnswerChange(qid, e.target.value)
-              }
+              value={answers[qId] ?? ''}
+              onChange={(e) => onAnswerChange(qId, e.target.value)}
             />
+            {Array.from({ length: extraCount }).map((_, i) => {
+              const extraKey = `${qId}__extra_${i}`;
+              return (
+                <TextFieldWithCounter
+                  key={extraKey}
+                  maxLength={question.limit_length ?? 500}
+                  value={answers[extraKey] ?? ''}
+                  onChange={(e) => onAnswerChange(extraKey, e.target.value)}
+                />
+              );
+            })}
+            {isAddable && (
+              <div
+                className={styles.addProject}
+                onClick={() => setExtraCounts((prev) => ({ ...prev, [qId]: (prev[qId] ?? 0) + 1 }))}
+              >
+                + 프로젝트 추가하기
+              </div>
+            )}
           </section>
         );
       })}
 
-      {projectQuestion &&
-        (() => {
-          const qid = String(projectQuestion.question_id);
-          return (
-            <section className={styles.section}>
-              <div className={styles.titleContainer}>
-                <h2 className={styles.sectionTitle}>{projectQuestion.content}</h2>
-                {projectQuestion.limit_length && (
-                  <p className={styles.sectionDescription}>
-                    (공백 포함 {projectQuestion.limit_length}자 이내)
-                  </p>
-                )}
-              </div>
-              <TextFieldWithCounter
-                maxLength={projectQuestion.limit_length ?? 500}
-                value={answers[qid] ?? ''}
-                onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
-                  onAnswerChange(qid, e.target.value)
-                }
-              />
-              {Array.from({ length: additionalProjectCount }, (_, i) => (
-                <TextFieldWithCounter
-                  key={i}
-                  maxLength={projectQuestion.limit_length ?? 500}
-                  value={answers[`${qid}__extra_${i}`] ?? ''}
-                  onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
-                    onAnswerChange(`${qid}__extra_${i}`, e.target.value)
-                  }
-                />
-              ))}
-              <div
-                className={styles.addProject}
-                onClick={() => setAdditionalProjectCount((prev) => prev + 1)}
-              >
-                + 프로젝트 추가하기
-              </div>
-            </section>
-          );
-        })()}
-
-      {showError && <p className={styles.errorText}>필수 항목을 모두 입력해주세요.</p>}
+      {showError && <p className={styles.errorText}>필수 질문에 모두 답변해 주세요.</p>}
 
       <div className={styles.footer}>
         <div className={styles.navButton} onClick={onPrev}>
           <ArrowLeft /> 이전 페이지
         </div>
         <div className={styles.navButton} onClick={handleNext}>
-          다음 페이지 <ArrowRight />
+          {nextLabel} <ArrowRight />
         </div>
       </div>
     </div>

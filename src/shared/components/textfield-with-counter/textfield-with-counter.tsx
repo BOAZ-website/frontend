@@ -21,12 +21,11 @@ const TextFieldWithCounter = ({
   onChange: externalOnChange,
   ...textareaProps
 }: TextFieldWithCounterProps) => {
+  const isControlled = externalValue !== undefined;
   const [internalValue, setInternalValue] = useState('');
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  const isControlled = externalValue !== undefined;
   const value = isControlled ? String(externalValue) : internalValue;
-
   const isOverLimit = value.length > maxLength;
   const isCompleted = value.length > 0 && !isOverLimit;
 
