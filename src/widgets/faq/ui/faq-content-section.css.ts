@@ -21,6 +21,11 @@ const tabBase = style({
   cursor: 'pointer',
   ...typography.h4_bd_24,
   padding: '2.9rem 13.3rem 2.9rem 1.6rem',
+  selectors: {
+    '&:hover': {
+      backgroundColor: themeVars.color.grayscale[900],
+    },
+  },
 });
 
 export const tabVariants = styleVariants({
