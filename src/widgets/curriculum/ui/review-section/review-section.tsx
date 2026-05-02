@@ -25,6 +25,7 @@ const ReviewSection = ({ reviews, currentPage, onPageChange }: ReviewSectionProp
 
   return (
     <div className={styles.wrapper}>
+      <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={onPageChange} />
       <div className={styles.cardList}>
         {paginated.map((review) => (
           <ReviewCard
@@ -36,7 +37,6 @@ const ReviewSection = ({ reviews, currentPage, onPageChange }: ReviewSectionProp
           />
         ))}
       </div>
-      <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={onPageChange} />
     </div>
   );
 };
