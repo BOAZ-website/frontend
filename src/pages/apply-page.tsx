@@ -7,8 +7,6 @@ import { CommonQuestionSection } from '@/widgets/apply/ui/common-question-sectio
 import { EngineeringQuestionSection } from '@/widgets/apply/ui/engineering-question-section';
 import { PersonalInfoSection } from '@/widgets/apply/ui/personal-info-section';
 import { VisualizationQuestionSection } from '@/widgets/apply/ui/visualization-question-section';
-import type { Track } from '@/shared/api/types';
-import { useRecruitmentDeadline } from '@/shared/queries/use-recruitment-deadline';
 
 import * as styles from './apply-page.css';
 
@@ -21,12 +19,10 @@ const ApplyPage = () => {
 
   const { track } = personalInfo.form;
 
-  const { data: deadlineData } = useRecruitmentDeadline();
-
   const handleNext = () => setCurrentStep((prev) => Math.min(prev + 1, LAST_STEP));
   const handlePrev = () => setCurrentStep((prev) => Math.max(prev - 1, 0));
 
-  const handlePersonalInfoNext = (selectedTrack: Track) => {
+  const handlePersonalInfoNext = () => {
     handleNext();
   };
 

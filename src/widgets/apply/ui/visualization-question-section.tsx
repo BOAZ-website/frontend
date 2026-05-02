@@ -2,7 +2,6 @@ import { useState } from 'react';
 
 import ArrowLeft from '@/shared/assets/icons/ic_arrow_left.svg?react';
 import ArrowRight from '@/shared/assets/icons/ic_arrow_right.svg?react';
-import RadioButton from '@/shared/components/radio-button/radio-button';
 import TextFieldWithCounter from '@/shared/components/textfield-with-counter/textfield-with-counter';
 
 import * as styles from '@/widgets/apply/ui/visualization-question-section.css';
@@ -28,57 +27,27 @@ export const VisualizationQuestionSection = ({
       </section>
       <section className={styles.section}>
         <div className={styles.stackQuestion}>Tableau</div>
-        <div className={styles.radioButton}>
-          <RadioButton label="경험 없음" value="no" />
-          <RadioButton label="학교 수업 수강 경험 있음" value="yesinschool" />
-          <RadioButton label="관련 프로젝트 경험 있음" value="yesinproject" />
-          <RadioButton label="실무에서 사용 중임" value="usingfield" />
-        </div>
+        <div className={styles.radioButton}></div>
       </section>
       <section className={styles.section}>
         <div className={styles.stackQuestion}>Python</div>
-        <div className={styles.radioButton}>
-          <RadioButton label="경험 없음" value="no" />
-          <RadioButton label="학교 수업 수강 경험 있음" value="yesinschool" />
-          <RadioButton label="관련 프로젝트 경험 있음" value="yesinproject" />
-          <RadioButton label="실무에서 사용 중임" value="usingfield" />
-        </div>
+        <div className={styles.radioButton}></div>
       </section>
       <section className={styles.section}>
         <div className={styles.stackQuestion}>R</div>
-        <div className={styles.radioButton}>
-          <RadioButton label="경험 없음" value="no" />
-          <RadioButton label="학교 수업 수강 경험 있음" value="yesinschool" />
-          <RadioButton label="관련 프로젝트 경험 있음" value="yesinproject" />
-          <RadioButton label="실무에서 사용 중임" value="usingfield" />
-        </div>
+        <div className={styles.radioButton}></div>
       </section>
       <section className={styles.section}>
         <div className={styles.sectionExperienceTitle}>Power BI</div>
-        <div className={styles.radioButton}>
-          <RadioButton label="경험 없음" value="no" />
-          <RadioButton label="학교 수업 수강 경험 있음" value="yesinschool" />
-          <RadioButton label="관련 프로젝트 경험 있음" value="yesinproject" />
-          <RadioButton label="실무에서 사용 중임" value="usingfield" />
-        </div>
+        <div className={styles.radioButton}></div>
       </section>
       <section className={styles.section}>
         <div className={styles.sectionExperienceTitle}>QGIS</div>
-        <div className={styles.radioButton}>
-          <RadioButton label="경험 없음" value="no" />
-          <RadioButton label="학교 수업 수강 경험 있음" value="yesinschool" />
-          <RadioButton label="관련 프로젝트 경험 있음" value="yesinproject" />
-          <RadioButton label="실무에서 사용 중임" value="usingfield" />
-        </div>
+        <div className={styles.radioButton}></div>
       </section>
       <section className={styles.section}>
         <div className={styles.sectionExperienceTitle}>Figma</div>
-        <div className={styles.radioButton}>
-          <RadioButton label="경험 없음" value="no" />
-          <RadioButton label="학교 수업 수강 경험 있음" value="yesinschool" />
-          <RadioButton label="관련 프로젝트 경험 있음" value="yesinproject" />
-          <RadioButton label="실무에서 사용 중임" value="usingfield" />
-        </div>
+        <div className={styles.radioButton}></div>
       </section>
       <section className={styles.section}>
         <div className={styles.titleContainer}>
