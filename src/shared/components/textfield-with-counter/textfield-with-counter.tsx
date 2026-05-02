@@ -13,12 +13,14 @@ interface TextFieldWithCounterProps extends Omit<
   'className' | 'maxLength'
 > {
   maxLength: number;
+  errorMessage?: string;
 }
 
 const TextFieldWithCounter = ({
   maxLength,
   value: externalValue,
   onChange: externalOnChange,
+  errorMessage,
   ...textareaProps
 }: TextFieldWithCounterProps) => {
   const isControlled = externalValue !== undefined;
@@ -28,6 +30,7 @@ const TextFieldWithCounter = ({
   const value = isControlled ? String(externalValue) : internalValue;
   const isOverLimit = value.length > maxLength;
   const isCompleted = value.length > 0 && !isOverLimit;
+  const hasError = isOverLimit || !!errorMessage;
 
   useEffect(() => {
     const textarea = textareaRef.current;
@@ -50,23 +53,28 @@ const TextFieldWithCounter = ({
         {...textareaProps}
         ref={textareaRef}
         value={value}
-        isError={isOverLimit}
+        isError={hasError}
         isCompleted={isCompleted}
         onChange={handleChange}
       />
       <div className={styles.fieldBottom}>
         <p className={styles.errorMessage}>
-          {isOverLimit && (
+          {isOverLimit ? (
             <>
               <WarningIcon width={16} height={16} />
               <span>글자 수 제한을 초과했습니다</span>
             </>
-          )}
+          ) : errorMessage ? (
+            <>
+              <WarningIcon width={16} height={16} />
+              <span>{errorMessage}</span>
+            </>
+          ) : null}
         </p>
         <TextCounter
           currentLength={value.length}
           maxLength={maxLength}
-          isError={isOverLimit}
+          isError={hasError}
           isCompleted={isCompleted}
         />
       </div>

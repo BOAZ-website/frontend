@@ -22,17 +22,14 @@ const CommonQuestionSection = ({
   onPrev,
   onNext,
 }: CommonQuestionSectionProps) => {
-  const [showError, setShowError] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
   const handleNext = () => {
-    const hasEmpty = questions
-      .filter((q) => q.is_required)
-      .some((q) => !answers[String(q.question_id)]?.trim());
+    setSubmitted(true);
+    const hasEmpty = questions.some((q) => !answers[String(q.question_id)]?.trim());
     if (hasEmpty) {
-      setShowError(true);
       return;
     }
-    setShowError(false);
     onNext();
   };
 
@@ -43,6 +40,7 @@ const CommonQuestionSection = ({
         .sort((a, b) => (a.order_num ?? 0) - (b.order_num ?? 0))
         .map((question) => {
           const qId = String(question.question_id);
+          const isEmpty = submitted && !answers[qId]?.trim();
           return (
             <section key={qId} className={styles.section}>
               <div className={styles.titleContainer}>
@@ -57,12 +55,11 @@ const CommonQuestionSection = ({
                 maxLength={question.limit_length ?? 500}
                 value={answers[qId] ?? ''}
                 onChange={(e) => onAnswerChange(qId, e.target.value)}
+                errorMessage={isEmpty ? '필수 입력 항목입니다.' : undefined}
               />
             </section>
           );
         })}
-
-      {showError && <p className={styles.errorText}>필수 질문에 모두 답변해 주세요.</p>}
 
       <div className={styles.footer}>
         <div className={styles.navButton} onClick={onPrev}>

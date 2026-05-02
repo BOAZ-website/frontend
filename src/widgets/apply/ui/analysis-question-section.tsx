@@ -5,7 +5,7 @@ import ArrowLeft from '@/shared/assets/icons/ic_arrow_left.svg?react';
 import ArrowRight from '@/shared/assets/icons/ic_arrow_right.svg?react';
 import TextFieldWithCounter from '@/shared/components/textfield-with-counter/textfield-with-counter';
 
-import * as styles from '@/widgets/apply/ui/analysis-question-section.css';
+import * as styles from './analysis-question-section.css';
 
 interface AnalysisQuestionSectionProps {
   questions: QuestionResponse[];
@@ -27,17 +27,14 @@ const AnalysisQuestionSection = ({
   nextLabel = '다음 페이지',
 }: AnalysisQuestionSectionProps) => {
   const [extraCounts, setExtraCounts] = useState<Record<string, number>>({});
-  const [showError, setShowError] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
   const handleNext = () => {
-    const hasEmpty = questions
-      .filter((q) => q.is_required)
-      .some((q) => !answers[String(q.question_id)]?.trim());
+    setSubmitted(true);
+    const hasEmpty = questions.some((q) => !answers[String(q.question_id)]?.trim());
     if (hasEmpty) {
-      setShowError(true);
       return;
     }
-    setShowError(false);
     onNext();
   };
 
@@ -49,6 +46,7 @@ const AnalysisQuestionSection = ({
         const qId = String(question.question_id);
         const isAddable = question.label?.includes(ADDABLE_LABEL) ?? false;
         const extraCount = extraCounts[qId] ?? 0;
+        const isEmpty = submitted && !answers[qId]?.trim();
 
         return (
           <section key={qId} className={styles.section}>
@@ -64,6 +62,7 @@ const AnalysisQuestionSection = ({
               maxLength={question.limit_length ?? 500}
               value={answers[qId] ?? ''}
               onChange={(e) => onAnswerChange(qId, e.target.value)}
+              errorMessage={isEmpty ? '필수 입력 항목입니다.' : undefined}
             />
             {Array.from({ length: extraCount }).map((_, i) => {
               const extraKey = `${qId}__extra_${i}`;
@@ -87,8 +86,6 @@ const AnalysisQuestionSection = ({
           </section>
         );
       })}
-
-      {showError && <p className={styles.errorText}>필수 질문에 모두 답변해 주세요.</p>}
 
       <div className={styles.footer}>
         <div className={styles.navButton} onClick={onPrev}>
