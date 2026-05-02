@@ -5,7 +5,7 @@ import { typography } from '@/shared/styles/typography.css';
 
 export const cardContainer = style({
   width: '31rem',
-  height: '35rem',
+  height: '40rem',
   borderRadius: '12px',
   position: 'relative',
   cursor: 'pointer',
