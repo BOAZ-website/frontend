@@ -38,6 +38,110 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
+  '/api/v1/auth/refresh': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * 토큰 갱신
+     * @description Cookie의 Refresh Token으로 Access Token 재발급
+     */
+    post: operations['refresh'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/auth/logout': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * 로그아웃
+     * @description Refresh Token 무효화 및 Cookie 삭제
+     */
+    post: operations['logout'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/auth/login': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * 로그인
+     * @description 이메일과 비밀번호로 로그인. 성공 시 Access Token 반환 및 Refresh Token 쿠키 설정
+     */
+    post: operations['login'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/admin/recruitment': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * 모든 모집 공고 조회
+     * @description is_active 무관 전체 공고를 term 내림차순으로 반환합니다.
+     */
+    get: operations['getAllRecruitments'];
+    put?: never;
+    /**
+     * 모집 공고 등록
+     * @description 새로운 모집 공고를 등록합니다. 동일 기수 중복 등록 불가.
+     */
+    post: operations['createRecruitment'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/admin/recruitment/questions': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * 지원서 질문 등록
+     * @description 모집 공고에 지원서 질문을 다건 등록합니다. 하나라도 실패 시 전체 롤백.
+     */
+    post: operations['createQuestions'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
   '/api/v1/admin/recruitment/applications/download': {
     parameters: {
       query?: never;
@@ -53,6 +157,164 @@ export interface paths {
     options?: never;
     head?: never;
     patch?: never;
+    trace?: never;
+  };
+  '/api/v1/admin/faqs': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * FAQ 등록
+     * @description 카테고리별 FAQ를 등록합니다. 동일 카테고리 내 순서 번호 중복 불가.
+     */
+    post: operations['createFaq'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/admin/accounts': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** 모든 계정 조회 (SUPER only) */
+    get: operations['getAccounts'];
+    put?: never;
+    /**
+     * 계정 생성 (SUPER only)
+     * @description SUPER 권한만 호출 가능. track은 ALL 제외 ANALYSIS·VISUALIZATION·ENGINEERING만 허용.
+     */
+    post: operations['createAccount'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/admin/recruitment/{id}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post?: never;
+    /**
+     * 모집 공고 삭제
+     * @description 특정 모집 공고를 삭제합니다. 연관 데이터(지원자, 질문) 존재 시 삭제 불가.
+     */
+    delete: operations['deleteRecruitment'];
+    options?: never;
+    head?: never;
+    /**
+     * 모집 공고 수정
+     * @description 특정 모집 공고를 부분 수정합니다. schedule 수정 시 배열 전체 교체.
+     */
+    patch: operations['updateRecruitment'];
+    trace?: never;
+  };
+  '/api/v1/admin/recruitment/questions/{questionId}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post?: never;
+    /**
+     * 지원서 질문 삭제
+     * @description 등록된 지원서 질문을 삭제합니다. 참조 답변 데이터 존재 시 삭제 불가.
+     */
+    delete: operations['deleteQuestion'];
+    options?: never;
+    head?: never;
+    /**
+     * 지원서 질문 수정
+     * @description 등록된 지원서 질문을 부분 수정합니다. type 변경 시 연관 필드 함께 처리.
+     */
+    patch: operations['updateQuestion'];
+    trace?: never;
+  };
+  '/api/v1/admin/faqs/{faqId}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post?: never;
+    /**
+     * FAQ 삭제
+     * @description 등록된 FAQ를 삭제합니다.
+     */
+    delete: operations['deleteFaq'];
+    options?: never;
+    head?: never;
+    /**
+     * FAQ 수정
+     * @description 등록된 FAQ를 부분 수정합니다. (PATCH)
+     */
+    patch: operations['updateFaq'];
+    trace?: never;
+  };
+  '/api/v1/admin/accounts/{id}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** id별 계정 조회 (SUPER: 전체 / TEAM: 본인만) */
+    get: operations['getAccount'];
+    put?: never;
+    post?: never;
+    /**
+     * id별 계정 삭제 (SUPER: 전체 / TEAM: 본인만)
+     * @description soft delete. 마지막 SUPER 계정은 삭제 불가. 삭제 시 RefreshToken도 함께 삭제.
+     */
+    delete: operations['deleteAccount'];
+    options?: never;
+    head?: never;
+    /**
+     * id별 계정 수정 (SUPER: role 포함 전체 / TEAM: 본인 프로필만)
+     * @description 모든 필드 선택적. role 변경 시 해당 계정의 RefreshToken 삭제(재로그인 강제). 본인 role 변경 불가.
+     */
+    patch: operations['updateAccount'];
+    trace?: never;
+  };
+  '/api/v1/admin/accounts/{id}/password': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    /**
+     * 비밀번호 변경 (SUPER: 전체 초기화 / TEAM: 본인만)
+     * @description 본인 비밀번호 변경 시 currentPassword 필수 (역할 무관). SUPER의 타인 초기화 시 currentPassword 불필요. 변경 후 해당 계정의 RefreshToken 삭제(재로그인 강제).
+     */
+    patch: operations['resetPassword'];
     trace?: never;
   };
   '/api/v1/reviews': {
@@ -170,7 +432,10 @@ export interface paths {
       path?: never;
       cookie?: never;
     };
-    /** 프로젝트 아카이빙 목록 조회 */
+    /**
+     * 프로젝트 아카이빙 목록 조회
+     * @description 트랙, 기수, 제목 기반 필터링. 페이지 단위 반환
+     */
     get: operations['getProjects'];
     put?: never;
     post?: never;
@@ -207,7 +472,10 @@ export interface paths {
       path?: never;
       cookie?: never;
     };
-    /** 기술 블로그 아카이빙 조회 */
+    /**
+     * 기술 블로그 아카이빙 조회
+     * @description 트랙, 제목 기반 필터링. 페이지 단위 반환
+     */
     get: operations['getBlogs'];
     put?: never;
     post?: never;
@@ -224,11 +492,78 @@ export interface paths {
       path?: never;
       cookie?: never;
     };
-    /** 활동 사진 아카이빙 조회 */
+    /**
+     * 활동 사진 아카이빙 조회
+     * @description 기수, 제목 기반 필터링. 페이지 단위 반환
+     */
     get: operations['getActivities'];
     put?: never;
     post?: never;
     delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/admin/recruitment/{recruitmentId}/questions': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * 지원서 질문 목록 조회
+     * @description 특정 모집 공고의 질문 목록을 조회합니다. 모집 중 여부와 무관하게 조회 가능.
+     */
+    get: operations['getAdminQuestions'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/admin/recruitment/subscriptions': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * 모집 사전 알림 신청 목록 조회
+     * @description 모든 사전 알림 신청 목록을 최신순으로 반환합니다.
+     */
+    get: operations['getAllSubscriptions'];
+    put?: never;
+    post?: never;
+    /**
+     * 모집 사전 알림 신청 전체 삭제
+     * @description 모든 사전 알림 신청 데이터를 삭제합니다. 데이터가 없어도 200을 반환합니다.
+     */
+    delete: operations['deleteAllSubscriptions'];
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/admin/recruitment/{recruitmentId}/applicants': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post?: never;
+    /**
+     * 지원서 전체 삭제
+     * @description 특정 모집 공고의 지원서를 전체 삭제합니다. 모집 진행 중인 경우 삭제 불가.
+     */
+    delete: operations['deleteApplicants'];
     options?: never;
     head?: never;
     patch?: never;
@@ -239,68 +574,642 @@ export type webhooks = Record<string, never>;
 export interface components {
   schemas: {
     SubscriptionRequest: {
+      /**
+       * @description 이메일
+       * @example hong@example.com
+       */
       email: string;
     };
     ApiResponseSubscriptionResponse: {
       /** Format: int32 */
       status?: number;
       data?: components['schemas']['SubscriptionResponse'];
-      errorCode?: string;
+      error_code?: string;
       message?: string;
     };
     SubscriptionResponse: {
+      /**
+       * Format: int64
+       * @description 구독 ID
+       * @example 1
+       */
+      id?: number;
+      /**
+       * @description 구독 이메일
+       * @example hong@example.com
+       */
       email?: string;
+      /**
+       * Format: date-time
+       * @description 신청 일시
+       */
+      created_at?: string;
     };
+    /** @description 지원서 답변 목록 */
     AnswerRequest: {
       answer: components['schemas']['JsonNode'];
-      question_id: string;
+      /**
+       * Format: int64
+       * @description 질문 ID
+       * @example 1
+       */
+      question_id: number;
     };
     ApplicationRequest: {
-      /** @enum {string} */
-      track: 'ALL' | 'ANALYSIS' | 'VISUALIZATION' | 'ENGINEERING';
+      /**
+       * @description 지원 트랙
+       * @example ENGINEERING
+       * @enum {string}
+       */
+      track:
+        | 'ALL'
+        | 'ANALYSIS'
+        | 'VISUALIZATION'
+        | 'ENGINEERING'
+        | 'ANALYSIS'
+        | 'VISUALIZATION'
+        | 'ENGINEERING';
+      /**
+       * @description 성명
+       * @example 홍길동
+       */
       name: string;
+      /**
+       * @description 이메일
+       * @example hong@example.com
+       */
       email: string;
+      /**
+       * @description 전화번호
+       * @example 01012345678
+       */
       phone: string;
+      /**
+       * @description 대학교
+       * @example 한국대학교
+       */
       university: string;
+      /**
+       * @description 본전공
+       * @example 컴퓨터공학
+       */
       major: string;
+      /** @description 지원서 답변 목록 */
       answers: components['schemas']['AnswerRequest'][];
-      /** Format: int64 */
+      /**
+       * Format: int64
+       * @description 모집 ID
+       * @example 1
+       */
       recruitment_id: number;
+      /**
+       * @description 부전공/복수전공 목록
+       * @example [
+       *       "통계학"
+       *     ]
+       */
       minor_double_major?: string[];
-      /** Format: int32 */
+      /**
+       * Format: int32
+       * @description 마지막 재학 학기
+       * @example 4
+       */
       last_semester: number;
-      /** @enum {string} */
-      military_status: 'COMPLETED_OR_EXEMPT' | 'NOT_COMPLETED';
+      /**
+       * @description 병역 상태
+       * @example COMPLETED_OR_EXEMPT
+       * @enum {string}
+       */
+      military_status:
+        | 'COMPLETED_OR_EXEMPT'
+        | 'NOT_COMPLETED'
+        | 'COMPLETED_OR_EXEMPT'
+        | 'NOT_COMPLETED';
+      /**
+       * @description 생년월일
+       * @example 2000-01-01
+       */
       birth_date: string;
+      /**
+       * @description 졸업 예정 시점
+       * @example 2025-02
+       */
       graduation_date: string;
+      /**
+       * @description 대학원 진학 여부
+       * @example false
+       */
       grad_school_plan: boolean;
     };
-    JsonNode: Record<string, never>;
+    /** @description 답변 */
+    JsonNode: unknown;
     ApiResponseApplicationResponse: {
       /** Format: int32 */
       status?: number;
       data?: components['schemas']['ApplicationResponse'];
-      errorCode?: string;
+      error_code?: string;
       message?: string;
     };
     ApplicationResponse: {
-      /** Format: int64 */
+      /**
+       * Format: int64
+       * @description 지원자 ID
+       * @example 1
+       */
       applicant_id?: number;
-      /** Format: date-time */
+      /**
+       * Format: date-time
+       * @description 제출 일시
+       */
       submitted_at?: string;
+    };
+    ApiResponseTokenRefreshResponse: {
+      /** Format: int32 */
+      status?: number;
+      data?: components['schemas']['TokenRefreshResponse'];
+      error_code?: string;
+      message?: string;
+    };
+    TokenRefreshResponse: {
+      /**
+       * @description Access Token
+       * @example eyJhbGciOiJIUzI1NiJ9..
+       */
+      access_token?: string;
     };
     ApiResponseVoid: {
       /** Format: int32 */
       status?: number;
       data?: Record<string, never>;
-      errorCode?: string;
+      error_code?: string;
       message?: string;
+    };
+    LoginRequest: {
+      /**
+       * @description 로그인 ID
+       * @example boaz_super
+       */
+      username: string;
+      /**
+       * @description 비밀번호
+       * @example Boaz1234!
+       */
+      password: string;
+    };
+    ApiResponseLoginResponse: {
+      /** Format: int32 */
+      status?: number;
+      data?: components['schemas']['LoginResponse'];
+      error_code?: string;
+      message?: string;
+    };
+    LoginResponse: {
+      /**
+       * @description Access Token
+       * @example eyJhbGciOiJIUzI1NiJ9..
+       */
+      access_token?: string;
+    };
+    /** @description 모집 일정 목록 */
+    ArrayNode: unknown;
+    RecruitmentCreateRequest: {
+      /**
+       * Format: int32
+       * @description 모집 기수
+       * @example 28
+       */
+      term: number;
+      /**
+       * Format: date-time
+       * @description 모집 시작 일시
+       */
+      start_date: string;
+      /**
+       * Format: date-time
+       * @description 모집 종료 일시
+       */
+      end_date: string;
+      schedule: components['schemas']['ArrayNode'];
+      /**
+       * @description 홍보 책자 링크
+       * @example https://example.com/brochure.pdf
+       */
+      brochure_url?: string;
+    };
+    ApiResponseRecruitmentIdResponse: {
+      /** Format: int32 */
+      status?: number;
+      data?: components['schemas']['RecruitmentIdResponse'];
+      error_code?: string;
+      message?: string;
+    };
+    RecruitmentIdResponse: {
+      /**
+       * Format: int64
+       * @description 모집 공고 ID
+       * @example 12
+       */
+      recruitment_id?: number;
+    };
+    /** @description 등록할 질문 목록 */
+    QuestionItemRequest: {
+      /**
+       * @description 파일 내보내기용 column명
+       * @example 공통1
+       */
+      label: string;
+      /**
+       * @description 질문 카테고리
+       * @example COMMON
+       * @enum {string}
+       */
+      category:
+        | 'COMMON'
+        | 'ANALYSIS'
+        | 'VISUALIZATION'
+        | 'ENGINEERING'
+        | 'COMMON'
+        | 'ANALYSIS'
+        | 'VISUALIZATION'
+        | 'ENGINEERING';
+      /**
+       * @description 질문 타입
+       * @example TEXT
+       * @enum {string}
+       */
+      type: 'TEXT' | 'TABLE' | 'TEXT' | 'TABLE';
+      /**
+       * @description 질문 내용
+       * @example 자기소개와 BOAZ에 지원한 동기를 서술해주세요.
+       */
+      content: string;
+      /**
+       * Format: int32
+       * @description 답변 최대 글자 수 (type=TEXT일 때 필수)
+       * @example 500
+       */
+      limit_length?: number;
+      metadata?: components['schemas']['JsonNode'];
+      /**
+       * Format: int32
+       * @description 출력 순서
+       * @example 1
+       */
+      order_num: number;
+      /**
+       * @description 필수 여부
+       * @example true
+       */
+      is_required: boolean;
+    };
+    QuestionsCreateRequest: {
+      /**
+       * Format: int64
+       * @description 모집 공고 ID
+       * @example 12
+       */
+      recruitment_id: number;
+      /** @description 등록할 질문 목록 */
+      questions: components['schemas']['QuestionItemRequest'][];
+    };
+    ApiResponseQuestionIdsResponse: {
+      /** Format: int32 */
+      status?: number;
+      data?: components['schemas']['QuestionIdsResponse'];
+      error_code?: string;
+      message?: string;
+    };
+    QuestionIdsResponse: {
+      /**
+       * @description 생성된 질문 ID 목록
+       * @example [
+       *       1,
+       *       2,
+       *       3
+       *     ]
+       */
+      ids?: number[];
+    };
+    FaqCreateRequest: {
+      /**
+       * @description 질문
+       * @example BOAZ에 지원하려면 어떤 조건이 필요한가요?
+       */
+      question: string;
+      /**
+       * @description 답변
+       * @example 학부생 및 대학원생이라면 누구나 지원 가능합니다.
+       */
+      answer: string;
+      /**
+       * @description 카테고리
+       * @example RECRUITMENT
+       * @enum {string}
+       */
+      category: 'RECRUITMENT' | 'ACTIVITY' | 'ETC' | 'RECRUITMENT' | 'ACTIVITY' | 'ETC';
+      /**
+       * Format: int32
+       * @description 정렬 순서
+       * @example 1
+       */
+      order_num: number;
+    };
+    ApiResponseFaqResponse: {
+      /** Format: int32 */
+      status?: number;
+      data?: components['schemas']['FaqResponse'];
+      error_code?: string;
+      message?: string;
+    };
+    FaqResponse: {
+      /**
+       * Format: int64
+       * @description FAQ ID
+       * @example 1
+       */
+      id?: number;
+      /**
+       * @description 질문
+       * @example BOAZ에 지원하려면 어떤 조건이 필요한가요?
+       */
+      question?: string;
+      /**
+       * @description 답변
+       * @example 학부생 및 대학원생이라면 누구나 지원 가능합니다. 전공 제한 없이 데이터에 관심 있는 분이라면 환영합니다.
+       */
+      answer?: string;
+      /**
+       * @description 카테고리
+       * @example 지원
+       * @enum {string}
+       */
+      category?: 'RECRUITMENT' | 'ACTIVITY' | 'ETC';
+      /**
+       * Format: int32
+       * @description 정렬 순서
+       * @example 1
+       */
+      order_num?: number;
+    };
+    AdminCreateRequest: {
+      /**
+       * @description 로그인 ID
+       * @example boaz_team2
+       */
+      username: string;
+      /**
+       * @description 비밀번호 (8자 이상, 영문+숫자+특수문자 포함)
+       * @example Boaz1234!
+       */
+      password: string;
+      /**
+       * @description 역할
+       * @example TEAM
+       * @enum {string}
+       */
+      role: 'SUPER' | 'TEAM' | 'SUPER' | 'TEAM';
+      /**
+       * @description 이름
+       * @example 김보아즈
+       */
+      name: string;
+      /**
+       * @description 부문 (ALL 제외)
+       * @example ANALYSIS
+       * @enum {string}
+       */
+      track:
+        | 'ALL'
+        | 'ANALYSIS'
+        | 'VISUALIZATION'
+        | 'ENGINEERING'
+        | 'ANALYSIS'
+        | 'VISUALIZATION'
+        | 'ENGINEERING';
+      /**
+       * Format: int32
+       * @description 기수
+       * @example 25
+       */
+      term: number;
+      /**
+       * @description 직책/소속
+       * @example 서비스운영팀
+       * @enum {string}
+       */
+      team_name:
+        | '대표진'
+        | '디자인팀'
+        | '자료연구팀'
+        | '운영지원팀'
+        | '기획팀'
+        | '대외협력팀'
+        | '서비스운영팀'
+        | '대표진'
+        | '디자인팀'
+        | '자료연구팀'
+        | '운영지원팀'
+        | '기획팀'
+        | '대외협력팀'
+        | '서비스운영팀';
+    };
+    AdminIdResponse: {
+      /**
+       * Format: int64
+       * @description 계정 ID
+       * @example 1
+       */
+      id?: number;
+    };
+    ApiResponseAdminIdResponse: {
+      /** Format: int32 */
+      status?: number;
+      data?: components['schemas']['AdminIdResponse'];
+      error_code?: string;
+      message?: string;
+    };
+    RecruitmentUpdateRequest: {
+      /**
+       * Format: int32
+       * @description 모집 기수
+       * @example 28
+       */
+      term?: number;
+      /**
+       * Format: date-time
+       * @description 모집 시작 일시
+       */
+      start_date?: string;
+      /**
+       * Format: date-time
+       * @description 모집 종료 일시
+       */
+      end_date?: string;
+      schedule?: components['schemas']['ArrayNode'];
+      /**
+       * @description 홍보 책자 링크 (null 전송 시 삭제)
+       * @example https://example.com/brochure.pdf
+       */
+      brochure_url?: string;
+    };
+    QuestionUpdateRequest: {
+      /**
+       * @description 파일 내보내기용 column명
+       * @example 공통1
+       */
+      label?: string;
+      /**
+       * @description 질문 카테고리
+       * @example COMMON
+       * @enum {string}
+       */
+      category?:
+        | 'COMMON'
+        | 'ANALYSIS'
+        | 'VISUALIZATION'
+        | 'ENGINEERING'
+        | 'COMMON'
+        | 'ANALYSIS'
+        | 'VISUALIZATION'
+        | 'ENGINEERING';
+      /**
+       * @description 질문 타입
+       * @example TEXT
+       * @enum {string}
+       */
+      type?: 'TEXT' | 'TABLE' | 'TEXT' | 'TABLE';
+      /**
+       * @description 질문 내용
+       * @example 자기소개와 BOAZ에 지원한 동기를 서술해주세요.
+       */
+      content?: string;
+      /**
+       * Format: int32
+       * @description 답변 최대 글자 수 (null 전송 시 삭제)
+       * @example 500
+       */
+      limit_length?: number;
+      metadata?: components['schemas']['JsonNode'];
+      /**
+       * Format: int32
+       * @description 출력 순서
+       * @example 1
+       */
+      order_num?: number;
+      /**
+       * @description 필수 여부
+       * @example true
+       */
+      is_required?: boolean;
+    };
+    ApiResponseQuestionIdResponse: {
+      /** Format: int32 */
+      status?: number;
+      data?: components['schemas']['QuestionIdResponse'];
+      error_code?: string;
+      message?: string;
+    };
+    QuestionIdResponse: {
+      /**
+       * Format: int64
+       * @description 질문 ID
+       * @example 1
+       */
+      question_id?: number;
+    };
+    FaqUpdateRequest: {
+      /**
+       * @description 질문
+       * @example BOAZ에 지원하려면 어떤 조건이 필요한가요?
+       */
+      question?: string;
+      /**
+       * @description 답변
+       * @example 학부생 및 대학원생이라면 누구나 지원 가능합니다.
+       */
+      answer?: string;
+      /**
+       * @description 카테고리
+       * @example RECRUITMENT
+       * @enum {string}
+       */
+      category?: 'RECRUITMENT' | 'ACTIVITY' | 'ETC' | 'RECRUITMENT' | 'ACTIVITY' | 'ETC';
+      /**
+       * Format: int32
+       * @description 정렬 순서
+       * @example 1
+       */
+      order_num?: number;
+    };
+    AdminUpdateRequest: {
+      /**
+       * @description 역할 (SUPER only, 본인 변경 불가)
+       * @example TEAM
+       * @enum {string}
+       */
+      role?: 'SUPER' | 'TEAM' | 'SUPER' | 'TEAM';
+      /**
+       * @description 이름
+       * @example 김보아즈
+       */
+      name?: string;
+      /**
+       * @description 부문 (ALL 제외)
+       * @example ANALYSIS
+       * @enum {string}
+       */
+      track?:
+        | 'ALL'
+        | 'ANALYSIS'
+        | 'VISUALIZATION'
+        | 'ENGINEERING'
+        | 'ANALYSIS'
+        | 'VISUALIZATION'
+        | 'ENGINEERING';
+      /**
+       * Format: int32
+       * @description 기수
+       * @example 25
+       */
+      term?: number;
+      /**
+       * @description 직책/소속
+       * @example 서비스운영팀
+       * @enum {string}
+       */
+      team_name?:
+        | '대표진'
+        | '디자인팀'
+        | '자료연구팀'
+        | '운영지원팀'
+        | '기획팀'
+        | '대외협력팀'
+        | '서비스운영팀'
+        | '대표진'
+        | '디자인팀'
+        | '자료연구팀'
+        | '운영지원팀'
+        | '기획팀'
+        | '대외협력팀'
+        | '서비스운영팀';
+    };
+    AdminPasswordResetRequest: {
+      /**
+       * @description 현재 비밀번호 (본인 변경 시 필수, SUPER의 타인 초기화 시 불필요)
+       * @example Boaz1234!
+       */
+      current_password?: string;
+      /**
+       * @description 새 비밀번호 (8자 이상, 영문+숫자+특수문자 포함)
+       * @example NewBoaz1234!
+       */
+      new_password: string;
     };
     ApiResponseListReviewResponse: {
       /** Format: int32 */
       status?: number;
       data?: components['schemas']['ReviewResponse'][];
-      errorCode?: string;
+      error_code?: string;
       message?: string;
     };
     ReviewResponse: {
@@ -342,69 +1251,144 @@ export interface components {
       /** Format: int32 */
       status?: number;
       data?: components['schemas']['RecruitmentResponse'];
-      errorCode?: string;
+      error_code?: string;
       message?: string;
     };
     RecruitmentResponse: {
-      /** Format: int32 */
+      /**
+       * Format: int64
+       * @description 모집 공고 ID
+       * @example 12
+       */
+      recruitment_id?: number;
+      /**
+       * Format: int32
+       * @description 기수
+       * @example 25
+       */
       term?: number;
-      /** Format: date-time */
-      startDate?: string;
-      /** Format: date-time */
-      endDate?: string;
+      /**
+       * Format: date-time
+       * @description 모집 시작 일시
+       */
+      start_date?: string;
+      /**
+       * Format: date-time
+       * @description 모집 마감 일시
+       */
+      end_date?: string;
       schedule?: components['schemas']['JsonNode'];
-      brochureUrl?: string;
-      isActive?: boolean;
+      /**
+       * @description 모집 공고 URL
+       * @example https://example.com/brochure
+       */
+      brochure_url?: string;
+      /**
+       * @description 모집 중 여부
+       * @example true
+       */
+      is_active?: boolean;
     };
     ApiResponseRecruitmentStatusResponse: {
       /** Format: int32 */
       status?: number;
       data?: components['schemas']['RecruitmentStatusResponse'];
-      errorCode?: string;
+      error_code?: string;
       message?: string;
     };
     RecruitmentStatusResponse: {
-      isActive?: boolean;
-      /** Format: int32 */
+      /**
+       * @description 모집 중 여부
+       * @example true
+       */
+      is_active?: boolean;
+      /**
+       * Format: int32
+       * @description 현재 모집 기수
+       * @example 25
+       */
       term?: number;
     };
     ApiResponseListQuestionResponse: {
       /** Format: int32 */
       status?: number;
       data?: components['schemas']['QuestionResponse'][];
-      errorCode?: string;
+      error_code?: string;
       message?: string;
     };
     QuestionResponse: {
-      questionId?: string;
-      category?: string;
-      type?: string;
+      /**
+       * Format: int64
+       * @description 질문 ID
+       * @example 1
+       */
+      question_id?: number;
+      /**
+       * @description 질문 레이블
+       * @example 공통1
+       */
+      label?: string;
+      /**
+       * @description 카테고리
+       * @example COMMON
+       * @enum {string}
+       */
+      category?: 'COMMON' | 'ANALYSIS' | 'VISUALIZATION' | 'ENGINEERING';
+      /**
+       * @description 질문 유형
+       * @example TEXT
+       * @enum {string}
+       */
+      type?: 'TEXT' | 'TABLE';
+      /**
+       * @description 질문 내용
+       * @example 자신을 소개해주세요.
+       */
       content?: string;
-      /** Format: int32 */
-      limitLength?: number;
+      /**
+       * Format: int32
+       * @description 글자 수 제한 (TEXT 유형인 경우)
+       * @example 500
+       */
+      limit_length?: number;
       metadata?: components['schemas']['JsonNode'];
-      /** Format: int32 */
-      orderNum?: number;
-      isRequired?: boolean;
+      /**
+       * Format: int32
+       * @description 질문 순서
+       * @example 1
+       */
+      order_num?: number;
+      /**
+       * @description 필수 여부
+       * @example true
+       */
+      is_required?: boolean;
     };
     ApiResponseDeadlineResponse: {
       /** Format: int32 */
       status?: number;
       data?: components['schemas']['DeadlineResponse'];
-      errorCode?: string;
+      error_code?: string;
       message?: string;
     };
     DeadlineResponse: {
-      /** Format: date-time */
+      /**
+       * Format: date-time
+       * @description 마감 일시
+       */
       deadline?: string;
-      /** Format: int64 */
+      /**
+       * Format: int64
+       * @description 모집 ID
+       * @example 1
+       */
       recruitment_id?: number;
     };
     ApiResponseListCurriculumResponse: {
       /** Format: int32 */
       status?: number;
       data?: components['schemas']['CurriculumResponse'][];
-      errorCode?: string;
+      error_code?: string;
       message?: string;
     };
     CurriculumResponse: {
@@ -423,6 +1407,7 @@ export interface components {
       /** @description 커리큘럼 단계 목록 */
       curriculum_steps?: components['schemas']['CurriculumStepResponse'][];
     };
+    /** @description 커리큘럼 단계 목록 */
     CurriculumStepResponse: {
       /**
        * Format: int32
@@ -445,76 +1430,195 @@ export interface components {
       /** Format: int32 */
       status?: number;
       data?: components['schemas']['ArchivePageResponse'];
-      errorCode?: string;
+      error_code?: string;
       message?: string;
     };
+    /** @description 아카이브 목록 */
     ArchiveItemResponse: {
-      /** Format: int64 */
+      /**
+       * Format: int64
+       * @description 아카이브 ID
+       * @example 1
+       */
       id?: number;
-      /** Format: int32 */
+      /**
+       * Format: int32
+       * @description 기수
+       * @example 26
+       */
       term?: number;
+      /**
+       * @description 제목
+       * @example 실시간 추천 시스템 구축 프로젝트
+       */
       title?: string;
-      teamName?: string;
-      /** @enum {string} */
+      /**
+       * @description 팀명
+       * @example 팀 보아즈
+       */
+      team_name?: string;
+      /**
+       * @description 트랙
+       * @example ENGINEERING
+       * @enum {string}
+       */
       track?: 'ALL' | 'ANALYSIS' | 'VISUALIZATION' | 'ENGINEERING';
-      imageUrl?: string;
-      links?: {
-        [key: string]: string;
-      };
-      /** Format: date */
-      contentDate?: string;
+      /**
+       * @description 이미지 URL
+       * @example https://boaz-archiving.s3.ap-northeast-2.amazonaws.com/projects/sample.png
+       */
+      image_url?: string;
+      links?: components['schemas']['JsonNode'];
+      /**
+       * Format: date
+       * @description 콘텐츠 날짜
+       * @example 2026-04-17
+       */
+      content_date?: string;
     };
     ArchivePageResponse: {
-      /** Format: int32 */
-      currentPage?: number;
-      /** Format: int32 */
-      totalPages?: number;
-      /** Format: int32 */
+      /**
+       * Format: int32
+       * @description 현재 페이지 번호
+       * @example 5
+       */
+      current_page?: number;
+      /**
+       * Format: int32
+       * @description 전체 페이지 수
+       * @example 5
+       */
+      total_pages?: number;
+      /**
+       * Format: int32
+       * @description 페이지당 항목 수
+       * @example 6
+       */
       size?: number;
-      /** Format: int32 */
-      currentSize?: number;
-      /** Format: int64 */
-      totalSize?: number;
-      hasPrevious?: boolean;
-      hasNext?: boolean;
+      /**
+       * Format: int32
+       * @description 현재 페이지 항목 수
+       * @example 3
+       */
+      current_size?: number;
+      /**
+       * Format: int64
+       * @description 전체 항목 수
+       * @example 33
+       */
+      total_size?: number;
+      /**
+       * @description 이전 페이지 존재 여부
+       * @example true
+       */
+      has_previous?: boolean;
+      /**
+       * @description 다음 페이지 존재 여부
+       * @example false
+       */
+      has_next?: boolean;
+      /** @description 아카이브 목록 */
       posts?: components['schemas']['ArchiveItemResponse'][];
     };
     ApiResponseListFaqResponse: {
       /** Format: int32 */
       status?: number;
       data?: components['schemas']['FaqResponse'][];
-      errorCode?: string;
+      error_code?: string;
       message?: string;
     };
-    FaqResponse: {
+    ApiResponseListRecruitmentResponse: {
+      /** Format: int32 */
+      status?: number;
+      data?: components['schemas']['RecruitmentResponse'][];
+      error_code?: string;
+      message?: string;
+    };
+    ApiResponseListSubscriptionResponse: {
+      /** Format: int32 */
+      status?: number;
+      data?: components['schemas']['SubscriptionResponse'][];
+      error_code?: string;
+      message?: string;
+    };
+    AdminAccountResponse: {
       /**
        * Format: int64
-       * @description FAQ ID
+       * @description 계정 ID
        * @example 1
        */
       id?: number;
       /**
-       * @description 질문
-       * @example BOAZ에 지원하려면 어떤 조건이 필요한가요?
+       * @description 로그인 ID
+       * @example boaz_team2
        */
-      question?: string;
+      username?: string;
       /**
-       * @description 답변
-       * @example 학부생 및 대학원생이라면 누구나 지원 가능합니다. 전공 제한 없이 데이터에 관심 있는 분이라면 환영합니다.
-       */
-      answer?: string;
-      /**
-       * @description 카테고리
-       * @example 지원
+       * @description 역할
+       * @example TEAM
        * @enum {string}
        */
-      category?: 'RECRUITMENT' | 'ACTIVITY' | 'ETC';
+      role?: 'SUPER' | 'TEAM';
+      /**
+       * @description 이름
+       * @example 김보아즈
+       */
+      name?: string;
+      /**
+       * @description 부문
+       * @example ANALYSIS
+       * @enum {string}
+       */
+      track?: 'ANALYSIS' | 'VISUALIZATION' | 'ENGINEERING';
       /**
        * Format: int32
-       * @description 정렬 순서
+       * @description 기수
+       * @example 25
+       */
+      term?: number;
+      /**
+       * @description 직책/소속
+       * @example 서비스운영팀
+       * @enum {string}
+       */
+      team_name?:
+        | '대표진'
+        | '디자인팀'
+        | '자료연구팀'
+        | '운영지원팀'
+        | '기획팀'
+        | '대외협력팀'
+        | '서비스운영팀';
+      /**
+       * Format: int64
+       * @description 생성한 SUPER 계정 ID
        * @example 1
        */
-      order_num?: number;
+      created_by?: number;
+      /**
+       * Format: date-time
+       * @description 생성 일시
+       */
+      created_at?: string;
+      /**
+       * Format: date-time
+       * @description 수정 일시
+       */
+      updated_at?: string;
+    };
+    ApiResponseListAdminAccountResponse: {
+      /** Format: int32 */
+      status?: number;
+      data?: components['schemas']['AdminAccountResponse'][];
+      error_code?: string;
+      message?: string;
+    };
+    ApiResponseAdminAccountResponse: {
+      /** Format: int32 */
+      status?: number;
+      data?: components['schemas']['AdminAccountResponse'];
+      error_code?: string;
+      message?: string;
     };
   };
   responses: never;
@@ -573,18 +1677,458 @@ export interface operations {
       };
     };
   };
+  refresh: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: {
+        refresh_token?: string;
+      };
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ApiResponseTokenRefreshResponse'];
+        };
+      };
+    };
+  };
+  logout: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ApiResponseVoid'];
+        };
+      };
+    };
+  };
+  login: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['LoginRequest'];
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ApiResponseLoginResponse'];
+        };
+      };
+    };
+  };
+  getAllRecruitments: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ApiResponseListRecruitmentResponse'];
+        };
+      };
+    };
+  };
+  createRecruitment: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['RecruitmentCreateRequest'];
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ApiResponseRecruitmentIdResponse'];
+        };
+      };
+    };
+  };
+  createQuestions: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['QuestionsCreateRequest'];
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ApiResponseQuestionIdsResponse'];
+        };
+      };
+    };
+  };
   downloadApplications: {
     parameters: {
       query: {
         term: number;
       };
-      header: {
-        'X-Admin-Key': string;
-      };
+      header?: never;
       path?: never;
       cookie?: never;
     };
     requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ApiResponseVoid'];
+        };
+      };
+    };
+  };
+  createFaq: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['FaqCreateRequest'];
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ApiResponseFaqResponse'];
+        };
+      };
+    };
+  };
+  getAccounts: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ApiResponseListAdminAccountResponse'];
+        };
+      };
+    };
+  };
+  createAccount: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['AdminCreateRequest'];
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ApiResponseAdminIdResponse'];
+        };
+      };
+    };
+  };
+  deleteRecruitment: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: number;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ApiResponseVoid'];
+        };
+      };
+    };
+  };
+  updateRecruitment: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: number;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['RecruitmentUpdateRequest'];
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ApiResponseRecruitmentIdResponse'];
+        };
+      };
+    };
+  };
+  deleteQuestion: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        questionId: number;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ApiResponseVoid'];
+        };
+      };
+    };
+  };
+  updateQuestion: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        questionId: number;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['QuestionUpdateRequest'];
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ApiResponseQuestionIdResponse'];
+        };
+      };
+    };
+  };
+  deleteFaq: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        faqId: number;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ApiResponseVoid'];
+        };
+      };
+    };
+  };
+  updateFaq: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        faqId: number;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['FaqUpdateRequest'];
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ApiResponseFaqResponse'];
+        };
+      };
+    };
+  };
+  getAccount: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: number;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ApiResponseAdminAccountResponse'];
+        };
+      };
+    };
+  };
+  deleteAccount: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: number;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ApiResponseVoid'];
+        };
+      };
+    };
+  };
+  updateAccount: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: number;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['AdminUpdateRequest'];
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ApiResponseAdminIdResponse'];
+        };
+      };
+    };
+  };
+  resetPassword: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: number;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['AdminPasswordResetRequest'];
+      };
+    };
     responses: {
       /** @description OK */
       200: {
@@ -821,6 +2365,90 @@ export interface operations {
         };
         content: {
           '*/*': components['schemas']['ApiResponseArchivePageResponse'];
+        };
+      };
+    };
+  };
+  getAdminQuestions: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        recruitmentId: number;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ApiResponseListQuestionResponse'];
+        };
+      };
+    };
+  };
+  getAllSubscriptions: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ApiResponseListSubscriptionResponse'];
+        };
+      };
+    };
+  };
+  deleteAllSubscriptions: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ApiResponseVoid'];
+        };
+      };
+    };
+  };
+  deleteApplicants: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        recruitmentId: number;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ApiResponseVoid'];
         };
       };
     };
