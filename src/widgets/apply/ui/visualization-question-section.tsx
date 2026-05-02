@@ -1,103 +1,105 @@
 import { useState } from 'react';
+import type { ChangeEvent } from 'react';
 
+import type { QuestionResponse } from '@/shared/api/types';
 import ArrowLeft from '@/shared/assets/icons/ic_arrow_left.svg?react';
 import ArrowRight from '@/shared/assets/icons/ic_arrow_right.svg?react';
 import TextFieldWithCounter from '@/shared/components/textfield-with-counter/textfield-with-counter';
 
-import * as styles from '@/widgets/apply/ui/visualization-question-section.css';
+import TableQuestion from './table-question';
+
+import * as styles from './visualization-question-section.css';
 
 interface VisualizationQuestionSectionProps {
+  questions: QuestionResponse[];
+  answers: Record<string, string>;
+  onAnswerChange: (questionId: string, value: string) => void;
   onPrev: () => void;
   onNext: () => void;
 }
 
-export const VisualizationQuestionSection = ({
+const VisualizationQuestionSection = ({
+  questions,
+  answers,
+  onAnswerChange,
   onPrev,
   onNext,
 }: VisualizationQuestionSectionProps) => {
-  const [additionalProjects, setAdditionalProjects] = useState<string[]>([]);
+  const [additionalProjectCount, setAdditionalProjectCount] = useState(0);
 
-  const handleAddProject = () => {
-    setAdditionalProjects([...additionalProjects, '']);
-  };
+  const sorted = [...questions].sort((a, b) => (a.order_num ?? 0) - (b.order_num ?? 0));
+  const tableQuestions = sorted.filter((q) => q.type === 'TABLE');
+  const textQuestions = sorted.filter((q) => q.type !== 'TABLE');
+  const projectQuestion = textQuestions.at(-1);
+  const regularTextQuestions = textQuestions.slice(0, -1);
+
   return (
     <div className={styles.container}>
-      <section className={styles.section}>
-        <div className={styles.sectionExperienceTitle}>데이터 시각화 관련 Tool 활용 경험</div>
-      </section>
-      <section className={styles.section}>
-        <div className={styles.stackQuestion}>Tableau</div>
-        <div className={styles.radioButton}></div>
-      </section>
-      <section className={styles.section}>
-        <div className={styles.stackQuestion}>Python</div>
-        <div className={styles.radioButton}></div>
-      </section>
-      <section className={styles.section}>
-        <div className={styles.stackQuestion}>R</div>
-        <div className={styles.radioButton}></div>
-      </section>
-      <section className={styles.section}>
-        <div className={styles.sectionExperienceTitle}>Power BI</div>
-        <div className={styles.radioButton}></div>
-      </section>
-      <section className={styles.section}>
-        <div className={styles.sectionExperienceTitle}>QGIS</div>
-        <div className={styles.radioButton}></div>
-      </section>
-      <section className={styles.section}>
-        <div className={styles.sectionExperienceTitle}>Figma</div>
-        <div className={styles.radioButton}></div>
-      </section>
-      <section className={styles.section}>
-        <div className={styles.titleContainer}>
-          <h2 className={styles.sectionTitle}>
-            데이터 관련 수강 과목(교내, 교외) 혹은 세미나 경험이 있다면 적어주세요.
-          </h2>
-          <p className={styles.sectionDescription}>(공백 포함 600자 이내)</p>
-        </div>
-        <TextFieldWithCounter maxLength={600} />
-      </section>
+      {tableQuestions.map((question) => (
+        <section key={question.question_id} className={styles.section}>
+          <TableQuestion
+            question={question}
+            answer={answers[question.question_id!] ?? ''}
+            onChange={onAnswerChange}
+          />
+        </section>
+      ))}
 
-      <section className={styles.section}>
-        <div className={styles.titleContainer}>
-          <h2 className={styles.sectionTitle}>
-            본인이 진행했던 시각화를 통해 인사이트를 도출한 경험을 소개해주세요. 만약 경험이 없다면
-            프로젝트 혹은 시각화와 관련한 공부 경험을 구체적으로 서술해주세요.
-          </h2>
-          <p className={styles.sectionDescription}>(공백 포함 700자 이내)</p>
-        </div>
-        <TextFieldWithCounter maxLength={700} />
-      </section>
+      {regularTextQuestions.map((question) => (
+        <section key={question.question_id} className={styles.section}>
+          <div className={styles.titleContainer}>
+            <h2 className={styles.sectionTitle}>{question.content}</h2>
+            {question.limit_length && (
+              <p className={styles.sectionDescription}>
+                (공백 포함 {question.limit_length}자 이내)
+              </p>
+            )}
+          </div>
+          <TextFieldWithCounter
+            maxLength={question.limit_length ?? 500}
+            value={answers[question.question_id!] ?? ''}
+            onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
+              onAnswerChange(String(question.question_id!), e.target.value)
+            }
+          />
+        </section>
+      ))}
 
-      <section className={styles.section}>
-        <div className={styles.titleContainer}>
-          <h2 className={styles.sectionTitle}>
-            새로운 도구나 기술을 배울 때의 본인의 모습을 구체적으로 서술해주세요.
-          </h2>
-          <p className={styles.sectionDescription}>(공백 포함 500자 이내)</p>
-        </div>
-        <TextFieldWithCounter maxLength={500} />
-      </section>
-
-      <section className={styles.section}>
-        <div className={styles.titleContainer}>
-          <h2 className={styles.sectionTitle}>
-            자신의 활동 중에서 특히 어필하고 싶은 프로젝트가 있다면, 관련 링크(Github, Notion 등)와
-            함께 소개해주세요. 그중에서도 강조하고 싶은 부분이 있다면 간단히 설명해주세요.
-          </h2>
-          <p className={styles.sectionDescription}>(공백 포함 500자 이내)</p>
-        </div>
-        <TextFieldWithCounter maxLength={500} />
-
-        {additionalProjects.map((_, index) => (
-          <TextFieldWithCounter key={index} maxLength={500} />
-        ))}
-
-        <div className={styles.addProject} onClick={handleAddProject}>
-          + 프로젝트 추가하기
-        </div>
-      </section>
+      {projectQuestion && (
+        <section className={styles.section}>
+          <div className={styles.titleContainer}>
+            <h2 className={styles.sectionTitle}>{projectQuestion.content}</h2>
+            {projectQuestion.limit_length && (
+              <p className={styles.sectionDescription}>
+                (공백 포함 {projectQuestion.limit_length}자 이내)
+              </p>
+            )}
+          </div>
+          <TextFieldWithCounter
+            maxLength={projectQuestion.limit_length ?? 500}
+            value={answers[String(projectQuestion.question_id!)] ?? ''}
+            onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
+              onAnswerChange(String(projectQuestion.question_id!), e.target.value)
+            }
+          />
+          {Array.from({ length: additionalProjectCount }, (_, i) => (
+            <TextFieldWithCounter
+              key={i}
+              maxLength={projectQuestion.limit_length ?? 500}
+              value={answers[`${projectQuestion.question_id}__extra_${i}`] ?? ''}
+              onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
+                onAnswerChange(`${projectQuestion.question_id}__extra_${i}`, e.target.value)
+              }
+            />
+          ))}
+          <div
+            className={styles.addProject}
+            onClick={() => setAdditionalProjectCount((prev) => prev + 1)}
+          >
+            + 프로젝트 추가하기
+          </div>
+        </section>
+      )}
 
       <div className={styles.footer}>
         <div className={styles.navButton} onClick={onPrev}>
@@ -110,3 +112,5 @@ export const VisualizationQuestionSection = ({
     </div>
   );
 };
+
+export default VisualizationQuestionSection;

@@ -1,3 +1,6 @@
+import type { ChangeEvent } from 'react';
+
+import type { QuestionResponse } from '@/shared/api/types';
 import ArrowLeft from '@/shared/assets/icons/ic_arrow_left.svg?react';
 import ArrowRight from '@/shared/assets/icons/ic_arrow_right.svg?react';
 import TextFieldWithCounter from '@/shared/components/textfield-with-counter/textfield-with-counter';
@@ -5,53 +8,43 @@ import TextFieldWithCounter from '@/shared/components/textfield-with-counter/tex
 import * as styles from './common-question-section.css';
 
 interface CommonQuestionSectionProps {
+  questions: QuestionResponse[];
+  answers: Record<string, string>;
+  onAnswerChange: (questionId: string, value: string) => void;
   onPrev: () => void;
   onNext: () => void;
 }
 
-export const CommonQuestionSection = ({ onPrev, onNext }: CommonQuestionSectionProps) => {
+const CommonQuestionSection = ({
+  questions,
+  answers,
+  onAnswerChange,
+  onPrev,
+  onNext,
+}: CommonQuestionSectionProps) => {
+  const sorted = [...questions].sort((a, b) => (a.order_num ?? 0) - (b.order_num ?? 0));
+
   return (
     <div className={styles.container}>
-      <section className={styles.section}>
-        <div className={styles.titleContainer}>
-          <h2 className={styles.sectionTitle}>
-            자기소개와 BOAZ 데이터 분석 부문에 지원한 동기를 서술해주세요.
-          </h2>
-          <p className={styles.sectionDescription}>(공백 포함 500자 이내)</p>
-        </div>
-        <TextFieldWithCounter maxLength={500} />
-      </section>
-
-      <section className={styles.section}>
-        <div className={styles.titleContainer}>
-          <h2 className={styles.sectionTitle}>
-            본인을 나타낼 수 있는 기존의 활동 경험을 작성해주세요. (동아리, 대외 활동 등)
-          </h2>
-          <p className={styles.sectionDescription}>(공백 포함 500자 이내)</p>
-        </div>
-        <TextFieldWithCounter maxLength={500} />
-      </section>
-
-      <section className={styles.section}>
-        <div className={styles.titleContainer}>
-          <h2 className={styles.sectionTitle}>
-            협업 활동 시 본인이 주로 맡은 역할과 협업 도중 문제 상황이 발생했을 때 이를 해결했던
-            본인의 경험을 적어주세요.
-          </h2>
-          <p className={styles.sectionDescription}>(공백 포함 500자 이내)</p>
-        </div>
-        <TextFieldWithCounter maxLength={500} />
-      </section>
-
-      <section className={styles.section}>
-        <div className={styles.titleContainer}>
-          <h2 className={styles.sectionTitle}>
-            BOAZ 참여를 통해 기대하는 역량 성장 및 경험을 서술해주세요.
-          </h2>
-          <p className={styles.sectionDescription}>(공백 포함 400자 이내)</p>
-        </div>
-        <TextFieldWithCounter maxLength={400} />
-      </section>
+      {sorted.map((question) => (
+        <section key={question.question_id} className={styles.section}>
+          <div className={styles.titleContainer}>
+            <h2 className={styles.sectionTitle}>{question.content}</h2>
+            {question.limit_length && (
+              <p className={styles.sectionDescription}>
+                (공백 포함 {question.limit_length}자 이내)
+              </p>
+            )}
+          </div>
+          <TextFieldWithCounter
+            maxLength={question.limit_length ?? 500}
+            value={answers[String(question.question_id!)] ?? ''}
+            onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
+              onAnswerChange(String(question.question_id!), e.target.value)
+            }
+          />
+        </section>
+      ))}
 
       <div className={styles.footer}>
         <div className={styles.navButton} onClick={onPrev}>
@@ -64,3 +57,5 @@ export const CommonQuestionSection = ({ onPrev, onNext }: CommonQuestionSectionP
     </div>
   );
 };
+
+export default CommonQuestionSection;

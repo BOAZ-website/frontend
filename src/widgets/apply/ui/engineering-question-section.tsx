@@ -1,88 +1,105 @@
 import { useState } from 'react';
+import type { ChangeEvent } from 'react';
 
+import type { QuestionResponse } from '@/shared/api/types';
 import ArrowLeft from '@/shared/assets/icons/ic_arrow_left.svg?react';
 import ArrowRight from '@/shared/assets/icons/ic_arrow_right.svg?react';
 import TextFieldWithCounter from '@/shared/components/textfield-with-counter/textfield-with-counter';
 
-import * as styles from '@/widgets/apply/ui/engineering-question-section.css';
+import TableQuestion from './table-question';
+
+import * as styles from './engineering-question-section.css';
 
 interface EngineeringQuestionSectionProps {
+  questions: QuestionResponse[];
+  answers: Record<string, string>;
+  onAnswerChange: (questionId: string, value: string) => void;
   onPrev: () => void;
   onNext: () => void;
 }
 
-export const EngineeringQuestionSection = ({ onPrev, onNext }: EngineeringQuestionSectionProps) => {
-  const [additionalProjects, setAdditionalProjects] = useState<string[]>([]);
+const EngineeringQuestionSection = ({
+  questions,
+  answers,
+  onAnswerChange,
+  onPrev,
+  onNext,
+}: EngineeringQuestionSectionProps) => {
+  const [additionalProjectCount, setAdditionalProjectCount] = useState(0);
 
-  const handleAddProject = () => {
-    setAdditionalProjects([...additionalProjects, '']);
-  };
+  const sorted = [...questions].sort((a, b) => (a.order_num ?? 0) - (b.order_num ?? 0));
+  const tableQuestions = sorted.filter((q) => q.type === 'TABLE');
+  const textQuestions = sorted.filter((q) => q.type !== 'TABLE');
+  const projectQuestion = textQuestions.at(-1);
+  const regularTextQuestions = textQuestions.slice(0, -1);
+
   return (
     <div className={styles.container}>
-      <section className={styles.section}>
-        <div className={styles.sectionExperienceTitle}>데이터 엔지니어링 관련 경험</div>
-      </section>
-      <section className={styles.section}>
-        <div className={styles.stackQuestion}>데이터베이스(관계형 DB, NoSQL 등)</div>
-        <div className={styles.radioButton}></div>
-      </section>
-      <section className={styles.section}>
-        <div className={styles.stackQuestion}>서버 및 클라우드 서비스(Linux, Docker, AWS 등)</div>
-        <div className={styles.radioButton}></div>
-      </section>
-      <section className={styles.section}>
-        <div className={styles.stackQuestion}>데이터 엔지니어링 오픈 소스(Spark, Kafaka 등)</div>
-        <div className={styles.radioButton}></div>
-      </section>
-      <section className={styles.section}>
-        <div className={styles.sectionExperienceTitle}>
-          컨테이너 오케스트레이션 도구(Kubernetes 등)
-        </div>
-        <div className={styles.radioButton}></div>
-      </section>
-      <section className={styles.section}>
-        <div className={styles.sectionExperienceTitle}>언어 (Python, Java, Scala 중 1)</div>
-        <div className={styles.radioButton}></div>
-      </section>
-      <section className={styles.section}>
-        <div className={styles.titleContainer}>
-          <h2 className={styles.sectionTitle}>
-            데이터 엔지니어링 관련 수강 과목(교내, 교외) 혹은 세미나 경험이 있다면 적어주세요.
-          </h2>
-          <p className={styles.sectionDescription}>(공백 포함 600자 이내)</p>
-        </div>
-        <TextFieldWithCounter maxLength={600} />
-      </section>
+      {tableQuestions.map((question) => (
+        <section key={question.question_id} className={styles.section}>
+          <TableQuestion
+            question={question}
+            answer={answers[question.question_id!] ?? ''}
+            onChange={onAnswerChange}
+          />
+        </section>
+      ))}
 
-      <section className={styles.section}>
-        <div className={styles.titleContainer}>
-          <h2 className={styles.sectionTitle}>
-            데이터 엔지니어링 분야 중 관심있는 세부 분야와 해당 분야와 관련된 경험 및 활동에 대해
-            서술해주세요.
-          </h2>
-          <p className={styles.sectionDescription}>(공백 포함 700자 이내)</p>
-        </div>
-        <TextFieldWithCounter maxLength={700} />
-      </section>
+      {regularTextQuestions.map((question) => (
+        <section key={question.question_id} className={styles.section}>
+          <div className={styles.titleContainer}>
+            <h2 className={styles.sectionTitle}>{question.content}</h2>
+            {question.limit_length && (
+              <p className={styles.sectionDescription}>
+                (공백 포함 {question.limit_length}자 이내)
+              </p>
+            )}
+          </div>
+          <TextFieldWithCounter
+            maxLength={question.limit_length ?? 500}
+            value={answers[String(question.question_id!)] ?? ''}
+            onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
+              onAnswerChange(String(question.question_id!), e.target.value)
+            }
+          />
+        </section>
+      ))}
 
-      <section className={styles.section}>
-        <div className={styles.titleContainer}>
-          <h2 className={styles.sectionTitle}>
-            자신의 활동 중에서 특히 어필하고 싶은 프로젝트가 있다면, 관련 링크(Github, Notion 등)와
-            함께 소개해주세요. 그중에서도 강조하고 싶은 부분이 있다면 간단히 설명해주세요.
-          </h2>
-          <p className={styles.sectionDescription}>(공백 포함 500자 이내)</p>
-        </div>
-        <TextFieldWithCounter maxLength={500} />
-
-        {additionalProjects.map((_, index) => (
-          <TextFieldWithCounter key={index} maxLength={500} />
-        ))}
-
-        <div className={styles.addProject} onClick={handleAddProject}>
-          + 프로젝트 추가하기
-        </div>
-      </section>
+      {projectQuestion && (
+        <section className={styles.section}>
+          <div className={styles.titleContainer}>
+            <h2 className={styles.sectionTitle}>{projectQuestion.content}</h2>
+            {projectQuestion.limit_length && (
+              <p className={styles.sectionDescription}>
+                (공백 포함 {projectQuestion.limit_length}자 이내)
+              </p>
+            )}
+          </div>
+          <TextFieldWithCounter
+            maxLength={projectQuestion.limit_length ?? 500}
+            value={answers[String(projectQuestion.question_id!)] ?? ''}
+            onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
+              onAnswerChange(String(projectQuestion.question_id!), e.target.value)
+            }
+          />
+          {Array.from({ length: additionalProjectCount }, (_, i) => (
+            <TextFieldWithCounter
+              key={i}
+              maxLength={projectQuestion.limit_length ?? 500}
+              value={answers[`${projectQuestion.question_id}__extra_${i}`] ?? ''}
+              onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
+                onAnswerChange(`${projectQuestion.question_id}__extra_${i}`, e.target.value)
+              }
+            />
+          ))}
+          <div
+            className={styles.addProject}
+            onClick={() => setAdditionalProjectCount((prev) => prev + 1)}
+          >
+            + 프로젝트 추가하기
+          </div>
+        </section>
+      )}
 
       <div className={styles.footer}>
         <div className={styles.navButton} onClick={onPrev}>
@@ -95,3 +112,5 @@ export const EngineeringQuestionSection = ({ onPrev, onNext }: EngineeringQuesti
     </div>
   );
 };
+
+export default EngineeringQuestionSection;

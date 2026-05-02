@@ -15,9 +15,17 @@ interface TextFieldWithCounterProps extends Omit<
   maxLength: number;
 }
 
-const TextFieldWithCounter = ({ maxLength, ...textareaProps }: TextFieldWithCounterProps) => {
-  const [value, setValue] = useState('');
+const TextFieldWithCounter = ({
+  maxLength,
+  value: externalValue,
+  onChange: externalOnChange,
+  ...textareaProps
+}: TextFieldWithCounterProps) => {
+  const [internalValue, setInternalValue] = useState('');
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  const isControlled = externalValue !== undefined;
+  const value = isControlled ? String(externalValue) : internalValue;
 
   const isOverLimit = value.length > maxLength;
   const isCompleted = value.length > 0 && !isOverLimit;
@@ -25,13 +33,16 @@ const TextFieldWithCounter = ({ maxLength, ...textareaProps }: TextFieldWithCoun
   useEffect(() => {
     const textarea = textareaRef.current;
     if (textarea) {
-      textarea.style.height = 'auto'; // 높이 초기화
-      textarea.style.height = `${textarea.scrollHeight}px`; // 내용 높이만큼 설정
+      textarea.style.height = 'auto';
+      textarea.style.height = `${textarea.scrollHeight}px`;
     }
   }, [value]);
 
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setValue(e.target.value);
+    if (!isControlled) {
+      setInternalValue(e.target.value);
+    }
+    externalOnChange?.(e);
   };
 
   return (

@@ -36,7 +36,7 @@ interface PersonalInfoSectionProps {
   onNext: (track: Track) => void;
 }
 
-export const PersonalInfoSection = ({ formContext, onNext }: PersonalInfoSectionProps) => {
+const PersonalInfoSection = ({ formContext, onNext }: PersonalInfoSectionProps) => {
   const { form, setField, addDegree, setDegree } = formContext;
 
   const handleNext = () => {
@@ -204,3 +204,5 @@ export const PersonalInfoSection = ({ formContext, onNext }: PersonalInfoSection
     </div>
   );
 };
+
+export default PersonalInfoSection;

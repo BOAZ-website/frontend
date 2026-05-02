@@ -8,7 +8,7 @@ interface ApplyTitleSectionProps {
   title: string;
 }
 
-export const ApplyTitleSection = ({ currentStep, onStepClick, title }: ApplyTitleSectionProps) => {
+const ApplyTitleSection = ({ currentStep, onStepClick, title }: ApplyTitleSectionProps) => {
   return (
     <div className={styles.container}>
       <ProgressBarSection currentStep={currentStep} onStepClick={onStepClick} />
@@ -17,3 +17,5 @@ export const ApplyTitleSection = ({ currentStep, onStepClick, title }: ApplyTitl
     </div>
   );
 };
+
+export default ApplyTitleSection;

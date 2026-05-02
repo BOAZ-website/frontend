@@ -3,7 +3,7 @@ import Button from '@/shared/components/button/button';
 
 import * as styles from './faq-title-section.css';
 
-export const FAQTitleSection = () => (
+const FAQTitleSection = () => (
   <div className={styles.titleContainer}>
     <h1 className={styles.pageTitle}>FAQ</h1>
     <Button
@@ -17,3 +17,5 @@ export const FAQTitleSection = () => (
     </Button>
   </div>
 );
+
+export default FAQTitleSection;
