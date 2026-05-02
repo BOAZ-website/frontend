@@ -6,6 +6,7 @@ export const wrapper = style({
   position: 'relative',
   width: '100%',
   overflow: 'hidden',
+  userSelect: 'none',
 });
 
 export const track = style({
@@ -23,6 +24,7 @@ export const image = style({
   height: '33rem',
   objectFit: 'cover',
   display: 'block',
+  pointerEvents: 'none',
 });
 
 export const dotsWrapper = style({
