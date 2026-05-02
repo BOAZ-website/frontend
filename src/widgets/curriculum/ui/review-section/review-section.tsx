@@ -19,13 +19,15 @@ const TRACK_LABEL: Record<string, string> = {
 };
 
 const ReviewSection = ({ reviews, currentPage, onPageChange }: ReviewSectionProps) => {
-  const totalPages = Math.ceil(reviews.length / REVIEWS_PER_PAGE);
+  const totalPages = Math.max(1, Math.ceil(reviews.length / REVIEWS_PER_PAGE));
   const start = (currentPage - 1) * REVIEWS_PER_PAGE;
   const paginated = reviews.slice(start, start + REVIEWS_PER_PAGE);
 
   return (
     <div className={styles.wrapper}>
-      <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={onPageChange} />
+      {reviews.length > 0 && (
+        <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={onPageChange} />
+      )}
       <div className={styles.cardList}>
         {paginated.map((review) => (
           <ReviewCard

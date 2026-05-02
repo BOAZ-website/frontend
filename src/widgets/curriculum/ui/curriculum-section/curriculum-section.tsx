@@ -10,8 +10,11 @@ interface CurriculumSectionProps {
 const BASE_SESSION_MAX_STEP = 7;
 
 const CurriculumSection = ({ steps }: CurriculumSectionProps) => {
-  const baseSteps = steps.filter((s) => (s.step ?? 0) <= BASE_SESSION_MAX_STEP);
-  const semesterSteps = steps.filter((s) => (s.step ?? 0) > BASE_SESSION_MAX_STEP);
+  const validSteps = steps.filter(
+    (s): s is CurriculumStepResponse & { step: number } => s.step != null
+  );
+  const baseSteps = validSteps.filter((s) => s.step <= BASE_SESSION_MAX_STEP);
+  const semesterSteps = validSteps.filter((s) => s.step > BASE_SESSION_MAX_STEP);
 
   return (
     <div className={styles.wrapper}>
@@ -30,7 +33,7 @@ const CurriculumSection = ({ steps }: CurriculumSectionProps) => {
           <CurriculumBoxGroup
             key={step.step}
             content={step.title ?? ''}
-            week={step.step ?? 0}
+            week={step.step}
             weekPosition="left"
           />
         ))}
@@ -41,7 +44,7 @@ const CurriculumSection = ({ steps }: CurriculumSectionProps) => {
           <CurriculumBoxGroup
             key={step.step}
             content={step.title ?? ''}
-            week={step.step ?? 0}
+            week={step.step}
             weekPosition="right"
           />
         ))}
