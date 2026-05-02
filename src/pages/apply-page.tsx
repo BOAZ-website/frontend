@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 
 import { APPLY_QUERY_OPTIONS } from '@/widgets/apply/model/query-options';
@@ -21,20 +21,15 @@ const LAST_STEP = STEPS.length - 1;
 const ApplyPage = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
-  const [recruitmentId, setRecruitmentId] = useState(0);
+
+  const { data: deadline } = useRecruitmentDeadline();
+  const recruitmentId = deadline?.recruitment_id ?? 0;
 
   const personalInfo = usePersonalInfoForm();
   const { form } = personalInfo;
   const track = form.track;
 
-  const { data: deadline } = useRecruitmentDeadline();
   const submitMutation = useSubmitApplication();
-
-  useEffect(() => {
-    if (deadline?.recruitment_id) {
-      setRecruitmentId(deadline.recruitment_id);
-    }
-  }, [deadline]);
 
   const { data: allQuestions = [] } = useQuery({
     ...APPLY_QUERY_OPTIONS.QUESTIONS(recruitmentId, track ?? 'ANALYSIS'),
