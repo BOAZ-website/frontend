@@ -1,8 +1,8 @@
 import { useState } from 'react';
 
 import { type CategoryType, FAQ_DATA } from '@/widgets/faq/faq.types';
-import { FAQContentSection } from '@/widgets/faq/ui/faq-content-section';
-import { FAQTitleSection } from '@/widgets/faq/ui/faq-title-section';
+import FAQContentSection from '@/widgets/faq/ui/faq-content-section';
+import FAQTitleSection from '@/widgets/faq/ui/faq-title-section';
 
 import * as styles from './faq-page.css';
 
