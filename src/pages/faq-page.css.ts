@@ -10,7 +10,7 @@ export const container = style({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  paddingBottom: '20rem',
+  paddingBottom: '40rem',
 });
 
 export const contentWrapper = style({
