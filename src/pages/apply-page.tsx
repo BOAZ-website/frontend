@@ -25,15 +25,13 @@ const ApplyPage = () => {
   const { data: deadlineData } = useRecruitmentDeadline();
   const recruitmentId = deadlineData?.recruitment_id ?? 0;
 
-  const { data: commonQuestions = [] } = useQuery({
-    ...APPLY_QUERY_OPTIONS.QUESTIONS(recruitmentId, 'ALL'),
-    enabled: recruitmentId > 0,
-  });
-
-  const { data: trackQuestions = [] } = useQuery({
+  const { data: allQuestions = [] } = useQuery({
     ...APPLY_QUERY_OPTIONS.QUESTIONS(recruitmentId, track ?? 'ANALYSIS'),
     enabled: recruitmentId > 0 && !!track,
   });
+
+  const commonQuestions = allQuestions.filter((q) => q.category === 'COMMON');
+  const trackQuestions = allQuestions.filter((q) => q.category !== 'COMMON');
 
   const handleAnswerChange = (questionId: string, value: string) => {
     setAnswers((prev) => ({ ...prev, [questionId]: value }));

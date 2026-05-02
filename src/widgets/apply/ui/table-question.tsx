@@ -20,6 +20,7 @@ const TableQuestion = ({ question, answer, onChange }: TableQuestionProps) => {
     return null;
   }
 
+  const questionId = String(question.question_id);
   const tableData = answer ? (JSON.parse(answer) as Record<string, string>) : {};
   const columnOptions = metadata.columns.map((col) => ({ label: col, value: col }));
 
@@ -30,7 +31,7 @@ const TableQuestion = ({ question, answer, onChange }: TableQuestionProps) => {
     } else {
       updated[row] = value;
     }
-    onChange(question.question_id!.toString(), JSON.stringify(updated));
+    onChange(questionId, JSON.stringify(updated));
   };
 
   return (
@@ -40,7 +41,7 @@ const TableQuestion = ({ question, answer, onChange }: TableQuestionProps) => {
         <div key={row} className={styles.row}>
           <div className={styles.rowLabel}>{row}</div>
           <RadioGroup
-            name={`${question.question_id}-${row}`}
+            name={`${questionId}-${row}`}
             options={columnOptions}
             value={tableData[row] ?? null}
             onChange={(value) => handleRowChange(row, value)}

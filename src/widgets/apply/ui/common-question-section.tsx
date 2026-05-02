@@ -26,25 +26,28 @@ const CommonQuestionSection = ({
 
   return (
     <div className={styles.container}>
-      {sorted.map((question) => (
-        <section key={question.question_id} className={styles.section}>
-          <div className={styles.titleContainer}>
-            <h2 className={styles.sectionTitle}>{question.content}</h2>
-            {question.limit_length && (
-              <p className={styles.sectionDescription}>
-                (공백 포함 {question.limit_length}자 이내)
-              </p>
-            )}
-          </div>
-          <TextFieldWithCounter
-            maxLength={question.limit_length ?? 500}
-            value={answers[String(question.question_id!)] ?? ''}
-            onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
-              onAnswerChange(String(question.question_id!), e.target.value)
-            }
-          />
-        </section>
-      ))}
+      {sorted.map((question) => {
+        const qid = String(question.question_id);
+        return (
+          <section key={qid} className={styles.section}>
+            <div className={styles.titleContainer}>
+              <h2 className={styles.sectionTitle}>{question.content}</h2>
+              {question.limit_length && (
+                <p className={styles.sectionDescription}>
+                  (공백 포함 {question.limit_length}자 이내)
+                </p>
+              )}
+            </div>
+            <TextFieldWithCounter
+              maxLength={question.limit_length ?? 500}
+              value={answers[qid] ?? ''}
+              onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
+                onAnswerChange(qid, e.target.value)
+              }
+            />
+          </section>
+        );
+      })}
 
       <div className={styles.footer}>
         <div className={styles.navButton} onClick={onPrev}>

@@ -39,67 +39,74 @@ const EngineeringQuestionSection = ({
         <section key={question.question_id} className={styles.section}>
           <TableQuestion
             question={question}
-            answer={answers[question.question_id!] ?? ''}
+            answer={answers[String(question.question_id)] ?? ''}
             onChange={onAnswerChange}
           />
         </section>
       ))}
 
-      {regularTextQuestions.map((question) => (
-        <section key={question.question_id} className={styles.section}>
-          <div className={styles.titleContainer}>
-            <h2 className={styles.sectionTitle}>{question.content}</h2>
-            {question.limit_length && (
-              <p className={styles.sectionDescription}>
-                (공백 포함 {question.limit_length}자 이내)
-              </p>
-            )}
-          </div>
-          <TextFieldWithCounter
-            maxLength={question.limit_length ?? 500}
-            value={answers[String(question.question_id!)] ?? ''}
-            onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
-              onAnswerChange(String(question.question_id!), e.target.value)
-            }
-          />
-        </section>
-      ))}
-
-      {projectQuestion && (
-        <section className={styles.section}>
-          <div className={styles.titleContainer}>
-            <h2 className={styles.sectionTitle}>{projectQuestion.content}</h2>
-            {projectQuestion.limit_length && (
-              <p className={styles.sectionDescription}>
-                (공백 포함 {projectQuestion.limit_length}자 이내)
-              </p>
-            )}
-          </div>
-          <TextFieldWithCounter
-            maxLength={projectQuestion.limit_length ?? 500}
-            value={answers[String(projectQuestion.question_id!)] ?? ''}
-            onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
-              onAnswerChange(String(projectQuestion.question_id!), e.target.value)
-            }
-          />
-          {Array.from({ length: additionalProjectCount }, (_, i) => (
+      {regularTextQuestions.map((question) => {
+        const qid = String(question.question_id);
+        return (
+          <section key={qid} className={styles.section}>
+            <div className={styles.titleContainer}>
+              <h2 className={styles.sectionTitle}>{question.content}</h2>
+              {question.limit_length && (
+                <p className={styles.sectionDescription}>
+                  (공백 포함 {question.limit_length}자 이내)
+                </p>
+              )}
+            </div>
             <TextFieldWithCounter
-              key={i}
-              maxLength={projectQuestion.limit_length ?? 500}
-              value={answers[`${projectQuestion.question_id}__extra_${i}`] ?? ''}
+              maxLength={question.limit_length ?? 500}
+              value={answers[qid] ?? ''}
               onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
-                onAnswerChange(`${projectQuestion.question_id}__extra_${i}`, e.target.value)
+                onAnswerChange(qid, e.target.value)
               }
             />
-          ))}
-          <div
-            className={styles.addProject}
-            onClick={() => setAdditionalProjectCount((prev) => prev + 1)}
-          >
-            + 프로젝트 추가하기
-          </div>
-        </section>
-      )}
+          </section>
+        );
+      })}
+
+      {projectQuestion &&
+        (() => {
+          const qid = String(projectQuestion.question_id);
+          return (
+            <section className={styles.section}>
+              <div className={styles.titleContainer}>
+                <h2 className={styles.sectionTitle}>{projectQuestion.content}</h2>
+                {projectQuestion.limit_length && (
+                  <p className={styles.sectionDescription}>
+                    (공백 포함 {projectQuestion.limit_length}자 이내)
+                  </p>
+                )}
+              </div>
+              <TextFieldWithCounter
+                maxLength={projectQuestion.limit_length ?? 500}
+                value={answers[qid] ?? ''}
+                onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
+                  onAnswerChange(qid, e.target.value)
+                }
+              />
+              {Array.from({ length: additionalProjectCount }, (_, i) => (
+                <TextFieldWithCounter
+                  key={i}
+                  maxLength={projectQuestion.limit_length ?? 500}
+                  value={answers[`${qid}__extra_${i}`] ?? ''}
+                  onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
+                    onAnswerChange(`${qid}__extra_${i}`, e.target.value)
+                  }
+                />
+              ))}
+              <div
+                className={styles.addProject}
+                onClick={() => setAdditionalProjectCount((prev) => prev + 1)}
+              >
+                + 프로젝트 추가하기
+              </div>
+            </section>
+          );
+        })()}
 
       <div className={styles.footer}>
         <div className={styles.navButton} onClick={onPrev}>
