@@ -7,11 +7,7 @@ interface TextFieldProps extends Omit<ComponentProps<'textarea'>, 'className'> {
   isCompleted?: boolean;
 }
 
-export const TextField = ({
-  isError = false,
-  isCompleted = false,
-  ...textareaProps
-}: TextFieldProps) => {
+const TextField = ({ isError = false, isCompleted = false, ...textareaProps }: TextFieldProps) => {
   return (
     <textarea
       className={styles.textFieldRecipe({ error: isError, completed: isCompleted })}

@@ -17,8 +17,8 @@ const RecruitmentStatusSection = () => {
     return null;
   }
 
-  const { isActive } = status;
-  const { startDate, endDate } = recruitment;
+  const { is_active } = status;
+  const { start_date: startDate, end_date: endDate } = recruitment;
 
   if (!startDate || !endDate) {
     return null;
@@ -27,7 +27,7 @@ const RecruitmentStatusSection = () => {
   return (
     <section className={styles.container}>
       <h2 className={styles.recruitDate}>{formatRecruitDate(startDate, endDate)}</h2>
-      {isActive ? (
+      {is_active ? (
         <CountdownTimer deadline={endDate} />
       ) : (
         <>

@@ -10,7 +10,7 @@ interface FAQContentSectionProps {
   currentList: FaqItem[];
 }
 
-export const FAQContentSection = ({
+const FAQContentSection = ({
   activeCategory,
   onCategoryChange,
   currentList,
@@ -40,3 +40,5 @@ export const FAQContentSection = ({
     </article>
   </div>
 );
+
+export default FAQContentSection;
