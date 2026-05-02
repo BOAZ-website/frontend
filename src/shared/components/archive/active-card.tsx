@@ -21,9 +21,7 @@ const ActiveCard = ({ imageSrc, title, date, generation }: CardProps) => {
 
         <div className={styles.bottomInfo}>
           <span className={styles.date}>{date}</span>
-          <button className={styles.tagButton({ variant: 'mini', color: 'outlined' })}>
-            {generation}기
-          </button>
+          <button className={styles.tagButton}>{generation}기</button>
         </div>
       </div>
     </article>

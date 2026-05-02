@@ -1,5 +1,4 @@
 import { style } from '@vanilla-extract/css';
-import { recipe } from '@vanilla-extract/recipes';
 
 import { themeVars } from '@/shared/styles/theme.css';
 import { typography } from '@/shared/styles/typography.css';
@@ -43,8 +42,8 @@ export const contentSection = style({
 
 export const title = style({
   color: themeVars.color.grayscale.white,
-  ...typography.body4_rg_18,
-  lineHeight: '1.4',
+  ...typography.body2_rg_20,
+  lineHeight: '2',
   height: '6.8rem',
   display: '-webkit-box',
   WebkitLineClamp: 2,
@@ -63,28 +62,17 @@ export const date = style({
   ...typography.text_rg_14,
 });
 
-export const tagButton = recipe({
-  base: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: '20rem',
-    cursor: 'pointer',
-    border: '1px solid transparent',
-  },
-  variants: {
-    variant: {
-      mini: {
-        ...typography.text_rg_14,
-        padding: '0.4rem 1.2rem',
-      },
-    },
-    color: {
-      outlined: {
-        color: themeVars.color.grayscale[400],
-        backgroundColor: 'transparent',
-        border: `1px solid ${themeVars.color.grayscale[400]}`,
-      },
-    },
-  },
+export const tagButton = style({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  borderRadius: '20rem',
+  cursor: 'pointer',
+
+  ...typography.text_rg_14,
+  padding: '0.4rem 1.2rem',
+
+  color: themeVars.color.grayscale[400],
+  backgroundColor: 'transparent',
+  border: `1px solid ${themeVars.color.grayscale[400]}`,
 });
