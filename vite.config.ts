@@ -4,9 +4,18 @@ import svgr from 'vite-plugin-svgr';
 import path from 'path';
 import { defineConfig } from 'vite';
 
-// https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), vanillaExtractPlugin(), svgr()],
+  plugins: [
+    react({
+      babel: {
+        plugins: [
+          ['babel-plugin-react-compiler', { target: '19' }], 
+        ],
+      },
+    }),
+    vanillaExtractPlugin(),
+    svgr(),
+  ],
 
   resolve: {
     alias: {
