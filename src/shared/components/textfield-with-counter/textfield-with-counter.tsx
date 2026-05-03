@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { ChangeEvent, ComponentProps } from 'react';
 
 import WarningIcon from '@/shared/assets/icons/ic_warning.svg?react';
@@ -13,40 +13,68 @@ interface TextFieldWithCounterProps extends Omit<
   'className' | 'maxLength'
 > {
   maxLength: number;
+  errorMessage?: string;
 }
 
-const TextFieldWithCounter = ({ maxLength, ...textareaProps }: TextFieldWithCounterProps) => {
-  const [value, setValue] = useState('');
+const TextFieldWithCounter = ({
+  maxLength,
+  value: externalValue,
+  onChange: externalOnChange,
+  errorMessage,
+  ...textareaProps
+}: TextFieldWithCounterProps) => {
+  const isControlled = externalValue !== undefined;
+  const [internalValue, setInternalValue] = useState('');
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
+  const value = isControlled ? String(externalValue) : internalValue;
   const isOverLimit = value.length > maxLength;
   const isCompleted = value.length > 0 && !isOverLimit;
+  const hasError = isOverLimit || !!errorMessage;
+
+  useEffect(() => {
+    const textarea = textareaRef.current;
+    if (textarea) {
+      textarea.style.height = 'auto';
+      textarea.style.height = `${textarea.scrollHeight}px`;
+    }
+  }, [value]);
 
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setValue(e.target.value);
+    if (!isControlled) {
+      setInternalValue(e.target.value);
+    }
+    externalOnChange?.(e);
   };
 
   return (
     <div className={styles.textFieldWithCounterWrapper}>
       <TextField
         {...textareaProps}
+        ref={textareaRef}
         value={value}
-        isError={isOverLimit}
+        isError={hasError}
         isCompleted={isCompleted}
         onChange={handleChange}
       />
       <div className={styles.fieldBottom}>
         <p className={styles.errorMessage}>
-          {isOverLimit && (
+          {isOverLimit ? (
             <>
               <WarningIcon width={16} height={16} />
               <span>글자 수 제한을 초과했습니다</span>
             </>
-          )}
+          ) : errorMessage ? (
+            <>
+              <WarningIcon width={16} height={16} />
+              <span>{errorMessage}</span>
+            </>
+          ) : null}
         </p>
         <TextCounter
           currentLength={value.length}
           maxLength={maxLength}
-          isError={isOverLimit}
+          isError={hasError}
           isCompleted={isCompleted}
         />
       </div>

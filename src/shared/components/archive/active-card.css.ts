@@ -8,8 +8,7 @@ export const cardContainer = style({
   flexDirection: 'column',
   width: '33.3rem',
   height: '35rem',
-  borderRadius: '2rem',
-  //border: `1px solid ${themeVars.color.grayscale[800]}`,
+  borderRadius: '20px',
   overflow: 'hidden',
   backgroundColor: themeVars.color.grayscale[900],
 
@@ -27,8 +26,7 @@ export const cardContainer = style({
 export const imageSection = style({
   width: '100%',
   height: '25rem',
-  backgroundColor: themeVars.color.grayscale.white,
-  opacity: 0.6,
+  backgroundColor: themeVars.color.grayscale[400],
   objectFit: 'cover',
 });
 
@@ -36,15 +34,14 @@ export const contentSection = style({
   display: 'flex',
   flexDirection: 'column',
   flex: 1,
-  padding: '1.2rem 1.0rem 0.8rem',
+  padding: '1.2rem 1.2rem 0.9rem 1.2rem',
   justifyContent: 'space-between',
 });
 
 export const title = style({
   color: themeVars.color.grayscale.white,
   ...typography.body2_rg_20,
-  lineHeight: '2',
-  height: '6.8rem',
+  lineHeight: '1.2',
   display: '-webkit-box',
   WebkitLineClamp: 2,
   WebkitBoxOrient: 'vertical',
@@ -66,13 +63,12 @@ export const tagButton = style({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  borderRadius: '20rem',
+  borderRadius: '20px',
   cursor: 'pointer',
-
   ...typography.text_rg_14,
-  padding: '0.4rem 1.2rem',
+  padding: '0.45rem 1.2rem',
 
-  color: themeVars.color.grayscale[400],
+  color: themeVars.color.grayscale[100],
   backgroundColor: 'transparent',
   border: `1px solid ${themeVars.color.grayscale[400]}`,
 });

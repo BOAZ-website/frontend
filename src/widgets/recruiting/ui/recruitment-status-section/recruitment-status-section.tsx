@@ -17,21 +17,21 @@ const RecruitmentStatusSection = () => {
     return null;
   }
 
-  const { isActive } = status;
-  const { startDate, endDate } = recruitment;
+  const { is_active } = status;
+  const { start_date, end_date } = recruitment;
 
-  if (!startDate || !endDate) {
+  if (!start_date || !end_date) {
     return null;
   }
 
   return (
     <section className={styles.container}>
-      <h2 className={styles.recruitDate}>{formatRecruitDate(startDate, endDate)}</h2>
-      {isActive ? (
-        <CountdownTimer deadline={endDate} />
+      <h2 className={styles.recruitDate}>{formatRecruitDate(start_date, end_date)}</h2>
+      {is_active ? (
+        <CountdownTimer deadline={end_date} />
       ) : (
         <>
-          <DDayCounter startDate={startDate} />
+          <DDayCounter startDate={start_date} />
           <NoticeForm />
         </>
       )}
