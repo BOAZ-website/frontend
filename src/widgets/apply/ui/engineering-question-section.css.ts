@@ -41,9 +41,9 @@ export const sectionExperienceTitle = style({
 export const footer = style({
   display: 'flex',
   flexDirection: 'column',
-  alignItems: 'center',
-  gap: '2.4rem',
-  marginTop: '4rem',
+  alignItems: 'flex-start',
+  gap: '12rem',
+  ...typography.h4_bd_24,
 });
 
 export const footerNav = style({
