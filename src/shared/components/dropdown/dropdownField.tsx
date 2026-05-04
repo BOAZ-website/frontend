@@ -9,15 +9,17 @@ interface DropdownFieldProps {
   onChange?: (value: string) => void;
 }
 
-const DropdownField = ({ options, defaultValue, onChange }: DropdownFieldProps) => {
-  const [selectedValue, setSelectedValue] = useState(defaultValue ?? options[0]);
+const DropdownField = ({ label, options, defaultValue, onChange }: DropdownFieldProps) => {
+  const [selectedValue, setSelectedValue] = useState(defaultValue ?? '');
 
   const handleChange = (value: string) => {
     setSelectedValue(value);
     onChange?.(value);
   };
 
-  return <Dropdown options={options} value={selectedValue} onChange={handleChange} />;
+  return (
+    <Dropdown options={options} value={selectedValue} placeholder={label} onChange={handleChange} />
+  );
 };
 
 export default DropdownField;

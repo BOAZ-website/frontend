@@ -21,6 +21,10 @@ export const trigger = style({
   ...typography.body4_rg_18,
 });
 
+export const triggerPlaceholder = style({
+  color: themeVars.color.grayscale[400],
+});
+
 export const menuContainer = style({
   display: 'flex',
   position: 'absolute',

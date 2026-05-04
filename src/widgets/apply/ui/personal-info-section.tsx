@@ -228,13 +228,13 @@ const PersonalInfoSection = ({ formContext, onNext }: PersonalInfoSectionProps) 
         <h2 className={styles.sectionTitle}>마지막 재학 학기</h2>
         <div className={styles.row}>
           <DropdownField
-            label="재학학년"
+            label="학년"
             options={ACADEMIC_GRADES}
             defaultValue={form.academicGrade}
             onChange={(v) => setField('academicGrade', v)}
           />
           <DropdownField
-            label="재학학기"
+            label="학기"
             options={SEMESTERS}
             defaultValue={form.semester}
             onChange={(v) => setField('semester', v)}
