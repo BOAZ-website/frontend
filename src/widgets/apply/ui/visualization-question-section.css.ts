@@ -14,7 +14,8 @@ export const container = style({
 export const section = style({
   display: 'flex',
   flexDirection: 'column',
-  gap: '2.4rem',
+  alignItems: 'flex-start',
+  gap: '12rem',
 });
 
 export const titleContainer = style({
@@ -40,7 +41,15 @@ export const sectionExperienceTitle = style({
 
 export const footer = style({
   display: 'flex',
-  justifyContent: 'space-between', // 이전/다음 페이지 양끝 정렬
+  flexDirection: 'column',
+  alignItems: 'center',
+  gap: '2.4rem',
+  marginTop: '4rem',
+});
+
+export const footerNav = style({
+  display: 'flex',
+  justifyContent: 'space-between',
   alignItems: 'center',
   marginTop: '4rem',
   ...typography.h4_bd_24,

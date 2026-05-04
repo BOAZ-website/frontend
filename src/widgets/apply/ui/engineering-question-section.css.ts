@@ -40,7 +40,15 @@ export const sectionExperienceTitle = style({
 
 export const footer = style({
   display: 'flex',
-  justifyContent: 'space-between', // 이전/다음 페이지 양끝 정렬
+  flexDirection: 'column',
+  alignItems: 'center',
+  gap: '2.4rem',
+  marginTop: '4rem',
+});
+
+export const footerNav = style({
+  display: 'flex',
+  justifyContent: 'space-between',
   alignItems: 'center',
   marginTop: '4rem',
   ...typography.h4_bd_24,

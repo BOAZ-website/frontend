@@ -59,9 +59,8 @@ export const button = recipe({
         backgroundColor: themeVars.color.primary[100],
         ':hover': { backgroundColor: themeVars.color.primary[300] },
         ':disabled': {
-          // 임시
-          color: themeVars.color.grayscale[400],
-          backgroundColor: themeVars.color.grayscale[100],
+          color: themeVars.color.grayscale.white,
+          backgroundColor: themeVars.color.grayscale[400],
           cursor: 'not-allowed',
         },
       },
