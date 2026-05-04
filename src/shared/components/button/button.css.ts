@@ -18,6 +18,11 @@ export const button = recipe({
   },
   variants: {
     variant: {
+      wide: {
+        ...typography.h4_bd_24,
+        padding: '1.95rem 0',
+        width: '100%',
+      },
       large: {
         ...typography.body2_bd_20,
         padding: '2.2rem 5.1rem',
