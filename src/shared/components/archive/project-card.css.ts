@@ -64,7 +64,6 @@ export const subTitle = style({
 export const title = style({
   color: themeVars.color.grayscale.white,
   ...typography.body1_rg_24,
-  lineHeight: '1.4',
   height: '6.4rem',
   overflow: 'hidden',
   display: '-webkit-box',
@@ -101,27 +100,16 @@ export const iconItem = style({
   },
 });
 
-export const tagButton = recipe({
-  base: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: '20rem',
-    border: '1px solid transparent',
-    whiteSpace: 'nowrap',
-  },
-  variants: {
-    variant: {
-      mini: {
-        ...typography.text_rg_14,
-        padding: '0.4rem 1.2rem',
-      },
-    },
-    color: {
-      outlined: {
-        color: themeVars.color.grayscale[400],
-        border: `1px solid ${themeVars.color.grayscale[400]}`,
-      },
-    },
-  },
+export const tagButton = style({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  borderRadius: '20px',
+  cursor: 'pointer',
+  ...typography.text_rg_14,
+  padding: '0.45rem 1.2rem',
+
+  color: themeVars.color.grayscale[100],
+  backgroundColor: 'transparent',
+  border: `1px solid ${themeVars.color.grayscale[400]}`,
 });

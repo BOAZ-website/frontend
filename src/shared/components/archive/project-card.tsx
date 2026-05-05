@@ -9,19 +9,23 @@ interface CardProps {
   title: string;
   generation: string;
   category?: string;
+  githubUrl?: string;
+  slideShareUrl?: string;
 }
 
-const ProjectCard = ({ imageSrc, subTitle, title, generation, category }: CardProps) => {
+const ProjectCard = ({
+  imageSrc,
+  subTitle,
+  title,
+  generation,
+  category,
+  githubUrl,
+  slideShareUrl,
+}: CardProps) => {
   return (
     <article className={styles.cardContainer}>
       <div className={styles.imageSection}>
-        {imageSrc && (
-          <img
-            src={imageSrc}
-            alt={title}
-            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-          />
-        )}
+        {imageSrc && <img src={imageSrc} alt={title} className={styles.cardImage} />}
       </div>
 
       <div className={styles.contentSection}>
@@ -30,19 +34,17 @@ const ProjectCard = ({ imageSrc, subTitle, title, generation, category }: CardPr
 
         <div className={styles.bottomInfo}>
           <div className={styles.tagContainer}>
-            {category && (
-              <button className={styles.tagButton({ variant: 'mini', color: 'outlined' })}>
-                {category}
-              </button>
-            )}
-            <button className={styles.tagButton({ variant: 'mini', color: 'outlined' })}>
-              {generation}기
-            </button>
+            {category && <button className={styles.tagButton}>{category}</button>}
+            <button className={styles.tagButton}>{generation}기</button>
           </div>
 
           <div className={styles.iconContainer}>
-            <GithubIcon width={24} height={24} />
-            <SlideShareIcon width={24} height={24} />
+            <a href={githubUrl} target="_blank" rel="noopener noreferrer">
+              <GithubIcon width={24} height={24} />
+            </a>
+            <a href={slideShareUrl} target="_blank" rel="noopener noreferrer">
+              <SlideShareIcon width={24} height={24} />
+            </a>
           </div>
         </div>
       </div>
