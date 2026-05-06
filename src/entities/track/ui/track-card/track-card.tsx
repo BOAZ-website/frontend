@@ -23,7 +23,7 @@ const TrackCard = ({ title, description }: TrackCardProps) => {
       </div>
 
       <div className={styles.cardButtonWrapper}>
-        <Button preset="small-round_primary" onClick={() => navigate(ROUTE_PATH.RECRUITING)}>
+        <Button preset="small-round_primary" onClick={() => navigate(ROUTE_PATH.APPLY)}>
           지원하기
         </Button>
       </div>

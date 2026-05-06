@@ -1,13 +1,6 @@
 import { useState } from 'react';
 
-import {
-  ACADEMIC_GRADES,
-  BIRTH_YEARS,
-  DAYS,
-  GRADUATION_YEARS,
-  MONTHS,
-  SEMESTERS,
-} from '@/widgets/apply/apply-dropdown';
+import { ACADEMIC_GRADES, MONTHS, SEMESTERS } from '@/widgets/apply/apply-dropdown';
 import type { MilitaryStatus, Track } from '@/shared/api/types';
 
 interface PersonalInfoForm {
@@ -32,18 +25,18 @@ interface PersonalInfoForm {
 const INITIAL_FORM: PersonalInfoForm = {
   track: null,
   name: '',
-  birthYear: BIRTH_YEARS[0],
-  birthMonth: MONTHS[0],
-  birthDay: DAYS[0],
+  birthYear: '',
+  birthMonth: '',
+  birthDay: '',
   email: '',
   phone: '',
   university: '',
   major: '',
   additionalDegrees: [],
-  academicGrade: ACADEMIC_GRADES[0],
-  semester: SEMESTERS[0],
-  graduationYear: GRADUATION_YEARS[0],
-  graduationMonth: MONTHS[0],
+  academicGrade: '',
+  semester: '',
+  graduationYear: '',
+  graduationMonth: '',
   militaryStatus: null,
   gradSchoolPlan: null,
 };

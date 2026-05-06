@@ -18,6 +18,11 @@ export const button = recipe({
   },
   variants: {
     variant: {
+      wide: {
+        ...typography.h4_bd_24,
+        padding: '1.95rem 0',
+        width: '100%',
+      },
       large: {
         ...typography.body2_bd_20,
         padding: '2.2rem 5.1rem',
@@ -54,9 +59,8 @@ export const button = recipe({
         backgroundColor: themeVars.color.primary[100],
         ':hover': { backgroundColor: themeVars.color.primary[300] },
         ':disabled': {
-          // 임시
-          color: themeVars.color.grayscale[400],
-          backgroundColor: themeVars.color.grayscale[100],
+          color: themeVars.color.grayscale.white,
+          backgroundColor: themeVars.color.grayscale[400],
           cursor: 'not-allowed',
         },
       },

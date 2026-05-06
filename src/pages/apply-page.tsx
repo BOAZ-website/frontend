@@ -51,7 +51,16 @@ const ApplyPage = () => {
     for (const [key, value] of Object.entries(answers)) {
       const isExtra = key.includes('__extra_');
       const baseId = isExtra ? key.split('__extra_')[0] : key;
-      result.push({ question_id: parseInt(baseId), answer: value });
+      const question = allQuestions.find((q) => String(q.question_id) === baseId);
+      let answer: unknown = value;
+      if (question?.type === 'TABLE') {
+        try {
+          answer = JSON.parse(value);
+        } catch {
+          answer = value;
+        }
+      }
+      result.push({ question_id: parseInt(baseId), answer });
     }
     return result;
   };
