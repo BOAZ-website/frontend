@@ -1,5 +1,4 @@
 import { style } from '@vanilla-extract/css';
-import { recipe } from '@vanilla-extract/recipes';
 
 import { themeVars } from '@/shared/styles/theme.css';
 import { typography } from '@/shared/styles/typography.css';
@@ -10,25 +9,23 @@ export const cardContainer = style({
   width: '33.3rem',
   height: '35rem',
   borderRadius: '2rem',
-  borderColor: themeVars.color.grayscale[800],
   backgroundColor: themeVars.color.grayscale[900],
   padding: '2rem 2.1rem 2.1rem 2.1rem',
-  border: '1px solid transparent',
+  border: `1px solid ${themeVars.color.grayscale[800]}`,
   transition: 'all 0.2s ease-in-out',
   cursor: 'pointer',
+  outline: '1px solid transparent',
 
   selectors: {
     [`&:hover`]: {
-      borderRadius: '2rem',
-      borderColor: themeVars.color.primary[100],
-      transform: 'translateY(-0.2rem)',
-
+      border: `1px solid #2C3F61`,
+      outline: `1px solid #2C3F61`,
+      outlineOffset: '-2px',
       background: `
-        linear-gradient(180deg, rgba(102, 102, 102, 0.00) 0%, rgba(100, 152, 249, 0.20) 100%), 
-        linear-gradient(180deg, rgba(122, 100, 249, 0.20) 0%, rgba(153, 153, 153, 0.00) 100%), 
-        #0A0A0A
-      `,
-      boxShadow: '0 12px 24px rgba(0, 0, 0, 0.4)',
+  linear-gradient(180deg, rgba(104, 203, 236, 0.00) 0%, rgba(104, 203, 236, 0.20) 100%), 
+  linear-gradient(180deg, rgba(122, 100, 249, 0.20) 0%, rgba(122, 100, 249, 0.00) 100%), 
+  ${themeVars.color.grayscale[950]}
+`,
     },
   },
 });
@@ -92,36 +89,9 @@ export const iconContainer = style({
 });
 
 export const iconItem = style({
-  width: '2.4rem',
-  height: '2.4rem',
   color: themeVars.color.grayscale[400],
   transition: 'color 0.2s',
   selectors: {
     [`&:hover`]: { color: themeVars.color.grayscale.white },
-  },
-});
-
-export const tagButton = recipe({
-  base: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: '20rem',
-    border: '1px solid transparent',
-    whiteSpace: 'nowrap',
-  },
-  variants: {
-    variant: {
-      mini: {
-        ...typography.text_rg_14,
-        padding: '0.4rem 1.2rem',
-      },
-    },
-    color: {
-      outlined: {
-        color: themeVars.color.grayscale[400],
-        border: `1px solid ${themeVars.color.grayscale[400]}`,
-      },
-    },
   },
 });
