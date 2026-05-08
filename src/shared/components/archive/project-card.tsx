@@ -25,7 +25,7 @@ const ProjectCard = ({
   return (
     <article className={styles.cardContainer}>
       <div className={styles.imageSection}>
-        {imageSrc && <img src={imageSrc} alt={title} className={styles.cardImage} />}
+        <img src={imageSrc} alt={title} className={styles.cardImage} />
       </div>
 
       <div className={styles.contentSection}>

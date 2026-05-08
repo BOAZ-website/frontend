@@ -9,10 +9,9 @@ export const cardContainer = style({
   width: '33.3rem',
   height: '35rem',
   borderRadius: '2rem',
-  borderColor: themeVars.color.grayscale[800],
   backgroundColor: themeVars.color.grayscale[900],
   padding: '2rem 2.1rem 2.1rem 2.1rem',
-  border: '1px solid transparent',
+  border: `1px solid ${themeVars.color.grayscale[800]}`,
   transition: 'all 0.2s ease-in-out',
   cursor: 'pointer',
 
