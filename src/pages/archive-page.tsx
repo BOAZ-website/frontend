@@ -1,5 +1,5 @@
 const ArchivePage = () => {
-  return <div>ArchivePage</div>;
+  return <div>Archive Page</div>;
 };
 
 export default ArchivePage;

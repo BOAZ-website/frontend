@@ -1,5 +1,6 @@
 import GithubIcon from '@/shared/assets/icons/ic_github.svg?react';
 import SlideShareIcon from '@/shared/assets/icons/ic_project_slideshare.svg?react';
+import Tag from '@/shared/components/tag/tag';
 
 import * as styles from './project-card.css';
 
@@ -10,7 +11,7 @@ interface CardProps {
   generation: string;
   category?: string;
   githubUrl?: string;
-  slideShareUrl?: string;
+  slideshareUrl?: string;
 }
 
 const ProjectCard = ({
@@ -20,7 +21,7 @@ const ProjectCard = ({
   generation,
   category,
   githubUrl,
-  slideShareUrl,
+  slideshareUrl,
 }: CardProps) => {
   return (
     <article className={styles.cardContainer}>
@@ -34,15 +35,25 @@ const ProjectCard = ({
 
         <div className={styles.bottomInfo}>
           <div className={styles.tagContainer}>
-            {category && <button className={styles.tagButton}>{category}</button>}
-            <button className={styles.tagButton}>{generation}기</button>
+            <Tag>{category}</Tag>
+            <Tag>{generation}기</Tag>
           </div>
 
           <div className={styles.iconContainer}>
-            <a href={githubUrl} target="_blank" rel="noopener noreferrer">
+            <a
+              href={githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.iconItem}
+            >
               <GithubIcon width={24} height={24} />
             </a>
-            <a href={slideShareUrl} target="_blank" rel="noopener noreferrer">
+            <a
+              href={slideshareUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.iconItem}
+            >
               <SlideShareIcon width={24} height={24} />
             </a>
           </div>
