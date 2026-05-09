@@ -61,6 +61,7 @@ export const subTitle = style({
 export const title = style({
   color: themeVars.color.grayscale.white,
   ...typography.body1_rg_24,
+  lineHeight: '1.4',
   height: '6.4rem',
   overflow: 'hidden',
   display: '-webkit-box',
