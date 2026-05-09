@@ -5,11 +5,15 @@ import { typography } from '@/shared/styles/typography.css';
 
 export const container = style({
   display: 'flex',
-  gap: '5.7rem',
+  flexDirection: 'row',
   alignItems: 'center',
+  gap: '2rem',
+  width: 'fit-content',
 });
 
 export const weekLabel = style({
   ...typography.body3_bd_18,
   color: themeVars.color.sub.lightblue_100,
+  whiteSpace: 'nowrap',
+  flexShrink: 0,
 });

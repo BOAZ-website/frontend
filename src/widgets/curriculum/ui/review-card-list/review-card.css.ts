@@ -6,7 +6,9 @@ import { typography } from '@/shared/styles/typography.css';
 export const cardWrapper = style({
   backgroundColor: themeVars.color.grayscale.white,
   borderRadius: '10px',
-  padding: '2.4rem 3.5rem',
+  width: '50rem',
+  height: '20.8rem',
+  padding: '2.85rem 4.2rem 3.5rem',
   display: 'flex',
   flexDirection: 'column',
   gap: '1.3rem',

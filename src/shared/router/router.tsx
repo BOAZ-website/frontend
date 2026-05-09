@@ -2,6 +2,7 @@ import { createBrowserRouter } from 'react-router';
 
 import { GlobalLayout } from '@/app/layouts/global-layout/global-layout';
 import {
+  ApplyPage,
   ArchivePage,
   CurriculumPage,
   FAQPage,
@@ -33,6 +34,10 @@ export const router = createBrowserRouter([
       {
         path: ROUTE_PATH.FAQ,
         Component: FAQPage,
+      },
+      {
+        path: ROUTE_PATH.APPLY,
+        Component: ApplyPage,
       },
     ],
   },

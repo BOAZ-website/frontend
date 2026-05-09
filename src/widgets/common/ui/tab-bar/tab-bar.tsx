@@ -2,7 +2,6 @@ import { Link } from 'react-router';
 
 import BOAZLogo from '@/shared/assets/icons/BOAZ_logo.svg?react';
 import Button from '@/shared/components/button/button';
-import { EXTERNAL_LINKS } from '@/shared/configs/external-links';
 import { ROUTE_PATH } from '@/shared/router/paths';
 
 import * as styles from './tab-bar.css';
@@ -38,14 +37,9 @@ const TabBar = () => {
         </nav>
       </div>
 
-      <a
-        href={EXTERNAL_LINKS.APPLY_FORM}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="지원하기"
-      >
+      <Link to={ROUTE_PATH.APPLY} aria-label="지원하기">
         <Button preset="small-round_glass">지원하기</Button>
-      </a>
+      </Link>
     </header>
   );
 };

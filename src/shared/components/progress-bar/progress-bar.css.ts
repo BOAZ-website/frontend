@@ -9,6 +9,7 @@ export const progressBar = recipe({
     border: `1px solid ${themeVars.color.grayscale[800]}`,
     borderRadius: '20px',
     backgroundColor: 'transparent',
+    cursor: 'default',
   },
   variants: {
     isCurrentStep: {

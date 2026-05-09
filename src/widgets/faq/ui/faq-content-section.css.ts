@@ -5,24 +5,27 @@ import { typography } from '@/shared/styles/typography.css';
 
 export const mainLayout = style({
   display: 'flex',
-  gap: '4rem',
   width: '100%',
+  alignItems: 'flex-start',
 });
 
 export const sideNavigation = style({
   display: 'flex',
   flexDirection: 'column',
-  width: '20rem',
   flexShrink: 0,
 });
 
 const tabBase = style({
   textAlign: 'left',
-  padding: '1.6rem 0',
   backgroundColor: 'transparent',
-  border: 'none',
   cursor: 'pointer',
   ...typography.h4_bd_24,
+  padding: '2.9rem 13.3rem 2.9rem 1.6rem',
+  selectors: {
+    '&:hover': {
+      backgroundColor: themeVars.color.grayscale[900],
+    },
+  },
 });
 
 export const tabVariants = styleVariants({
