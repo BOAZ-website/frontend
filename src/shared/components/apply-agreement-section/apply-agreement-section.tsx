@@ -2,7 +2,7 @@ import * as styles from './apply-agreement-section.css';
 
 interface ApplyAgreementSectionProps {
   title: string;
-  description: string;
+  description?: string;
   link?: {
     label: string;
     href: string;
@@ -19,7 +19,7 @@ const ApplyAgreementSection = ({ title, description, link }: ApplyAgreementSecti
             {link.label}
           </a>
         )}
-        <p className={styles.description}>{description}</p>
+        {description && <p className={styles.description}>{description}</p>}
       </div>
     </div>
   );

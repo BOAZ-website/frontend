@@ -14,11 +14,11 @@ import PersonalInfoSection from '@/widgets/apply/ui/personal-info-section';
 import VisualizationQuestionSection from '@/widgets/apply/ui/visualization-question-section';
 import type { AnswerRequest, ApplicationRequest, Track } from '@/shared/api/types';
 import { useRecruitmentDeadline } from '@/shared/queries/use-recruitment-deadline';
+import { useRecruitmentStatus } from '@/shared/queries/use-recruitment-status';
 
 import * as styles from './apply-page.css';
 
-const STEP_TITLES = ['약관 동의', '지원자 정보 입력', '공통 질문 입력', '부문 질문 입력'] as const;
-const LAST_STEP = STEP_TITLES.length - 1;
+const LAST_STEP = 3;
 
 const ApplyPage = () => {
   const [draft] = useState(loadDraft);
@@ -26,9 +26,17 @@ const ApplyPage = () => {
   const [answers, setAnswers] = useState<Record<string, string>>(draft?.answers ?? {});
 
   const { data: deadline } = useRecruitmentDeadline();
+  const { data: status } = useRecruitmentStatus();
   const recruitmentId = deadline?.recruitment_id ?? 0;
 
   const personalInfo = usePersonalInfoForm(draft?.personalInfo);
+
+  const STEP_TITLES = [
+    `[BOAZ ${status?.term ?? ''}기] 신입 회원 모집`,
+    '지원자 정보 입력',
+    '공통 질문 입력',
+    '부문 질문 입력',
+  ] as const;
 
   useEffect(() => {
     saveDraft({ step: currentStep, personalInfo: personalInfo.form, answers });
@@ -107,6 +115,7 @@ const ApplyPage = () => {
       <section className={styles.content}>
         {currentStep === 0 && (
           <AgreementStep
+            term={status?.term}
             onNext={(selectedTrack) => {
               personalInfo.setField('track', selectedTrack);
               handleNext();

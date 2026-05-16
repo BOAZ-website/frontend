@@ -11,6 +11,7 @@ export const container = style({
 
 export const content = style({
   ...typography.body4_rg_18,
+  lineHeight: '1.8',
 });
 
 export const title = style({
@@ -28,4 +29,5 @@ export const link = style({
 
 export const description = style({
   color: themeVars.color.grayscale[100],
+  whiteSpace: 'pre-wrap',
 });

@@ -6,14 +6,8 @@ import { typography } from '@/shared/styles/typography.css';
 export const container = style({
   display: 'flex',
   flexDirection: 'column',
-  gap: '6rem',
+  gap: '10rem',
   width: '100%',
-});
-
-export const sections = style({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '4rem',
 });
 
 export const trackSection = style({
@@ -62,26 +56,24 @@ export const checkboxRow = style({
 });
 
 export const checkbox = style({
-  width: '2rem',
-  height: '2rem',
-  accentColor: themeVars.color.primary[100],
+  width: '2.4rem',
+  height: '2.4rem',
+  accentColor: themeVars.color.grayscale[400],
   cursor: 'pointer',
   flexShrink: 0,
 });
 
 export const checkboxLabel = style({
-  ...typography.body5_rg_16,
+  ...typography.body3_bd_18,
   color: themeVars.color.grayscale.white,
 });
 
 export const viewFullButton = style({
-  ...typography.body5_rg_16,
-  color: themeVars.color.grayscale[400],
-  background: 'none',
-  border: `1px solid ${themeVars.color.grayscale[600]}`,
-  borderRadius: themeVars.radius.xs,
-  padding: '0.4rem 0.8rem',
-  cursor: 'pointer',
-  marginLeft: '0.4rem',
+  ...typography.text_rg_14,
+  color: themeVars.color.grayscale[100],
+  border: `1px solid ${themeVars.color.grayscale[400]}`,
+  borderRadius: '8px',
+  padding: '0.4rem 1.2rem',
+  marginLeft: '1.6rem',
   flexShrink: 0,
 });
