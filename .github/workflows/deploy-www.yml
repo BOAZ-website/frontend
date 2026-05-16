@@ -46,7 +46,10 @@ jobs:
           aws-region: ap-northeast-2
 
       - name: Sync to S3
-        run: aws s3 sync dist/ s3://${{ secrets.S3_BUCKET_WWW }} --delete
+        run: |
+          test -d dist
+          test -f dist/index.html
+          aws s3 sync dist/ s3://${{ secrets.S3_BUCKET_WWW }} --delete
 
       - name: Invalidate CloudFront cache
         run: |
