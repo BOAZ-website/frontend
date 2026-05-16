@@ -7,18 +7,22 @@ export const container = style({
   position: 'relative',
   width: '100%',
   maxWidth: '25.2rem',
+  borderBottom: `1px solid ${themeVars.color.grayscale[400]}`,
 });
 
 export const trigger = style({
   width: '100%',
-  padding: '1.2rem 1.6rem',
+  padding: '1.2rem 0',
   borderRadius: '0.8rem',
-  backgroundColor: themeVars.color.grayscale[800],
+  backgroundColor: 'transparent',
   color: themeVars.color.grayscale.white,
   textAlign: 'left',
   cursor: 'pointer',
-  border: 'none',
-  ...typography.body5_rg_16,
+  ...typography.body4_rg_18,
+});
+
+export const triggerPlaceholder = style({
+  color: themeVars.color.grayscale[400],
 });
 
 export const menuContainer = style({

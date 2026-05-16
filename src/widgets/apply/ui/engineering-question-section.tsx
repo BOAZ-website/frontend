@@ -3,6 +3,7 @@ import { useState } from 'react';
 import type { QuestionResponse } from '@/shared/api/types';
 import ArrowLeft from '@/shared/assets/icons/ic_arrow_left.svg?react';
 import ArrowRight from '@/shared/assets/icons/ic_arrow_right.svg?react';
+import Button from '@/shared/components/button/button';
 import TextFieldWithCounter from '@/shared/components/textfield-with-counter/textfield-with-counter';
 
 import TableQuestion from './table-question';
@@ -64,6 +65,10 @@ const EngineeringQuestionSection = ({
     }
     onNext();
   };
+
+  const isComplete = questions.every((q) =>
+    q.type === 'TABLE' ? isTableAnswerComplete(q) : !!answers[String(q.question_id)]?.trim()
+  );
 
   const sortedQuestions = questions.slice().sort((a, b) => (a.order_num ?? 0) - (b.order_num ?? 0));
 
@@ -132,13 +137,26 @@ const EngineeringQuestionSection = ({
         );
       })}
 
-      <div className={styles.footer}>
-        <div className={styles.navButton} onClick={onPrev}>
-          <ArrowLeft /> 이전 페이지
-        </div>
-        <div className={styles.navButton} onClick={handleNext}>
-          {nextLabel} <ArrowRight />
-        </div>
+      <div className={nextLabel === '제출하기' ? styles.footer : styles.footerNav}>
+        {nextLabel === '제출하기' ? (
+          <>
+            <Button preset="wide_primary" onClick={handleNext} disabled={!isComplete}>
+              {nextLabel}
+            </Button>
+            <div className={styles.navButton} onClick={onPrev}>
+              <ArrowLeft /> 이전 페이지
+            </div>
+          </>
+        ) : (
+          <>
+            <div className={styles.navButton} onClick={onPrev}>
+              <ArrowLeft /> 이전 페이지
+            </div>
+            <div className={styles.navButton} onClick={handleNext}>
+              {nextLabel} <ArrowRight />
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
