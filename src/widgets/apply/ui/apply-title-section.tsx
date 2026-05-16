@@ -4,13 +4,14 @@ import * as styles from './apply-title-section.css';
 
 interface ApplyTitleSectionProps {
   currentStep: number;
+  showProgressBar?: boolean;
   title: string;
 }
 
-const ApplyTitleSection = ({ currentStep, title }: ApplyTitleSectionProps) => {
+const ApplyTitleSection = ({ currentStep, showProgressBar, title }: ApplyTitleSectionProps) => {
   return (
     <div className={styles.container}>
-      <ProgressBarSection currentStep={currentStep} />
+      {showProgressBar && <ProgressBarSection currentStep={currentStep} />}
 
       <h1 className={styles.title}>{title}</h1>
     </div>

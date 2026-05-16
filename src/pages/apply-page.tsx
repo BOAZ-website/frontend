@@ -5,6 +5,7 @@ import { clearDraft, loadDraft, saveDraft } from '@/widgets/apply/model/apply-dr
 import { APPLY_QUERY_OPTIONS } from '@/widgets/apply/model/query-options';
 import { usePersonalInfoForm } from '@/widgets/apply/model/use-personal-info-form';
 import { useSubmitApplication } from '@/widgets/apply/model/use-submit-application';
+import AgreementStep from '@/widgets/apply/ui/agreement-step/agreement-step';
 import AnalysisQuestionSection from '@/widgets/apply/ui/analysis-question-section';
 import ApplyTitleSection from '@/widgets/apply/ui/apply-title-section';
 import CommonQuestionSection from '@/widgets/apply/ui/common-question-section';
@@ -16,8 +17,8 @@ import { useRecruitmentDeadline } from '@/shared/queries/use-recruitment-deadlin
 
 import * as styles from './apply-page.css';
 
-const STEPS = ['지원자 정보', '공통 질문', '부문 질문'] as const;
-const LAST_STEP = STEPS.length - 1;
+const STEP_TITLES = ['약관 동의', '지원자 정보 입력', '공통 질문 입력', '부문 질문 입력'] as const;
+const LAST_STEP = STEP_TITLES.length - 1;
 
 const ApplyPage = () => {
   const [draft] = useState(loadDraft);
@@ -97,14 +98,27 @@ const ApplyPage = () => {
 
   return (
     <main className={styles.container}>
-      <ApplyTitleSection currentStep={currentStep} title={`${STEPS[currentStep]} 입력`} />
+      <ApplyTitleSection
+        currentStep={currentStep - 1}
+        showProgressBar={currentStep > 0}
+        title={STEP_TITLES[currentStep]}
+      />
 
       <section className={styles.content}>
         {currentStep === 0 && (
-          <PersonalInfoSection formContext={personalInfo} onNext={handlePersonalInfoNext} />
+          <AgreementStep
+            onNext={(selectedTrack) => {
+              personalInfo.setField('track', selectedTrack);
+              handleNext();
+            }}
+          />
         )}
 
         {currentStep === 1 && (
+          <PersonalInfoSection formContext={personalInfo} onNext={handlePersonalInfoNext} />
+        )}
+
+        {currentStep === 2 && (
           <CommonQuestionSection
             questions={commonQuestions}
             answers={answers}
@@ -114,7 +128,7 @@ const ApplyPage = () => {
           />
         )}
 
-        {currentStep === 2 && track === 'ANALYSIS' && (
+        {currentStep === 3 && track === 'ANALYSIS' && (
           <AnalysisQuestionSection
             {...trackSectionProps}
             questions={trackQuestions}
@@ -122,7 +136,7 @@ const ApplyPage = () => {
             nextLabel="제출하기"
           />
         )}
-        {currentStep === 2 && track === 'VISUALIZATION' && (
+        {currentStep === 3 && track === 'VISUALIZATION' && (
           <VisualizationQuestionSection
             {...trackSectionProps}
             questions={trackQuestions}
@@ -130,7 +144,7 @@ const ApplyPage = () => {
             nextLabel="제출하기"
           />
         )}
-        {currentStep === 2 && track === 'ENGINEERING' && (
+        {currentStep === 3 && track === 'ENGINEERING' && (
           <EngineeringQuestionSection
             {...trackSectionProps}
             questions={trackQuestions}
