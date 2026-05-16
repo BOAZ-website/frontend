@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { ACADEMIC_GRADES, MONTHS, SEMESTERS } from '@/widgets/apply/apply-dropdown';
 import type { MilitaryStatus, Track } from '@/shared/api/types';
 
-interface PersonalInfoForm {
+export interface PersonalInfoForm {
   track: Track | null;
   name: string;
   birthYear: string;
@@ -50,8 +50,8 @@ const computeLastSemester = (grade: string, semester: string): number => {
 const stripKoreanUnit = (value: string): string => value.replace(/[년월일]/g, '').trim();
 const padTwo = (n: number): string => String(n).padStart(2, '0');
 
-export const usePersonalInfoForm = () => {
-  const [form, setForm] = useState<PersonalInfoForm>(INITIAL_FORM);
+export const usePersonalInfoForm = (initialForm?: PersonalInfoForm) => {
+  const [form, setForm] = useState<PersonalInfoForm>(initialForm ?? INITIAL_FORM);
 
   const setField = <K extends keyof PersonalInfoForm>(field: K, value: PersonalInfoForm[K]) =>
     setForm((prev) => ({ ...prev, [field]: value }));
