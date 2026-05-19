@@ -1,16 +1,9 @@
 import { useState } from 'react';
 
-import {
-  ACADEMIC_GRADES,
-  BIRTH_YEARS,
-  DAYS,
-  GRADUATION_YEARS,
-  MONTHS,
-  SEMESTERS,
-} from '@/widgets/apply/apply-dropdown';
+import { ACADEMIC_GRADES, MONTHS, SEMESTERS } from '@/widgets/apply/apply-dropdown';
 import type { MilitaryStatus, Track } from '@/shared/api/types';
 
-interface PersonalInfoForm {
+export interface PersonalInfoForm {
   track: Track | null;
   name: string;
   birthYear: string;
@@ -32,18 +25,18 @@ interface PersonalInfoForm {
 const INITIAL_FORM: PersonalInfoForm = {
   track: null,
   name: '',
-  birthYear: BIRTH_YEARS[0],
-  birthMonth: MONTHS[0],
-  birthDay: DAYS[0],
+  birthYear: '',
+  birthMonth: '',
+  birthDay: '',
   email: '',
   phone: '',
   university: '',
   major: '',
   additionalDegrees: [],
-  academicGrade: ACADEMIC_GRADES[0],
-  semester: SEMESTERS[0],
-  graduationYear: GRADUATION_YEARS[0],
-  graduationMonth: MONTHS[0],
+  academicGrade: '',
+  semester: '',
+  graduationYear: '',
+  graduationMonth: '',
   militaryStatus: null,
   gradSchoolPlan: null,
 };
@@ -57,8 +50,8 @@ const computeLastSemester = (grade: string, semester: string): number => {
 const stripKoreanUnit = (value: string): string => value.replace(/[년월일]/g, '').trim();
 const padTwo = (n: number): string => String(n).padStart(2, '0');
 
-export const usePersonalInfoForm = () => {
-  const [form, setForm] = useState<PersonalInfoForm>(INITIAL_FORM);
+export const usePersonalInfoForm = (initialForm?: PersonalInfoForm) => {
+  const [form, setForm] = useState<PersonalInfoForm>(initialForm ?? INITIAL_FORM);
 
   const setField = <K extends keyof PersonalInfoForm>(field: K, value: PersonalInfoForm[K]) =>
     setForm((prev) => ({ ...prev, [field]: value }));

@@ -18,7 +18,8 @@ type ButtonPreset =
   | 'medium-round_primary'
   | 'small-round_primary'
   | 'small-round_glass'
-  | 'mini_outlined';
+  | 'mini_outlined'
+  | 'wide_primary';
 
 interface ButtonProps extends Omit<ComponentProps<'button'>, 'className'> {
   preset: ButtonPreset;
