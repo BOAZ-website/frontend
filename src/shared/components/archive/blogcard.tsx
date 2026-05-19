@@ -1,4 +1,4 @@
-import { button } from '@/shared/components/button/button.css.ts';
+import Tag from '../tag/tag';
 
 import * as styles from './blogcard.css';
 
@@ -15,7 +15,7 @@ const BlogCard = ({ category, title, description, date, imageSrc }: BlogCardProp
     <article className={styles.cardContainer}>
       <div className={styles.textSection}>
         <div className={styles.tagWrapper}>
-          <span className={button({ variant: 'mini', color: 'outlined' })}>{category}</span>
+          <Tag>{category}</Tag>
         </div>
 
         <h2 className={styles.title}>{title}</h2>
