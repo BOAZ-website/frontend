@@ -1,6 +1,8 @@
 import { createBrowserRouter } from 'react-router';
 
 import { GlobalLayout } from '@/app/layouts/global-layout/global-layout';
+import AuthCallbackPage from '@/pages/auth-callback-page';
+import LoginPage from '@/pages/login-page';
 import {
   ApplyPage,
   ArchivePage,
@@ -10,6 +12,8 @@ import {
   RecruitingPage,
 } from '@/shared/router/lazy';
 import { ROUTE_PATH } from '@/shared/router/paths';
+
+import ProtectedRoute from './protected-route';
 
 export const router = createBrowserRouter([
   {
@@ -36,9 +40,22 @@ export const router = createBrowserRouter([
         Component: FAQPage,
       },
       {
-        path: ROUTE_PATH.APPLY,
-        Component: ApplyPage,
+        Component: ProtectedRoute,
+        children: [
+          {
+            path: ROUTE_PATH.APPLY,
+            Component: ApplyPage,
+          },
+        ],
       },
     ],
+  },
+  {
+    path: ROUTE_PATH.LOGIN,
+    Component: LoginPage,
+  },
+  {
+    path: ROUTE_PATH.AUTH_CALLBACK,
+    Component: AuthCallbackPage,
   },
 ]);
