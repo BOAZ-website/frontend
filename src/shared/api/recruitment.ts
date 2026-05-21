@@ -1,9 +1,11 @@
-import { get, post } from '@/shared/api/client';
+import { get, post, put } from '@/shared/api/client';
 import { END_POINT } from '@/shared/api/end-point';
 import type {
   ApplicationRequest,
   ApplicationResponse,
   DeadlineResponse,
+  DraftRequest,
+  MyApplicationResponse,
   QuestionResponse,
 } from '@/shared/api/types';
 
@@ -20,3 +22,17 @@ export const getQuestions = async (
 
 export const submitApplication = async (data: ApplicationRequest): Promise<ApplicationResponse> =>
   post<ApplicationResponse>(END_POINT.RECRUITMENT.POST_APPLICATION, data);
+
+export const getMyApplication = async (recruitmentId: number): Promise<MyApplicationResponse> =>
+  get<MyApplicationResponse>(
+    END_POINT.RECRUITMENT.GET_MY_APPLICATION.replace('{recruitmentId}', String(recruitmentId))
+  );
+
+export const saveDraftApi = async (
+  recruitmentId: number,
+  data: DraftRequest
+): Promise<{ applicant_id: number }> =>
+  put<{ applicant_id: number }>(
+    END_POINT.RECRUITMENT.PUT_DRAFT.replace('{recruitmentId}', String(recruitmentId)),
+    data
+  );
