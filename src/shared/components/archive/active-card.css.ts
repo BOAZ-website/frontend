@@ -12,13 +12,21 @@ export const cardContainer = style({
   overflow: 'hidden',
   backgroundColor: themeVars.color.grayscale[900],
 
-  border: `2px solid transparent`,
-  transition: 'border-color 0.2s ease-in-out',
+  border: `1px solid ${themeVars.color.grayscale[800]}`,
+  transition: 'all 0.2s ease-in-out',
   cursor: 'pointer',
+  outline: '1px solid transparent',
 
   selectors: {
     [`&:hover`]: {
-      borderColor: themeVars.color.grayscale[800],
+      border: `1px solid #2C3F61`,
+      outline: `1px solid #2C3F61`,
+      outlineOffset: '-2px',
+      background: `
+  linear-gradient(180deg, rgba(104, 203, 236, 0.00) 0%, rgba(104, 203, 236, 0.20) 100%), 
+  linear-gradient(180deg, rgba(122, 100, 249, 0.20) 0%, rgba(122, 100, 249, 0.00) 100%), 
+  ${themeVars.color.grayscale[950]}
+`,
     },
   },
 });
