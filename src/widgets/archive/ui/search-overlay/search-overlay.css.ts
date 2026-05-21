@@ -7,10 +7,8 @@ export const container = style({
   display: 'flex',
   alignItems: 'center',
   gap: '0.8rem',
-  minWidth: '7.2rem', // 하 ..
-  padding: '2.5rem 1.2rem', // 가로 패딩 1.2는 임시
-  backgroundColor: themeVars.color.grayscale[900], // 임시
-  borderBottom: `1px solid ${themeVars.color.grayscale[400]}`,
+  flex: 1,
+  padding: '2.5rem 1.2rem',
 });
 
 export const input = style({
