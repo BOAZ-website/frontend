@@ -36,26 +36,30 @@ const ProjectCard = ({
         <div className={styles.bottomInfo}>
           <div className={styles.tagContainer}>
             <Tag>{category}</Tag>
-            <Tag>{generation}기</Tag>
+            <Tag>{generation}</Tag>
           </div>
 
           <div className={styles.iconContainer}>
-            <a
-              href={githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.iconItem}
-            >
-              <GithubIcon width={24} height={24} />
-            </a>
-            <a
-              href={slideshareUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.iconItem}
-            >
-              <SlideShareIcon width={24} height={24} />
-            </a>
+            {githubUrl && (
+              <a
+                href={githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.iconItem}
+              >
+                <GithubIcon width={24} height={24} />
+              </a>
+            )}
+            {slideshareUrl && (
+              <a
+                href={slideshareUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.iconItem}
+              >
+                <SlideShareIcon width={24} height={24} />
+              </a>
+            )}
           </div>
         </div>
       </div>

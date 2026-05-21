@@ -5,7 +5,7 @@ import * as styles from './blogcard.css';
 interface BlogCardProps {
   category: string;
   title: string;
-  description: string;
+  description?: string;
   date: string;
   imageSrc?: string;
 }
