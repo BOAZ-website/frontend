@@ -14,7 +14,7 @@
     "preview": "vite preview",
     "check-types": "tsc -b --noEmit",
     "prepare": "lefthook install",
-    "generate:types": "openapi-typescript https://api.bigdataboaz.com/api-docs -o ./src/shared/api/schema.d.ts"
+    "generate:types": "dotenv -e .env -- sh -c 'openapi-typescript $VITE_API_BASE_URL/api-docs -o ./src/shared/api/schema.d.ts'"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.90.20",
@@ -36,6 +36,7 @@
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.1.1",
     "babel-plugin-react-compiler": "^1.0.0",
+    "dotenv-cli": "^11.0.0",
     "eslint": "^9.39.1",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-only-warn": "^1.1.0",
