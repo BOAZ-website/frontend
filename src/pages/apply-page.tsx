@@ -69,6 +69,10 @@ const ApplyPage = () => {
       return;
     }
 
+    if (draftQueryState.state === 'submitted') {
+      return;
+    }
+
     draftRestoredRef.current = true;
 
     // 1순위: 서버 draft

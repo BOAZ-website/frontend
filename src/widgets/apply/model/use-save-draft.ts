@@ -32,7 +32,7 @@ export const useSaveDraft = ({
 
     timerRef.current = setTimeout(() => {
       const draft = { personalInfo: personalInfo as unknown as Record<string, unknown>, answers };
-      const serialized = JSON.stringify(draft);
+      const serialized = JSON.stringify({ recruitmentId, ...draft });
 
       // 이전에 저장한 값과 동일하면 스킵
       if (serialized === lastSavedRef.current) {
