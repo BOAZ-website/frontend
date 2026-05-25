@@ -6,70 +6,74 @@ import { typography } from '@/shared/styles/typography.css';
 export const container = style({
   display: 'flex',
   flexDirection: 'column',
-  alignItems: 'center',
-  justifyContent: 'center',
   minHeight: '100vh',
-  gap: '2.4rem',
-  padding: '0 2rem',
+  backgroundColor: themeVars.color.grayscale.black,
+});
+
+export const titleSection = style({
+  flex: 1,
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'flex-end',
+  paddingRight: '8rem',
+  paddingBottom: '4rem',
 });
 
 export const title = style({
-  ...typography.h4_bd_24,
+  ...typography.h1_bd_40,
   color: themeVars.color.grayscale.white,
-  marginBottom: '1.6rem',
+});
+
+export const buttonSection = style({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  paddingBottom: '10rem',
+  gap: '2rem',
 });
 
 export const errorMessage = style({
   ...typography.body3_bd_18,
   color: themeVars.color.error.red_100,
-  marginBottom: '0.8rem',
 });
 
 export const buttonGroup = style({
   display: 'flex',
-  flexDirection: 'column',
-  gap: '1.2rem',
-  width: '100%',
-  maxWidth: '40rem',
+  gap: '4rem',
 });
 
-export const socialButton = style({
+const circleButton = style({
+  width: '6rem',
+  height: '6rem',
+  borderRadius: '50%',
+  border: 'none',
+  cursor: 'pointer',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  gap: '1rem',
-  width: '100%',
-  padding: '1.6rem',
-  borderRadius: '10px',
-  border: 'none',
-  cursor: 'pointer',
-  ...typography.body2_bd_20,
   transition: 'opacity 0.2s ease-in-out',
   ':hover': {
     opacity: 0.85,
   },
 });
 
-export const kakaoButton = style([
-  socialButton,
+export const naverButton = style([
+  circleButton,
   {
-    backgroundColor: '#FEE500',
-    color: themeVars.color.grayscale.black,
+    backgroundColor: '#03C75A',
   },
 ]);
 
 export const googleButton = style([
-  socialButton,
+  circleButton,
   {
     backgroundColor: themeVars.color.grayscale.white,
-    color: themeVars.color.grayscale.black,
   },
 ]);
 
-export const naverButton = style([
-  socialButton,
+export const kakaoButton = style([
+  circleButton,
   {
-    backgroundColor: '#03C75A',
-    color: themeVars.color.grayscale.white,
+    backgroundColor: '#FEE500',
   },
 ]);
