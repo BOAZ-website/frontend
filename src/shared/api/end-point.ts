@@ -27,5 +27,6 @@ export const END_POINT = {
     GET_FAQS: 'api/v1/archiving/faqs',
     GET_BLOGS: 'api/v1/archiving/blogs',
     GET_ACTIVITIES: 'api/v1/archiving/activities',
+    GET_TERMS: 'api/v1/archiving/terms',
   },
 } as const;
