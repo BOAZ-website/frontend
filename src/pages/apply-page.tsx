@@ -267,17 +267,17 @@ const ApplyPage = () => {
     recruitmentId,
     personalInfo: form,
     answers,
-    enabled: isRestoredOrEmpty,
+    enabled: isRestoredOrEmpty && currentStep > 0,
   });
 
   // 서버 동기화 (10초 interval + beforeunload flush + 버튼 클릭)
   const { handleClickSaveDraft, isPutDraftPending } = usePutDraft({
     recruitmentId,
     draft: draftPayload,
-    enabled: isRestoredOrEmpty,
+    enabled: isRestoredOrEmpty && currentStep > 0,
   });
 
-  const submitMutation = useSubmitApplication();
+  const submitMutation = useSubmitApplication(recruitmentId);
 
   const { data: allQuestions = [] } = useQuery({
     ...APPLY_QUERY_OPTIONS.QUESTIONS(recruitmentId, track ?? 'ANALYSIS'),
@@ -326,7 +326,6 @@ const ApplyPage = () => {
     const personalPayload = personalInfo.toApiPayload();
     submitMutation.mutate({
       ...personalPayload,
-      recruitment_id: recruitmentId,
       answers: buildAnswers(),
     } as ApplicationRequest);
   };
@@ -356,7 +355,7 @@ const ApplyPage = () => {
         title={
           currentStep === 0
             ? `[BOAZ ${status?.term ?? ''}기] 신입 회원 모집`
-            : `${STEPS[currentStep]}`
+            : `${STEPS[currentStep - 1]}`
         }
         subtitle={currentStep === 0 ? recruitPeriod : undefined}
         onSaveDraft={handleClickSaveDraft}

@@ -89,6 +89,21 @@ export const fieldError = style({
   display: 'flex',
   alignItems: 'center',
   gap: '0.5rem',
-  color: themeVars.color.error.red_100,
   ...typography.text_rg_14,
+});
+
+export const degreeRow = style({
+  display: 'flex',
+  alignItems: 'center',
+  gap: '1.2rem',
+});
+
+export const removeDegreeButton = style({
+  flexShrink: 0,
+  color: themeVars.color.grayscale[400],
+  ...typography.text_rg_14,
+  padding: 0,
+  ':hover': {
+    color: themeVars.color.grayscale[100],
+  },
 });

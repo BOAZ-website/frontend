@@ -32,7 +32,7 @@ export const usePutDraft = ({
     mutationFn: (data: DraftRequest) => saveDraftApi(recruitmentId, data),
     onSuccess: () => {
       // TODO: 토스트 컴포넌트로 교체
-      alert('임시저장이 완료되었습니다.');
+      // alert('임시저장이 완료되었습니다.');
       onSuccess?.();
     },
     onError: () => {

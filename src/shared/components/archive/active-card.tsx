@@ -5,10 +5,11 @@ interface CardProps {
   title: string;
   date: string;
   generation: string;
+  href?: string;
 }
 
-const ActiveCard = ({ imageSrc, title, date, generation }: CardProps) => {
-  return (
+const ActiveCard = ({ imageSrc, title, date, generation, href }: CardProps) => {
+  const content = (
     <article className={styles.cardContainer}>
       {imageSrc ? (
         <img src={imageSrc} alt={title} className={styles.imageSection} />
@@ -26,6 +27,16 @@ const ActiveCard = ({ imageSrc, title, date, generation }: CardProps) => {
       </div>
     </article>
   );
+
+  if (href) {
+    return (
+      <a href={href} target="_blank" rel="noopener noreferrer">
+        {content}
+      </a>
+    );
+  }
+
+  return content;
 };
 
 export default ActiveCard;

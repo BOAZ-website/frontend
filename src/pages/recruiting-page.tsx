@@ -28,7 +28,7 @@ const RecruitingPage = () => {
         <ApplySection />
       </section>
       <section className={styles.bottomSection}>
-        <RecruitingBottomSection brochureUrl="#" />
+        <RecruitingBottomSection />
       </section>
     </main>
   );

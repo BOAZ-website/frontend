@@ -1,11 +1,17 @@
+import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router';
 
 import { ROUTE_PATH } from '@/shared/router/paths';
 
+import { RECRUITMENT_QUERY_OPTIONS } from '../../model/recruitment.query-options';
+
 import * as styles from './recruiting-bottom-section.css';
 import * as TabStyles from '@/shared/components/fixed-tab/fixed-tab.css';
 
-const RecruitingBottomSection = ({ brochureUrl }: { brochureUrl: string }) => {
+const RecruitingBottomSection = () => {
+  const { data: status } = useQuery(RECRUITMENT_QUERY_OPTIONS.STATUS());
+  const { data: recruitment } = useQuery(RECRUITMENT_QUERY_OPTIONS.DETAIL(status?.term));
+
   return (
     <div className={styles.container}>
       <span className={styles.dividerText}>
@@ -19,14 +25,16 @@ const RecruitingBottomSection = ({ brochureUrl }: { brochureUrl: string }) => {
         >
           커리큘럼 보러가기
         </Link>
-        <a
-          href={brochureUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={TabStyles.fixedTab({ isActive: true })}
-        >
-          신입기수 홍보 책자
-        </a>
+        {recruitment?.brochure_url && (
+          <a
+            href={recruitment.brochure_url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={TabStyles.fixedTab({ isActive: true })}
+          >
+            신입기수 홍보 책자
+          </a>
+        )}
       </div>
     </div>
   );

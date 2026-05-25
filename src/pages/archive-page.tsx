@@ -173,15 +173,19 @@ const ArchivePage = () => {
       });
     }
 
-    return items.map((item) => (
-      <ActiveCard
-        key={item.id}
-        imageSrc={item.image_url}
-        title={item.title ?? ''}
-        date={item.content_date ?? ''}
-        generation={formatTerm(item.term ?? 0)}
-      />
-    ));
+    return items.map((item) => {
+      const links = (item.links as ArchiveLinks) ?? {};
+      return (
+        <ActiveCard
+          key={item.id}
+          imageSrc={item.image_url}
+          title={item.title ?? ''}
+          date={item.content_date ?? ''}
+          generation={formatTerm(item.term ?? 0)}
+          href={links.instagram ?? links.web}
+        />
+      );
+    });
   };
 
   return (
