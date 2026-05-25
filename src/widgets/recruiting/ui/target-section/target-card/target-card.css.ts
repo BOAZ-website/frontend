@@ -13,15 +13,17 @@ export const cardContainer = style({
   justifyContent: 'center',
   backgroundColor: themeVars.color.grayscale[800],
   gap: '3rem',
-  padding: '3.8rem 3rem 4.5rem',
+  padding: '3.8rem 3.25rem 4.5rem',
 });
 
 export const iconWrapper = style({
   width: '9.7rem',
   height: '9.7rem',
+  borderRadius: '50%',
   display: 'flex',
   justifyContent: 'center',
   flexShrink: 0,
+  backgroundColor: themeVars.color.grayscale[100],
 });
 
 export const textWrapper = style({

@@ -1,24 +1,29 @@
 import { useEffect, useRef, useState } from 'react';
 
-import type { TermOption } from '@/shared/api/archive';
 import ChevronDownIcon from '@/shared/assets/icons/ic_chevron_down.svg?react';
 
 import * as styles from './generation-filter.css';
 
-const ALL_OPTION = { label: '전체', value: undefined } as const;
+const MAX_TERM = 26;
+
+const GENERATION_OPTIONS: { label: string; value: number | undefined }[] = [
+  { label: '전체', value: undefined },
+  ...Array.from({ length: MAX_TERM + 1 }, (_, i) => MAX_TERM - i).map((term) => ({
+    label: term === 0 ? '7기 이전' : `${term}기`,
+    value: term,
+  })),
+];
 
 interface GenerationFilterOverlayProps {
   value: number | undefined;
   onChange: (value: number | undefined) => void;
-  options: TermOption[];
 }
 
-const GenerationFilterOverlay = ({ value, onChange, options }: GenerationFilterOverlayProps) => {
+const GenerationFilterOverlay = ({ value, onChange }: GenerationFilterOverlayProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
-  const selectedLabel =
-    value === undefined ? '기수' : (options.find((o) => o.value === value)?.label ?? '기수');
+  const selectedLabel = value === undefined ? '기수' : value === 0 ? '7기 이전' : `${value}기`;
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
@@ -30,18 +35,20 @@ const GenerationFilterOverlay = ({ value, onChange, options }: GenerationFilterO
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const allOptions: { label: string; value: number | undefined }[] = [ALL_OPTION, ...options];
-
   return (
     <div className={styles.container} ref={ref}>
       <button type="button" className={styles.trigger} onClick={() => setIsOpen(!isOpen)}>
         <span>{selectedLabel}</span>
-        <ChevronDownIcon width={16} height={16} />
+        {isOpen ? (
+          <ChevronDownIcon width={16} height={16} />
+        ) : (
+          <ChevronDownIcon width={16} height={16} />
+        )}
       </button>
 
       {isOpen && (
         <div className={styles.overlay}>
-          {allOptions.map((opt) => (
+          {GENERATION_OPTIONS.map((opt) => (
             <button
               key={opt.label}
               type="button"

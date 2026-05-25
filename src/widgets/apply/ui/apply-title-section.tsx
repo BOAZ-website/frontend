@@ -9,7 +9,6 @@ interface ApplyTitleSectionProps {
   showProgressBar?: boolean;
   showSaveDraft?: boolean;
   title: string;
-  subtitle?: string;
   onSaveDraft: () => void;
   isSavePending: boolean;
 }
@@ -19,7 +18,6 @@ const ApplyTitleSection = ({
   showProgressBar,
   showSaveDraft = true,
   title,
-  subtitle,
   onSaveDraft,
   isSavePending,
 }: ApplyTitleSectionProps) => {
@@ -28,10 +26,7 @@ const ApplyTitleSection = ({
       {showProgressBar && <ProgressBarSection currentStep={currentStep} />}
 
       <span className={styles.titleWrapper}>
-        <div className={styles.titleGroup}>
-          <h1 className={styles.title}>{title}</h1>
-          {subtitle && <p className={styles.subtitle}>{subtitle}</p>}
-        </div>
+        <h1 className={styles.title}>{title}</h1>
         {showSaveDraft && (
           <Button
             preset="small-round_outlined"

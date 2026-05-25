@@ -9,9 +9,7 @@ import CurriculumSection from '@/widgets/curriculum/ui/curriculum-section/curric
 import ReviewSection from '@/widgets/curriculum/ui/review-section/review-section';
 import type { TrackTab } from '@/features/track/constant/track-tabs';
 import TrackTabGroup from '@/features/track/ui/track-select-button/track-tab-group';
-import AnalyzeIcon from '@/shared/assets/icons/ic_analyze.svg?react';
-import EngineeringIcon from '@/shared/assets/icons/ic_engineering.svg?react';
-import VisualizationIcon from '@/shared/assets/icons/ic_visualization.svg?react';
+import TrackIcon from '@/shared/assets/icons/ic_track_character.svg?react';
 
 import * as styles from './curriculum-page.css';
 
@@ -21,28 +19,21 @@ const TRACK_TAB_TO_API = {
   엔지니어링: 'ENGINEERING',
 } as const satisfies Record<TrackTab, 'ANALYSIS' | 'VISUALIZATION' | 'ENGINEERING'>;
 
-const TRACK_META: Record<
-  TrackTab,
-  {
-    quote: string;
-    desc: string;
-    Icon: typeof AnalyzeIcon | typeof VisualizationIcon | typeof EngineeringIcon;
-  }
-> = {
+const TRACK_META: Record<TrackTab, { quote: string; desc: string; Icon: typeof TrackIcon }> = {
   분석: {
     quote: '"데이터 속에 숨겨진 논리와 해답을 찾습니다."',
     desc: `통계적 지식과 머신러닝 알고리즘을 바탕으로 데이터의 패턴을 찾아냅니다.\n단순한 수치 확인을 넘어, 실제 현실 세계를 비즈니스 미션설정에 기여할 수 있는 모델을 연구합니다.`,
-    Icon: AnalyzeIcon,
+    Icon: TrackIcon,
   },
   시각화: {
     quote: '"데이터를 직관적인 시각으로 전달합니다."',
     desc: `다양한 시각화 도구와 디자인 원칙을 활용해 복잡한 데이터를 이해하기 쉬운 형태로 표현합니다.\n인사이트를 명확하게 전달하는 대시보드와 인터랙티브 시각화를 만들어 냅니다.`,
-    Icon: VisualizationIcon,
+    Icon: TrackIcon,
   },
   엔지니어링: {
     quote: '"안정적인 데이터 파이프라인을 설계합니다."',
     desc: `대용량 데이터를 수집, 저장, 처리하는 인프라를 구축합니다.\n효율적인 데이터 아키텍처와 파이프라인으로 분석가와 모델러가 신뢰할 수 있는 데이터 환경을 만듭니다.`,
-    Icon: EngineeringIcon,
+    Icon: TrackIcon,
   },
 };
 

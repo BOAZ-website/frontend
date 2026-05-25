@@ -114,9 +114,6 @@ const ArchivePage = () => {
     enabled: activeTab === 'ACTIVITY',
   });
 
-  const { data: termsData } = useQuery(ARCHIVE_QUERY_OPTIONS.TERMS());
-  const termOptions = termsData?.terms ?? [];
-
   const activeData = { PROJECT: projectsData, BLOG: blogsData, ACTIVITY: activitiesData }[
     activeTab
   ];
@@ -207,11 +204,7 @@ const ArchivePage = () => {
               <TrackFilterOverlay value={selectedTrack} onChange={handleTrackChange} />
             )}
             {showTermFilter && (
-              <GenerationFilterOverlay
-                value={selectedTerm}
-                onChange={handleTermChange}
-                options={termOptions}
-              />
+              <GenerationFilterOverlay value={selectedTerm} onChange={handleTermChange} />
             )}
           </div>
         </div>

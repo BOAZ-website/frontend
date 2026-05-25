@@ -1,6 +1,6 @@
-import type { ComponentType, SVGProps } from 'react';
 import { useNavigate } from 'react-router';
 
+import TrackCardIcon from '@/shared/assets/icons/ic_track_character.svg?react';
 import Button from '@/shared/components/button/button';
 import { ROUTE_PATH } from '@/shared/router/paths';
 
@@ -9,10 +9,9 @@ import * as styles from './track-card.css';
 interface TrackCardProps {
   title: string;
   description: string;
-  icon: ComponentType<SVGProps<SVGSVGElement>>;
 }
 
-const TrackCard = ({ title, description, icon: Icon }: TrackCardProps) => {
+const TrackCard = ({ title, description }: TrackCardProps) => {
   const navigate = useNavigate();
   return (
     <article className={styles.cardContainer}>
@@ -20,7 +19,7 @@ const TrackCard = ({ title, description, icon: Icon }: TrackCardProps) => {
       <p className={styles.cardDesc}>{description}</p>
 
       <div className={styles.cardIcon}>
-        <Icon width={241} height={241} />
+        <TrackCardIcon width={241} height={231} />
       </div>
 
       <div className={styles.cardButtonWrapper}>

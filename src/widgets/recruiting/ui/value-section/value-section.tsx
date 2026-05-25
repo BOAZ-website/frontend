@@ -9,18 +9,14 @@ const ValueSection = () => {
   return (
     <Section subTitle="Values" title="보아즈의 인재상">
       <div className={styles.cardList}>
-        {VALUE_ITEMS.map((item) => {
-          const IconComponent = item.icon;
-
-          return (
-            <ValueCard
-              key={item.id}
-              icon={<IconComponent />}
-              title={item.title}
-              description={item.description}
-            />
-          );
-        })}
+        {VALUE_ITEMS.map((item) => (
+          <ValueCard
+            key={item.id}
+            icon={item.icon}
+            title={item.title}
+            description={item.description}
+          />
+        ))}
       </div>
     </Section>
   );

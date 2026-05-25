@@ -9,11 +9,9 @@ const TargetSection = () => {
   return (
     <Section subTitle="Target" title="모집 대상">
       <div className={styles.cardList}>
-        {TARGET_ITEMS.map((item) => {
-          const IconComponent = item.icon;
-
-          return <TargetCard key={item.id} icon={<IconComponent />} text={item.text} />;
-        })}
+        {TARGET_ITEMS.map((item) => (
+          <TargetCard key={item.id} icon={item.icon} text={item.text} />
+        ))}
       </div>
     </Section>
   );

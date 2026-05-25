@@ -34,10 +34,3 @@ export const getBlogs = (params?: BlogsParams) =>
 
 export const getActivities = (params?: ActivitiesParams) =>
   get<ArchivePageResponse>(END_POINT.ARCHIVING.GET_ACTIVITIES, { params });
-
-export interface TermOption {
-  value: number;
-  label: string;
-}
-
-export const getTerms = () => get<{ terms: TermOption[] }>(END_POINT.ARCHIVING.GET_TERMS);

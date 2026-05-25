@@ -381,26 +381,6 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
-  '/api/v1/admin/users/promote': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    /**
-     * 합격자 승격
-     * @description 합격자 userIds를 받아 memberType을 MEMBER로 변경하고 지원서 개인정보를 User에 복사한다. 비즈니스 오류가 발생한 userId는 skip하고 failedUserIds에 포함하여 반환한다.
-     */
-    patch: operations['promoteUsers'];
-    trace?: never;
-  };
   '/api/v1/admin/reviews/{reviewId}': {
     parameters: {
       query?: never;
@@ -751,26 +731,6 @@ export interface paths {
      * @description 부문 필터링 가능. 미입력 시 전체 3개 부문 반환.
      */
     get: operations['getCurriculums'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/v1/archiving/terms': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /**
-     * 아카이빙 기수 목록 조회
-     * @description 필터 드롭다운용 기수 목록 반환
-     */
-    get: operations['getTerms'];
     put?: never;
     post?: never;
     delete?: never;
@@ -1670,43 +1630,6 @@ export interface components {
       error_code?: string;
       message?: string;
     };
-    PromoteUsersRequest: {
-      /**
-       * @description 승격할 유저 ID 목록
-       * @example [
-       *       1,
-       *       2,
-       *       3,
-       *       48
-       *     ]
-       */
-      user_ids: number[];
-    };
-    ApiResponsePromoteUsersResponse: {
-      /** Format: int32 */
-      status?: number;
-      data?: components['schemas']['PromoteUsersResponse'];
-      error_code?: string;
-      message?: string;
-    };
-    /** @description 승격 실패한 유저 ID 목록 및 사유 */
-    FailedUserInfo: {
-      /**
-       * Format: int64
-       * @description 유저 ID
-       * @example 5
-       */
-      user_id?: number;
-      /**
-       * @description 에러 코드
-       * @example USER_NOT_FOUND
-       */
-      error_code?: string;
-    };
-    PromoteUsersResponse: {
-      /** @description 승격 실패한 유저 ID 목록 및 사유 */
-      failed_user_ids?: components['schemas']['FailedUserInfo'][];
-    };
     ReviewUpdateRequest: {
       /**
        * @description 작성자 이름
@@ -2224,21 +2147,6 @@ export interface components {
       data?: components['schemas']['CurriculumResponse'][];
       error_code?: string;
       message?: string;
-    };
-    ApiResponseArchiveTermsResponse: {
-      /** Format: int32 */
-      status?: number;
-      data?: components['schemas']['ArchiveTermsResponse'];
-      error_code?: string;
-      message?: string;
-    };
-    ArchiveTermsResponse: {
-      terms?: components['schemas']['TermItem'][];
-    };
-    TermItem: {
-      /** Format: int32 */
-      value?: number;
-      label?: string;
     };
     ApiResponseArchivePageResponse: {
       /** Format: int32 */
@@ -2965,30 +2873,6 @@ export interface operations {
       };
     };
   };
-  promoteUsers: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['PromoteUsersRequest'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ApiResponsePromoteUsersResponse'];
-        };
-      };
-    };
-  };
   deleteReview: {
     parameters: {
       query?: never;
@@ -3601,26 +3485,6 @@ export interface operations {
         };
         content: {
           '*/*': components['schemas']['ApiResponseListCurriculumResponse'];
-        };
-      };
-    };
-  };
-  getTerms: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ApiResponseArchiveTermsResponse'];
         };
       };
     };

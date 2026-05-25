@@ -71,7 +71,7 @@ instance.interceptors.response.use(
         tokenStorage.remove();
 
         if (!import.meta.env.DEV) {
-          window.location.href = '/';
+          window.location.href = '/login';
         }
 
         return Promise.reject(refreshError);

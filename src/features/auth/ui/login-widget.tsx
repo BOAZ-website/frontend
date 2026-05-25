@@ -1,7 +1,3 @@
-import GoogleIcon from '@/shared/assets/icons/ic_google.svg?react';
-import KakaoIcon from '@/shared/assets/icons/ic_kakao.svg?react';
-import NaverIcon from '@/shared/assets/icons/ic_naver.svg?react';
-
 import * as styles from './login-widget.css';
 
 type SocialProvider = 'kakao' | 'google' | 'naver';
@@ -9,20 +5,10 @@ type SocialProvider = 'kakao' | 'google' | 'naver';
 const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 const APP_URL = import.meta.env.VITE_APP_URL;
 
-const SOCIAL_PROVIDERS: {
-  provider: SocialProvider;
-  label: string;
-  Icon: React.FC<React.SVGProps<SVGSVGElement>>;
-  className: string;
-}[] = [
-  { provider: 'naver', label: '네이버로 로그인', Icon: NaverIcon, className: styles.naverButton },
-  {
-    provider: 'google',
-    label: 'Google로 로그인',
-    Icon: GoogleIcon,
-    className: styles.googleButton,
-  },
-  { provider: 'kakao', label: '카카오로 로그인', Icon: KakaoIcon, className: styles.kakaoButton },
+const SOCIAL_PROVIDERS: { provider: SocialProvider; label: string; className: string }[] = [
+  { provider: 'kakao', label: '카카오로 로그인', className: styles.kakaoButton },
+  { provider: 'google', label: 'Google로 로그인', className: styles.googleButton },
+  { provider: 'naver', label: '네이버로 로그인', className: styles.naverButton },
 ];
 
 const handleSocialLogin = (provider: SocialProvider) => {
@@ -37,26 +23,21 @@ interface LoginWidgetProps {
 const LoginWidget = ({ hasError = false }: LoginWidgetProps) => {
   return (
     <div className={styles.container}>
-      <div className={styles.titleSection}>
-        <h1 className={styles.title}>로그인</h1>
-      </div>
-      <div className={styles.buttonSection}>
-        {hasError && (
-          <p className={styles.errorMessage}>로그인에 실패했습니다. 다시 시도해 주세요.</p>
-        )}
-        <div className={styles.buttonGroup}>
-          {SOCIAL_PROVIDERS.map(({ provider, label, Icon, className }) => (
-            <button
-              key={provider}
-              type="button"
-              className={className}
-              aria-label={label}
-              onClick={() => handleSocialLogin(provider)}
-            >
-              <Icon width={48} height={48} />
-            </button>
-          ))}
-        </div>
+      <h1 className={styles.title}>BOAZ 로그인</h1>
+      {hasError && (
+        <p className={styles.errorMessage}>로그인에 실패했습니다. 다시 시도해 주세요.</p>
+      )}
+      <div className={styles.buttonGroup}>
+        {SOCIAL_PROVIDERS.map(({ provider, label, className }) => (
+          <button
+            key={provider}
+            type="button"
+            className={className}
+            onClick={() => handleSocialLogin(provider)}
+          >
+            {label}
+          </button>
+        ))}
       </div>
     </div>
   );

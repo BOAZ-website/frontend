@@ -17,7 +17,6 @@ import CommonQuestionSection from '@/widgets/apply/ui/common-question-section';
 import EngineeringQuestionSection from '@/widgets/apply/ui/engineering-question-section';
 import PersonalInfoSection from '@/widgets/apply/ui/personal-info-section';
 import VisualizationQuestionSection from '@/widgets/apply/ui/visualization-question-section';
-import { RECRUITMENT_QUERY_OPTIONS } from '@/widgets/recruiting/model/recruitment.query-options';
 import type { AnswerRequest, ApplicationRequest, DraftRequest, Track } from '@/shared/api/types';
 import { useRecruitmentDeadline } from '@/shared/queries/use-recruitment-deadline';
 import { useRecruitmentStatus } from '@/shared/queries/use-recruitment-status';
@@ -25,17 +24,6 @@ import { useRecruitmentStatus } from '@/shared/queries/use-recruitment-status';
 import * as styles from './apply-page.css';
 
 const STEPS = ['지원자 정보 입력', '공통 질문', '부문 질문'] as const;
-
-const DAYS_KO = ['일', '월', '화', '수', '목', '금', '토'] as const;
-
-const formatKoreanDate = (iso: string): string => {
-  const match = iso.match(/^(\d{4})-(\d{2})-(\d{2})/);
-  if (!match) {
-    return '';
-  }
-  const date = new Date(iso);
-  return `${match[1]}년 ${parseInt(match[2])}월 ${parseInt(match[3])}일 (${DAYS_KO[date.getDay()]})`;
-};
 const LAST_STEP = STEPS.length - 1;
 
 const parseBirthDate = (birthDate: string) => {
@@ -67,13 +55,7 @@ const parseLastSemester = (lastSemester: number) => {
 const ApplyPage = () => {
   const { data: deadline } = useRecruitmentDeadline();
   const { data: status } = useRecruitmentStatus();
-  const { data: recruitment } = useQuery(RECRUITMENT_QUERY_OPTIONS.DETAIL(status?.term));
   const recruitmentId = deadline?.recruitment_id ?? 0;
-
-  const recruitPeriod =
-    recruitment?.start_date && recruitment?.end_date
-      ? `${formatKoreanDate(recruitment.start_date)} ~ ${formatKoreanDate(recruitment.end_date)}`
-      : undefined;
 
   const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
@@ -349,12 +331,7 @@ const ApplyPage = () => {
         currentStep={currentStep - 1}
         showProgressBar={currentStep > 0}
         showSaveDraft={currentStep > 0}
-        title={
-          currentStep === 0
-            ? `[BOAZ ${status?.term ?? ''}기] 신입 회원 모집`
-            : `${STEPS[currentStep]}`
-        }
-        subtitle={currentStep === 0 ? recruitPeriod : undefined}
+        title={`${STEPS[currentStep]}`}
         onSaveDraft={handleClickSaveDraft}
         isSavePending={isPutDraftPending}
       />

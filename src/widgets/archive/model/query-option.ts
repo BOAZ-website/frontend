@@ -1,12 +1,7 @@
 import { queryOptions } from '@tanstack/react-query';
 
-import type {
-  ActivitiesParams,
-  BlogsParams,
-  ProjectsParams,
-  TermOption,
-} from '@/shared/api/archive';
-import { getActivities, getBlogs, getProjects, getTerms } from '@/shared/api/archive';
+import type { ActivitiesParams, BlogsParams, ProjectsParams } from '@/shared/api/archive';
+import { getActivities, getBlogs, getProjects } from '@/shared/api/archive';
 import type { ArchivePageResponse } from '@/shared/api/types';
 
 import { ARCHIVE_QUERY_KEY } from './query-key';
@@ -26,10 +21,5 @@ export const ARCHIVE_QUERY_OPTIONS = {
     queryOptions<ArchivePageResponse>({
       queryKey: ARCHIVE_QUERY_KEY.ACTIVITIES(params),
       queryFn: () => getActivities(params),
-    }),
-  TERMS: () =>
-    queryOptions<{ terms: TermOption[] }>({
-      queryKey: ARCHIVE_QUERY_KEY.TERMS(),
-      queryFn: () => getTerms(),
     }),
 };

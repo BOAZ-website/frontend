@@ -3,9 +3,6 @@ export const END_POINT = {
     REFRESH: 'api/v1/auth/user/refresh',
     LOGOUT: 'api/v1/auth/user/logout',
   },
-  USER: {
-    GET_ME: 'api/v1/users/me',
-  },
   RECRUITMENT: {
     GET_STATUS: 'api/v1/recruitment/status',
     GET_DETAIL: 'api/v1/recruitment/{term}',
@@ -27,6 +24,5 @@ export const END_POINT = {
     GET_FAQS: 'api/v1/archiving/faqs',
     GET_BLOGS: 'api/v1/archiving/blogs',
     GET_ACTIVITIES: 'api/v1/archiving/activities',
-    GET_TERMS: 'api/v1/archiving/terms',
   },
 } as const;
