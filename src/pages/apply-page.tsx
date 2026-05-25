@@ -277,7 +277,7 @@ const ApplyPage = () => {
     enabled: isRestoredOrEmpty,
   });
 
-  const submitMutation = useSubmitApplication();
+  const submitMutation = useSubmitApplication(recruitmentId);
 
   const { data: allQuestions = [] } = useQuery({
     ...APPLY_QUERY_OPTIONS.QUESTIONS(recruitmentId, track ?? 'ANALYSIS'),
@@ -326,7 +326,6 @@ const ApplyPage = () => {
     const personalPayload = personalInfo.toApiPayload();
     submitMutation.mutate({
       ...personalPayload,
-      recruitment_id: recruitmentId,
       answers: buildAnswers(),
     } as ApplicationRequest);
   };
