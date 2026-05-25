@@ -36,7 +36,7 @@ const formatKoreanDate = (iso: string): string => {
   const date = new Date(iso);
   return `${match[1]}년 ${parseInt(match[2])}월 ${parseInt(match[3])}일 (${DAYS_KO[date.getDay()]})`;
 };
-const LAST_STEP = STEPS.length - 1;
+const LAST_STEP = STEPS.length;
 
 const parseBirthDate = (birthDate: string) => {
   const [year, month, day] = birthDate.split('-');
