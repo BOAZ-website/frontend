@@ -1,5 +1,3 @@
-import GithubIcon from '@/shared/assets/icons/ic_github.svg?react';
-import SlideShareIcon from '@/shared/assets/icons/ic_project_slideshare.svg?react';
 import Tag from '@/shared/components/tag/tag';
 
 import * as styles from './project-card.css';
@@ -20,10 +18,10 @@ const ProjectCard = ({
   title,
   generation,
   category,
-  githubUrl,
+  // githubUrl,
   slideshareUrl,
 }: CardProps) => {
-  return (
+  const cardContent = (
     <article className={styles.cardContainer}>
       <div className={styles.imageSection}>
         <img src={imageSrc} alt={title} className={styles.cardImage} />
@@ -38,33 +36,20 @@ const ProjectCard = ({
             <Tag>{category}</Tag>
             <Tag>{generation}</Tag>
           </div>
-
-          <div className={styles.iconContainer}>
-            {githubUrl && (
-              <a
-                href={githubUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.iconItem}
-              >
-                <GithubIcon width={24} height={24} />
-              </a>
-            )}
-            {slideshareUrl && (
-              <a
-                href={slideshareUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.iconItem}
-              >
-                <SlideShareIcon width={24} height={24} />
-              </a>
-            )}
-          </div>
         </div>
       </div>
     </article>
   );
+
+  if (slideshareUrl) {
+    return (
+      <a href={slideshareUrl} target="_blank" rel="noopener noreferrer">
+        {cardContent}
+      </a>
+    );
+  }
+
+  return cardContent;
 };
 
 export default ProjectCard;

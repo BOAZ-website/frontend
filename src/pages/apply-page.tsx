@@ -267,14 +267,14 @@ const ApplyPage = () => {
     recruitmentId,
     personalInfo: form,
     answers,
-    enabled: isRestoredOrEmpty,
+    enabled: isRestoredOrEmpty && currentStep > 0,
   });
 
   // 서버 동기화 (10초 interval + beforeunload flush + 버튼 클릭)
   const { handleClickSaveDraft, isPutDraftPending } = usePutDraft({
     recruitmentId,
     draft: draftPayload,
-    enabled: isRestoredOrEmpty,
+    enabled: isRestoredOrEmpty && currentStep > 0,
   });
 
   const submitMutation = useSubmitApplication(recruitmentId);
