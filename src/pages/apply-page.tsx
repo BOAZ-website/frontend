@@ -236,10 +236,14 @@ const ApplyPage = () => {
     ...(() => {
       try {
         const payload = personalInfo.toApiPayload();
+        const isValidDate = (s: string) => /^\d{4}-\d{2}-\d{2}$/.test(s) && !s.includes('NaN');
+        const isValidMonth = (s: string) => /^\d{4}-\d{2}$/.test(s) && !s.includes('NaN');
         return {
-          birth_date: payload.birth_date || undefined,
-          graduation_date: payload.graduation_date || undefined,
-          last_semester: payload.last_semester || undefined,
+          birth_date: isValidDate(payload.birth_date) ? payload.birth_date : undefined,
+          graduation_date: isValidMonth(payload.graduation_date)
+            ? payload.graduation_date
+            : undefined,
+          last_semester: payload.last_semester > 0 ? payload.last_semester : undefined,
         };
       } catch {
         return {};
