@@ -273,7 +273,7 @@ const ApplyPage = () => {
   });
 
   // 서버 동기화 (10초 interval + beforeunload flush + 버튼 클릭)
-  const { handleClickSaveDraft, isPutDraftPending } = usePutDraft({
+  const { handleClickSaveDraft, isPutDraftPending, isSaveSuccess } = usePutDraft({
     recruitmentId,
     draft: draftPayload,
     enabled: isRestoredOrEmpty && currentStep > 0,
@@ -359,6 +359,7 @@ const ApplyPage = () => {
         subtitle={currentStep === 0 ? recruitPeriod : undefined}
         onSaveDraft={handleClickSaveDraft}
         isSavePending={isPutDraftPending}
+        isSaveSuccess={isSaveSuccess}
       />
 
       <section className={styles.content}>
