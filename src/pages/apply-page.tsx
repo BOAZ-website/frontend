@@ -326,10 +326,11 @@ const ApplyPage = () => {
   }
 
   return (
-    <main className={styles.container}>
+    <main className={currentStep === 0 ? styles.containerAgreement : styles.container}>
       <ApplyTitleSection
         currentStep={currentStep - 1}
         showProgressBar={currentStep > 0}
+        showSaveDraft={currentStep > 0}
         title={`${STEPS[currentStep]}`}
         onSaveDraft={handleClickSaveDraft}
         isSavePending={isPutDraftPending}
@@ -344,7 +345,6 @@ const ApplyPage = () => {
             }}
           />
         )}
-
         {currentStep === 1 && (
           <PersonalInfoSection
             formContext={personalInfo}
@@ -352,7 +352,6 @@ const ApplyPage = () => {
             onTrackChange={handleTrackChange}
           />
         )}
-
         {currentStep === 2 && (
           <CommonQuestionSection
             questions={commonQuestions}
@@ -362,7 +361,6 @@ const ApplyPage = () => {
             onNext={handleNext}
           />
         )}
-
         {currentStep === 3 && track === 'ANALYSIS' && (
           <AnalysisQuestionSection
             {...trackSectionProps}
