@@ -8,7 +8,7 @@ export const container = style({
   justifyContent: 'space-between',
   alignItems: 'center',
   width: '100%',
-  padding: '1rem 4.3rem 1rem 6.3rem',
+  padding: '2.2rem 4.3rem 2rem 6.3rem',
   color: themeVars.color.grayscale.white,
   backgroundColor: 'black',
   whiteSpace: 'nowrap',
@@ -32,4 +32,34 @@ export const navItem = style({
   ':hover': {
     ...typography.body3_bd_18,
   },
+});
+
+export const userGroup = style({
+  display: 'flex',
+  alignItems: 'center',
+  gap: '2rem',
+});
+
+export const userInfo = style({
+  display: 'flex',
+  alignItems: 'center',
+  gap: '0.8rem',
+  color: themeVars.color.grayscale.white,
+});
+
+export const nickname = style({
+  ...typography.body3_bd_18,
+});
+
+export const logoutButton = style({
+  color: themeVars.color.grayscale.white,
+  ...typography.body5_rg_16,
+  ':hover': {
+    ...typography.body3_bd_18,
+  },
+});
+
+export const loginButton = style({
+  color: themeVars.color.grayscale.white,
+  ...typography.body3_bd_18,
 });

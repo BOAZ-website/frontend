@@ -7,7 +7,7 @@ const ProtectedRoute = () => {
   const { isLoggedIn } = useAuth();
 
   if (!import.meta.env.DEV && !isLoggedIn) {
-    return <Navigate to={ROUTE_PATH.LOGIN} replace />;
+    return <Navigate to={ROUTE_PATH.HOME} replace />;
   }
 
   return <Outlet />;

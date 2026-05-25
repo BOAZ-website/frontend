@@ -53,7 +53,7 @@ const AgreementStep = ({ onNext, term }: AgreementStepProps) => {
               onChange={(e) => setAgreed(e.target.checked)}
               className={styles.checkbox}
             />
-            <span className={styles.checkboxLabel}>[필수] 개인정보 수집·이용에 동의합니다</span>
+            <span className={styles.checkboxLabel}>개인정보 필수항목 수집 및 이용 동의</span>
             <button
               type="button"
               className={styles.viewFullButton}

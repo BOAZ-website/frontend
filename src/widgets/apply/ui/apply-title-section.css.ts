@@ -20,7 +20,18 @@ export const titleWrapper = style({
   width: '100%',
 });
 
+export const titleGroup = style({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '2rem',
+});
+
 export const title = style({
   color: themeVars.color.grayscale.white,
   ...typography.h1_bd_40,
+});
+
+export const subtitle = style({
+  ...typography.body4_rg_18,
+  color: themeVars.color.grayscale.white,
 });
