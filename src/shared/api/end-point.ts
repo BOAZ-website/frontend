@@ -3,6 +3,9 @@ export const END_POINT = {
     REFRESH: 'api/v1/auth/user/refresh',
     LOGOUT: 'api/v1/auth/user/logout',
   },
+  USER: {
+    GET_ME: 'api/v1/users/me',
+  },
   RECRUITMENT: {
     GET_STATUS: 'api/v1/recruitment/status',
     GET_DETAIL: 'api/v1/recruitment/{term}',
