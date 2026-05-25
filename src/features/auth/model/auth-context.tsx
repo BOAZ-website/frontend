@@ -5,18 +5,23 @@ import { tokenStorage } from '@/shared/auth/token-storage';
 
 interface AuthContextValue {
   isLoggedIn: boolean;
+  isLoginOpen: boolean;
   login: (token: string) => void;
   logout: () => void;
+  openLogin: () => void;
+  closeLogin: () => void;
 }
 
 const AuthContext = createContext<AuthContextValue | null>(null);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(() => !!tokenStorage.get());
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
 
   const login = (token: string) => {
     tokenStorage.set(token);
     setIsLoggedIn(true);
+    setIsLoginOpen(false);
   };
 
   const logout = () => {
@@ -24,8 +29,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setIsLoggedIn(false);
   };
 
+  const openLogin = () => setIsLoginOpen(true);
+  const closeLogin = () => setIsLoginOpen(false);
+
   return (
-    <AuthContext.Provider value={{ isLoggedIn, login, logout }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ isLoggedIn, isLoginOpen, login, logout, openLogin, closeLogin }}>
+      {children}
+    </AuthContext.Provider>
   );
 };
 

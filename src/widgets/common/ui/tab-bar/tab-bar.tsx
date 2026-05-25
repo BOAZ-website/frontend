@@ -18,7 +18,7 @@ const NAV_MENU_LIST_BEFORE_LOGIN = [
 ] as const;
 
 const TabBar = () => {
-  const { isLoggedIn, logout } = useAuth();
+  const { isLoggedIn, logout, openLogin } = useAuth();
   const { data: userMe } = useUserMe(isLoggedIn);
   const navigate = useNavigate();
   const queryClient = useQueryClient();
@@ -67,9 +67,9 @@ const TabBar = () => {
           </button>
         </div>
       ) : (
-        <Link to={ROUTE_PATH.LOGIN} className={styles.loginLink} aria-label="로그인">
+        <button type="button" className={styles.loginButton} onClick={openLogin}>
           로그인
-        </Link>
+        </button>
       )}
     </header>
   );

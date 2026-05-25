@@ -8,7 +8,7 @@ export const container = style({
   justifyContent: 'space-between',
   alignItems: 'center',
   width: '100%',
-  padding: '1rem 4.3rem 1rem 6.3rem',
+  padding: '2.2rem 4.3rem 2rem 6.3rem',
   color: themeVars.color.grayscale.white,
   backgroundColor: 'black',
   whiteSpace: 'nowrap',
@@ -59,7 +59,7 @@ export const logoutButton = style({
   },
 });
 
-export const loginLink = style({
+export const loginButton = style({
   color: themeVars.color.grayscale.white,
   ...typography.body3_bd_18,
 });

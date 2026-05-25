@@ -1,8 +1,9 @@
+import { useAuth } from '@/features/auth/model/auth-context';
 import GoogleIcon from '@/shared/assets/icons/ic_google.svg?react';
 import KakaoIcon from '@/shared/assets/icons/ic_kakao.svg?react';
 import NaverIcon from '@/shared/assets/icons/ic_naver.svg?react';
 
-import * as styles from './login-widget.css';
+import * as styles from './login-overlay.css';
 
 type SocialProvider = 'kakao' | 'google' | 'naver';
 
@@ -30,36 +31,30 @@ const handleSocialLogin = (provider: SocialProvider) => {
   window.location.href = `${BASE_URL}/oauth2/authorize/${provider}?redirect_uri=${redirectUri}`;
 };
 
-interface LoginWidgetProps {
-  hasError?: boolean;
-}
+const LoginOverlay = () => {
+  const { isLoginOpen, closeLogin } = useAuth();
 
-const LoginWidget = ({ hasError = false }: LoginWidgetProps) => {
+  if (!isLoginOpen) {
+    return null;
+  }
+
   return (
-    <div className={styles.container}>
-      <div className={styles.titleSection}>
-        <h1 className={styles.title}>로그인</h1>
-      </div>
-      <div className={styles.buttonSection}>
-        {hasError && (
-          <p className={styles.errorMessage}>로그인에 실패했습니다. 다시 시도해 주세요.</p>
-        )}
-        <div className={styles.buttonGroup}>
-          {SOCIAL_PROVIDERS.map(({ provider, label, Icon, className }) => (
-            <button
-              key={provider}
-              type="button"
-              className={className}
-              aria-label={label}
-              onClick={() => handleSocialLogin(provider)}
-            >
-              <Icon width={48} height={48} />
-            </button>
-          ))}
-        </div>
+    <div className={styles.backdrop} onClick={closeLogin} aria-modal="true" role="dialog">
+      <div className={styles.buttonGroup} onClick={(e) => e.stopPropagation()}>
+        {SOCIAL_PROVIDERS.map(({ provider, label, Icon, className }) => (
+          <button
+            key={provider}
+            type="button"
+            className={className}
+            aria-label={label}
+            onClick={() => handleSocialLogin(provider)}
+          >
+            <Icon width={48} height={48} />
+          </button>
+        ))}
       </div>
     </div>
   );
 };
 
-export default LoginWidget;
+export default LoginOverlay;
