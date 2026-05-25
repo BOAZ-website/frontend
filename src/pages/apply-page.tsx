@@ -339,8 +339,7 @@ const ApplyPage = () => {
         {currentStep === 0 && (
           <AgreementStep
             term={status?.term}
-            onNext={(selectedTrack) => {
-              personalInfo.setField('track', selectedTrack);
+            onNext={() => {
               handleNext();
             }}
           />

@@ -1,4 +1,4 @@
-import { style } from '@vanilla-extract/css';
+import { globalStyle, style } from '@vanilla-extract/css';
 
 import { themeVars } from '@/shared/styles/theme.css';
 import { typography } from '@/shared/styles/typography.css';
@@ -76,4 +76,58 @@ export const viewFullButton = style({
   padding: '0.4rem 1.2rem',
   marginLeft: '1.6rem',
   flexShrink: 0,
+});
+
+export const consentWrapper = style({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '1.6rem',
+});
+
+export const consentDetail = style({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '1.2rem',
+  padding: '2rem',
+  backgroundColor: themeVars.color.grayscale[900],
+  borderRadius: themeVars.radius.xs,
+  border: `1px solid ${themeVars.color.grayscale[600]}`,
+});
+
+export const consentIntro = style({
+  ...typography.body5_rg_16,
+  color: themeVars.color.grayscale[200],
+  lineHeight: '1.6',
+});
+
+export const consentTable = style({
+  width: '100%',
+  borderCollapse: 'collapse',
+  ...typography.text_rg_14,
+  color: themeVars.color.grayscale[200],
+});
+globalStyle(`${consentTable} th`, {
+  padding: '0.8rem 1.2rem',
+  backgroundColor: themeVars.color.grayscale[800],
+  border: `1px solid ${themeVars.color.grayscale[600]}`,
+  textAlign: 'left',
+  fontWeight: themeVars.fontWeight.semibold,
+  whiteSpace: 'nowrap',
+});
+
+globalStyle(`${consentTable} td`, {
+  padding: '0.8rem 1.2rem',
+  border: `1px solid ${themeVars.color.grayscale[600]}`,
+  lineHeight: '1.5',
+});
+
+export const consentNote = style({
+  ...typography.text_rg_14,
+  color: themeVars.color.grayscale[400],
+  lineHeight: '1.6',
+});
+
+export const consentLink = style({
+  color: themeVars.color.primary[100],
+  textDecoration: 'underline',
 });
