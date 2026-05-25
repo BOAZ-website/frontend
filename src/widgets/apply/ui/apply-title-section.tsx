@@ -6,6 +6,8 @@ import * as styles from './apply-title-section.css';
 
 interface ApplyTitleSectionProps {
   currentStep: number;
+  showProgressBar?: boolean;
+  showSaveDraft?: boolean;
   title: string;
   onSaveDraft: () => void;
   isSavePending: boolean;
@@ -13,25 +15,29 @@ interface ApplyTitleSectionProps {
 
 const ApplyTitleSection = ({
   currentStep,
+  showProgressBar,
+  showSaveDraft = true,
   title,
   onSaveDraft,
   isSavePending,
 }: ApplyTitleSectionProps) => {
   return (
     <div className={styles.container}>
-      <ProgressBarSection currentStep={currentStep} />
+      {showProgressBar && <ProgressBarSection currentStep={currentStep} />}
 
       <span className={styles.titleWrapper}>
         <h1 className={styles.title}>{title}</h1>
-        <Button
-          preset="small-round_outlined"
-          hasIcon
-          onClick={onSaveDraft}
-          disabled={isSavePending}
-        >
-          <SaveIcon width={20} height={20} />
-          {isSavePending ? '저장 중...' : '임시저장'}
-        </Button>
+        {showSaveDraft && (
+          <Button
+            preset="small-round_outlined"
+            hasIcon
+            onClick={onSaveDraft}
+            disabled={isSavePending}
+          >
+            <SaveIcon width={20} height={20} />
+            {isSavePending ? '저장 중...' : '임시저장'}
+          </Button>
+        )}
       </span>
     </div>
   );

@@ -10,6 +10,7 @@ import { usePersonalInfoForm } from '@/widgets/apply/model/use-personal-info-for
 import { usePutDraft } from '@/widgets/apply/model/use-put-draft';
 import { useSaveDraft } from '@/widgets/apply/model/use-save-draft';
 import { useSubmitApplication } from '@/widgets/apply/model/use-submit-application';
+import AgreementStep from '@/widgets/apply/ui/agreement-step/agreement-step';
 import AnalysisQuestionSection from '@/widgets/apply/ui/analysis-question-section';
 import ApplyTitleSection from '@/widgets/apply/ui/apply-title-section';
 import CommonQuestionSection from '@/widgets/apply/ui/common-question-section';
@@ -18,6 +19,7 @@ import PersonalInfoSection from '@/widgets/apply/ui/personal-info-section';
 import VisualizationQuestionSection from '@/widgets/apply/ui/visualization-question-section';
 import type { AnswerRequest, ApplicationRequest, DraftRequest, Track } from '@/shared/api/types';
 import { useRecruitmentDeadline } from '@/shared/queries/use-recruitment-deadline';
+import { useRecruitmentStatus } from '@/shared/queries/use-recruitment-status';
 
 import * as styles from './apply-page.css';
 
@@ -52,6 +54,7 @@ const parseLastSemester = (lastSemester: number) => {
 
 const ApplyPage = () => {
   const { data: deadline } = useRecruitmentDeadline();
+  const { data: status } = useRecruitmentStatus();
   const recruitmentId = deadline?.recruitment_id ?? 0;
 
   const [currentStep, setCurrentStep] = useState(0);
@@ -323,9 +326,11 @@ const ApplyPage = () => {
   }
 
   return (
-    <main className={styles.container}>
+    <main className={currentStep === 0 ? styles.containerAgreement : styles.container}>
       <ApplyTitleSection
-        currentStep={currentStep}
+        currentStep={currentStep - 1}
+        showProgressBar={currentStep > 0}
+        showSaveDraft={currentStep > 0}
         title={`${STEPS[currentStep]}`}
         onSaveDraft={handleClickSaveDraft}
         isSavePending={isPutDraftPending}
@@ -333,14 +338,21 @@ const ApplyPage = () => {
 
       <section className={styles.content}>
         {currentStep === 0 && (
+          <AgreementStep
+            term={status?.term}
+            onNext={() => {
+              handleNext();
+            }}
+          />
+        )}
+        {currentStep === 1 && (
           <PersonalInfoSection
             formContext={personalInfo}
             onNext={handlePersonalInfoNext}
             onTrackChange={handleTrackChange}
           />
         )}
-
-        {currentStep === 1 && (
+        {currentStep === 2 && (
           <CommonQuestionSection
             questions={commonQuestions}
             answers={answers}
@@ -349,8 +361,7 @@ const ApplyPage = () => {
             onNext={handleNext}
           />
         )}
-
-        {currentStep === 2 && track === 'ANALYSIS' && (
+        {currentStep === 3 && track === 'ANALYSIS' && (
           <AnalysisQuestionSection
             {...trackSectionProps}
             questions={trackQuestions}
@@ -358,7 +369,7 @@ const ApplyPage = () => {
             nextLabel="제출하기"
           />
         )}
-        {currentStep === 2 && track === 'VISUALIZATION' && (
+        {currentStep === 3 && track === 'VISUALIZATION' && (
           <VisualizationQuestionSection
             {...trackSectionProps}
             questions={trackQuestions}
@@ -366,7 +377,7 @@ const ApplyPage = () => {
             nextLabel="제출하기"
           />
         )}
-        {currentStep === 2 && track === 'ENGINEERING' && (
+        {currentStep === 3 && track === 'ENGINEERING' && (
           <EngineeringQuestionSection
             {...trackSectionProps}
             questions={trackQuestions}
