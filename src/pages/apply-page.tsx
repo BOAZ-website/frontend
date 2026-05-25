@@ -355,7 +355,7 @@ const ApplyPage = () => {
         title={
           currentStep === 0
             ? `[BOAZ ${status?.term ?? ''}기] 신입 회원 모집`
-            : `${STEPS[currentStep]}`
+            : `${STEPS[currentStep - 1]}`
         }
         subtitle={currentStep === 0 ? recruitPeriod : undefined}
         onSaveDraft={handleClickSaveDraft}

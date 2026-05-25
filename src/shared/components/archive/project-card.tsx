@@ -29,7 +29,9 @@ const ProjectCard = ({
 
       <div className={styles.contentSection}>
         <span className={styles.subTitle}>{subTitle || 'Project'}</span>
-        <h3 className={styles.title}>{title}</h3>
+        <h3 className={styles.title} title={title}>
+          {title}
+        </h3>
 
         <div className={styles.bottomInfo}>
           <div className={styles.tagContainer}>

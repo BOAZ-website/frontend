@@ -5,18 +5,21 @@ import { themeVars } from '@/shared/styles/theme.css';
 export const wrapper = style({
   position: 'relative',
   width: '100%',
+  height: '33rem',
   overflow: 'hidden',
   userSelect: 'none',
 });
 
 export const track = style({
   display: 'flex',
+  flexDirection: 'column',
   transition: 'transform 0.6s ease',
 });
 
 export const slide = style({
   flexShrink: 0,
   width: '100%',
+  height: '33rem',
 });
 
 export const image = style({

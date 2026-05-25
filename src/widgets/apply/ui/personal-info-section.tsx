@@ -60,18 +60,16 @@ const FieldError = ({
 interface PersonalInfoSectionProps {
   formContext: ReturnType<typeof usePersonalInfoForm>;
   onNext: (track: Track) => void;
-  // 부문 변경 시 draft 초기화
   onTrackChange?: () => void;
 }
 
 const PersonalInfoSection = ({ formContext, onNext, onTrackChange }: PersonalInfoSectionProps) => {
-  const { form, setField, addDegree, setDegree } = formContext;
+  const { form, setField, addDegree, setDegree, removeDegree } = formContext;
   const [submitted, setSubmitted] = useState(false);
 
   const handleTrackChange = (value: string | null) => {
     const nextTrack = value as Track | null;
 
-    // 기존에 선택된 트랙이 있고, 다른 트랙으로 변경하는 경우
     if (form.track && form.track !== nextTrack) {
       const currentLabel = TRACK_LABEL[form.track];
       const confirmed = window.confirm(
@@ -81,7 +79,6 @@ const PersonalInfoSection = ({ formContext, onNext, onTrackChange }: PersonalInf
       if (!confirmed) {
         return;
       }
-
       onTrackChange?.();
     }
 
@@ -239,16 +236,26 @@ const PersonalInfoSection = ({ formContext, onNext, onTrackChange }: PersonalInf
           <FieldError show={submitted && !form.major.trim()} />
         </div>
         {form.additionalDegrees.map((degree, index) => (
-          <Textfield
-            key={index}
-            placeholder="학과명"
-            value={degree}
-            onChange={(e) => setDegree(index, e.target.value)}
-          />
+          <div key={index} className={styles.degreeRow}>
+            <Textfield
+              placeholder="학과명"
+              value={degree}
+              onChange={(e) => setDegree(index, e.target.value)}
+            />
+            <button
+              type="button"
+              className={styles.removeDegreeButton}
+              onClick={() => removeDegree(index)}
+            >
+              삭제
+            </button>
+          </div>
         ))}
-        <div className={styles.addDegree} onClick={addDegree}>
-          + 복수/부전공
-        </div>
+        {form.additionalDegrees.length < 3 && (
+          <div className={styles.addDegree} onClick={addDegree}>
+            + 복수/부전공
+          </div>
+        )}
       </section>
 
       {/* 마지막 재학 학기 */}
