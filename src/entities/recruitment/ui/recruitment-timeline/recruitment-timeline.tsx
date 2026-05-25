@@ -1,10 +1,12 @@
-import { MOCK_TIMELINE_STEPS } from '../../model/mock';
+import type { RecruitmentStep } from '../../model/types';
 import TimelineStep from './timeline-step';
 
 import * as styles from './recruitment-timeline.css';
-const RecruitmentTimeline = () => {
-  const steps = MOCK_TIMELINE_STEPS;
+interface RecruitmentTimelineProps {
+  steps: RecruitmentStep[];
+}
 
+const RecruitmentTimeline = ({ steps }: RecruitmentTimelineProps) => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.track}>
