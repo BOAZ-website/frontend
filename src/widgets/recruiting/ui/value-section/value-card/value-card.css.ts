@@ -1,6 +1,5 @@
 import { style } from '@vanilla-extract/css';
 
-import { themeVars } from '@/shared/styles/theme.css';
 import { typography } from '@/shared/styles/typography.css';
 
 export const cardContainer = style({
@@ -19,11 +18,9 @@ export const cardContainer = style({
 export const iconWrapper = style({
   width: '9.7rem',
   height: '9.7rem',
-  borderRadius: '50%',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  backgroundColor: themeVars.color.grayscale[100],
   overflow: 'hidden',
 });
 

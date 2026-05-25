@@ -55,7 +55,7 @@ export const logoutButton = style({
   color: themeVars.color.grayscale.white,
   ...typography.body5_rg_16,
   ':hover': {
-    ...typography.body3_bd_18,
+    color: themeVars.color.grayscale[300],
   },
 });
 
