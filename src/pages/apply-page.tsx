@@ -21,7 +21,7 @@ import { useRecruitmentDeadline } from '@/shared/queries/use-recruitment-deadlin
 
 import * as styles from './apply-page.css';
 
-const STEPS = ['지원자 정보', '공통 질문', '부문 질문'] as const;
+const STEPS = ['지원자 정보 입력', '공통 질문', '부문 질문'] as const;
 const LAST_STEP = STEPS.length - 1;
 
 const parseBirthDate = (birthDate: string) => {
@@ -320,7 +320,7 @@ const ApplyPage = () => {
 
   return (
     <main className={styles.container}>
-      <ApplyTitleSection currentStep={currentStep} title={`${STEPS[currentStep]} 입력`} />
+      <ApplyTitleSection currentStep={currentStep} title={`${STEPS[currentStep]}`} />
 
       {/* 임시저장 버튼 */}
       {/* TODO: 스타일 적용 및 토스트 연동 후 버튼 컴포넌트로 교체 */}
