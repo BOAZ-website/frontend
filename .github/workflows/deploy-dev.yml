@@ -1,16 +1,16 @@
-name: Deploy WWW
+name: Deploy DEV
 
 on:
   push:
-    branches: [main]
+    branches: [dev]
 
 concurrency:
-  group: deploy-www
+  group: deploy-dev
   cancel-in-progress: true
 
 jobs:
   deploy:
-    name: Build & Deploy to S3
+    name: Build & Deploy to S3 (dev)
     runs-on: ubuntu-latest
     permissions:
       id-token: write
@@ -40,7 +40,7 @@ jobs:
         run: pnpm build
         env:
           VITE_API_BASE_URL: ${{ vars.VITE_API_BASE_URL }}
-          VITE_APP_URL: https://www.bigdataboaz.com
+          VITE_APP_URL: https://dev.bigdataboaz.com
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
@@ -52,10 +52,10 @@ jobs:
         run: |
           test -d dist
           test -f dist/index.html
-          aws s3 sync dist/ s3://${{ secrets.S3_BUCKET_WWW }} --delete
+          aws s3 sync dist/ s3://${{ secrets.S3_BUCKET_DEV }} --delete
 
       - name: Invalidate CloudFront cache
         run: |
           aws cloudfront create-invalidation \
-            --distribution-id ${{ secrets.CF_DIST_ID_WWW }} \
+            --distribution-id ${{ secrets.CF_DIST_ID_DEV }} \
             --paths "/*"

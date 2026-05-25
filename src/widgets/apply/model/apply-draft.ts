@@ -1,30 +1,27 @@
-import type { PersonalInfoForm } from './use-personal-info-form';
+const getDraftKey = (recruitmentId: number) => `boaz-apply-draft-${recruitmentId}`;
 
-const DRAFT_KEY = 'boaz-apply-draft';
-
-export interface ApplyDraft {
-  step: number;
-  personalInfo: PersonalInfoForm;
+export interface LocalDraft {
+  personalInfo: Record<string, unknown>;
   answers: Record<string, string>;
 }
 
-export const loadDraft = (): ApplyDraft | null => {
+export const loadLocalDraft = (recruitmentId: number): LocalDraft | null => {
   try {
-    const raw = localStorage.getItem(DRAFT_KEY);
-    return raw ? (JSON.parse(raw) as ApplyDraft) : null;
+    const raw = localStorage.getItem(getDraftKey(recruitmentId));
+    return raw ? (JSON.parse(raw) as LocalDraft) : null;
   } catch {
     return null;
   }
 };
 
-export const saveDraft = (draft: ApplyDraft): void => {
+export const saveLocalDraft = (recruitmentId: number, draft: LocalDraft): void => {
   try {
-    localStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
+    localStorage.setItem(getDraftKey(recruitmentId), JSON.stringify(draft));
   } catch {
-    // 예외 상황 무시
+    // 논의 필요: 토스트 메세지?
   }
 };
 
-export const clearDraft = (): void => {
-  localStorage.removeItem(DRAFT_KEY);
+export const clearLocalDraft = (recruitmentId: number): void => {
+  localStorage.removeItem(getDraftKey(recruitmentId));
 };

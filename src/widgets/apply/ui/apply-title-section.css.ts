@@ -10,6 +10,14 @@ export const container = style({
   width: '100%',
   marginTop: '4rem',
   marginBottom: '6rem',
+  position: 'relative',
+});
+
+export const titleWrapper = style({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  width: '100%',
 });
 
 export const title = style({

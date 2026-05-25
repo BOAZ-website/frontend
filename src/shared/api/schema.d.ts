@@ -4,6 +4,64 @@
  */
 
 export interface paths {
+  '/api/v1/recruitment/{recruitmentId}/applications/draft': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    /** 지원서 임시저장 */
+    put: operations['saveDraft'];
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/admin/curriculums/{curriculumId}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    /**
+     * 커리큘럼 수정
+     * @description 커리큘럼 단계를 전체 교체합니다. 부문 변경 불가.
+     */
+    put: operations['updateCurriculum'];
+    post?: never;
+    /**
+     * 커리큘럼 삭제
+     * @description 커리큘럼을 삭제합니다.
+     */
+    delete: operations['deleteCurriculum'];
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/recruitment/{recruitmentId}/applications': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /** 지원서 제출 */
+    post: operations['submitApplication'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
   '/api/v1/recruitment/subscriptions': {
     parameters: {
       query?: never;
@@ -21,24 +79,7 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
-  '/api/v1/recruitment/applications': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    /** 지원서 제출 */
-    post: operations['submitApplication'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/v1/auth/refresh': {
+  '/api/v1/auth/user/refresh': {
     parameters: {
       query?: never;
       header?: never;
@@ -48,8 +89,8 @@ export interface paths {
     get?: never;
     put?: never;
     /**
-     * 토큰 갱신
-     * @description Cookie의 Refresh Token으로 Access Token 재발급
+     * User 토큰 재발급
+     * @description user_refresh_token 쿠키로 Access Token 재발급
      */
     post: operations['refresh'];
     delete?: never;
@@ -58,7 +99,7 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
-  '/api/v1/auth/logout': {
+  '/api/v1/auth/user/logout': {
     parameters: {
       query?: never;
       header?: never;
@@ -68,8 +109,8 @@ export interface paths {
     get?: never;
     put?: never;
     /**
-     * 로그아웃
-     * @description Refresh Token 무효화 및 Cookie 삭제
+     * User 로그아웃
+     * @description Refresh Token 무효화 및 쿠키 삭제
      */
     post: operations['logout'];
     delete?: never;
@@ -78,7 +119,7 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
-  '/api/v1/auth/login': {
+  '/api/v1/auth/admin/refresh': {
     parameters: {
       query?: never;
       header?: never;
@@ -88,10 +129,70 @@ export interface paths {
     get?: never;
     put?: never;
     /**
-     * 로그인
-     * @description 이메일과 비밀번호로 로그인. 성공 시 Access Token 반환 및 Refresh Token 쿠키 설정
+     * 어드민 토큰 갱신
+     * @description admin_refresh_token 쿠키로 Access Token 재발급
+     */
+    post: operations['refresh_1'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/auth/admin/logout': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * 어드민 로그아웃
+     * @description Refresh Token 무효화 및 쿠키 삭제
+     */
+    post: operations['logout_1'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/auth/admin/login': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * 어드민 로그인
+     * @description 아이디/비밀번호로 로그인. Access Token 반환 및 Refresh Token 쿠키 설정
      */
     post: operations['login'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/admin/reviews': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * 수료자 후기 등록
+     * @description 수료자의 동아리 활동 후기를 등록합니다.
+     */
+    post: operations['createReview'];
     delete?: never;
     options?: never;
     head?: never;
@@ -179,6 +280,86 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
+  '/api/v1/admin/curriculums': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * 커리큘럼 등록
+     * @description 부문별 커리큘럼을 등록합니다. 동일 부문 중복 등록 불가.
+     */
+    post: operations['createCurriculum'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/admin/archiving/projects': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * 프로젝트 등록
+     * @description 프로젝트 데이터와 이미지를 등록합니다.
+     */
+    post: operations['createProject'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/admin/archiving/blogs': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * 기술블로그 등록
+     * @description 기술블로그 데이터와 이미지를 등록합니다.
+     */
+    post: operations['createBlog'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/admin/archiving/activities': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * 활동사진 등록
+     * @description 활동사진 데이터와 이미지를 등록합니다.
+     */
+    post: operations['createActivity'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
   '/api/v1/admin/accounts': {
     parameters: {
       query?: never;
@@ -198,6 +379,30 @@ export interface paths {
     options?: never;
     head?: never;
     patch?: never;
+    trace?: never;
+  };
+  '/api/v1/admin/reviews/{reviewId}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post?: never;
+    /**
+     * 수료자 후기 삭제
+     * @description 등록된 수료자 후기를 삭제합니다.
+     */
+    delete: operations['deleteReview'];
+    options?: never;
+    head?: never;
+    /**
+     * 수료자 후기 수정
+     * @description 등록된 수료자 후기를 부분 수정합니다. (PATCH)
+     */
+    patch: operations['updateReview'];
     trace?: never;
   };
   '/api/v1/admin/recruitment/{id}': {
@@ -272,6 +477,78 @@ export interface paths {
     patch: operations['updateFaq'];
     trace?: never;
   };
+  '/api/v1/admin/archiving/projects/{id}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post?: never;
+    /**
+     * 프로젝트 삭제
+     * @description 프로젝트 데이터를 삭제합니다.
+     */
+    delete: operations['deleteProject'];
+    options?: never;
+    head?: never;
+    /**
+     * 프로젝트 수정
+     * @description 프로젝트 데이터를 수정합니다.
+     */
+    patch: operations['updateProject'];
+    trace?: never;
+  };
+  '/api/v1/admin/archiving/blogs/{id}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post?: never;
+    /**
+     * 기술블로그 삭제
+     * @description 기술블로그 데이터를 삭제합니다.
+     */
+    delete: operations['deleteBlog'];
+    options?: never;
+    head?: never;
+    /**
+     * 기술블로그 수정
+     * @description 기술블로그 데이터를 수정합니다.
+     */
+    patch: operations['updateBlog'];
+    trace?: never;
+  };
+  '/api/v1/admin/archiving/activities/{id}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post?: never;
+    /**
+     * 활동사진 삭제
+     * @description 활동사진 데이터를 삭제합니다.
+     */
+    delete: operations['deleteActivity'];
+    options?: never;
+    head?: never;
+    /**
+     * 활동사진 수정
+     * @description 활동사진 데이터를 수정합니다.
+     */
+    patch: operations['updateActivity'];
+    trace?: never;
+  };
   '/api/v1/admin/accounts/{id}': {
     parameters: {
       query?: never;
@@ -317,6 +594,26 @@ export interface paths {
     patch: operations['resetPassword'];
     trace?: never;
   };
+  '/api/v1/users/me': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * 내 정보 조회
+     * @description 로그인한 사용자의 닉네임 조회
+     */
+    get: operations['getMyInfo'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
   '/api/v1/reviews': {
     parameters: {
       query?: never;
@@ -326,7 +623,7 @@ export interface paths {
     };
     /**
      * 후기 전체 조회
-     * @description 트랙/기수 필터링 가능. 기본 정렬은 기수 내림차순.
+     * @description 부문/기수 필터링 가능. 기본 정렬은 기수 내림차순.
      */
     get: operations['getReviews'];
     put?: never;
@@ -346,6 +643,23 @@ export interface paths {
     };
     /** 모집 공고 정보 조회 */
     get: operations['getRecruitment'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/recruitment/{recruitmentId}/applications/me': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** 내 지원서 조회 */
+    get: operations['getMyApplication'];
     put?: never;
     post?: never;
     delete?: never;
@@ -414,7 +728,7 @@ export interface paths {
     };
     /**
      * 커리큘럼 전체 조회
-     * @description 트랙 필터링 가능. 미입력 시 전체 3개 트랙 반환.
+     * @description 부문 필터링 가능. 미입력 시 전체 3개 부문 반환.
      */
     get: operations['getCurriculums'];
     put?: never;
@@ -573,39 +887,7 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
   schemas: {
-    SubscriptionRequest: {
-      /**
-       * @description 이메일
-       * @example hong@example.com
-       */
-      email: string;
-    };
-    ApiResponseSubscriptionResponse: {
-      /** Format: int32 */
-      status?: number;
-      data?: components['schemas']['SubscriptionResponse'];
-      error_code?: string;
-      message?: string;
-    };
-    SubscriptionResponse: {
-      /**
-       * Format: int64
-       * @description 구독 ID
-       * @example 1
-       */
-      id?: number;
-      /**
-       * @description 구독 이메일
-       * @example hong@example.com
-       */
-      email?: string;
-      /**
-       * Format: date-time
-       * @description 신청 일시
-       */
-      created_at?: string;
-    };
-    /** @description 지원서 답변 목록 */
+    /** @description 답변 목록. null이면 기존 answers 유지, 빈 배열이면 전체 삭제 */
     AnswerRequest: {
       answer: components['schemas']['JsonNode'];
       /**
@@ -615,9 +897,170 @@ export interface components {
        */
       question_id: number;
     };
+    DraftApplicationRequest: {
+      /**
+       * @description 지원 부문
+       * @example ENGINEERING
+       * @enum {string}
+       */
+      track?:
+        | 'ALL'
+        | 'ANALYSIS'
+        | 'VISUALIZATION'
+        | 'ENGINEERING'
+        | 'ANALYSIS'
+        | 'VISUALIZATION'
+        | 'ENGINEERING';
+      /**
+       * @description 성명
+       * @example 홍길동
+       */
+      name?: string;
+      /**
+       * @description 이메일
+       * @example hong@example.com
+       */
+      email?: string;
+      /**
+       * @description 전화번호 (하이픈 없이 숫자만, 10~11자리)
+       * @example 01012345678
+       */
+      phone?: string;
+      /**
+       * @description 대학교
+       * @example 한국대학교
+       */
+      university?: string;
+      /**
+       * @description 본전공
+       * @example 컴퓨터공학
+       */
+      major?: string;
+      /** @description 답변 목록. null이면 기존 answers 유지, 빈 배열이면 전체 삭제 */
+      answers?: components['schemas']['AnswerRequest'][];
+      /**
+       * @description 부전공/복수전공 목록
+       * @example [
+       *       "통계학"
+       *     ]
+       */
+      minor_double_major?: string[];
+      /**
+       * Format: int32
+       * @description 마지막 재학 학기
+       * @example 4
+       */
+      last_semester?: number;
+      /**
+       * @description 병역 상태
+       * @enum {string}
+       */
+      military_status?:
+        | 'COMPLETED_OR_EXEMPT'
+        | 'NOT_COMPLETED'
+        | 'COMPLETED_OR_EXEMPT'
+        | 'NOT_COMPLETED';
+      /**
+       * @description 생년월일 (YYYY-MM-DD)
+       * @example 2000-01-01
+       */
+      birth_date?: string;
+      /**
+       * @description 졸업 예정 시점
+       * @example 2026-02
+       */
+      graduation_date?: string;
+      /**
+       * @description 대학원 진학 여부
+       * @example false
+       */
+      grad_school_plan?: boolean;
+    };
+    /** @description 답변 */
+    JsonNode: unknown;
+    ApiResponseDraftApplicationResponse: {
+      /** Format: int32 */
+      status?: number;
+      data?: components['schemas']['DraftApplicationResponse'];
+      error_code?: string;
+      message?: string;
+    };
+    DraftApplicationResponse: {
+      /**
+       * Format: int64
+       * @description 지원자 ID
+       * @example 42
+       */
+      applicant_id?: number;
+    };
+    /** @description 커리큘럼 단계 목록 (전체 교체) */
+    CurriculumStepRequest: {
+      /**
+       * Format: int32
+       * @description 단계 번호
+       * @example 1
+       */
+      step: number;
+      /**
+       * @description 단계 제목
+       * @example 데이터 분석 기초
+       */
+      title: string;
+      /**
+       * @description 단계 설명
+       * @example 통계 기초, 파이썬 기초
+       */
+      desc: string;
+    };
+    CurriculumUpdateRequest: {
+      /** @description 커리큘럼 단계 목록 (전체 교체) */
+      curriculum_steps: components['schemas']['CurriculumStepRequest'][];
+    };
+    ApiResponseCurriculumResponse: {
+      /** Format: int32 */
+      status?: number;
+      data?: components['schemas']['CurriculumResponse'];
+      error_code?: string;
+      message?: string;
+    };
+    CurriculumResponse: {
+      /**
+       * Format: int64
+       * @description 커리큘럼 ID
+       * @example 1
+       */
+      id?: number;
+      /**
+       * @description 부문
+       * @example ANALYSIS
+       * @enum {string}
+       */
+      track?: 'ANALYSIS' | 'VISUALIZATION' | 'ENGINEERING';
+      /** @description 커리큘럼 단계 목록 */
+      curriculum_steps?: components['schemas']['CurriculumStepResponse'][];
+    };
+    /** @description 커리큘럼 단계 목록 */
+    CurriculumStepResponse: {
+      /**
+       * Format: int32
+       * @description 단계 번호
+       * @example 1
+       */
+      step?: number;
+      /**
+       * @description 단계 제목
+       * @example 데이터 분석 기초
+       */
+      title?: string;
+      /**
+       * @description 단계 설명
+       * @example 통계 기초, 파이썬 기초
+       */
+      desc?: string;
+    };
     ApplicationRequest: {
       /**
-       * @description 지원 트랙
+       * @description 지원 부문
        * @example ENGINEERING
        * @enum {string}
        */
@@ -657,12 +1100,6 @@ export interface components {
       /** @description 지원서 답변 목록 */
       answers: components['schemas']['AnswerRequest'][];
       /**
-       * Format: int64
-       * @description 모집 ID
-       * @example 1
-       */
-      recruitment_id: number;
-      /**
        * @description 부전공/복수전공 목록
        * @example [
        *       "통계학"
@@ -701,8 +1138,6 @@ export interface components {
        */
       grad_school_plan: boolean;
     };
-    /** @description 답변 */
-    JsonNode: unknown;
     ApiResponseApplicationResponse: {
       /** Format: int32 */
       status?: number;
@@ -722,6 +1157,38 @@ export interface components {
        * @description 제출 일시
        */
       submitted_at?: string;
+    };
+    SubscriptionRequest: {
+      /**
+       * @description 이메일
+       * @example hong@example.com
+       */
+      email: string;
+    };
+    ApiResponseSubscriptionResponse: {
+      /** Format: int32 */
+      status?: number;
+      data?: components['schemas']['SubscriptionResponse'];
+      error_code?: string;
+      message?: string;
+    };
+    SubscriptionResponse: {
+      /**
+       * Format: int64
+       * @description 구독 ID
+       * @example 1
+       */
+      id?: number;
+      /**
+       * @description 구독 이메일
+       * @example hong@example.com
+       */
+      email?: string;
+      /**
+       * Format: date-time
+       * @description 신청 일시
+       */
+      created_at?: string;
     };
     ApiResponseTokenRefreshResponse: {
       /** Format: int32 */
@@ -769,6 +1236,84 @@ export interface components {
        * @example eyJhbGciOiJIUzI1NiJ9..
        */
       access_token?: string;
+    };
+    ReviewCreateRequest: {
+      /**
+       * @description 작성자 이름
+       * @example 김분석
+       */
+      name: string;
+      /**
+       * @description 부문
+       * @example ANALYSIS
+       * @enum {string}
+       */
+      track:
+        | 'ALL'
+        | 'ANALYSIS'
+        | 'VISUALIZATION'
+        | 'ENGINEERING'
+        | 'ANALYSIS'
+        | 'VISUALIZATION'
+        | 'ENGINEERING';
+      /**
+       * Format: int32
+       * @description 기수
+       * @example 15
+       */
+      term: number;
+      /**
+       * @description 후기 내용
+       * @example BOAZ에서 많이 성장했습니다.
+       */
+      content: string;
+      /**
+       * @description 프로필 이미지 URL (선택)
+       * @example https://example.com/image.jpg
+       */
+      image_url?: string;
+    };
+    ApiResponseReviewResponse: {
+      /** Format: int32 */
+      status?: number;
+      data?: components['schemas']['ReviewResponse'];
+      error_code?: string;
+      message?: string;
+    };
+    ReviewResponse: {
+      /**
+       * Format: int64
+       * @description 후기 ID
+       * @example 1
+       */
+      id?: number;
+      /**
+       * @description 작성자 이름
+       * @example 김분석
+       */
+      name?: string;
+      /**
+       * @description 부문
+       * @example ANALYSIS
+       * @enum {string}
+       */
+      track?: 'ANALYSIS' | 'VISUALIZATION' | 'ENGINEERING';
+      /**
+       * Format: int32
+       * @description 기수
+       * @example 15
+       */
+      term?: number;
+      /**
+       * @description 후기 내용
+       * @example BOAZ에서 데이터 분석을 공부하며 정말 많이 성장했습니다. 실전 프로젝트를 통해 이론으로만 알던 머신러닝을 직접 적용해볼 수 있어서 좋았어요.
+       */
+      content?: string;
+      /**
+       * @description 프로필 이미지 URL
+       * @example https://example.com/images/review1.jpg
+       */
+      image_url?: string;
     };
     /** @description 모집 일정 목록 */
     ArrayNode: unknown;
@@ -951,6 +1496,63 @@ export interface components {
        */
       order_num?: number;
     };
+    CurriculumCreateRequest: {
+      /**
+       * @description 부문
+       * @example ANALYSIS
+       * @enum {string}
+       */
+      track:
+        | 'ALL'
+        | 'ANALYSIS'
+        | 'VISUALIZATION'
+        | 'ENGINEERING'
+        | 'ANALYSIS'
+        | 'VISUALIZATION'
+        | 'ENGINEERING';
+      /** @description 커리큘럼 단계 목록 */
+      curriculum_steps: components['schemas']['CurriculumStepRequest'][];
+    };
+    ArchiveCreateRequest: {
+      /**
+       * Format: int32
+       * @description 기수
+       * @example 8
+       */
+      term: number;
+      /**
+       * @description 제목
+       * @example AI 기반 수요 예측 프로젝트
+       */
+      title: string;
+      /**
+       * @description 팀명
+       * @example 팀이름
+       */
+      team_name?: string;
+      /**
+       * @description 트랙
+       * @example ANALYSIS
+       * @enum {string}
+       */
+      track: 'ALL' | 'ANALYSIS' | 'VISUALIZATION' | 'ENGINEERING';
+      /**
+       * @description 링크 JSON
+       * @example {"slideshare":"https://slideshare.net/boaz.com"}
+       */
+      links: string;
+      /**
+       * Format: date
+       * @description 콘텐츠 날짜
+       * @example 2024-07-01
+       */
+      content_date?: string;
+      /**
+       * @description 상/하반기 (활동사진만 사용)
+       * @example 26-1
+       */
+      half?: string;
+    };
     AdminCreateRequest: {
       /**
        * @description 로그인 ID
@@ -1027,6 +1629,42 @@ export interface components {
       data?: components['schemas']['AdminIdResponse'];
       error_code?: string;
       message?: string;
+    };
+    ReviewUpdateRequest: {
+      /**
+       * @description 작성자 이름
+       * @example 김분석
+       */
+      name?: string;
+      /**
+       * @description 부문
+       * @example ANALYSIS
+       * @enum {string}
+       */
+      track?:
+        | 'ALL'
+        | 'ANALYSIS'
+        | 'VISUALIZATION'
+        | 'ENGINEERING'
+        | 'ANALYSIS'
+        | 'VISUALIZATION'
+        | 'ENGINEERING';
+      /**
+       * Format: int32
+       * @description 기수
+       * @example 15
+       */
+      term?: number;
+      /**
+       * @description 후기 내용
+       * @example BOAZ에서 많이 성장했습니다.
+       */
+      content?: string;
+      /**
+       * @description 프로필 이미지 URL
+       * @example https://example.com/image.jpg
+       */
+      image_url?: string;
     };
     RecruitmentUpdateRequest: {
       /**
@@ -1141,6 +1779,46 @@ export interface components {
        */
       order_num?: number;
     };
+    ArchiveUpdateRequest: {
+      /**
+       * Format: int32
+       * @description 기수
+       * @example 8
+       */
+      term?: number;
+      /**
+       * @description 제목
+       * @example LLM 기반 수요 예측 프로젝트
+       */
+      title?: string;
+      /**
+       * @description 팀명
+       * @example 보보보아아즈
+       */
+      team_name?: string;
+      /**
+       * @description 트랙
+       * @example ANALYSIS
+       * @enum {string}
+       */
+      track?: 'ALL' | 'ANALYSIS' | 'VISUALIZATION' | 'ENGINEERING';
+      /**
+       * @description 링크 JSON
+       * @example {"slideshare":"https://slideshare.net/bbbaaz.com"}
+       */
+      links?: string;
+      /**
+       * Format: date
+       * @description 콘텐츠 날짜
+       * @example 2024-07-05
+       */
+      content_date?: string;
+      /**
+       * @description 상/하반기 (활동사진만 사용)
+       * @example 26-1
+       */
+      half?: string;
+    };
     AdminUpdateRequest: {
       /**
        * @description 역할 (SUPER only, 본인 변경 불가)
@@ -1205,47 +1883,22 @@ export interface components {
        */
       new_password: string;
     };
+    ApiResponseUserInfoResponse: {
+      /** Format: int32 */
+      status?: number;
+      data?: components['schemas']['UserInfoResponse'];
+      error_code?: string;
+      message?: string;
+    };
+    UserInfoResponse: {
+      nickname?: string;
+    };
     ApiResponseListReviewResponse: {
       /** Format: int32 */
       status?: number;
       data?: components['schemas']['ReviewResponse'][];
       error_code?: string;
       message?: string;
-    };
-    ReviewResponse: {
-      /**
-       * Format: int64
-       * @description 후기 ID
-       * @example 1
-       */
-      id?: number;
-      /**
-       * @description 작성자 이름
-       * @example 김분석
-       */
-      name?: string;
-      /**
-       * @description 트랙
-       * @example ANALYSIS
-       * @enum {string}
-       */
-      track?: 'ANALYSIS' | 'VISUALIZATION' | 'ENGINEERING';
-      /**
-       * Format: int32
-       * @description 기수
-       * @example 15
-       */
-      term?: number;
-      /**
-       * @description 후기 내용
-       * @example BOAZ에서 데이터 분석을 공부하며 정말 많이 성장했습니다. 실전 프로젝트를 통해 이론으로만 알던 머신러닝을 직접 적용해볼 수 있어서 좋았어요.
-       */
-      content?: string;
-      /**
-       * @description 프로필 이미지 URL
-       * @example https://example.com/images/review1.jpg
-       */
-      image_url?: string;
     };
     ApiResponseRecruitmentResponse: {
       /** Format: int32 */
@@ -1288,6 +1941,110 @@ export interface components {
        * @example true
        */
       is_active?: boolean;
+    };
+    /** @description 지원서 답변 목록 */
+    AnswerItemResponse: {
+      /**
+       * Format: int64
+       * @description 질문 ID
+       * @example 1
+       */
+      question_id?: number;
+      answer?: components['schemas']['JsonNode'];
+    };
+    ApiResponseMyApplicationResponse: {
+      /** Format: int32 */
+      status?: number;
+      data?: components['schemas']['MyApplicationResponse'];
+      error_code?: string;
+      message?: string;
+    };
+    MyApplicationResponse: {
+      /**
+       * Format: int64
+       * @description 지원자 ID
+       * @example 42
+       */
+      applicant_id?: number;
+      /**
+       * @description 지원서 상태
+       * @example DRAFT
+       * @enum {string}
+       */
+      status?: 'DRAFT' | 'SUBMITTED';
+      /**
+       * @description 지원 부문
+       * @example ENGINEERING
+       * @enum {string}
+       */
+      track?: 'ALL' | 'ANALYSIS' | 'VISUALIZATION' | 'ENGINEERING';
+      /**
+       * @description 성명
+       * @example 홍길동
+       */
+      name?: string;
+      /**
+       * @description 이메일
+       * @example hong@example.com
+       */
+      email?: string;
+      /**
+       * @description 전화번호
+       * @example 01012345678
+       */
+      phone?: string;
+      /**
+       * @description 대학교
+       * @example 한국대학교
+       */
+      university?: string;
+      /**
+       * @description 본전공
+       * @example 컴퓨터공학
+       */
+      major?: string;
+      /** @description 부전공/복수전공 목록 */
+      minor_double_major?: string[];
+      /**
+       * Format: int32
+       * @description 마지막 재학 학기
+       * @example 6
+       */
+      last_semester?: number;
+      /**
+       * @description 병역 상태
+       * @example COMPLETED_OR_EXEMPT
+       * @enum {string}
+       */
+      military_status?: 'COMPLETED_OR_EXEMPT' | 'NOT_COMPLETED';
+      /**
+       * Format: date
+       * @description 생년월일
+       * @example 2000-01-01
+       */
+      birth_date?: string;
+      /**
+       * @description 졸업 예정 시점
+       * @example 2026-02
+       */
+      graduation_date?: string;
+      /**
+       * @description 대학원 진학 여부
+       * @example false
+       */
+      grad_school_plan?: boolean;
+      /** @description 지원서 답변 목록 */
+      answers?: components['schemas']['AnswerItemResponse'][];
+      /**
+       * Format: date-time
+       * @description 최초 생성 일시
+       */
+      created_at?: string;
+      /**
+       * Format: date-time
+       * @description 마지막 수정 일시
+       */
+      updated_at?: string;
     };
     ApiResponseRecruitmentStatusResponse: {
       /** Format: int32 */
@@ -1390,41 +2147,6 @@ export interface components {
       data?: components['schemas']['CurriculumResponse'][];
       error_code?: string;
       message?: string;
-    };
-    CurriculumResponse: {
-      /**
-       * Format: int64
-       * @description 커리큘럼 ID
-       * @example 1
-       */
-      id?: number;
-      /**
-       * @description 트랙
-       * @example ANALYSIS
-       * @enum {string}
-       */
-      track?: 'ANALYSIS' | 'VISUALIZATION' | 'ENGINEERING';
-      /** @description 커리큘럼 단계 목록 */
-      curriculum_steps?: components['schemas']['CurriculumStepResponse'][];
-    };
-    /** @description 커리큘럼 단계 목록 */
-    CurriculumStepResponse: {
-      /**
-       * Format: int32
-       * @description 단계 번호
-       * @example 1
-       */
-      step?: number;
-      /**
-       * @description 단계 제목
-       * @example 데이터 분석 기초
-       */
-      title?: string;
-      /**
-       * @description 단계 설명
-       * @example 통계 기초, 파이썬 기초
-       */
-      desc?: string;
     };
     ApiResponseArchivePageResponse: {
       /** Format: int32 */
@@ -1629,6 +2351,106 @@ export interface components {
 }
 export type $defs = Record<string, never>;
 export interface operations {
+  saveDraft: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        recruitmentId: number;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['DraftApplicationRequest'];
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ApiResponseDraftApplicationResponse'];
+        };
+      };
+    };
+  };
+  updateCurriculum: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        curriculumId: number;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CurriculumUpdateRequest'];
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ApiResponseCurriculumResponse'];
+        };
+      };
+    };
+  };
+  deleteCurriculum: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        curriculumId: number;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ApiResponseVoid'];
+        };
+      };
+    };
+  };
+  submitApplication: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        recruitmentId: number;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['ApplicationRequest'];
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ApiResponseApplicationResponse'];
+        };
+      };
+    };
+  };
   subscribe: {
     parameters: {
       query?: never;
@@ -1653,37 +2475,13 @@ export interface operations {
       };
     };
   };
-  submitApplication: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['ApplicationRequest'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ApiResponseApplicationResponse'];
-        };
-      };
-    };
-  };
   refresh: {
     parameters: {
       query?: never;
       header?: never;
       path?: never;
       cookie?: {
-        refresh_token?: string;
+        user_refresh_token?: string;
       };
     };
     requestBody?: never;
@@ -1700,6 +2498,48 @@ export interface operations {
     };
   };
   logout: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ApiResponseVoid'];
+        };
+      };
+    };
+  };
+  refresh_1: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: {
+        admin_refresh_token?: string;
+      };
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ApiResponseTokenRefreshResponse'];
+        };
+      };
+    };
+  };
+  logout_1: {
     parameters: {
       query?: never;
       header?: never;
@@ -1739,6 +2579,30 @@ export interface operations {
         };
         content: {
           '*/*': components['schemas']['ApiResponseLoginResponse'];
+        };
+      };
+    };
+  };
+  createReview: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['ReviewCreateRequest'];
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ApiResponseReviewResponse'];
         };
       };
     };
@@ -1857,6 +2721,114 @@ export interface operations {
       };
     };
   };
+  createCurriculum: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CurriculumCreateRequest'];
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ApiResponseCurriculumResponse'];
+        };
+      };
+    };
+  };
+  createProject: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: {
+      content: {
+        'multipart/form-data': {
+          data: components['schemas']['ArchiveCreateRequest'];
+          /** Format: binary */
+          image: string;
+        };
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ApiResponseVoid'];
+        };
+      };
+    };
+  };
+  createBlog: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: {
+      content: {
+        'multipart/form-data': {
+          data: components['schemas']['ArchiveCreateRequest'];
+          /** Format: binary */
+          image: string;
+        };
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ApiResponseVoid'];
+        };
+      };
+    };
+  };
+  createActivity: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: {
+      content: {
+        'multipart/form-data': {
+          data: components['schemas']['ArchiveCreateRequest'];
+          /** Format: binary */
+          image: string;
+        };
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ApiResponseVoid'];
+        };
+      };
+    };
+  };
   getAccounts: {
     parameters: {
       query?: never;
@@ -1897,6 +2869,54 @@ export interface operations {
         };
         content: {
           '*/*': components['schemas']['ApiResponseAdminIdResponse'];
+        };
+      };
+    };
+  };
+  deleteReview: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        reviewId: number;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ApiResponseVoid'];
+        };
+      };
+    };
+  };
+  updateReview: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        reviewId: number;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['ReviewUpdateRequest'];
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ApiResponseReviewResponse'];
         };
       };
     };
@@ -2045,6 +3065,162 @@ export interface operations {
       };
     };
   };
+  deleteProject: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: number;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ApiResponseVoid'];
+        };
+      };
+    };
+  };
+  updateProject: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: number;
+      };
+      cookie?: never;
+    };
+    requestBody?: {
+      content: {
+        'multipart/form-data': {
+          data?: components['schemas']['ArchiveUpdateRequest'];
+          /** Format: binary */
+          image?: string;
+        };
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ApiResponseVoid'];
+        };
+      };
+    };
+  };
+  deleteBlog: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: number;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ApiResponseVoid'];
+        };
+      };
+    };
+  };
+  updateBlog: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: number;
+      };
+      cookie?: never;
+    };
+    requestBody?: {
+      content: {
+        'multipart/form-data': {
+          data?: components['schemas']['ArchiveUpdateRequest'];
+          /** Format: binary */
+          image?: string;
+        };
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ApiResponseVoid'];
+        };
+      };
+    };
+  };
+  deleteActivity: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: number;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ApiResponseVoid'];
+        };
+      };
+    };
+  };
+  updateActivity: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: number;
+      };
+      cookie?: never;
+    };
+    requestBody?: {
+      content: {
+        'multipart/form-data': {
+          data?: components['schemas']['ArchiveUpdateRequest'];
+          /** Format: binary */
+          image?: string;
+        };
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ApiResponseVoid'];
+        };
+      };
+    };
+  };
   getAccount: {
     parameters: {
       query?: never;
@@ -2141,6 +3317,26 @@ export interface operations {
       };
     };
   };
+  getMyInfo: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ApiResponseUserInfoResponse'];
+        };
+      };
+    };
+  };
   getReviews: {
     parameters: {
       query?: {
@@ -2182,6 +3378,28 @@ export interface operations {
         };
         content: {
           '*/*': components['schemas']['ApiResponseRecruitmentResponse'];
+        };
+      };
+    };
+  };
+  getMyApplication: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        recruitmentId: number;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ApiResponseMyApplicationResponse'];
         };
       };
     };
