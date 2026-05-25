@@ -71,7 +71,7 @@ const ApplyPage = () => {
 
     draftRestoredRef.current = true;
 
-    // 서버 draft
+    // 1순위: 서버 draft
     if (draftQueryState.state === 'draft') {
       const d = draftQueryState.data;
 
@@ -132,7 +132,7 @@ const ApplyPage = () => {
       return;
     }
 
-    // 서버 draft 없을 때 로컬스토리지 fallback
+    // 2순위: 서버 draft 없을 때(404) → 로컬스토리지 fallback
     if (draftQueryState.state === 'empty') {
       const local = loadLocalDraft(recruitmentId);
       if (!local) {
@@ -198,18 +198,7 @@ const ApplyPage = () => {
   const { form } = personalInfo;
   const track = form.track;
 
-  // 로컬스토리지 자동저장 (debounce 적용)
-  useSaveDraft({
-    recruitmentId,
-    personalInfo: form,
-    answers,
-    // 복원 완료 전에는 자동저장 비활성화
-    // eslint-disable-next-line react-hooks/refs
-    enabled: draftRestoredRef.current,
-  });
-
-  // 임시저장 버튼 클릭 시 PUT 요청
-  const buildDraftPayload = (): DraftRequest => ({
+  const draftPayload: DraftRequest = {
     track: track ?? undefined,
     name: form.name || undefined,
     email: form.email || undefined,
@@ -237,13 +226,27 @@ const ApplyPage = () => {
         question_id: parseInt(key),
         answer: value,
       })),
+  };
+
+  const isRestoredOrEmpty =
+    // eslint-disable-next-line react-hooks/refs
+    draftRestoredRef.current ||
+    (draftQueryState.state !== 'loading' && draftQueryState.state === 'empty');
+
+  // 로컬스토리지 자동저장 (500ms debounce)
+  useSaveDraft({
+    recruitmentId,
+    personalInfo: form,
+    answers,
+    enabled: isRestoredOrEmpty,
   });
 
-  const { putDraft, isPutDraftPending } = usePutDraft({ recruitmentId });
-
-  const handleClickSaveDraft = () => {
-    putDraft(buildDraftPayload());
-  };
+  // 서버 동기화 (10초 interval + beforeunload flush + 버튼 클릭)
+  const { handleClickSaveDraft, isPutDraftPending } = usePutDraft({
+    recruitmentId,
+    draft: draftPayload,
+    enabled: isRestoredOrEmpty,
+  });
 
   const submitMutation = useSubmitApplication();
 
@@ -305,8 +308,8 @@ const ApplyPage = () => {
     onPrev: handlePrev,
   };
 
-  // 이미 제출된 경우
-  // TODO: 제출 완료 전용 페이지 교체
+  // 403 - 이미 제출된 경우
+  // TODO: 제출 완료 전용 컴포넌트로 교체
   if (draftQueryState.state === 'submitted') {
     return (
       <main className={styles.container}>
@@ -319,7 +322,8 @@ const ApplyPage = () => {
     <main className={styles.container}>
       <ApplyTitleSection currentStep={currentStep} title={`${STEPS[currentStep]} 입력`} />
 
-      {/* TODO: 버튼 컴포넌트로 교체 */}
+      {/* 임시저장 버튼 */}
+      {/* TODO: 스타일 적용 및 토스트 연동 후 버튼 컴포넌트로 교체 */}
       <button type="button" onClick={handleClickSaveDraft} disabled={isPutDraftPending}>
         {isPutDraftPending ? '저장 중...' : '임시저장'}
       </button>
