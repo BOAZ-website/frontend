@@ -320,13 +320,12 @@ const ApplyPage = () => {
 
   return (
     <main className={styles.container}>
-      <ApplyTitleSection currentStep={currentStep} title={`${STEPS[currentStep]}`} />
-
-      {/* 임시저장 버튼 */}
-      {/* TODO: 스타일 적용 및 토스트 연동 후 버튼 컴포넌트로 교체 */}
-      <button type="button" onClick={handleClickSaveDraft} disabled={isPutDraftPending}>
-        {isPutDraftPending ? '저장 중...' : '임시저장'}
-      </button>
+      <ApplyTitleSection
+        currentStep={currentStep}
+        title={`${STEPS[currentStep]}`}
+        onSaveDraft={handleClickSaveDraft}
+        isSavePending={isPutDraftPending}
+      />
 
       <section className={styles.content}>
         {currentStep === 0 && (
