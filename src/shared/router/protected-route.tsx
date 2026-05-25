@@ -6,7 +6,7 @@ import { ROUTE_PATH } from '@/shared/router/paths';
 const ProtectedRoute = () => {
   const { isLoggedIn } = useAuth();
 
-  if (!isLoggedIn) {
+  if (!import.meta.env.DEV && !isLoggedIn) {
     return <Navigate to={ROUTE_PATH.LOGIN} replace />;
   }
 

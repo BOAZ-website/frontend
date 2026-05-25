@@ -69,7 +69,11 @@ instance.interceptors.response.use(
       } catch (refreshError) {
         flushQueue(null, refreshError);
         tokenStorage.remove();
-        window.location.href = '/login';
+
+        if (!import.meta.env.DEV) {
+          window.location.href = '/login';
+        }
+
         return Promise.reject(refreshError);
       } finally {
         isRefreshing = false;

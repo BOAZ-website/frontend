@@ -96,6 +96,10 @@ export const button = recipe({
       style: { padding: '2.2rem 3.7rem' },
     },
     {
+      variants: { variant: 'small-round', hasIcon: true },
+      style: { padding: '1rem 1.6rem', border: `0.5px solid ${themeVars.color.grayscale.white}` },
+    },
+    {
       variants: { variant: 'small-round', color: 'glass' },
       style: { padding: '1.15rem 5rem' },
     },

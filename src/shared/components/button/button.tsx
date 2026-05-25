@@ -17,6 +17,7 @@ type ButtonPreset =
   | 'medium-icon_white'
   | 'medium-round_primary'
   | 'small-round_primary'
+  | 'small-round_outlined'
   | 'small-round_glass'
   | 'mini_outlined'
   | 'wide_primary';

@@ -2,7 +2,8 @@ import * as styles from './login-widget.css';
 
 type SocialProvider = 'kakao' | 'google' | 'naver';
 
-const BASE_URL = import.meta.env.VITE_API_BASE_URL as string;
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+const APP_URL = import.meta.env.VITE_APP_URL;
 
 const SOCIAL_PROVIDERS: { provider: SocialProvider; label: string; className: string }[] = [
   { provider: 'kakao', label: '카카오로 로그인', className: styles.kakaoButton },
@@ -11,7 +12,8 @@ const SOCIAL_PROVIDERS: { provider: SocialProvider; label: string; className: st
 ];
 
 const handleSocialLogin = (provider: SocialProvider) => {
-  window.location.href = `${BASE_URL}/oauth2/authorize/${provider}`;
+  const redirectUri = encodeURIComponent(`${APP_URL.replace(/\/$/, '')}/auth/callback`);
+  window.location.href = `${BASE_URL}/oauth2/authorize/${provider}?redirect_uri=${redirectUri}`;
 };
 
 interface LoginWidgetProps {
