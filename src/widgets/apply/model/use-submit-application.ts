@@ -1,5 +1,4 @@
 import { useMutation } from '@tanstack/react-query';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 import { submitApplication } from '@/shared/api/recruitment';
