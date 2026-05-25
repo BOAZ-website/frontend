@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { Navigate } from 'react-router';
 
 import { ACADEMIC_GRADES, SEMESTERS } from '@/widgets/apply/apply-dropdown';
 import { loadLocalDraft } from '@/widgets/apply/model/apply-draft';
@@ -21,6 +22,7 @@ import { RECRUITMENT_QUERY_OPTIONS } from '@/widgets/recruiting/model/recruitmen
 import type { AnswerRequest, ApplicationRequest, DraftRequest, Track } from '@/shared/api/types';
 import { useRecruitmentDeadline } from '@/shared/queries/use-recruitment-deadline';
 import { useRecruitmentStatus } from '@/shared/queries/use-recruitment-status';
+import { ROUTE_PATH } from '@/shared/router/paths';
 
 import * as styles from './apply-page.css';
 
@@ -339,11 +341,8 @@ const ApplyPage = () => {
   // 403 - 이미 제출된 경우
   // TODO: 제출 완료 전용 컴포넌트로 교체
   if (draftQueryState.state === 'submitted') {
-    return (
-      <main className={styles.container}>
-        <p>이미 제출된 지원서가 있습니다.</p>
-      </main>
-    );
+    alert('이미 제출된 지원서가 있습니다.');
+    return <Navigate to={ROUTE_PATH.HOME} replace />;
   }
 
   return (
