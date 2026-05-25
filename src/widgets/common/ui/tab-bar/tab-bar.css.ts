@@ -33,3 +33,33 @@ export const navItem = style({
     ...typography.body3_bd_18,
   },
 });
+
+export const userGroup = style({
+  display: 'flex',
+  alignItems: 'center',
+  gap: '2rem',
+});
+
+export const userInfo = style({
+  display: 'flex',
+  alignItems: 'center',
+  gap: '0.8rem',
+  color: themeVars.color.grayscale.white,
+});
+
+export const nickname = style({
+  ...typography.body3_bd_18,
+});
+
+export const logoutButton = style({
+  color: themeVars.color.grayscale.white,
+  ...typography.body5_rg_16,
+  ':hover': {
+    ...typography.body3_bd_18,
+  },
+});
+
+export const loginLink = style({
+  color: themeVars.color.grayscale.white,
+  ...typography.body3_bd_18,
+});
