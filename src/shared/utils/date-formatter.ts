@@ -5,8 +5,20 @@ export const formatKoreanDate = (iso: string): string => {
   if (!match) {
     return '';
   }
-  const date = new Date(iso);
-  return `${match[1]}년 ${parseInt(match[2])}월 ${parseInt(match[3])}일 (${DAYS_KO[date.getDay()]})`;
+  const year = Number(match[1]);
+  const month = Number(match[2]);
+  const day = Number(match[3]);
+
+  const date = new Date(Date.UTC(year, month - 1, day));
+  if (
+    date.getUTCFullYear() !== year ||
+    date.getUTCMonth() !== month - 1 ||
+    date.getUTCDate() !== day
+  ) {
+    return '';
+  }
+
+  return `${year}년 ${month}월 ${day}일 (${DAYS_KO[date.getUTCDay()]})`;
 };
 
 export const formatRecruitDate = (startDate: string, endDate: string): string => {

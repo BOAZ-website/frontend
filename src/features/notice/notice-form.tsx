@@ -27,6 +27,9 @@ const NoticeForm = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (isPending) {
+      return;
+    }
 
     if (!email.trim()) {
       setErrorMessage('이메일을 입력해주세요.');
