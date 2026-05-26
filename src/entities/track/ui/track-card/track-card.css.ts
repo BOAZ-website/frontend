@@ -9,10 +9,11 @@ export const cardContainer = style({
   borderRadius: '12px',
   position: 'relative',
   cursor: 'pointer',
-  padding: '4.2rem 7.2rem 3rem 2.7rem',
+  padding: '4.2rem 2.7rem 3rem 2.7rem',
   display: 'flex',
   flexDirection: 'column',
   overflow: 'hidden',
+  whiteSpace: 'pre-wrap',
 
   backgroundColor: themeVars.color.grayscale.white,
   transition: 'background-color 0.3s ease-in-out',
@@ -40,6 +41,7 @@ export const cardTitle = style({
 
 export const cardDesc = style({
   ...typography.body4_rg_18,
+  lineHeight: '1.2',
 
   color: themeVars.color.grayscale.white,
   opacity: 0,
