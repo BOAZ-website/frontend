@@ -58,4 +58,27 @@ export const reviewSection = style({
   gap: '10rem',
   marginTop: '20rem',
   marginBottom: '20rem',
+  width: '100%',
+});
+
+export const dividerRow = style({
+  display: 'flex',
+  alignItems: 'center',
+  gap: '3rem',
+  width: '100%',
+});
+
+const lineBase = {
+  flex: 1,
+  height: '0.15rem',
+} as const;
+
+export const dividerLineLeft = style({
+  ...lineBase,
+  background: `linear-gradient(to right, transparent 0%, ${themeVars.color.grayscale[100]} 70%, ${themeVars.color.grayscale.white} 100%)`,
+});
+
+export const dividerLineRight = style({
+  ...lineBase,
+  background: `linear-gradient(to left, transparent 0%, ${themeVars.color.grayscale[100]} 70%, ${themeVars.color.grayscale.white} 100%)`,
 });
