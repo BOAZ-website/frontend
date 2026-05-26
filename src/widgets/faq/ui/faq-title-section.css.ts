@@ -21,8 +21,3 @@ export const chatContent = style({
   alignItems: 'center',
   gap: '0.8rem',
 });
-
-export const chatIcon = style({
-  width: '2rem',
-  height: '2rem',
-});
