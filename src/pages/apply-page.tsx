@@ -12,12 +12,9 @@ import { usePutDraft } from '@/widgets/apply/model/use-put-draft';
 import { useSaveDraft } from '@/widgets/apply/model/use-save-draft';
 import { useSubmitApplication } from '@/widgets/apply/model/use-submit-application';
 import AgreementStep from '@/widgets/apply/ui/agreement-step/agreement-step';
-import AnalysisQuestionSection from '@/widgets/apply/ui/analysis-question-section';
 import ApplyTitleSection from '@/widgets/apply/ui/apply-title-section';
-import CommonQuestionSection from '@/widgets/apply/ui/common-question-section';
-import EngineeringQuestionSection from '@/widgets/apply/ui/engineering-question-section';
 import PersonalInfoSection from '@/widgets/apply/ui/personal-info-section';
-import VisualizationQuestionSection from '@/widgets/apply/ui/visualization-question-section';
+import QuestionSection from '@/widgets/apply/ui/question-section';
 import { RECRUITMENT_QUERY_OPTIONS } from '@/widgets/recruiting/model/recruitment.query-options';
 import type { AnswerRequest, ApplicationRequest, DraftRequest, Track } from '@/shared/api/types';
 import { useRecruitmentDeadline } from '@/shared/queries/use-recruitment-deadline';
@@ -379,7 +376,7 @@ const ApplyPage = () => {
           />
         )}
         {currentStep === 2 && (
-          <CommonQuestionSection
+          <QuestionSection
             questions={commonQuestions}
             answers={answers}
             onAnswerChange={setAnswer}
@@ -387,28 +384,13 @@ const ApplyPage = () => {
             onNext={handleNext}
           />
         )}
-        {currentStep === 3 && track === 'ANALYSIS' && (
-          <AnalysisQuestionSection
+        {currentStep === 3 && (
+          <QuestionSection
             {...trackSectionProps}
             questions={trackQuestions}
             onNext={handleSubmit}
             nextLabel="제출하기"
-          />
-        )}
-        {currentStep === 3 && track === 'VISUALIZATION' && (
-          <VisualizationQuestionSection
-            {...trackSectionProps}
-            questions={trackQuestions}
-            onNext={handleSubmit}
-            nextLabel="제출하기"
-          />
-        )}
-        {currentStep === 3 && track === 'ENGINEERING' && (
-          <EngineeringQuestionSection
-            {...trackSectionProps}
-            questions={trackQuestions}
-            onNext={handleSubmit}
-            nextLabel="제출하기"
+            supportsTable={track === 'ENGINEERING' || track === 'VISUALIZATION'}
           />
         )}
       </section>

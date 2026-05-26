@@ -6,51 +6,99 @@ import ArrowRight from '@/shared/assets/icons/ic_arrow_right.svg?react';
 import Button from '@/shared/components/button/button';
 import TextFieldWithCounter from '@/shared/components/textfield-with-counter/textfield-with-counter';
 
-import * as styles from './analysis-question-section.css';
+import TableQuestion from './table-question';
 
-interface AnalysisQuestionSectionProps {
+import * as styles from './question-section.css';
+
+const ADDABLE_LABEL = '프로젝트';
+
+interface QuestionSectionProps {
   questions: QuestionResponse[];
   answers: Record<string, string>;
   onAnswerChange: (questionId: string, value: string) => void;
   onPrev: () => void;
   onNext: () => void;
   nextLabel?: string;
+  supportsTable?: boolean;
 }
 
-const ADDABLE_LABEL = '프로젝트';
+const isTableAnswerComplete = (
+  question: QuestionResponse,
+  answers: Record<string, string>
+): boolean => {
+  const metadata = question.metadata as unknown as { rows: string[] };
+  if (!metadata?.rows) return false;
+  const tableData = answers[String(question.question_id)];
+  if (!tableData) return false;
+  try {
+    const parsed = JSON.parse(tableData) as Record<string, string>;
+    return metadata.rows.every((row) => !!parsed[row]);
+  } catch {
+    return false;
+  }
+};
 
-const AnalysisQuestionSection = ({
+const QuestionSection = ({
   questions,
   answers,
   onAnswerChange,
   onPrev,
   onNext,
   nextLabel = '다음 페이지',
-}: AnalysisQuestionSectionProps) => {
+  supportsTable = false,
+}: QuestionSectionProps) => {
   const [extraCounts, setExtraCounts] = useState<Record<string, number>>({});
   const [submitted, setSubmitted] = useState(false);
+
+  const isQuestionComplete = (q: QuestionResponse): boolean => {
+    if (supportsTable && q.type === 'TABLE') {
+      return isTableAnswerComplete(q, answers);
+    }
+    return !!answers[String(q.question_id)]?.trim();
+  };
 
   const handleNext = () => {
     setSubmitted(true);
 
-    const hasOverLimit = questions.some(
-      (q) => (answers[String(q.question_id)]?.length ?? 0) > (q.limit_length ?? 500)
-    );
-    const hasEmpty = questions.some((q) => !answers[String(q.question_id)]?.trim());
+    const hasOverLimit = questions
+      .filter((q) => !(supportsTable && q.type === 'TABLE'))
+      .some((q) => (answers[String(q.question_id)]?.length ?? 0) > (q.limit_length ?? 500));
 
-    if (hasEmpty || hasOverLimit) {
-      return;
-    }
+    const hasEmpty = questions.some((q) => !isQuestionComplete(q));
+
+    if (hasEmpty || hasOverLimit) return;
     onNext();
   };
-  const isComplete = questions.every((q) => !!answers[String(q.question_id)]?.trim());
 
-  const sortedQuestions = questions.slice().sort((a, b) => (a.order_num ?? 0) - (b.order_num ?? 0));
+  const isComplete = questions.every(isQuestionComplete);
+  const isSubmitMode = nextLabel === '제출하기';
+
+  const sortedQuestions = questions
+    .slice()
+    .sort((a, b) => (a.order_num ?? 0) - (b.order_num ?? 0));
 
   return (
     <div className={styles.container}>
       {sortedQuestions.map((question) => {
         const qId = String(question.question_id);
+
+        if (supportsTable && question.type === 'TABLE') {
+          const tableIncomplete = submitted && !isTableAnswerComplete(question, answers);
+          return (
+            <div key={qId} className={styles.tableSection}>
+              <div className={styles.sectionExperienceTitle}>{question.content}</div>
+              <TableQuestion
+                question={question}
+                answer={answers[qId] ?? ''}
+                onChange={onAnswerChange}
+                radioClassName={styles.radioButton}
+                stackClassName={styles.stackQuestion}
+              />
+              {tableIncomplete && <p className={styles.errorText}>모든 항목을 선택해 주세요.</p>}
+            </div>
+          );
+        }
+
         const isAddable = question.label?.includes(ADDABLE_LABEL) ?? false;
         const extraCount = extraCounts[qId] ?? 0;
         const isEmpty = submitted && !answers[qId]?.trim();
@@ -85,7 +133,9 @@ const AnalysisQuestionSection = ({
             {isAddable && (
               <div
                 className={styles.addProject}
-                onClick={() => setExtraCounts((prev) => ({ ...prev, [qId]: (prev[qId] ?? 0) + 1 }))}
+                onClick={() =>
+                  setExtraCounts((prev) => ({ ...prev, [qId]: (prev[qId] ?? 0) + 1 }))
+                }
               >
                 + 프로젝트 추가하기
               </div>
@@ -94,8 +144,8 @@ const AnalysisQuestionSection = ({
         );
       })}
 
-      <div className={nextLabel === '제출하기' ? styles.footer : styles.footerNav}>
-        {nextLabel === '제출하기' ? (
+      <div className={isSubmitMode ? styles.footerSubmit : styles.footerNav}>
+        {isSubmitMode ? (
           <>
             <Button preset="wide_primary" onClick={handleNext} disabled={!isComplete}>
               {nextLabel}
@@ -119,4 +169,4 @@ const AnalysisQuestionSection = ({
   );
 };
 
-export default AnalysisQuestionSection;
+export default QuestionSection;

@@ -33,11 +33,62 @@ export const sectionDescription = style({
   ...typography.text_rg_14,
 });
 
-export const footer = style({
+export const sectionExperienceTitle = style({
+  color: themeVars.color.grayscale.white,
+  ...typography.h3_sb_30,
+});
+
+export const tableSection = style({
   display: 'flex',
-  justifyContent: 'space-between', // 이전/다음 페이지 양끝 정렬
+  flexDirection: 'column',
+  gap: '8rem',
+});
+
+export const stackQuestion = style({
+  color: themeVars.color.primary[100],
+  ...typography.h4_bd_24,
+});
+
+export const radioButton = style({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '2rem',
+  marginTop: '0.8rem',
+});
+
+export const addProject = style({
+  color: themeVars.color.grayscale[400],
+  cursor: 'pointer',
+  marginTop: '-1.2rem',
+  ...typography.text_rg_14,
+  alignSelf: 'flex-start',
+
+  selectors: {
+    '&:hover': {
+      color: themeVars.color.grayscale.white,
+    },
+  },
+});
+
+export const errorText = style({
+  color: themeVars.color.error.red_100,
+  ...typography.text_rg_14,
+  textAlign: 'center',
+});
+
+export const footerNav = style({
+  display: 'flex',
+  justifyContent: 'space-between',
   alignItems: 'center',
   marginTop: '4rem',
+  ...typography.h4_bd_24,
+});
+
+export const footerSubmit = style({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'flex-start',
+  gap: '12rem',
   ...typography.h4_bd_24,
 });
 
@@ -54,10 +105,4 @@ export const navButton = style({
       opacity: 0.7,
     },
   },
-});
-
-export const errorText = style({
-  color: themeVars.color.error.red_100,
-  ...typography.text_rg_14,
-  textAlign: 'center',
 });
