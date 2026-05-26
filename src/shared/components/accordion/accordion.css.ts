@@ -58,4 +58,5 @@ export const answerContent = style({
   ...typography.body5_rg_16,
   color: themeVars.color.grayscale.white,
   padding: '3.5rem 0 3.5rem 2.4rem',
+  lineHeight: '1.6',
 });
