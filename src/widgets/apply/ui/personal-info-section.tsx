@@ -115,7 +115,9 @@ const PersonalInfoSection = ({ formContext, onNext, onTrackChange }: PersonalInf
       hasEmptyRequired ||
       hasFormatError ||
       form.militaryStatus === null ||
-      form.gradSchoolPlan === null
+      form.gradSchoolPlan === null ||
+      !form.academicGrade ||
+      !form.semester
     ) {
       return;
     }
