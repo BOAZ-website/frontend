@@ -335,6 +335,7 @@ const ApplyPage = () => {
         {currentStep === 0 && (
           <AgreementStep
             term={status?.term}
+            brochureUrl={recruitment?.brochure_url}
             onNext={() => {
               handleNext();
             }}

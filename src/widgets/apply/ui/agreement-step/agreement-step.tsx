@@ -8,9 +8,10 @@ import * as styles from './agreement-step.css';
 interface AgreementStepProps {
   onNext: () => void;
   term?: number;
+  brochureUrl?: string;
 }
 
-const AgreementStep = ({ onNext, term }: AgreementStepProps) => {
+const AgreementStep = ({ onNext, term, brochureUrl }: AgreementStepProps) => {
   const [agreed, setAgreed] = useState(false);
   const [consentOpen, setConsentOpen] = useState(false);
 
@@ -27,15 +28,16 @@ const AgreementStep = ({ onNext, term }: AgreementStepProps) => {
         title="모집 안내"
         description={`국내 최초 빅데이터 연합동아리 🐘BOAZ🐘에서 ${term ? `${term}기 ` : ''}신입회원을 모집합니다! \n보아즈는 '데이터 분석', '데이터 시각화', '데이터 엔지니어링' 총 세 부문에서 신입 회원을 모집하고 있습니다. \n각 부문별 신입 회원은 기본기를 익힐 수 있는 BASE Session, 직접 문제를 정의하고 해결해보는 ADVance \nSession을 통해 빅데이터 전문성을 쌓게 됩니다. 뿐만 아니라 멘토-멘티 스터디를 비롯한 다양한 스터디, \n부문 병행 제도 등을 통해 자신이 추가로 관심 있는 영역에서 역량을 키울 수 있습니다.`}
       />
-      <ApplyAgreementSection
-        title="홍보 책자"
-        link={{
-          label: `BOAZ ${term ? `${term}기 ` : ''}신입회원 홍보책자 자세히 보기`,
-          // TODO: 홍보 책자 받아오기
-          href: 'https://drive.google.com/file/d/1l20dc5gkEbSvl-MJBuJjrm9DanqbiTi1/view',
-        }}
-        description="책자에 동아리의 자세한 활동 내용 및 커리큘럼이 수록되어 있습니다."
-      />
+      {brochureUrl && (
+        <ApplyAgreementSection
+          title="홍보 책자"
+          link={{
+            label: `BOAZ ${term ? `${term}기 ` : ''}신입회원 홍보책자 자세히 보기`,
+            href: brochureUrl,
+          }}
+          description="책자에 동아리의 자세한 활동 내용 및 커리큘럼이 수록되어 있습니다."
+        />
+      )}
       <ApplyAgreementSection
         title="BOAZ SlideShare"
         link={{
