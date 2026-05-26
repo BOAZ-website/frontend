@@ -5,7 +5,7 @@ export const ROUTE_PATH = {
   ARCHIVE: '/archive',
   FAQ: '/faq',
   APPLY: '/apply',
-  LOGIN: '/login',
+  PRIVACY: '/privacy',
   AUTH_CALLBACK: '/auth/callback',
 } as const;
 

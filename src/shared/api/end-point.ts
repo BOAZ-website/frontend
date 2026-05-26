@@ -12,7 +12,7 @@ export const END_POINT = {
     GET_DEADLINE: 'api/v1/recruitment/deadline',
     GET_QUESTIONS: 'api/v1/recruitment/questions',
     POST_SUBSCRIPTION: 'api/v1/recruitment/subscriptions',
-    POST_APPLICATION: 'api/v1/recruitment/applications',
+    POST_APPLICATION: 'api/v1/recruitment/{recruitmentId}/applications',
     GET_MY_APPLICATION: 'api/v1/recruitment/{recruitmentId}/applications/me',
     PUT_DRAFT: 'api/v1/recruitment/{recruitmentId}/applications/draft',
   },

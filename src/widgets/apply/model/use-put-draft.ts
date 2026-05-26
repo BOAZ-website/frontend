@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 
 import { saveDraftApi } from '@/shared/api/recruitment';
@@ -22,21 +22,33 @@ export const usePutDraft = ({
   onError,
 }: UsePutDraftParams) => {
   const draftRef = useRef<DraftRequest>(draft);
+  const [isSaveSuccess, setIsSaveSuccess] = useState(false);
+  const successTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // 항상 최신 draft를 참조하도록 업데이트
   useEffect(() => {
     draftRef.current = draft;
   }, [draft]);
 
+  useEffect(() => {
+    return () => {
+      if (successTimerRef.current) {
+        clearTimeout(successTimerRef.current);
+      }
+    };
+  }, []);
+
   const { mutate: putDraft, isPending: isPutDraftPending } = useMutation({
     mutationFn: (data: DraftRequest) => saveDraftApi(recruitmentId, data),
     onSuccess: () => {
-      // TODO: 토스트 컴포넌트로 교체
-      alert('임시저장이 완료되었습니다.');
+      setIsSaveSuccess(true);
+      if (successTimerRef.current) {
+        clearTimeout(successTimerRef.current);
+      }
+      successTimerRef.current = setTimeout(() => setIsSaveSuccess(false), 2000);
       onSuccess?.();
     },
     onError: () => {
-      // TODO: 토스트 컴포넌트로 교체
       onError?.();
     },
   });
@@ -73,5 +85,5 @@ export const usePutDraft = ({
     putDraft(draft);
   };
 
-  return { handleClickSaveDraft, isPutDraftPending };
+  return { handleClickSaveDraft, isPutDraftPending, isSaveSuccess };
 };

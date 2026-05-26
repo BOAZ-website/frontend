@@ -66,6 +66,12 @@ export const usePersonalInfoForm = (initialForm?: PersonalInfoForm) => {
       return { ...prev, additionalDegrees: next };
     });
 
+  const removeDegree = (index: number) =>
+    setForm((prev) => ({
+      ...prev,
+      additionalDegrees: prev.additionalDegrees.filter((_, i) => i !== index),
+    }));
+
   const toApiPayload = () => {
     const monthNum = MONTHS.indexOf(form.birthMonth) + 1;
     const dayNum = parseInt(stripKoreanUnit(form.birthDay));
@@ -87,5 +93,5 @@ export const usePersonalInfoForm = (initialForm?: PersonalInfoForm) => {
     };
   };
 
-  return { form, setField, addDegree, setDegree, toApiPayload };
+  return { form, setField, addDegree, setDegree, removeDegree, toApiPayload };
 };

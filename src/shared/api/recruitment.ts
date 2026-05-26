@@ -20,9 +20,14 @@ export const getQuestions = async (
     params: { recruitmentId, track },
   });
 
-export const submitApplication = async (data: ApplicationRequest): Promise<ApplicationResponse> =>
-  post<ApplicationResponse>(END_POINT.RECRUITMENT.POST_APPLICATION, data);
-
+export const submitApplication = async (
+  recruitmentId: number,
+  data: ApplicationRequest
+): Promise<ApplicationResponse> =>
+  post<ApplicationResponse>(
+    END_POINT.RECRUITMENT.POST_APPLICATION.replace('{recruitmentId}', String(recruitmentId)),
+    data
+  );
 export const getMyApplication = async (recruitmentId: number): Promise<MyApplicationResponse> =>
   get<MyApplicationResponse>(
     END_POINT.RECRUITMENT.GET_MY_APPLICATION.replace('{recruitmentId}', String(recruitmentId))

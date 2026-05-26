@@ -31,6 +31,7 @@ const AgreementStep = ({ onNext, term }: AgreementStepProps) => {
         title="홍보 책자"
         link={{
           label: `BOAZ ${term ? `${term}기 ` : ''}신입회원 홍보책자 자세히 보기`,
+          // TODO: 홍보 책자 받아오기
           href: 'https://drive.google.com/file/d/1l20dc5gkEbSvl-MJBuJjrm9DanqbiTi1/view',
         }}
         description="책자에 동아리의 자세한 활동 내용 및 커리큘럼이 수록되어 있습니다."
@@ -93,7 +94,7 @@ const AgreementStep = ({ onNext, term }: AgreementStepProps) => {
                 없습니다.
               </p>
               <p className={styles.consentNote}>
-                자세한 사항은{' '}
+                자세한 사항은
                 <a href="/privacy" target="_blank" rel="noreferrer" className={styles.consentLink}>
                   개인정보처리방침
                 </a>

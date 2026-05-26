@@ -5,7 +5,6 @@ import { typography } from '@/shared/styles/typography.css';
 
 export const cardContainer = style({
   display: 'flex',
-  maxWidth: '92.9rem',
   height: '27.8rem',
   borderRadius: '20px',
   alignItems: 'center',

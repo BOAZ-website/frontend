@@ -12,6 +12,7 @@ interface ApplyTitleSectionProps {
   subtitle?: string;
   onSaveDraft: () => void;
   isSavePending: boolean;
+  isSaveSuccess: boolean;
 }
 
 const ApplyTitleSection = ({
@@ -22,6 +23,7 @@ const ApplyTitleSection = ({
   subtitle,
   onSaveDraft,
   isSavePending,
+  isSaveSuccess,
 }: ApplyTitleSectionProps) => {
   return (
     <div className={styles.container}>
@@ -37,10 +39,10 @@ const ApplyTitleSection = ({
             preset="small-round_outlined"
             hasIcon
             onClick={onSaveDraft}
-            disabled={isSavePending}
+            disabled={isSavePending || isSaveSuccess}
           >
             <SaveIcon width={20} height={20} />
-            {isSavePending ? '저장 중...' : '임시저장'}
+            {isSavePending ? '저장 중...' : isSaveSuccess ? '저장 완료 ✓' : '임시저장'}
           </Button>
         )}
       </span>
