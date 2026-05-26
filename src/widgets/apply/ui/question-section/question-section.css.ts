@@ -26,6 +26,7 @@ export const titleContainer = style({
 export const sectionTitle = style({
   color: themeVars.color.grayscale.white,
   ...typography.h2_bd_30,
+  lineHeight: '1.3',
 });
 
 export const sectionDescription = style({
