@@ -95,7 +95,9 @@ const CurriculumPage = () => {
           <span className={styles.sectionTitle}>당신에게 BOAZ는 어떤 곳이었나요?</span>
           <div className={styles.dividerLineRight} />
         </div>
-        <ReviewSection reviews={reviews} currentPage={reviewPage} onPageChange={setReviewPage} />
+        <div className={styles.reviewContent}>
+          <ReviewSection reviews={reviews} currentPage={reviewPage} onPageChange={setReviewPage} />
+        </div>
       </section>
     </main>
   );

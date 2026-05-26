@@ -82,3 +82,9 @@ export const dividerLineRight = style({
   ...lineBase,
   background: `linear-gradient(to left, transparent 0%, ${themeVars.color.grayscale[100]} 70%, ${themeVars.color.grayscale.white} 100%)`,
 });
+
+export const reviewContent = style({
+  width: '100%',
+  maxWidth: '104.3rem',
+  padding: '0 2rem',
+});
