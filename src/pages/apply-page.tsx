@@ -223,7 +223,7 @@ const ApplyPage = () => {
     answers: Object.entries(answers)
       .filter(([key]) => !key.includes('__extra_'))
       .map(([key, value]) => ({
-        question_id: parseInt(key),
+        question_id: parseInt(key, 10),
         answer: value,
       })),
   };
@@ -283,7 +283,7 @@ const ApplyPage = () => {
           answer = value;
         }
       }
-      result.push({ question_id: parseInt(baseId), answer });
+      result.push({ question_id: parseInt(baseId, 10), answer });
     }
     return result;
   };

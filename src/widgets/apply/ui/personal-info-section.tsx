@@ -123,7 +123,9 @@ const PersonalInfoSection = ({ formContext, onNext, onTrackChange }: PersonalInf
       hasEmptyRequired ||
       hasFormatError ||
       form.militaryStatus === null ||
-      form.gradSchoolPlan === null
+      form.gradSchoolPlan === null ||
+      !form.academicGrade ||
+      !form.semester
     ) {
       window.alert(
         '입력하지 않은 항목이 있거나 형식이 올바르지 않습니다.\n항목을 다시 확인해 주세요.'
