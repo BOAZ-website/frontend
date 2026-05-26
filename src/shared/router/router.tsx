@@ -2,7 +2,6 @@ import { createBrowserRouter } from 'react-router';
 
 import { GlobalLayout } from '@/app/layouts/global-layout/global-layout';
 import AuthCallbackPage from '@/pages/auth-callback-page';
-import LoginPage from '@/pages/login-page';
 import {
   ApplyPage,
   ArchivePage,
@@ -32,6 +31,5 @@ export const router = createBrowserRouter([
       },
     ],
   },
-  { path: ROUTE_PATH.LOGIN, Component: LoginPage },
   { path: ROUTE_PATH.AUTH_CALLBACK, Component: AuthCallbackPage },
 ]);
