@@ -33,30 +33,33 @@ const GenerationFilterOverlay = ({ value, onChange, options }: GenerationFilterO
   const allOptions: { label: string; value: number | undefined }[] = [ALL_OPTION, ...options];
 
   return (
-    <div className={styles.container} ref={ref}>
-      <button type="button" className={styles.trigger} onClick={() => setIsOpen(!isOpen)}>
-        <span>{selectedLabel}</span>
-        <ChevronDownIcon width={16} height={16} />
-      </button>
+    <>
+      {isOpen && <div className={styles.backdrop} onClick={() => setIsOpen(false)} />}
+      <div className={styles.container} ref={ref}>
+        <button type="button" className={styles.trigger} onClick={() => setIsOpen(!isOpen)}>
+          <span>{selectedLabel}</span>
+          <ChevronDownIcon width={16} height={16} />
+        </button>
 
-      {isOpen && (
-        <div className={styles.overlay}>
-          {allOptions.map((opt) => (
-            <button
-              key={opt.label}
-              type="button"
-              className={styles.option[opt.value === value ? 'selected' : 'default']}
-              onClick={() => {
-                onChange(opt.value);
-                setIsOpen(false);
-              }}
-            >
-              {opt.label}
-            </button>
-          ))}
-        </div>
-      )}
-    </div>
+        {isOpen && (
+          <div className={styles.overlay}>
+            {allOptions.map((opt) => (
+              <button
+                key={opt.label}
+                type="button"
+                className={styles.option[opt.value === value ? 'selected' : 'default']}
+                onClick={() => {
+                  onChange(opt.value);
+                  setIsOpen(false);
+                }}
+              >
+                {opt.label}
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
+    </>
   );
 };
 

@@ -66,44 +66,41 @@ const AgreementStep = ({ onNext, term, brochureUrl }: AgreementStepProps) => {
             </button>
           </label>
 
-          {consentOpen && (
-            <div className={styles.consentDetail}>
-              <p className={styles.consentIntro}>
-                빅데이터 연합동아리 BOAZ는 동아리 모집 지원서 접수 및 선발을 위해 아래와 같이
-                개인정보를 수집·이용합니다.
-              </p>
-              <table className={styles.consentTable}>
-                <thead>
-                  <tr>
-                    <th>수집 항목</th>
-                    <th>수집·이용 목적</th>
-                    <th>보유·이용 기간</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>이름, 이메일, 연락처, 대학, 전공, 지원 트랙</td>
-                    <td>동아리 모집 지원서 접수 및 선발 절차 진행</td>
-                    <td>
-                      미선발 시 선발 결과 발표 후 30일 이내 파기 / 선발 시 동아리 활동 종료까지 보관
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-              <p className={styles.consentNote}>
-                귀하는 위 개인정보 수집·이용에 대한 동의를 거부할 권리가 있습니다. 다만, 위 항목은
-                지원서 접수에 반드시 필요한 정보이므로 동의하지 않을 경우 지원서를 제출할 수
-                없습니다.
-              </p>
-              <p className={styles.consentNote}>
-                자세한 사항은
-                <a href="/privacy" target="_blank" rel="noreferrer" className={styles.consentLink}>
-                  개인정보처리방침
-                </a>
-                에서 확인할 수 있습니다.
-              </p>
-            </div>
-          )}
+          <div className={`${styles.consentDetail} ${consentOpen ? styles.consentDetailOpen : ''}`}>
+            <p className={styles.consentIntro}>
+              빅데이터 연합동아리 BOAZ는 동아리 모집 지원서 접수 및 선발을 위해 아래와 같이
+              개인정보를 수집·이용합니다.
+            </p>
+            <table className={styles.consentTable}>
+              <thead>
+                <tr>
+                  <th>수집 항목</th>
+                  <th>수집·이용 목적</th>
+                  <th>보유·이용 기간</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>이름, 이메일, 연락처, 대학, 전공, 지원 트랙</td>
+                  <td>동아리 모집 지원서 접수 및 선발 절차 진행</td>
+                  <td>
+                    미선발 시 선발 결과 발표 후 30일 이내 파기 / 선발 시 동아리 활동 종료까지 보관
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <p className={styles.consentNote}>
+              귀하는 위 개인정보 수집·이용에 대한 동의를 거부할 권리가 있습니다. 다만, 위 항목은
+              지원서 접수에 반드시 필요한 정보이므로 동의하지 않을 경우 지원서를 제출할 수 없습니다.
+            </p>
+            <p className={styles.consentNote}>
+              자세한 사항은
+              <a href="/privacy" target="_blank" rel="noreferrer" className={styles.consentLink}>
+                개인정보처리방침
+              </a>
+              에서 확인할 수 있습니다.
+            </p>
+          </div>
         </div>
 
         <Button preset="wide_primary" disabled={!agreed} onClick={handleSubmit}>
