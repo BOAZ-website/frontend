@@ -34,8 +34,12 @@ export const baseStepList = style({
 export const divider = style({
   gridColumn: '2',
   gridRow: '1 / 3',
-  backgroundColor: themeVars.color.grayscale[600],
   width: '1px',
+  background: `linear-gradient(to top, ${themeVars.color.grayscale.white}, transparent)`,
+  maskImage:
+    'repeating-linear-gradient(to top, black 0px, black 4px, transparent 4px, transparent 8px)',
+  WebkitMaskImage:
+    'repeating-linear-gradient(to top, black 0px, black 4px, transparent 4px, transparent 8px)',
 });
 
 export const semesterStepList = style({
