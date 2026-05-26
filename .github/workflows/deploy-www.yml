@@ -40,7 +40,7 @@ jobs:
         run: pnpm build
         env:
           VITE_API_BASE_URL: ${{ vars.VITE_API_BASE_URL }}
-          VITE_APP_URL: https://prod-www.bigdataboaz.com
+          VITE_APP_URL: ${{ vars.VITE_APP_URL }}
           # TODO: 배포 주소 변경
 
       - name: Configure AWS credentials
