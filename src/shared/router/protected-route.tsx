@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Navigate, Outlet, useNavigate } from 'react-router';
+import { Outlet, useNavigate } from 'react-router';
 
 import { useAuth } from '@/features/auth/model/auth-context';
 import { ROUTE_PATH } from '@/shared/router/paths';
