@@ -2,8 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Navigate } from 'react-router';
 
-import { ACADEMIC_GRADES, SEMESTERS } from '@/widgets/apply/apply-dropdown';
 import { loadLocalDraft } from '@/widgets/apply/model/apply-draft';
+import { parseBirthDate, parseGraduationDate, parseLastSemester } from '@/widgets/apply/model/draft-parser';
 import { APPLY_QUERY_OPTIONS } from '@/widgets/apply/model/query-options';
 import { useGetDraft } from '@/widgets/apply/model/use-get-draft';
 import type { PersonalInfoForm } from '@/widgets/apply/model/use-personal-info-form';
@@ -20,48 +20,12 @@ import type { AnswerRequest, ApplicationRequest, DraftRequest, Track } from '@/s
 import { useRecruitmentDeadline } from '@/shared/queries/use-recruitment-deadline';
 import { useRecruitmentStatus } from '@/shared/queries/use-recruitment-status';
 import { ROUTE_PATH } from '@/shared/router/paths';
+import { formatKoreanDate } from '@/shared/utils/date-formatter';
 
 import * as styles from './apply-page.css';
 
 const STEPS = ['지원자 정보 입력', '공통 질문', '부문 질문'] as const;
-
-const DAYS_KO = ['일', '월', '화', '수', '목', '금', '토'] as const;
-
-const formatKoreanDate = (iso: string): string => {
-  const match = iso.match(/^(\d{4})-(\d{2})-(\d{2})/);
-  if (!match) {
-    return '';
-  }
-  const date = new Date(iso);
-  return `${match[1]}년 ${parseInt(match[2])}월 ${parseInt(match[3])}일 (${DAYS_KO[date.getDay()]})`;
-};
 const LAST_STEP = STEPS.length;
-
-const parseBirthDate = (birthDate: string) => {
-  const [year, month, day] = birthDate.split('-');
-  return {
-    birthYear: `${year}년`,
-    birthMonth: `${parseInt(month)}월`,
-    birthDay: `${parseInt(day)}일`,
-  };
-};
-
-const parseGraduationDate = (graduationDate: string) => {
-  const [year, month] = graduationDate.split('-');
-  return {
-    graduationYear: `${year}년`,
-    graduationMonth: `${parseInt(month)}월`,
-  };
-};
-
-const parseLastSemester = (lastSemester: number) => {
-  const gradeIndex = Math.floor((lastSemester - 1) / 2);
-  const semesterIndex = (lastSemester - 1) % 2;
-  return {
-    academicGrade: ACADEMIC_GRADES[gradeIndex] ?? '',
-    semester: SEMESTERS[semesterIndex] ?? '',
-  };
-};
 
 const ApplyPage = () => {
   const { data: deadline } = useRecruitmentDeadline();
@@ -77,6 +41,10 @@ const ApplyPage = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const personalInfo = usePersonalInfoForm();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, [currentStep]);
 
   const draftQueryState = useGetDraft(recruitmentId);
   const draftRestoredRef = useRef(false);
