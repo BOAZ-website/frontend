@@ -86,17 +86,17 @@ const CurriculumPage = () => {
 
         {/* 기업 컨택 및 컨퍼런스 */}
         <ConferenceSection />
-
-        {/* 후기 */}
-        <section className={styles.reviewSection}>
-          <div className={styles.dividerRow}>
-            <div className={styles.dividerLineLeft} />
-            <span className={styles.sectionTitle}>당신에게 BOAZ는 어떤 곳이었나요?</span>
-            <div className={styles.dividerLineRight} />
-          </div>
-          <ReviewSection reviews={reviews} currentPage={reviewPage} onPageChange={setReviewPage} />
-        </section>
       </div>
+
+      {/* 후기 */}
+      <section className={styles.reviewSection}>
+        <div className={styles.dividerRow}>
+          <div className={styles.dividerLineLeft} />
+          <span className={styles.sectionTitle}>당신에게 BOAZ는 어떤 곳이었나요?</span>
+          <div className={styles.dividerLineRight} />
+        </div>
+        <ReviewSection reviews={reviews} currentPage={reviewPage} onPageChange={setReviewPage} />
+      </section>
     </main>
   );
 };
