@@ -3,6 +3,13 @@ import { style } from '@vanilla-extract/css';
 import { themeVars } from '@/shared/styles/theme.css';
 import { typography } from '@/shared/styles/typography.css';
 
+export const wrapper = style({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  gap: '1.2rem',
+});
+
 export const container = style({
   display: 'flex',
   alignItems: 'center',
@@ -24,4 +31,14 @@ export const inputField = style({
   '::placeholder': {
     color: themeVars.color.grayscale[400],
   },
+});
+
+export const errorMessage = style({
+  color: themeVars.color.error.red_100,
+  ...typography.text_rg_14,
+});
+
+export const successMessage = style({
+  color: themeVars.color.grayscale.white,
+  ...typography.text_rg_14,
 });
