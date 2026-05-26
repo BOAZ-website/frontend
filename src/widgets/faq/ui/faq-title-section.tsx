@@ -1,4 +1,4 @@
-import ChatIcon from '@/shared/assets/icons/ic_chat.svg?react';
+import ChatIcon from '@/shared/assets/icons/ic_kakao_button_logo.svg?react';
 import Button from '@/shared/components/button/button';
 
 import * as styles from './faq-title-section.css';
@@ -11,7 +11,7 @@ const FAQTitleSection = () => (
       onClick={() => window.open('https://pf.kakao.com/_xeaCBK')}
     >
       <div className={styles.chatContent}>
-        <ChatIcon className={styles.chatIcon} />
+        <ChatIcon width={20} height={20} />
         카카오톡 문의하기
       </div>
     </Button>
