@@ -177,7 +177,7 @@ export const drawerLogoutButton = style({
   marginTop: 'auto',
   paddingTop: '3.2rem',
   color: themeVars.color.grayscale[300],
-  ...typography.body5_rg_16,
+  ...typography.body4_rg_18,
   cursor: 'pointer',
   textAlign: 'left',
 });
