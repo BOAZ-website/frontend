@@ -23,6 +23,7 @@ export const applySection = style({
 
 export const bottomSection = style({
   marginTop: '25rem',
+  width: '100%',
 });
 
 export const targetSection = style({

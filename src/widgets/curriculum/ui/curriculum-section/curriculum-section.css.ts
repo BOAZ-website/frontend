@@ -18,6 +18,7 @@ export const baseLabel = style({
   justifyContent: 'flex-end',
   alignItems: 'flex-start',
   paddingRight: '5rem',
+  textAlign: 'right',
 });
 
 export const baseStepList = style({
