@@ -34,9 +34,13 @@ const GRAD_SCHOOL_OPTIONS = [
   { label: '아니오', value: 'false' },
 ];
 
-const isValidEmail = (value: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-const isValidPhone = (value: string) => /^01[0-9]{8,9}$/.test(value.replace(/-/g, ''));
-
+const isValidEmail = (value: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim());
+const isValidPhone = (value: string) => /^01[0-9]{8,9}$/.test(value.trim());
+const preventEnter = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+  }
+};
 const TRACK_LABEL: Record<Track, string> = {
   ANALYSIS: '데이터 분석',
   VISUALIZATION: '데이터 시각화',
@@ -66,6 +70,8 @@ interface PersonalInfoSectionProps {
 const PersonalInfoSection = ({ formContext, onNext, onTrackChange }: PersonalInfoSectionProps) => {
   const { form, setField, addDegree, setDegree, removeDegree } = formContext;
   const [submitted, setSubmitted] = useState(false);
+  const [emailTouched, setEmailTouched] = useState(false);
+  const [phoneTouched, setPhoneTouched] = useState(false);
 
   const handleTrackChange = (value: string | null) => {
     const nextTrack = value as Track | null;
@@ -85,21 +91,23 @@ const PersonalInfoSection = ({ formContext, onNext, onTrackChange }: PersonalInf
     setField('track', nextTrack);
   };
 
-  const emailError = submitted
-    ? !form.email.trim()
-      ? '필수 입력 항목입니다.'
-      : !isValidEmail(form.email)
-        ? '이메일 형식이 올바르지 않습니다.'
-        : null
-    : null;
+  const emailError =
+    submitted || emailTouched
+      ? !form.email.trim()
+        ? '필수 입력 항목입니다.'
+        : !isValidEmail(form.email)
+          ? '이메일 형식이 올바르지 않습니다.'
+          : null
+      : null;
 
-  const phoneError = submitted
-    ? !form.phone.trim()
-      ? '필수 입력 항목입니다.'
-      : !isValidPhone(form.phone)
-        ? '전화번호 형식이 올바르지 않습니다. (예: 01012345678)'
-        : null
-    : null;
+  const phoneError =
+    submitted || phoneTouched
+      ? !form.phone.trim()
+        ? '필수 입력 항목입니다.'
+        : !isValidPhone(form.phone)
+          ? '전화번호 형식이 올바르지 않습니다. (예: 01012345678)'
+          : null
+      : null;
 
   const handleNext = () => {
     setSubmitted(true);
@@ -115,8 +123,13 @@ const PersonalInfoSection = ({ formContext, onNext, onTrackChange }: PersonalInf
       hasEmptyRequired ||
       hasFormatError ||
       form.militaryStatus === null ||
-      form.gradSchoolPlan === null
+      form.gradSchoolPlan === null ||
+      !form.academicGrade ||
+      !form.semester
     ) {
+      window.alert(
+        '입력하지 않은 항목이 있거나 형식이 올바르지 않습니다.\n항목을 다시 확인해 주세요.'
+      );
       return;
     }
     onNext(form.track);
@@ -185,6 +198,8 @@ const PersonalInfoSection = ({ formContext, onNext, onTrackChange }: PersonalInf
             value={form.email}
             isError={!!emailError}
             onChange={(e) => setField('email', e.target.value)}
+            onBlur={() => setEmailTouched(true)}
+            onKeyDown={preventEnter}
           />
           <FieldError show={!!emailError} message={emailError ?? undefined} />
         </div>
@@ -194,6 +209,8 @@ const PersonalInfoSection = ({ formContext, onNext, onTrackChange }: PersonalInf
             value={form.phone}
             isError={!!phoneError}
             onChange={(e) => setField('phone', e.target.value)}
+            onBlur={() => setPhoneTouched(true)}
+            onKeyDown={preventEnter}
           />
           <FieldError show={!!phoneError} message={phoneError ?? undefined} />
         </div>

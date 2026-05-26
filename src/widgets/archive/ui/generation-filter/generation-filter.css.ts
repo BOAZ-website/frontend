@@ -5,6 +5,14 @@ import { typography } from '@/shared/styles/typography.css';
 
 export const container = style({
   position: 'relative',
+  zIndex: 100,
+});
+
+export const backdrop = style({
+  position: 'fixed',
+  inset: 0,
+  zIndex: 99,
+  backgroundColor: 'rgba(0, 0, 0, 0.5)',
 });
 
 export const trigger = style({
@@ -27,12 +35,12 @@ export const trigger = style({
 
 export const overlay = style({
   position: 'absolute',
-  top: 'calc(100% + 0.8rem)',
+  top: 'calc(100% + 3.8rem)',
   right: 0,
   zIndex: 100,
   display: 'flex',
   flexDirection: 'column',
-  minWidth: '12rem',
+  alignItems: 'center',
   maxHeight: '24rem',
   overflowY: 'auto',
   borderRadius: '20px',
@@ -47,11 +55,10 @@ export const overlay = style({
 });
 
 const optionBase = style({
+  width: '100%',
   padding: '1.2rem 1.6rem',
   cursor: 'pointer',
   ...typography.body4_rg_18,
-  textAlign: 'left',
-  border: 'none',
   backgroundColor: 'transparent',
   transition: 'background-color 0.15s ease',
   whiteSpace: 'nowrap',

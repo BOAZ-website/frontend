@@ -8,6 +8,7 @@ export type ApplicationRequest = components['schemas']['ApplicationRequest'];
 export type AnswerRequest = components['schemas']['AnswerRequest'];
 export type ApplicationResponse = components['schemas']['ApplicationResponse'];
 export type SubscriptionRequest = components['schemas']['SubscriptionRequest'];
+export type SubscriptionResponse = components['schemas']['SubscriptionResponse'];
 export type ReviewResponse = components['schemas']['ReviewResponse'];
 export type CurriculumResponse = components['schemas']['CurriculumResponse'];
 export type CurriculumStepResponse = components['schemas']['CurriculumStepResponse'];

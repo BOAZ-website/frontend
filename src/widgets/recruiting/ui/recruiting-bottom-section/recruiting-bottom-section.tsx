@@ -14,9 +14,13 @@ const RecruitingBottomSection = () => {
 
   return (
     <div className={styles.container}>
-      <span className={styles.dividerText}>
-        국내 최초 빅데이터 동아리 BOAZ만의 체계적인 로드맵을 경험하세요
-      </span>
+      <div className={styles.dividerRow}>
+        <div className={styles.dividerLineLeft} />
+        <span className={styles.dividerText}>
+          국내 최초 빅데이터 동아리 BOAZ만의 체계적인 로드맵을 경험하세요
+        </span>
+        <div className={styles.dividerLineRight} />
+      </div>
       <div className={styles.buttonGroup}>
         <Link
           to={ROUTE_PATH.CURRICULUM}

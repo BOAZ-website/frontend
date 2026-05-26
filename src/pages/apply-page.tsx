@@ -2,8 +2,12 @@ import { useEffect, useRef, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Navigate } from 'react-router';
 
-import { ACADEMIC_GRADES, SEMESTERS } from '@/widgets/apply/apply-dropdown';
 import { loadLocalDraft } from '@/widgets/apply/model/apply-draft';
+import {
+  parseBirthDate,
+  parseGraduationDate,
+  parseLastSemester,
+} from '@/widgets/apply/model/draft-parser';
 import { APPLY_QUERY_OPTIONS } from '@/widgets/apply/model/query-options';
 import { useGetDraft } from '@/widgets/apply/model/use-get-draft';
 import type { PersonalInfoForm } from '@/widgets/apply/model/use-personal-info-form';
@@ -12,59 +16,20 @@ import { usePutDraft } from '@/widgets/apply/model/use-put-draft';
 import { useSaveDraft } from '@/widgets/apply/model/use-save-draft';
 import { useSubmitApplication } from '@/widgets/apply/model/use-submit-application';
 import AgreementStep from '@/widgets/apply/ui/agreement-step/agreement-step';
-import AnalysisQuestionSection from '@/widgets/apply/ui/analysis-question-section';
 import ApplyTitleSection from '@/widgets/apply/ui/apply-title-section';
-import CommonQuestionSection from '@/widgets/apply/ui/common-question-section';
-import EngineeringQuestionSection from '@/widgets/apply/ui/engineering-question-section';
 import PersonalInfoSection from '@/widgets/apply/ui/personal-info-section';
-import VisualizationQuestionSection from '@/widgets/apply/ui/visualization-question-section';
+import QuestionSection from '@/widgets/apply/ui/question-section/question-section';
 import { RECRUITMENT_QUERY_OPTIONS } from '@/widgets/recruiting/model/recruitment.query-options';
 import type { AnswerRequest, ApplicationRequest, DraftRequest, Track } from '@/shared/api/types';
 import { useRecruitmentDeadline } from '@/shared/queries/use-recruitment-deadline';
 import { useRecruitmentStatus } from '@/shared/queries/use-recruitment-status';
 import { ROUTE_PATH } from '@/shared/router/paths';
+import { formatKoreanDate } from '@/shared/utils/date-formatter';
 
 import * as styles from './apply-page.css';
 
 const STEPS = ['지원자 정보 입력', '공통 질문', '부문 질문'] as const;
-
-const DAYS_KO = ['일', '월', '화', '수', '목', '금', '토'] as const;
-
-const formatKoreanDate = (iso: string): string => {
-  const match = iso.match(/^(\d{4})-(\d{2})-(\d{2})/);
-  if (!match) {
-    return '';
-  }
-  const date = new Date(iso);
-  return `${match[1]}년 ${parseInt(match[2])}월 ${parseInt(match[3])}일 (${DAYS_KO[date.getDay()]})`;
-};
 const LAST_STEP = STEPS.length;
-
-const parseBirthDate = (birthDate: string) => {
-  const [year, month, day] = birthDate.split('-');
-  return {
-    birthYear: `${year}년`,
-    birthMonth: `${parseInt(month)}월`,
-    birthDay: `${parseInt(day)}일`,
-  };
-};
-
-const parseGraduationDate = (graduationDate: string) => {
-  const [year, month] = graduationDate.split('-');
-  return {
-    graduationYear: `${year}년`,
-    graduationMonth: `${parseInt(month)}월`,
-  };
-};
-
-const parseLastSemester = (lastSemester: number) => {
-  const gradeIndex = Math.floor((lastSemester - 1) / 2);
-  const semesterIndex = (lastSemester - 1) % 2;
-  return {
-    academicGrade: ACADEMIC_GRADES[gradeIndex] ?? '',
-    semester: SEMESTERS[semesterIndex] ?? '',
-  };
-};
 
 const ApplyPage = () => {
   const { data: deadline } = useRecruitmentDeadline();
@@ -80,6 +45,10 @@ const ApplyPage = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const personalInfo = usePersonalInfoForm();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, [currentStep]);
 
   const draftQueryState = useGetDraft(recruitmentId);
   const draftRestoredRef = useRef(false);
@@ -254,7 +223,7 @@ const ApplyPage = () => {
     answers: Object.entries(answers)
       .filter(([key]) => !key.includes('__extra_'))
       .map(([key, value]) => ({
-        question_id: parseInt(key),
+        question_id: parseInt(key, 10),
         answer: value,
       })),
   };
@@ -314,7 +283,7 @@ const ApplyPage = () => {
           answer = value;
         }
       }
-      result.push({ question_id: parseInt(baseId), answer });
+      result.push({ question_id: parseInt(baseId, 10), answer });
     }
     return result;
   };
@@ -366,6 +335,7 @@ const ApplyPage = () => {
         {currentStep === 0 && (
           <AgreementStep
             term={status?.term}
+            brochureUrl={recruitment?.brochure_url}
             onNext={() => {
               handleNext();
             }}
@@ -379,7 +349,7 @@ const ApplyPage = () => {
           />
         )}
         {currentStep === 2 && (
-          <CommonQuestionSection
+          <QuestionSection
             questions={commonQuestions}
             answers={answers}
             onAnswerChange={setAnswer}
@@ -387,28 +357,13 @@ const ApplyPage = () => {
             onNext={handleNext}
           />
         )}
-        {currentStep === 3 && track === 'ANALYSIS' && (
-          <AnalysisQuestionSection
+        {currentStep === 3 && (
+          <QuestionSection
             {...trackSectionProps}
             questions={trackQuestions}
             onNext={handleSubmit}
             nextLabel="제출하기"
-          />
-        )}
-        {currentStep === 3 && track === 'VISUALIZATION' && (
-          <VisualizationQuestionSection
-            {...trackSectionProps}
-            questions={trackQuestions}
-            onNext={handleSubmit}
-            nextLabel="제출하기"
-          />
-        )}
-        {currentStep === 3 && track === 'ENGINEERING' && (
-          <EngineeringQuestionSection
-            {...trackSectionProps}
-            questions={trackQuestions}
-            onNext={handleSubmit}
-            nextLabel="제출하기"
+            supportsTable={track === 'ENGINEERING' || track === 'VISUALIZATION'}
           />
         )}
       </section>

@@ -58,7 +58,7 @@ export const checkboxRow = style({
 export const checkbox = style({
   width: '2.4rem',
   height: '2.4rem',
-  accentColor: themeVars.color.grayscale[400],
+  accentColor: '#7964F9',
   cursor: 'pointer',
   flexShrink: 0,
 });
@@ -88,9 +88,17 @@ export const consentDetail = style({
   display: 'flex',
   flexDirection: 'column',
   gap: '1.2rem',
-  padding: '2rem',
+  padding: '0 2rem',
   backgroundColor: themeVars.color.grayscale[900],
   borderRadius: themeVars.radius.xs,
+  overflow: 'hidden',
+  maxHeight: 0,
+  transition: 'max-height 0.35s ease, padding 0.35s ease',
+});
+
+export const consentDetailOpen = style({
+  maxHeight: '100rem',
+  padding: '2rem',
   border: `1px solid ${themeVars.color.grayscale[600]}`,
 });
 

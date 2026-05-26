@@ -29,4 +29,5 @@ export const subTitle = style({
 export const descriptionText = style({
   color: themeVars.color.grayscale.black,
   ...typography.body5_rg_16,
+  lineHeight: '1.4',
 });
