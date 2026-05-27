@@ -25,6 +25,7 @@ export const container = style({
 export const contentText = style({
   color: themeVars.color.grayscale.white,
   ...typography.body4_rg_18,
+  lineHeight: '1.3',
   '@media': {
     [media.mobile]: {
       ...typography.text_rg_8,
