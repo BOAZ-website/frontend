@@ -1,5 +1,7 @@
 import { style } from '@vanilla-extract/css';
 
+import { media } from '@/shared/styles/breakpoints';
+
 import { themeVars } from '@/shared/styles/theme.css';
 import { typography } from '@/shared/styles/typography.css';
 
@@ -17,38 +19,74 @@ export const section = style({
   display: 'flex',
   flexDirection: 'column',
   gap: '6rem',
+  '@media': {
+    [media.mobile]: {
+      padding: '4rem 2rem',
+      gap: '4rem',
+    },
+  },
 });
 
 export const sectionTitle = style({
   ...typography.h1_bd_40,
   color: themeVars.color.grayscale.white,
   textAlign: 'center',
+  '@media': {
+    [media.mobile]: {
+      ...typography.h5_bd_16,
+    },
+  },
 });
 
 export const tabRow = style({
   display: 'flex',
   justifyContent: 'center',
   marginTop: '10rem',
+  '@media': {
+    [media.mobile]: {
+      marginTop: '2rem',
+    },
+  },
 });
 
 export const quoteBox = style({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  gap: '1.6rem',
+  gap: '2.8rem',
   textAlign: 'center',
   color: themeVars.color.grayscale.white,
 });
 
 export const quoteText = style({
   ...typography.h2_bd_30,
+  '@media': {
+    [media.mobile]: {
+      ...typography.h4_bd_24,
+    },
+  },
 });
 
 export const quoteDesc = style({
   ...typography.body4_rg_18,
-  lineHeight: '3rem',
   whiteSpace: 'pre-line',
   marginBottom: '3.4rem',
+  '@media': {
+    [media.mobile]: {
+      ...typography.body5_rg_16,
+      lineHeight: '2.4rem',
+      marginBottom: '2.8rem',
+    },
+  },
+});
+
+export const trackIcon = style({
+  '@media': {
+    [media.mobile]: {
+      maxWidth: '8rem',
+      maxHeight: '8rem',
+    },
+  },
 });
 
 export const reviewSection = style({
@@ -59,6 +97,13 @@ export const reviewSection = style({
   marginTop: '20rem',
   marginBottom: '20rem',
   width: '100%',
+  '@media': {
+    [media.mobile]: {
+      gap: '2rem',
+      marginTop: '8rem',
+      marginBottom: '6rem',
+    },
+  },
 });
 
 export const dividerRow = style({
@@ -66,6 +111,11 @@ export const dividerRow = style({
   alignItems: 'center',
   gap: '10.5rem',
   width: '100%',
+  '@media': {
+    [media.mobile]: {
+      gap: '2rem',
+    },
+  },
 });
 
 const lineBase = {

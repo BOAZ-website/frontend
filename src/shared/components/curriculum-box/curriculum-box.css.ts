@@ -1,5 +1,7 @@
 import { style } from '@vanilla-extract/css';
 
+import { media } from '@/shared/styles/breakpoints';
+
 import { themeVars } from '@/shared/styles/theme.css';
 import { typography } from '@/shared/styles/typography.css';
 
@@ -12,9 +14,19 @@ export const container = style({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
+  '@media': {
+    [media.mobile]: {
+      minWidth: 'auto',
+    },
+  },
 });
 
 export const contentText = style({
   color: themeVars.color.grayscale.white,
   ...typography.body4_rg_18,
+  '@media': {
+    [media.mobile]: {
+      ...typography.body5_rg_16,
+    },
+  },
 });

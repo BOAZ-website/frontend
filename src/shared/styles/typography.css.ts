@@ -54,6 +54,12 @@ export const typography = {
     lineHeight: themeVars.lineHeight.tight,
     letterSpacing: themeVars.letterSpacing.normal,
   },
+  h5_bd_16: {
+    fontSize: themeVars.fontSize[16],
+    fontWeight: themeVars.fontWeight.bold,
+    lineHeight: themeVars.lineHeight.tight,
+    letterSpacing: themeVars.letterSpacing.normal,
+  },
 
   // Body
   body1_rg_24: {
@@ -94,6 +100,18 @@ export const typography = {
   },
   body5_rg_16: {
     fontSize: themeVars.fontSize[16],
+    fontWeight: themeVars.fontWeight.regular,
+    lineHeight: themeVars.lineHeight.tight,
+    letterSpacing: themeVars.letterSpacing.normal,
+  },
+  body6_bd_10: {
+    fontSize: themeVars.fontSize[10],
+    fontWeight: themeVars.fontWeight.bold,
+    lineHeight: themeVars.lineHeight.tight,
+    letterSpacing: themeVars.letterSpacing.normal,
+  },
+  body6_rg_10: {
+    fontSize: themeVars.fontSize[10],
     fontWeight: themeVars.fontWeight.regular,
     lineHeight: themeVars.lineHeight.tight,
     letterSpacing: themeVars.letterSpacing.normal,

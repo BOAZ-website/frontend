@@ -76,7 +76,7 @@ const CurriculumPage = () => {
         <div className={styles.quoteBox}>
           <p className={styles.quoteText}>{quote}</p>
           <p className={styles.quoteDesc}>{desc}</p>
-          <Icon width={132} height={132} />
+          <Icon width={132} height={132} className={styles.trackIcon} />{' '}
         </div>
 
         <CurriculumSection steps={steps} />

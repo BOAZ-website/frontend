@@ -1,5 +1,7 @@
 import { style } from '@vanilla-extract/css';
 
+import { media } from '@/shared/styles/breakpoints';
+
 import { themeVars } from '@/shared/styles/theme.css';
 import { typography } from '@/shared/styles/typography.css';
 
@@ -9,6 +11,11 @@ export const wrapper = style({
   gridTemplateRows: 'auto auto',
   width: '100%',
   marginBottom: '8.7rem',
+  '@media': {
+    [media.mobile]: {
+      marginBottom: '4rem',
+    },
+  },
 });
 
 export const baseLabel = style({
@@ -19,6 +26,11 @@ export const baseLabel = style({
   alignItems: 'flex-start',
   paddingRight: '5rem',
   textAlign: 'right',
+  '@media': {
+    [media.mobile]: {
+      paddingRight: '1.6rem',
+    },
+  },
 });
 
 export const baseStepList = style({
@@ -29,6 +41,13 @@ export const baseStepList = style({
   gap: '5.5rem',
   paddingLeft: '5rem',
   paddingBottom: '10rem',
+  '@media': {
+    [media.mobile]: {
+      paddingLeft: '1.6rem',
+      paddingBottom: '4rem',
+      gap: '3rem',
+    },
+  },
 });
 
 export const divider = style({
@@ -50,6 +69,12 @@ export const semesterStepList = style({
   gap: '5.5rem',
   alignItems: 'flex-end',
   paddingRight: '5rem',
+  '@media': {
+    [media.mobile]: {
+      paddingRight: '1.6rem',
+      gap: '3rem',
+    },
+  },
 });
 
 export const semesterLabel = style({
@@ -59,6 +84,11 @@ export const semesterLabel = style({
   justifyContent: 'flex-start',
   alignItems: 'flex-start',
   paddingLeft: '5rem',
+  '@media': {
+    [media.mobile]: {
+      paddingLeft: '1.6rem',
+    },
+  },
 });
 
 export const sessionLabelText = style({
@@ -66,6 +96,11 @@ export const sessionLabelText = style({
   color: themeVars.color.grayscale.white,
   lineHeight: '1.5',
   whiteSpace: 'nowrap',
+  '@media': {
+    [media.mobile]: {
+      ...typography.h4_bd_24,
+    },
+  },
 });
 
 export const stepList = style({

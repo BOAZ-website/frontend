@@ -1,9 +1,11 @@
 import { style } from '@vanilla-extract/css';
 
+import { media } from '@/shared/styles/breakpoints';
+
 import { themeVars } from '@/shared/styles/theme.css';
 import { typography } from '@/shared/styles/typography.css';
 
-const MOBILE = 'screen and (max-width: 768px)';
+const MOBILE = media.mobile;
 
 export const container = style({
   display: 'flex',
