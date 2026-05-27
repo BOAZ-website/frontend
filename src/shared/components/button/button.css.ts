@@ -1,5 +1,7 @@
 import { recipe } from '@vanilla-extract/recipes';
 
+import { media } from '@/shared/styles/breakpoints';
+
 import { themeVars } from '@/shared/styles/theme.css';
 import { typography } from '@/shared/styles/typography.css';
 
@@ -89,6 +91,9 @@ export const button = recipe({
     hasIcon: {
       true: {},
     },
+    responsive: {
+      true: {},
+    },
   },
   compoundVariants: [
     {
@@ -102,6 +107,33 @@ export const button = recipe({
     {
       variants: { variant: 'small-round', color: 'glass' },
       style: { padding: '1.15rem 5rem' },
+    },
+    {
+      variants: { variant: 'medium', responsive: true },
+      style: {
+        '@media': {
+          [media.mobile]: {
+            ...typography.body3_bd_18,
+            padding: '0.9rem 2.2rem',
+            borderRadius: '4px',
+            width: '100%',
+          },
+        },
+      },
+    },
+    // medium + hasIcon + responsive: 아이콘 있을 때 mobile 크기 축소
+    {
+      variants: { variant: 'medium', hasIcon: true, responsive: true },
+      style: {
+        '@media': {
+          [media.mobile]: {
+            ...typography.text_bd_8,
+            padding: '0.9rem 2.2rem',
+            borderRadius: '4px',
+            width: '100%',
+          },
+        },
+      },
     },
   ],
 });

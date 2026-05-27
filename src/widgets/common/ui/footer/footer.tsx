@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+
 import HSpaceLogo from '@/shared/assets/icons/hspace_logo.svg?react';
 import InstagramIcon from '@/shared/assets/icons/ic_instagram.svg?react';
 import MediumIcon from '@/shared/assets/icons/ic_medium.svg?react';
@@ -14,9 +16,43 @@ const SNS_LINKS = [
 ];
 
 const Footer = () => {
+  const [isMobile, setIsMobile] = useState(() => window.matchMedia('(max-width: 768px)').matches);
+
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 768px)');
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
+  }, []);
+
+  if (isMobile) {
+    return (
+      <footer className={styles.container}>
+        <div className={styles.mobileInner}>
+          <HSpaceLogo width={122} height={18} />
+          <div className={styles.mobileContact}>
+            <span className={styles.mobileContactLabel}>Contact</span>
+            <small className={styles.email}>boaz.bigdata@gmail.com</small>
+          </div>
+          <ul className={styles.mobileSnsGrid}>
+            {SNS_LINKS.map(({ Icon, label, href }) => (
+              <li key={label}>
+                <a className={styles.snsLink} href={href} target="_blank" rel="noopener noreferrer">
+                  <Icon width={16} height={16} />
+                  {label}
+                </a>
+              </li>
+            ))}
+          </ul>
+          <small className={styles.copyright}>© 2026 BOAZ. All rights reserved.</small>
+        </div>
+      </footer>
+    );
+  }
+
   return (
     <footer className={styles.container}>
-      <div className={styles.footerInner}>
+      <div className={styles.desktopInner}>
         <section className={styles.col.left}>
           <HSpaceLogo width={122} height={18} />
           <small className={styles.copyright}>© 2026 BOAZ. All rights reserved.</small>

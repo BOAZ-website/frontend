@@ -1,5 +1,7 @@
 import { style } from '@vanilla-extract/css';
 
+import { media } from '@/shared/styles/breakpoints';
+
 import { themeVars } from '@/shared/styles/theme.css';
 
 export const wrapper = style({
@@ -8,6 +10,11 @@ export const wrapper = style({
   height: '33rem',
   overflow: 'hidden',
   userSelect: 'none',
+  '@media': {
+    [media.mobile]: {
+      height: '18rem',
+    },
+  },
 });
 
 export const track = style({
@@ -28,16 +35,27 @@ export const image = style({
   objectFit: 'cover',
   display: 'block',
   pointerEvents: 'none',
+  '@media': {
+    [media.mobile]: {
+      height: '18rem',
+    },
+  },
 });
 
 export const dotsWrapper = style({
   position: 'absolute',
   flexDirection: 'column',
-  bottom: '14rem',
+  bottom: '50%',
   right: '9rem',
   transform: 'translateX(-50%)',
   display: 'flex',
   gap: '0.5rem',
+  '@media': {
+    [media.mobile]: {
+      bottom: '40%',
+      right: '2.5rem',
+    },
+  },
 });
 
 export const dot = style({

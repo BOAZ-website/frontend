@@ -1,6 +1,8 @@
 import { style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 
+import { media } from '@/shared/styles/breakpoints';
+
 import { themeVars } from '@/shared/styles/theme.css';
 import { typography } from '@/shared/styles/typography.css';
 
@@ -21,6 +23,16 @@ export const fixedTab = recipe({
     transition: 'background-color 0.2s ease, color 0.2s ease',
     ...typography.body2_bd_20,
     color: themeVars.color.grayscale.black,
+    '@media': {
+      [media.mobile]: {
+        flex: 1,
+        width: '9.2rem',
+        padding: '0.8rem 0',
+        ...typography.body6_bd_10,
+        flexShrink: 0,
+        borderRadius: '4px',
+      },
+    },
   },
   variants: {
     isActive: {

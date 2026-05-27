@@ -1,20 +1,62 @@
 import { style, styleVariants } from '@vanilla-extract/css';
 
+import { media } from '@/shared/styles/breakpoints';
+
 import { themeVars } from '@/shared/styles/theme.css';
 import { typography } from '@/shared/styles/typography.css';
+
+const MOBILE = media.mobile;
 
 export const container = style({
   width: '100%',
   boxSizing: 'border-box',
   backgroundColor: themeVars.color.grayscale.white,
   padding: '3.3rem 4.9rem 3rem 6rem',
+  '@media': {
+    [MOBILE]: {
+      padding: '2.4rem 2rem',
+    },
+  },
 });
 
-export const footerInner = style({
+export const desktopInner = style({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
   gap: '4.3rem',
+  '@media': {
+    [MOBILE]: {
+      display: 'none',
+    },
+  },
+});
+
+export const mobileInner = style({
+  display: 'none',
+  '@media': {
+    [MOBILE]: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '1.6rem',
+    },
+  },
+});
+
+export const mobileContact = style({
+  display: 'flex',
+  alignItems: 'center',
+  gap: '0.8rem',
+});
+
+export const mobileContactLabel = style({
+  ...typography.body5_rg_16,
+  color: themeVars.color.grayscale[600],
+});
+
+export const mobileSnsGrid = style({
+  display: 'grid',
+  gridTemplateColumns: '1fr 1fr',
+  gap: '1.2rem 0',
 });
 
 const colBase = style({
@@ -39,6 +81,10 @@ export const snsLinks = style({
   gap: '0.7rem',
   ...typography.body5_rg_16,
   color: themeVars.color.grayscale[400],
+});
+
+export const snsIcon = style({
+  flexShrink: 0,
 });
 
 export const snsLink = style({
