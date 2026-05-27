@@ -62,7 +62,7 @@ export const quoteText = style({
   ...typography.h2_bd_30,
   '@media': {
     [media.mobile]: {
-      ...typography.h4_bd_24,
+      ...typography.h5_bd_16,
     },
   },
 });
@@ -73,9 +73,9 @@ export const quoteDesc = style({
   marginBottom: '3.4rem',
   '@media': {
     [media.mobile]: {
-      ...typography.body5_rg_16,
-      lineHeight: '2.4rem',
-      marginBottom: '2.8rem',
+      ...typography.body6_rg_10,
+      lineHeight: '1.4',
+      marginBottom: '0',
     },
   },
 });

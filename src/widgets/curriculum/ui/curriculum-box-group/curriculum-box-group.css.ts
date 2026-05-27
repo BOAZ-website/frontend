@@ -26,7 +26,7 @@ export const weekLabel = style({
   flexShrink: 0,
   '@media': {
     [media.mobile]: {
-      ...typography.body5_rg_16,
+      ...typography.body5_bd_12,
     },
   },
 });

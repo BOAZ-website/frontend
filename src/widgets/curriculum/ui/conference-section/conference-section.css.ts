@@ -13,7 +13,6 @@ export const wrapper = style({
     [media.mobile]: {
       flexDirection: 'column',
       gap: '2.4rem',
-      alignItems: 'flex-start',
     },
   },
 });
@@ -39,6 +38,8 @@ export const content = style({
   '@media': {
     [media.mobile]: {
       gap: '1.6rem',
+      alignItems: 'center',
+      textAlign: 'center',
     },
   },
 });
@@ -48,7 +49,7 @@ export const title = style({
   color: themeVars.color.grayscale.white,
   '@media': {
     [media.mobile]: {
-      ...typography.body2_bd_20,
+      ...typography.body5_bd_12,
     },
   },
 });
@@ -60,8 +61,8 @@ export const description = style({
   whiteSpace: 'pre-line',
   '@media': {
     [media.mobile]: {
-      ...typography.body5_rg_16,
-      lineHeight: '2.4rem',
+      ...typography.body6_rg_10,
+      lineHeight: '1.4',
     },
   },
 });

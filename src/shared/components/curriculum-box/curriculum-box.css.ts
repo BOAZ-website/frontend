@@ -8,7 +8,6 @@ import { typography } from '@/shared/styles/typography.css';
 export const container = style({
   width: '100%',
   minWidth: '35.5rem',
-  backgroundColor: 'rgba(217, 217, 217, 0.10)',
   borderRadius: '10px',
   padding: '1.5rem',
   display: 'flex',
@@ -17,6 +16,8 @@ export const container = style({
   '@media': {
     [media.mobile]: {
       minWidth: 'auto',
+      padding: '0.9rem 1.2rem',
+      borderRadius: '4px',
     },
   },
 });
@@ -26,7 +27,7 @@ export const contentText = style({
   ...typography.body4_rg_18,
   '@media': {
     [media.mobile]: {
-      ...typography.body5_rg_16,
+      ...typography.text_rg_8,
     },
   },
 });

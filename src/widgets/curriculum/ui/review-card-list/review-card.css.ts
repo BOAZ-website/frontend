@@ -18,7 +18,7 @@ export const cardWrapper = style({
     [media.mobile]: {
       width: '100%',
       height: 'auto',
-      padding: '2rem 2.4rem',
+      padding: '2.1rem 1.6rem',
     },
   },
 });
@@ -27,6 +27,11 @@ export const cardHeader = style({
   display: 'flex',
   alignItems: 'center',
   gap: '1rem',
+  '@media': {
+    [media.mobile]: {
+      justifyContent: 'center',
+    },
+  },
 });
 
 export const title = style({
@@ -34,7 +39,7 @@ export const title = style({
   ...typography.body2_bd_20,
   '@media': {
     [media.mobile]: {
-      ...typography.body3_bd_18,
+      ...typography.body5_bd_12,
     },
   },
 });
@@ -44,13 +49,13 @@ export const subTitle = style({
   ...typography.body3_bd_18,
   '@media': {
     [media.mobile]: {
-      ...typography.body5_rg_16,
+      ...typography.body6_bd_10,
     },
   },
 });
 
 export const descriptionText = style({
   color: themeVars.color.grayscale.black,
-  ...typography.body5_rg_16,
+  ...typography.body6_rg_10,
   lineHeight: '1.4',
 });

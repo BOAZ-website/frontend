@@ -6,6 +6,7 @@ import { themeVars } from '@/shared/styles/theme.css';
 import { typography } from '@/shared/styles/typography.css';
 
 export const wrapper = style({
+  justifyContent: 'center',
   display: 'grid',
   gridTemplateColumns: '1fr 1px 1fr',
   gridTemplateRows: 'auto auto',
@@ -13,7 +14,7 @@ export const wrapper = style({
   marginBottom: '8.7rem',
   '@media': {
     [media.mobile]: {
-      marginBottom: '4rem',
+      marginBottom: '1.6rem',
     },
   },
 });
@@ -28,7 +29,7 @@ export const baseLabel = style({
   textAlign: 'right',
   '@media': {
     [media.mobile]: {
-      paddingRight: '1.6rem',
+      paddingRight: '1.15rem',
     },
   },
 });
@@ -43,9 +44,9 @@ export const baseStepList = style({
   paddingBottom: '10rem',
   '@media': {
     [media.mobile]: {
-      paddingLeft: '1.6rem',
-      paddingBottom: '4rem',
-      gap: '3rem',
+      paddingLeft: '1.15rem',
+      paddingBottom: '4.4rem',
+      gap: '2.4rem',
     },
   },
 });
@@ -71,8 +72,8 @@ export const semesterStepList = style({
   paddingRight: '5rem',
   '@media': {
     [media.mobile]: {
-      paddingRight: '1.6rem',
-      gap: '3rem',
+      paddingRight: '1.15rem',
+      gap: '2.4rem',
     },
   },
 });
@@ -86,7 +87,7 @@ export const semesterLabel = style({
   paddingLeft: '5rem',
   '@media': {
     [media.mobile]: {
-      paddingLeft: '1.6rem',
+      paddingLeft: '1.15rem',
     },
   },
 });
@@ -98,7 +99,8 @@ export const sessionLabelText = style({
   whiteSpace: 'nowrap',
   '@media': {
     [media.mobile]: {
-      ...typography.h4_bd_24,
+      ...typography.h5_bd_16,
+      lineHeight: '1.4',
     },
   },
 });
