@@ -70,6 +70,8 @@ export const quoteText = style({
 export const quoteDesc = style({
   ...typography.body4_rg_18,
   whiteSpace: 'pre-line',
+  lineHeight: '1.5',
+  maxWidth: '90rem',
   marginBottom: '3.4rem',
   '@media': {
     [media.mobile]: {
