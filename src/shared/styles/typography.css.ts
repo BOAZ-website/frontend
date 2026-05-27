@@ -142,6 +142,12 @@ export const typography = {
     lineHeight: themeVars.lineHeight.tight,
     letterSpacing: themeVars.letterSpacing.normal,
   },
+  text_bd_8: {
+    fontSize: themeVars.fontSize[8],
+    fontWeight: themeVars.fontWeight.bold,
+    lineHeight: themeVars.lineHeight.tight,
+    letterSpacing: themeVars.letterSpacing.normal,
+  },
   text_rg_8: {
     fontSize: themeVars.fontSize[8],
     fontWeight: themeVars.fontWeight.regular,

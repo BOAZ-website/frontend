@@ -25,16 +25,20 @@ type ButtonPreset =
 interface ButtonProps extends Omit<ComponentProps<'button'>, 'className'> {
   preset: ButtonPreset;
   hasIcon?: boolean;
+  responsive?: boolean;
   children: ReactNode;
 }
 
-const Button = ({ preset, hasIcon, children, ...rest }: ButtonProps) => {
+const Button = ({ preset, hasIcon, responsive, children, ...rest }: ButtonProps) => {
   const [variant, color] = preset.split('_') as [VariantType, ColorType];
 
   return (
     <button
       type="button"
-      className={clsx(button({ variant, color, hasIcon }), color === 'glass' && glassEffect)}
+      className={clsx(
+        button({ variant, color, hasIcon, responsive }),
+        color === 'glass' && glassEffect
+      )}
       {...rest}
     >
       {children}

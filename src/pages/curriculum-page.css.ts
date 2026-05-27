@@ -138,3 +138,14 @@ export const reviewContent = style({
   maxWidth: '104.3rem',
   padding: '0 2rem',
 });
+
+export const archiveButtonIcon = style({
+  width: '2.4rem',
+  height: '2.4rem',
+  '@media': {
+    [media.mobile]: {
+      width: '0.8rem',
+      height: '0.8rem',
+    },
+  },
+});

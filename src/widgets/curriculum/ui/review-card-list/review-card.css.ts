@@ -56,6 +56,12 @@ export const subTitle = style({
 
 export const descriptionText = style({
   color: themeVars.color.grayscale.black,
-  ...typography.body6_rg_10,
+  ...typography.body5_rg_16,
   lineHeight: '1.4',
+  '@media': {
+    [media.mobile]: {
+      ...typography.body6_rg_10,
+      lineHeight: '1.4',
+    },
+  },
 });

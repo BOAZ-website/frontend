@@ -66,3 +66,14 @@ export const description = style({
     },
   },
 });
+
+export const buttonIcon = style({
+  width: '2.4rem',
+  height: '2.4rem',
+  '@media': {
+    [media.mobile]: {
+      width: '0.8rem',
+      height: '0.8rem',
+    },
+  },
+});
