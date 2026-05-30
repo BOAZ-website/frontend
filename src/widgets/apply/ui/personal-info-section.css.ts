@@ -90,6 +90,7 @@ export const fieldError = style({
   alignItems: 'center',
   gap: '0.5rem',
   ...typography.text_rg_14,
+  color: themeVars.color.error.red_100,
 });
 
 export const degreeRow = style({

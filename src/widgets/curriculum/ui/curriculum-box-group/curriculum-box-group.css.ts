@@ -1,5 +1,7 @@
 import { style } from '@vanilla-extract/css';
 
+import { media } from '@/shared/styles/breakpoints';
+
 import { themeVars } from '@/shared/styles/theme.css';
 import { typography } from '@/shared/styles/typography.css';
 
@@ -9,6 +11,12 @@ export const container = style({
   alignItems: 'center',
   gap: '2rem',
   width: 'fit-content',
+  '@media': {
+    [media.mobile]: {
+      gap: '1rem',
+      width: '100%',
+    },
+  },
 });
 
 export const weekLabel = style({
@@ -16,4 +24,9 @@ export const weekLabel = style({
   color: themeVars.color.sub.lightblue_100,
   whiteSpace: 'nowrap',
   flexShrink: 0,
+  '@media': {
+    [media.mobile]: {
+      ...typography.body5_bd_12,
+    },
+  },
 });

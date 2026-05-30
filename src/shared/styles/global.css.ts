@@ -5,7 +5,6 @@ import { themeVars } from './theme.css';
 globalStyle('html', {
   fontSize: '62.5%',
   width: '100%',
-  minWidth: '1366px',
   wordBreak: 'keep-all',
   WebkitTextSizeAdjust: '100%',
 });

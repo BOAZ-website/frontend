@@ -30,18 +30,18 @@ const TRACK_META: Record<
   }
 > = {
   분석: {
-    quote: '"데이터 속에 숨겨진 논리와 해답을 찾습니다."',
-    desc: `통계적 지식과 머신러닝 알고리즘을 바탕으로 데이터의 패턴을 찾아냅니다.\n단순한 수치 확인을 넘어, 실제 현실 세계를 비즈니스 미션설정에 기여할 수 있는 모델을 연구합니다.`,
+    quote: '"데이터를 스스로 해석하고 최적의 해답을 제시하는 AI 분석을 선도합니다."',
+    desc: `데이터 분석은 이제 사후 확인을 넘어 실시간 예측과 대응의 영역입니다. 딥러닝 기반으로 데이터 속 패턴을 학습해 예측·분류·생성 모델을 직접 구현하고, 최신 인공지능 아키텍처를 실험하고 주도하며 고도의 분석 인사이트를 도출합니다.`,
     Icon: AnalyzeIcon,
   },
   시각화: {
-    quote: '"데이터를 직관적인 시각으로 전달합니다."',
-    desc: `다양한 시각화 도구와 디자인 원칙을 활용해 복잡한 데이터를 이해하기 쉬운 형태로 표현합니다.\n인사이트를 명확하게 전달하는 대시보드와 인터랙티브 시각화를 만들어 냅니다.`,
+    quote: '"데이터 속 흐름을 구조화해 실행 가능한 인사이트로 전환합니다."',
+    desc: `데이터 시각화는 단순히 데이터를 보기 좋게 표현하는 것을 넘어, 복잡한 정보를 직관적으로 전달하고 인사이트를 빠르게 이해할 수 있도록 만드는 과정입니다. 다양한 시각화 도구와 인터랙티브 대시보드를 활용해 데이터 스토리텔링을 구현하고, 실제 의사결정에 활용 가능한 데이터 경험을 설계합니다.`,
     Icon: VisualizationIcon,
   },
   엔지니어링: {
-    quote: '"안정적인 데이터 파이프라인을 설계합니다."',
-    desc: `대용량 데이터를 수집, 저장, 처리하는 인프라를 구축합니다.\n효율적인 데이터 아키텍처와 파이프라인으로 분석가와 모델러가 신뢰할 수 있는 데이터 환경을 만듭니다.`,
+    quote: '"데이터를 수집하고 변환해 저장하는 흐름을 설계합니다."',
+    desc: `데이터 엔지니어링은 다양한 CS 지식과 클라우드 인프라를 바탕으로, 끊임없이 생성되고 흘러가는 데이터를 안정적으로 수집·처리·저장하는 방법을 탐구합니다. 이를 통해 데이터가 실제로 활용될 수 있는 기반을 만들어냅니다.`,
     Icon: EngineeringIcon,
   },
 };
@@ -54,7 +54,6 @@ const CurriculumPage = () => {
   const { quote, desc, Icon } = TRACK_META[activeTab];
 
   const { data: curriculums = [] } = useQuery(CURRICULUM_QUERY_OPTIONS.LIST(apiTrack));
-
   const { data: reviews = [] } = useQuery(REVIEW_QUERY_OPTIONS.LIST({ track: apiTrack }));
 
   const currentCurriculum = curriculums.find((c) => c.track === apiTrack);
@@ -69,7 +68,6 @@ const CurriculumPage = () => {
     <main className={styles.page}>
       <BannerSlider />
 
-      {/* 트랙 탭 */}
       <div className={styles.tabRow}>
         <TrackTabGroup defaultTab={activeTab} onTabChange={handleTabChange} />
       </div>
@@ -78,21 +76,25 @@ const CurriculumPage = () => {
         <div className={styles.quoteBox}>
           <p className={styles.quoteText}>{quote}</p>
           <p className={styles.quoteDesc}>{desc}</p>
-          <Icon width={132} height={132} />
+          <Icon width={132} height={132} className={styles.trackIcon} />
         </div>
 
-        {/* 커리큘럼 */}
         <CurriculumSection steps={steps} />
 
-        {/* 기업 컨택 및 컨퍼런스 */}
         <ConferenceSection />
-
-        {/* 후기 */}
-        <section className={styles.reviewSection}>
-          <span className={styles.sectionTitle}>당신에게 BOAZ는 어떤 곳이었나요?</span>
-          <ReviewSection reviews={reviews} currentPage={reviewPage} onPageChange={setReviewPage} />
-        </section>
       </div>
+
+      {/* 후기 - section div 바깥 */}
+      <section className={styles.reviewSection}>
+        <div className={styles.dividerRow}>
+          <div className={styles.dividerLineLeft} />
+          <span className={styles.sectionTitle}>당신에게 BOAZ는 어떤 곳이었나요?</span>
+          <div className={styles.dividerLineRight} />
+        </div>
+        <div className={styles.reviewContent}>
+          <ReviewSection reviews={reviews} currentPage={reviewPage} onPageChange={setReviewPage} />
+        </div>
+      </section>
     </main>
   );
 };

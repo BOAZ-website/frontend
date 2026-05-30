@@ -42,7 +42,6 @@ const BannerSlider = () => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.track} style={{ transform: `translateY(-${current * 33}rem)` }}>
-        {' '}
         {BANNERS.map((src, i) => (
           <div key={i} className={styles.slide}>
             <img src={src} alt={`배너 ${i + 1}`} className={styles.image} />

@@ -10,9 +10,15 @@ interface PaginationProps {
   currentPage: number;
   totalPages: number;
   onPageChange: (page: number) => void;
+  maxDots?: number;
 }
 
-const Pagination = ({ currentPage, totalPages, onPageChange }: PaginationProps) => {
+const Pagination = ({
+  currentPage,
+  totalPages,
+  onPageChange,
+  maxDots = MAX_DOTS,
+}: PaginationProps) => {
   const { hasPrevious, hasNext, goPrevPage, goNextPage, goToPage } = usePagination({
     currentPage,
     totalPages,
@@ -23,9 +29,9 @@ const Pagination = ({ currentPage, totalPages, onPageChange }: PaginationProps) 
     return null;
   }
 
-  const half = Math.floor(MAX_DOTS / 2);
-  const dotStart = Math.max(1, Math.min(currentPage - half, totalPages - MAX_DOTS + 1));
-  const dotEnd = Math.min(totalPages, dotStart + MAX_DOTS - 1);
+  const half = Math.floor(maxDots / 2);
+  const dotStart = Math.max(1, Math.min(currentPage - half, totalPages - maxDots + 1));
+  const dotEnd = Math.min(totalPages, dotStart + maxDots - 1);
   const dotPages = Array.from({ length: dotEnd - dotStart + 1 }, (_, i) => dotStart + i);
 
   return (
@@ -37,7 +43,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }: PaginationProps) 
         className={styles.arrowButton}
         aria-label="이전 페이지"
       >
-        <IconChevronLeft width={35} height={35} />
+        <IconChevronLeft className={styles.arrowIcon} />
       </button>
 
       <div className={styles.dotContainer}>
@@ -65,7 +71,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }: PaginationProps) 
         className={styles.arrowButton}
         aria-label="다음 페이지"
       >
-        <IconChevronRight width={35} height={35} />
+        <IconChevronRight className={styles.arrowIcon} />
       </button>
     </nav>
   );

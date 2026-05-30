@@ -1,14 +1,22 @@
 import { style } from '@vanilla-extract/css';
 
+import { media } from '@/shared/styles/breakpoints';
+
 import { themeVars } from '@/shared/styles/theme.css';
 import { typography } from '@/shared/styles/typography.css';
 
 export const wrapper = style({
+  justifyContent: 'center',
   display: 'grid',
   gridTemplateColumns: '1fr 1px 1fr',
   gridTemplateRows: 'auto auto',
   width: '100%',
   marginBottom: '8.7rem',
+  '@media': {
+    [media.mobile]: {
+      marginBottom: '1.6rem',
+    },
+  },
 });
 
 export const baseLabel = style({
@@ -18,6 +26,12 @@ export const baseLabel = style({
   justifyContent: 'flex-end',
   alignItems: 'flex-start',
   paddingRight: '5rem',
+  textAlign: 'right',
+  '@media': {
+    [media.mobile]: {
+      paddingRight: '1.15rem',
+    },
+  },
 });
 
 export const baseStepList = style({
@@ -28,13 +42,24 @@ export const baseStepList = style({
   gap: '5.5rem',
   paddingLeft: '5rem',
   paddingBottom: '10rem',
+  '@media': {
+    [media.mobile]: {
+      paddingLeft: '1.15rem',
+      paddingBottom: '4.4rem',
+      gap: '2.4rem',
+    },
+  },
 });
 
 export const divider = style({
   gridColumn: '2',
   gridRow: '1 / 3',
-  backgroundColor: themeVars.color.grayscale[600],
   width: '1px',
+  background: `linear-gradient(to top, ${themeVars.color.grayscale.white}, transparent)`,
+  maskImage:
+    'repeating-linear-gradient(to top, black 0px, black 4px, transparent 4px, transparent 8px)',
+  WebkitMaskImage:
+    'repeating-linear-gradient(to top, black 0px, black 4px, transparent 4px, transparent 8px)',
 });
 
 export const semesterStepList = style({
@@ -45,6 +70,12 @@ export const semesterStepList = style({
   gap: '5.5rem',
   alignItems: 'flex-end',
   paddingRight: '5rem',
+  '@media': {
+    [media.mobile]: {
+      paddingRight: '1.15rem',
+      gap: '2.4rem',
+    },
+  },
 });
 
 export const semesterLabel = style({
@@ -54,6 +85,11 @@ export const semesterLabel = style({
   justifyContent: 'flex-start',
   alignItems: 'flex-start',
   paddingLeft: '5rem',
+  '@media': {
+    [media.mobile]: {
+      paddingLeft: '1.15rem',
+    },
+  },
 });
 
 export const sessionLabelText = style({
@@ -61,6 +97,12 @@ export const sessionLabelText = style({
   color: themeVars.color.grayscale.white,
   lineHeight: '1.5',
   whiteSpace: 'nowrap',
+  '@media': {
+    [media.mobile]: {
+      ...typography.h5_bd_16,
+      lineHeight: '1.4',
+    },
+  },
 });
 
 export const stepList = style({

@@ -26,6 +26,7 @@ export const titleContainer = style({
 export const sectionTitle = style({
   color: themeVars.color.grayscale.white,
   ...typography.h2_bd_30,
+  lineHeight: '1.3',
 });
 
 export const sectionDescription = style({
@@ -38,35 +39,22 @@ export const sectionExperienceTitle = style({
   ...typography.h3_sb_30,
 });
 
-export const footer = style({
+export const tableSection = style({
   display: 'flex',
   flexDirection: 'column',
-  alignItems: 'flex-start',
-  gap: '12rem',
+  gap: '8rem',
+});
+
+export const stackQuestion = style({
+  color: themeVars.color.primary[100],
   ...typography.h4_bd_24,
 });
 
-export const footerNav = style({
+export const radioButton = style({
   display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  marginTop: '4rem',
-  ...typography.h4_bd_24,
-});
-
-export const navButton = style({
-  display: 'flex',
-  alignItems: 'center',
-  gap: '0.8rem',
-  cursor: 'pointer',
-  color: themeVars.color.grayscale.white,
-  transition: 'opacity 0.2s ease',
-
-  selectors: {
-    '&:hover': {
-      opacity: 0.7,
-    },
-  },
+  flexDirection: 'column',
+  gap: '2rem',
+  marginTop: '0.8rem',
 });
 
 export const addProject = style({
@@ -83,26 +71,39 @@ export const addProject = style({
   },
 });
 
-export const stackQuestion = style({
-  color: themeVars.color.primary[100],
-  ...typography.h4_bd_24,
-});
-
-export const radioButton = style({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '2rem',
-  marginTop: '0.8rem',
-});
-
 export const errorText = style({
   color: themeVars.color.error.red_100,
   ...typography.text_rg_14,
   textAlign: 'center',
 });
 
-export const tableSection = style({
+export const footerNav = style({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  marginTop: '4rem',
+  ...typography.h4_bd_24,
+});
+
+export const footerSubmit = style({
   display: 'flex',
   flexDirection: 'column',
-  gap: '8rem',
+  alignItems: 'flex-start',
+  gap: '12rem',
+  ...typography.h4_bd_24,
+});
+
+export const navButton = style({
+  display: 'flex',
+  alignItems: 'center',
+  gap: '0.8rem',
+  cursor: 'pointer',
+  color: themeVars.color.grayscale.white,
+  transition: 'opacity 0.2s ease',
+
+  selectors: {
+    '&:hover': {
+      opacity: 0.7,
+    },
+  },
 });

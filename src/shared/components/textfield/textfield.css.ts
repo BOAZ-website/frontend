@@ -27,7 +27,7 @@ export const textFieldRecipe = recipe({
     error: {
       true: {
         borderColor: themeVars.color.error.red_100,
-
+        backgroundColor: `color-mix(in srgb, ${themeVars.color.error.red_100} 10%, transparent)`,
         ':focus': {
           borderColor: themeVars.color.error.red_100,
         },

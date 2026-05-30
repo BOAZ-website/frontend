@@ -7,6 +7,8 @@ import type {
   DraftRequest,
   MyApplicationResponse,
   QuestionResponse,
+  SubscriptionRequest,
+  SubscriptionResponse,
 } from '@/shared/api/types';
 
 export const getDeadline = async (): Promise<DeadlineResponse> =>
@@ -32,6 +34,9 @@ export const getMyApplication = async (recruitmentId: number): Promise<MyApplica
   get<MyApplicationResponse>(
     END_POINT.RECRUITMENT.GET_MY_APPLICATION.replace('{recruitmentId}', String(recruitmentId))
   );
+
+export const postSubscription = async (data: SubscriptionRequest): Promise<SubscriptionResponse> =>
+  post<SubscriptionResponse>(END_POINT.RECRUITMENT.POST_SUBSCRIPTION, data);
 
 export const saveDraftApi = async (
   recruitmentId: number,
