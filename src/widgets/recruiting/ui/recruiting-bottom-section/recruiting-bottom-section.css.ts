@@ -1,5 +1,7 @@
 import { style } from '@vanilla-extract/css';
 
+import { media } from '@/shared/styles/breakpoints';
+
 import { themeVars } from '@/shared/styles/theme.css';
 import { typography } from '@/shared/styles/typography.css';
 
@@ -9,6 +11,11 @@ export const container = style({
   alignItems: 'center',
   gap: '12.5rem',
   width: '100%',
+  '@media': {
+    [media.mobile]: {
+      gap: '4rem',
+    },
+  },
 });
 
 export const dividerRow = style({
@@ -16,11 +23,23 @@ export const dividerRow = style({
   alignItems: 'center',
   gap: '10.5rem',
   width: '90%',
+  '@media': {
+    [media.mobile]: {
+      gap: '2rem',
+      width: '100%',
+      padding: '0 2rem',
+    },
+  },
 });
 
 export const dividerText = style({
-  flexShrink: 0,
   ...typography.h2_bd_30,
+  '@media': {
+    [media.mobile]: {
+      ...typography.h5_sm_18,
+      textAlign: 'center',
+    },
+  },
 });
 
 const lineBase = {
@@ -41,4 +60,11 @@ export const dividerLineRight = style({
 export const buttonGroup = style({
   display: 'flex',
   gap: '8rem',
+  '@media': {
+    [media.mobile]: {
+      gap: '2rem',
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+  },
 });

@@ -135,5 +135,27 @@ export const button = recipe({
         },
       },
     },
+    {
+      variants: { variant: 'medium-round', responsive: true },
+      style: {
+        '@media': {
+          [media.mobile]: {
+            ...typography.body6_rg_10,
+            padding: '0.8rem 1.6rem',
+          },
+        },
+      },
+    },
+    {
+      variants: { variant: 'small-round', responsive: true },
+      style: {
+        '@media': {
+          [media.mobile]: {
+            ...typography.h5_bd_16,
+            padding: '0.9rem 2.9rem',
+          },
+        },
+      },
+    },
   ],
 });

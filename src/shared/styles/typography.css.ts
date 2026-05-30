@@ -54,6 +54,18 @@ export const typography = {
     lineHeight: themeVars.lineHeight.tight,
     letterSpacing: themeVars.letterSpacing.normal,
   },
+  h5_sm_18: {
+    fontSize: themeVars.fontSize[18],
+    fontWeight: themeVars.fontWeight.semibold,
+    lineHeight: themeVars.lineHeight.tight,
+    letterSpacing: themeVars.letterSpacing.normal,
+  },
+  h5_sm_16: {
+    fontSize: themeVars.fontSize[16],
+    fontWeight: themeVars.fontWeight.semibold,
+    lineHeight: themeVars.lineHeight.tight,
+    letterSpacing: themeVars.letterSpacing.normal,
+  },
   h5_bd_16: {
     fontSize: themeVars.fontSize[16],
     fontWeight: themeVars.fontWeight.bold,

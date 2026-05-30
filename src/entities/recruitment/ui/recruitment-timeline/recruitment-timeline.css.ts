@@ -1,5 +1,7 @@
 import { style } from '@vanilla-extract/css';
 
+import { media } from '@/shared/styles/breakpoints';
+
 import { themeVars } from '@/shared/styles/theme.css';
 
 export const wrapper = style({
@@ -31,6 +33,16 @@ export const wrapper = style({
     '--date-label-mb': '4.3rem', // dateLabel marginBottom
     '--dot-half': '2rem', // dot height(4rem) / 2
   },
+  '@media': {
+    [media.mobile]: {
+      padding: '0 2rem',
+      vars: {
+        '--date-label-height': '1rem',
+        '--date-label-mb': '2rem',
+        '--dot-half': '0.8rem',
+      },
+    },
+  },
 });
 
 export const track = style({
@@ -41,5 +53,11 @@ export const track = style({
 
   '::-webkit-scrollbar': {
     display: 'none',
+  },
+
+  '@media': {
+    [media.mobile]: {
+      gap: '1.2rem',
+    },
   },
 });

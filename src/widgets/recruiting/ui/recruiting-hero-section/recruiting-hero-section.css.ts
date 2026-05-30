@@ -1,5 +1,7 @@
 import { style } from '@vanilla-extract/css';
 
+import { media } from '@/shared/styles/breakpoints';
+
 import { themeVars } from '@/shared/styles/theme.css';
 import { typography } from '@/shared/styles/typography.css';
 
@@ -13,11 +15,23 @@ export const container = style({
 export const subTitle = style({
   ...typography.h3_sb_30,
   marginBottom: '2.5rem',
+  '@media': {
+    [media.mobile]: {
+      ...typography.body6_rg_10,
+      marginBottom: '1rem',
+    },
+  },
 });
 
 export const title = style({
   ...typography.display1_bd_80,
   marginBottom: '5rem',
+  '@media': {
+    [media.mobile]: {
+      ...typography.h4_bd_24,
+      marginBottom: '2rem',
+    },
+  },
 });
 
 export const emphasis = style({
@@ -27,4 +41,9 @@ export const emphasis = style({
 
 export const description = style({
   ...typography.h1_md_40,
+  '@media': {
+    [media.mobile]: {
+      ...typography.body5_rg_16,
+    },
+  },
 });
