@@ -1,5 +1,7 @@
 import { style } from '@vanilla-extract/css';
 
+import { media } from '@/shared/styles/breakpoints';
+
 import { themeVars } from '@/shared/styles/theme.css';
 import { typography } from '@/shared/styles/typography.css';
 
@@ -23,6 +25,13 @@ export const cardContainer = style({
       backgroundColor: themeVars.color.grayscale[800],
     },
   },
+
+  '@media': {
+    [media.mobile]: {
+      width: '28rem',
+      padding: '2.8rem 3.2rem 0 2rem',
+    },
+  },
 });
 
 export const cardTitle = style({
@@ -35,6 +44,13 @@ export const cardTitle = style({
   selectors: {
     [`${cardContainer}:hover &`]: {
       color: themeVars.color.grayscale.white,
+    },
+  },
+
+  '@media': {
+    [media.mobile]: {
+      ...typography.body2_bd_20,
+      marginBottom: '2rem',
     },
   },
 });
@@ -52,6 +68,13 @@ export const cardDesc = style({
       opacity: 1,
     },
   },
+
+  '@media': {
+    [media.mobile]: {
+      ...typography.body5_rg_16,
+      lineHeight: '1.4',
+    },
+  },
 });
 
 export const cardIcon = style({
@@ -59,6 +82,12 @@ export const cardIcon = style({
   right: '-4.6em',
   bottom: '-2.7rem',
   zIndex: themeVars.zIndex.icon,
+  '@media': {
+    [media.mobile]: {
+      right: '-4.6rem',
+      bottom: '-2rem',
+    },
+  },
 });
 
 export const cardButtonWrapper = style({
@@ -66,4 +95,10 @@ export const cardButtonWrapper = style({
   bottom: '3rem',
   left: '2.7rem',
   zIndex: themeVars.zIndex.button,
+  '@media': {
+    [media.mobile]: {
+      bottom: '2rem',
+      left: '2rem',
+    },
+  },
 });
