@@ -76,7 +76,7 @@ const NoticeForm = () => {
           value={email}
           onChange={handleChange}
         />
-        <Button preset="medium-round_primary" disabled={isPending}>
+        <Button preset="medium-round_primary" responsive disabled={isPending}>
           {isPending ? '신청 중...' : '사전 알림 신청'}
         </Button>
       </form>
