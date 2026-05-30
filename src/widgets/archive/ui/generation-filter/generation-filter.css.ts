@@ -36,7 +36,7 @@ export const trigger = style({
 
   '@media': {
     [media.mobile]: {
-      ...typography.body5_rg_12,
+      ...typography.body6_rg_12,
       padding: '0.64rem 0.4rem 0.64rem 0.8rem',
       gap: '0.4rem',
     },
@@ -80,7 +80,7 @@ const optionBase = style({
   flexShrink: 0,
   '@media': {
     [media.mobile]: {
-      ...typography.body5_rg_12,
+      ...typography.body6_rg_12,
       padding: '0.8rem 1.2rem',
     },
   },

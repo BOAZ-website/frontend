@@ -101,7 +101,7 @@ export const date = style({
   '@media': {
     [media.mobile]: {
       marginTop: 0,
-      ...typography.body5_rg_12,
+      ...typography.body6_rg_12,
       order: 2,
       flex: 1,
     },

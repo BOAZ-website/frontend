@@ -93,7 +93,7 @@ export const date = style({
   ...typography.text_rg_14,
   '@media': {
     [media.mobile]: {
-      ...typography.body5_rg_12,
+      ...typography.body6_rg_12,
     },
   },
 });

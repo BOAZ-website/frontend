@@ -18,7 +18,7 @@ export const tag = style({
   border: `1px solid ${themeVars.color.grayscale[400]}`,
   '@media': {
     [media.mobile]: {
-      ...typography.body5_rg_12,
+      ...typography.body6_rg_12,
       padding: '0.3rem 0.8rem',
     },
   },
