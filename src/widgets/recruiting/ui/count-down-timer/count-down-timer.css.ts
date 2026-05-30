@@ -34,7 +34,7 @@ export const label = style({
   color: themeVars.color.primary[200],
   '@media': {
     [media.mobile]: {
-      ...typography.body5_rg_12,
+      ...typography.body6_rg_12,
     },
   },
 });

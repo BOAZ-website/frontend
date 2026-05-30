@@ -15,7 +15,7 @@ const SearchOverlay = ({ value, onChange, placeholder = '검색' }: SearchOverla
 
   return (
     <div className={styles.container} onClick={() => inputRef.current?.focus()}>
-      <SearchIcon width={28} height={28} />
+      <SearchIcon className={styles.icon} />
       <input
         ref={inputRef}
         type="text"
