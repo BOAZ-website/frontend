@@ -1,5 +1,7 @@
 import { style } from '@vanilla-extract/css';
 
+import { media } from '@/shared/styles/breakpoints';
+
 import { themeVars } from '@/shared/styles/theme.css';
 import { typography } from '@/shared/styles/typography.css';
 
@@ -14,4 +16,10 @@ export const tag = style({
   color: themeVars.color.grayscale[100],
   backgroundColor: 'transparent',
   border: `1px solid ${themeVars.color.grayscale[400]}`,
+  '@media': {
+    [media.mobile]: {
+      ...typography.body5_rg_12,
+      padding: '0.3rem 0.8rem',
+    },
+  },
 });

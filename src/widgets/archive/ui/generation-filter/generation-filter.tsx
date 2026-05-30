@@ -38,7 +38,7 @@ const GenerationFilterOverlay = ({ value, onChange, options }: GenerationFilterO
       <div className={styles.container} ref={ref}>
         <button type="button" className={styles.trigger} onClick={() => setIsOpen(!isOpen)}>
           <span>{selectedLabel}</span>
-          <ChevronDownIcon width={16} height={16} />
+          <ChevronDownIcon className={styles.chevronIcon} />
         </button>
 
         {isOpen && (

@@ -104,6 +104,12 @@ export const typography = {
     lineHeight: themeVars.lineHeight.tight,
     letterSpacing: themeVars.letterSpacing.normal,
   },
+  body5_rg_12: {
+    fontSize: themeVars.fontSize[12],
+    fontWeight: themeVars.fontWeight.regular,
+    lineHeight: themeVars.lineHeight.tight,
+    letterSpacing: themeVars.letterSpacing.normal,
+  },
   body5_rg_16: {
     fontSize: themeVars.fontSize[16],
     fontWeight: themeVars.fontWeight.regular,
