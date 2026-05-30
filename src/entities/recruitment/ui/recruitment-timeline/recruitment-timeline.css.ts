@@ -29,17 +29,15 @@ export const wrapper = style({
   },
 
   vars: {
-    '--date-label-height': '2.4rem', // body1_rg_24 line-height
-    '--date-label-mb': '4.3rem', // dateLabel marginBottom
-    '--dot-half': '2rem', // dot height(4rem) / 2
+    '--date-label-height': '2.1rem',
+    '--date-label-mb': '4.3rem',
+    '--dot-half': '2rem',
   },
   '@media': {
     [media.mobile]: {
       padding: '0 2rem',
-      vars: {
-        '--date-label-height': '1rem',
-        '--date-label-mb': '2rem',
-        '--dot-half': '0.8rem',
+      '::before': {
+        display: 'none',
       },
     },
   },
@@ -57,7 +55,27 @@ export const track = style({
 
   '@media': {
     [media.mobile]: {
-      gap: '1.2rem',
+      flexDirection: 'column',
+      gap: '9rem',
+      overflowX: 'visible',
+      position: 'relative',
+
+      '::before': {
+        content: '""',
+        position: 'absolute',
+        left: '3rem',
+        top: '2.5rem',
+        bottom: '2.5rem',
+        width: '0.2rem',
+        background: `linear-gradient(
+          to bottom,
+          transparent 0%,
+          ${themeVars.color.grayscale[100]} 10%,
+          ${themeVars.color.grayscale[100]} 90%,
+          transparent 100%
+        )`,
+        zIndex: 0,
+      },
     },
   },
 });

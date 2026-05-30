@@ -25,9 +25,7 @@ export const dividerRow = style({
   width: '90%',
   '@media': {
     [media.mobile]: {
-      gap: '2rem',
-      width: '100%',
-      padding: '0 2rem',
+      gap: '1rem',
     },
   },
 });

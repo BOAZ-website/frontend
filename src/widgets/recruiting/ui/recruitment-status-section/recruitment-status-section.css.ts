@@ -20,7 +20,7 @@ export const recruitDate = style({
   ...typography.display2_bd_72,
   '@media': {
     [media.mobile]: {
-      ...typography.h4_bd_24,
+      ...typography.h1_bd_36,
     },
   },
 });

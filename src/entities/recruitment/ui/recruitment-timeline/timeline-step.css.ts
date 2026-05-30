@@ -12,6 +12,13 @@ export const nodeWrapper = style({
   width: '100%',
   position: 'relative',
   zIndex: 1,
+  '@media': {
+    [media.mobile]: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: '1.6rem',
+    },
+  },
 });
 
 export const dateLabel = style({
@@ -23,8 +30,9 @@ export const dateLabel = style({
   marginBottom: '4.3rem',
   '@media': {
     [media.mobile]: {
-      ...typography.body6_rg_10,
-      marginBottom: '2rem',
+      ...typography.body4_rg_18,
+      marginBottom: 0,
+      order: 2,
     },
   },
 });
@@ -36,7 +44,12 @@ export const dotContainer = style({
   marginBottom: '5.2rem',
   '@media': {
     [media.mobile]: {
-      marginBottom: '2.4rem',
+      width: 'auto',
+      marginBottom: 0,
+      flexShrink: 0,
+      order: 1,
+      zIndex: 1,
+      marginLeft: '2.1rem',
     },
   },
 });
@@ -52,9 +65,9 @@ export const timelineDot = style({
   flexShrink: 0,
   '@media': {
     [media.mobile]: {
-      width: '1.6rem',
-      height: '1.6rem',
-      boxShadow: `0 0 0 4px ${themeVars.color.grayscale.black}`,
+      width: '2rem',
+      height: '2rem',
+      boxShadow: `0 0 0 8px ${themeVars.color.grayscale.black}`,
     },
   },
 });
@@ -71,10 +84,13 @@ export const stepLabel = style({
   textAlign: 'center',
   '@media': {
     [media.mobile]: {
-      ...typography.body6_rg_10,
-      padding: '0.8rem 0',
+      ...typography.body4_rg_18,
+      padding: '0.95rem 2.5rem',
+      minWidth: '11rem',
       borderRadius: '6px',
-      maxWidth: '8rem',
+      width: 'auto',
+      marginLeft: 'auto',
+      order: 3,
     },
   },
 });

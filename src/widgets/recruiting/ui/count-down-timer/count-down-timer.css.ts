@@ -34,7 +34,7 @@ export const label = style({
   color: themeVars.color.primary[200],
   '@media': {
     [media.mobile]: {
-      ...typography.body6_rg_10,
+      ...typography.body5_rg_12,
     },
   },
 });
@@ -43,7 +43,7 @@ export const value = style({
   ...typography.display2_bd_72,
   '@media': {
     [media.mobile]: {
-      ...typography.h4_bd_24,
+      ...typography.h2_bd_30,
     },
   },
 });
@@ -53,7 +53,7 @@ export const separator = style({
   alignSelf: 'center',
   '@media': {
     [media.mobile]: {
-      ...typography.h4_bd_24,
+      ...typography.h2_bd_30,
     },
   },
 });

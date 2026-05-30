@@ -17,8 +17,8 @@ export const subTitle = style({
   marginBottom: '2.5rem',
   '@media': {
     [media.mobile]: {
-      ...typography.body6_rg_10,
-      marginBottom: '1rem',
+      ...typography.body2_bd_20,
+      marginBottom: '2rem',
     },
   },
 });
@@ -28,8 +28,8 @@ export const title = style({
   marginBottom: '5rem',
   '@media': {
     [media.mobile]: {
-      ...typography.h4_bd_24,
-      marginBottom: '2rem',
+      ...typography.h1_bd_36,
+      marginBottom: '2.8rem',
     },
   },
 });
@@ -43,7 +43,7 @@ export const description = style({
   ...typography.h1_md_40,
   '@media': {
     [media.mobile]: {
-      ...typography.body5_rg_16,
+      ...typography.h4_bd_24,
     },
   },
 });
