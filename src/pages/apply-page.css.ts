@@ -1,7 +1,8 @@
 import { style } from '@vanilla-extract/css';
 
+import { media } from '@/shared/styles/breakpoints';
+
 export const container = style({
-  //maxWidth: '120rem',
   maxWidth: '800px',
   margin: '0 auto',
   padding: '0 2rem',
@@ -27,4 +28,10 @@ export const containerAgreement = style({
   display: 'flex',
   alignItems: 'center',
   flexDirection: 'column',
+  '@media': {
+    [media.mobile]: {
+      paddingTop: '8rem',
+      paddingBottom: '8rem',
+    },
+  },
 });
