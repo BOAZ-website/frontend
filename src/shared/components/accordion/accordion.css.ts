@@ -2,6 +2,7 @@ import { style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 
 import { ACCORDION_DURATION_MS } from '@/shared/hooks/use-accordion';
+import { media } from '@/shared/styles/breakpoints';
 
 import { themeVars } from '@/shared/styles/theme.css';
 import { typography } from '@/shared/styles/typography.css';
@@ -19,6 +20,11 @@ export const questionStyle = style({
   alignItems: 'center',
   padding: '3.9rem 2.4rem 3.9rem 0',
   color: themeVars.color.grayscale.white,
+  '@media': {
+    [media.mobile]: {
+      padding: '2.5rem 0',
+    },
+  },
 });
 
 export const questionText = recipe({
@@ -26,6 +32,13 @@ export const questionText = recipe({
     ...typography.body3_bd_18,
     color: themeVars.color.grayscale.white,
     transition: `color ${TRANSITION}`,
+    '@media': {
+      [media.mobile]: {
+        ...typography.body5_rg_16,
+        alignSelf: 'flex-start',
+        textAlign: 'left',
+      },
+    },
   },
   variants: {
     open: {
@@ -59,4 +72,11 @@ export const answerContent = style({
   color: themeVars.color.grayscale.white,
   padding: '3.5rem 0 3.5rem 2.4rem',
   lineHeight: '1.6',
+  '@media': {
+    [media.mobile]: {
+      ...typography.body5_rg_16,
+      lineHeight: '1.2',
+      padding: '3.3rem 0',
+    },
+  },
 });
