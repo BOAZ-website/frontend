@@ -117,7 +117,7 @@ export const drawer = style({
   backgroundColor: themeVars.color.grayscale[900],
   display: 'flex',
   flexDirection: 'column',
-  padding: '2rem 2.4rem',
+  padding: '2rem 1rem 2rem 2rem',
   overflowY: 'auto',
 });
 

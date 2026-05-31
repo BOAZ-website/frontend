@@ -1,5 +1,7 @@
 import { style } from '@vanilla-extract/css';
 
+import { media } from '@/shared/styles/breakpoints';
+
 import { themeVars } from '@/shared/styles/theme.css';
 import { typography } from '@/shared/styles/typography.css';
 
@@ -10,6 +12,13 @@ export const nodeWrapper = style({
   width: '100%',
   position: 'relative',
   zIndex: 1,
+  '@media': {
+    [media.mobile]: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: '1.6rem',
+    },
+  },
 });
 
 export const dateLabel = style({
@@ -19,6 +28,13 @@ export const dateLabel = style({
   display: 'flex',
   alignItems: 'center',
   marginBottom: '4.3rem',
+  '@media': {
+    [media.mobile]: {
+      ...typography.body4_rg_18,
+      marginBottom: 0,
+      order: 2,
+    },
+  },
 });
 
 export const dotContainer = style({
@@ -26,6 +42,16 @@ export const dotContainer = style({
   justifyContent: 'center',
   width: '100%',
   marginBottom: '5.2rem',
+  '@media': {
+    [media.mobile]: {
+      width: 'auto',
+      marginBottom: 0,
+      flexShrink: 0,
+      order: 1,
+      zIndex: 1,
+      marginLeft: '2.1rem',
+    },
+  },
 });
 
 export const timelineDot = style({
@@ -37,6 +63,13 @@ export const timelineDot = style({
   position: 'relative',
   zIndex: 2,
   flexShrink: 0,
+  '@media': {
+    [media.mobile]: {
+      width: '2rem',
+      height: '2rem',
+      boxShadow: `0 0 0 8px ${themeVars.color.grayscale.black}`,
+    },
+  },
 });
 
 export const stepLabel = style({
@@ -49,4 +82,15 @@ export const stepLabel = style({
   ...typography.body1_rg_24,
   whiteSpace: 'nowrap',
   textAlign: 'center',
+  '@media': {
+    [media.mobile]: {
+      ...typography.body4_rg_18,
+      padding: '0.95rem 2.5rem',
+      minWidth: '11rem',
+      borderRadius: '6px',
+      width: 'auto',
+      marginLeft: 'auto',
+      order: 3,
+    },
+  },
 });

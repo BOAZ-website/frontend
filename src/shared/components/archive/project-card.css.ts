@@ -1,5 +1,7 @@
 import { style } from '@vanilla-extract/css';
 
+import { media } from '@/shared/styles/breakpoints';
+
 import { themeVars } from '@/shared/styles/theme.css';
 import { typography } from '@/shared/styles/typography.css';
 
@@ -22,10 +24,17 @@ export const cardContainer = style({
       outline: `1px solid #2C3F61`,
       outlineOffset: '-2px',
       background: `
-  linear-gradient(180deg, rgba(104, 203, 236, 0.00) 0%, rgba(104, 203, 236, 0.20) 100%), 
-  linear-gradient(180deg, rgba(122, 100, 249, 0.20) 0%, rgba(122, 100, 249, 0.00) 100%), 
+  linear-gradient(180deg, rgba(104, 203, 236, 0.00) 0%, rgba(104, 203, 236, 0.20) 100%),
+  linear-gradient(180deg, rgba(122, 100, 249, 0.20) 0%, rgba(122, 100, 249, 0.00) 100%),
   ${themeVars.color.grayscale[950]}
 `,
+    },
+  },
+
+  '@media': {
+    [media.mobile]: {
+      width: '100%',
+      height: 'auto',
     },
   },
 });
@@ -37,6 +46,12 @@ export const imageSection = style({
   backgroundColor: themeVars.color.grayscale.white,
   overflow: 'hidden',
   flexShrink: 0,
+  '@media': {
+    [media.mobile]: {
+      height: '14rem',
+      borderRadius: '10px',
+    },
+  },
 });
 
 export const cardImage = style({
@@ -50,12 +65,23 @@ export const contentSection = style({
   flexDirection: 'column',
   flex: 1,
   paddingTop: '1.6rem',
+  '@media': {
+    [media.mobile]: {
+      paddingTop: '2rem',
+    },
+  },
 });
 
 export const subTitle = style({
   color: themeVars.color.grayscale[100],
   ...typography.body4_rg_18,
   marginBottom: '0.4rem',
+  '@media': {
+    [media.mobile]: {
+      ...typography.text_rg_14,
+      marginBottom: '0.4rem',
+    },
+  },
 });
 
 export const title = style({
@@ -68,6 +94,13 @@ export const title = style({
   WebkitLineClamp: 2,
   WebkitBoxOrient: 'vertical',
   marginBottom: '1rem',
+  '@media': {
+    [media.mobile]: {
+      ...typography.body4_rg_18,
+      height: 'auto',
+      marginBottom: '3.2rem',
+    },
+  },
 });
 
 export const bottomInfo = style({

@@ -6,6 +6,7 @@ import EngineeringIcon from '@/shared/assets/icons/ic_engineering.svg?react';
 import ChevronUpIcon from '@/shared/assets/icons/ic_expand_more.svg?react';
 import ChevronDownIcon from '@/shared/assets/icons/ic_keyboard_arrow_up.svg?react';
 import VisualizationIcon from '@/shared/assets/icons/ic_visualization.svg?react';
+import useIsMobile from '@/shared/hooks/use-is-mobile';
 
 import * as styles from './track-filter.css';
 
@@ -27,6 +28,8 @@ interface TrackFilterOverlayProps {
 const TrackFilterOverlay = ({ value, onChange }: TrackFilterOverlayProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+  const isMobile = useIsMobile();
+  const iconSize = isMobile ? 16 : 28;
 
   const selectedOption = TRACK_OPTIONS.find((opt) => opt.value === value) ?? TRACK_OPTIONS[0];
 
@@ -46,13 +49,13 @@ const TrackFilterOverlay = ({ value, onChange }: TrackFilterOverlayProps) => {
       <div className={styles.container} ref={ref}>
         <button type="button" className={styles.trigger} onClick={() => setIsOpen(!isOpen)}>
           {selectedOption.Icon && (
-            <selectedOption.Icon width={28} height={28} className={styles.icon} />
+            <selectedOption.Icon width={iconSize} height={iconSize} className={styles.icon} />
           )}
-          <span>{selectedOption.label} 부문</span>
+          <span className={styles.triggerLabel}>{selectedOption.label} 부문</span>
           {isOpen ? (
-            <ChevronDownIcon width={16} height={16} />
+            <ChevronDownIcon className={styles.chevronIcon} />
           ) : (
-            <ChevronUpIcon width={16} height={16} />
+            <ChevronUpIcon className={styles.chevronIcon} />
           )}
         </button>
 
@@ -68,7 +71,9 @@ const TrackFilterOverlay = ({ value, onChange }: TrackFilterOverlayProps) => {
                   setIsOpen(false);
                 }}
               >
-                {opt.Icon ? <opt.Icon width={28} height={28} className={styles.icon} /> : null}
+                {opt.Icon ? (
+                  <opt.Icon width={iconSize} height={iconSize} className={styles.icon} />
+                ) : null}
                 {opt.label}
               </button>
             ))}

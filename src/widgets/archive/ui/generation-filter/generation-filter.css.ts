@@ -1,5 +1,7 @@
 import { style, styleVariants } from '@vanilla-extract/css';
 
+import { media } from '@/shared/styles/breakpoints';
+
 import { themeVars } from '@/shared/styles/theme.css';
 import { typography } from '@/shared/styles/typography.css';
 
@@ -31,6 +33,14 @@ export const trigger = style({
   ':hover': {
     backgroundColor: themeVars.color.grayscale[800],
   },
+
+  '@media': {
+    [media.mobile]: {
+      ...typography.body6_rg_12,
+      padding: '0.64rem 0.4rem 0.64rem 0.8rem',
+      gap: '0.4rem',
+    },
+  },
 });
 
 export const overlay = style({
@@ -52,6 +62,11 @@ export const overlay = style({
     backgroundColor: themeVars.color.grayscale[600],
     borderRadius: '20px',
   },
+  '@media': {
+    [media.mobile]: {
+      top: 'calc(100% + 1rem)',
+    },
+  },
 });
 
 const optionBase = style({
@@ -63,6 +78,18 @@ const optionBase = style({
   transition: 'background-color 0.15s ease',
   whiteSpace: 'nowrap',
   flexShrink: 0,
+  '@media': {
+    [media.mobile]: {
+      ...typography.body6_rg_12,
+      padding: '0.8rem 1.2rem',
+    },
+  },
+});
+
+export const chevronIcon = style({
+  flexShrink: 0,
+  width: '1.6rem',
+  height: '1.6rem',
 });
 
 export const option = styleVariants({

@@ -1,5 +1,7 @@
 import { style, styleVariants } from '@vanilla-extract/css';
 
+import { media } from '@/shared/styles/breakpoints';
+
 import { themeVars } from '@/shared/styles/theme.css';
 import { typography } from '@/shared/styles/typography.css';
 
@@ -7,7 +9,6 @@ export const page = style({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  backgroundColor: themeVars.color.grayscale.black,
   minHeight: '100vh',
 });
 
@@ -18,12 +19,26 @@ export const section = style({
   display: 'flex',
   flexDirection: 'column',
   gap: '3.2rem',
+  '@media': {
+    [media.mobile]: {
+      padding: '2rem 2.5rem 10rem',
+      gap: '2rem',
+      alignContent: 'center',
+      justifyContent: 'center',
+    },
+  },
 });
 
 export const tabRow = style({
   display: 'flex',
   gap: '4rem',
   borderBottom: `1px solid ${themeVars.color.grayscale[800]}`,
+  '@media': {
+    [media.mobile]: {
+      display: 'grid',
+      gridTemplateColumns: 'repeat(3, 1fr)',
+    },
+  },
 });
 
 const tabBase = style({
@@ -45,6 +60,12 @@ export const tab = styleVariants({
       ':hover': {
         color: themeVars.color.grayscale.white,
       },
+      '@media': {
+        [media.mobile]: {
+          ...typography.body3_bd_18,
+          paddingBottom: '1.55rem',
+        },
+      },
     },
   ],
   active: [
@@ -53,6 +74,12 @@ export const tab = styleVariants({
       ...typography.h4_bd_24,
       color: themeVars.color.grayscale.white,
       borderBottomColor: themeVars.color.grayscale.white,
+      '@media': {
+        [media.mobile]: {
+          ...typography.body3_bd_18,
+          paddingBottom: '1.55rem',
+        },
+      },
     },
   ],
 });
@@ -61,7 +88,6 @@ export const filterBar = style({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
-  gap: '1.6rem',
   borderBottom: '1px solid',
   borderImageSource: `linear-gradient(to right, transparent, ${themeVars.color.grayscale[100]} 50%, transparent)`,
   borderImageSlice: '0 0 1 0', // top right bottom left
@@ -77,12 +103,23 @@ export const cardGrid = style({
   display: 'grid',
   gridTemplateColumns: 'repeat(3, 1fr)',
   gap: '2.4rem',
+  '@media': {
+    [media.mobile]: {
+      gridTemplateColumns: '1fr',
+      gap: '2rem',
+    },
+  },
 });
 
 export const blogGrid = style({
   display: 'flex',
   flexDirection: 'column',
   gap: '2rem',
+  '@media': {
+    [media.mobile]: {
+      gap: '2rem',
+    },
+  },
 });
 
 export const blogLink = style({
@@ -102,6 +139,12 @@ export const emptyState = style({
   padding: '10rem 0',
   color: themeVars.color.grayscale[400],
   ...typography.body4_rg_18,
+  '@media': {
+    [media.mobile]: {
+      ...typography.body6_rg_10,
+      padding: '4rem 0',
+    },
+  },
 });
 
 export const paginationWrapper = style({

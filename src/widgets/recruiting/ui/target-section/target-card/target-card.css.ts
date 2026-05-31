@@ -1,5 +1,7 @@
 import { style } from '@vanilla-extract/css';
 
+import { media } from '@/shared/styles/breakpoints';
+
 import { themeVars } from '@/shared/styles/theme.css';
 import { typography } from '@/shared/styles/typography.css';
 
@@ -14,6 +16,15 @@ export const cardContainer = style({
   backgroundColor: themeVars.color.grayscale[800],
   gap: '3rem',
   padding: '3.8rem 3rem 4.5rem',
+  '@media': {
+    [media.mobile]: {
+      height: 'auto',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      gap: '2.8rem',
+      padding: '2.8rem',
+    },
+  },
 });
 
 export const iconWrapper = style({
@@ -22,6 +33,12 @@ export const iconWrapper = style({
   display: 'flex',
   justifyContent: 'center',
   flexShrink: 0,
+  '@media': {
+    [media.mobile]: {
+      width: '8.8rem',
+      height: '8.8rem',
+    },
+  },
 });
 
 export const textWrapper = style({
@@ -32,4 +49,11 @@ export const textWrapper = style({
   whiteSpace: 'pre-wrap',
   color: themeVars.color.grayscale.white,
   ...typography.body4_rg_18_card,
+  '@media': {
+    [media.mobile]: {
+      ...typography.text_rg_14,
+      textAlign: 'center',
+      alignItems: 'center',
+    },
+  },
 });

@@ -1,5 +1,7 @@
 import { style } from '@vanilla-extract/css';
 
+import { media } from '@/shared/styles/breakpoints';
+
 import { themeVars } from '@/shared/styles/theme.css';
 import { typography } from '@/shared/styles/typography.css';
 
@@ -7,11 +9,22 @@ export const container = style({
   display: 'flex',
   flexDirection: 'column',
   gap: '1.6rem',
+  '@media': {
+    [media.mobile]: {
+      gap: '1rem',
+    },
+  },
 });
 
 export const content = style({
   ...typography.body4_rg_18,
   lineHeight: '1.8',
+  '@media': {
+    [media.mobile]: {
+      ...typography.body5_rg_16,
+      lineHeight: '1.6',
+    },
+  },
 });
 
 export const title = style({
@@ -19,6 +32,11 @@ export const title = style({
   color: themeVars.color.grayscale.white,
   borderLeft: `4px solid ${themeVars.color.primary[200]}`,
   paddingLeft: '1.6rem',
+  '@media': {
+    [media.mobile]: {
+      ...typography.h5_bd_16,
+    },
+  },
 });
 
 export const link = style({

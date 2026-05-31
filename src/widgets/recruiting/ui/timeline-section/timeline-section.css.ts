@@ -1,5 +1,7 @@
 import { style } from '@vanilla-extract/css';
 
+import { media } from '@/shared/styles/breakpoints';
+
 import { themeVars } from '@/shared/styles/theme.css';
 
 export const container = style({
@@ -10,4 +12,9 @@ export const container = style({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
+  '@media': {
+    [media.mobile]: {
+      paddingTop: '6rem',
+    },
+  },
 });

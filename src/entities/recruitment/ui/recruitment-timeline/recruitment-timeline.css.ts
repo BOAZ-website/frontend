@@ -1,5 +1,7 @@
 import { style } from '@vanilla-extract/css';
 
+import { media } from '@/shared/styles/breakpoints';
+
 import { themeVars } from '@/shared/styles/theme.css';
 
 export const wrapper = style({
@@ -27,9 +29,17 @@ export const wrapper = style({
   },
 
   vars: {
-    '--date-label-height': '2.4rem', // body1_rg_24 line-height
-    '--date-label-mb': '4.3rem', // dateLabel marginBottom
-    '--dot-half': '2rem', // dot height(4rem) / 2
+    '--date-label-height': '2.1rem',
+    '--date-label-mb': '4.3rem',
+    '--dot-half': '2rem',
+  },
+  '@media': {
+    [media.mobile]: {
+      padding: '0 2rem',
+      '::before': {
+        display: 'none',
+      },
+    },
   },
 });
 
@@ -41,5 +51,31 @@ export const track = style({
 
   '::-webkit-scrollbar': {
     display: 'none',
+  },
+
+  '@media': {
+    [media.mobile]: {
+      flexDirection: 'column',
+      gap: '9rem',
+      overflowX: 'visible',
+      position: 'relative',
+
+      '::before': {
+        content: '""',
+        position: 'absolute',
+        left: '3rem',
+        top: '2.5rem',
+        bottom: '2.5rem',
+        width: '0.2rem',
+        background: `linear-gradient(
+          to bottom,
+          transparent 0%,
+          ${themeVars.color.grayscale[100]} 10%,
+          ${themeVars.color.grayscale[100]} 90%,
+          transparent 100%
+        )`,
+        zIndex: 0,
+      },
+    },
   },
 });
