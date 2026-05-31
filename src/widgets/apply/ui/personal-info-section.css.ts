@@ -1,5 +1,7 @@
 import { style } from '@vanilla-extract/css';
 
+import { media } from '@/shared/styles/breakpoints';
+
 import { themeVars } from '@/shared/styles/theme.css';
 import { typography } from '@/shared/styles/typography.css';
 
@@ -9,23 +11,44 @@ export const container = style({
   gap: '10rem',
   width: '100%',
   paddingBottom: '12rem',
+  '@media': {
+    [media.mobile]: {
+      gap: '12rem',
+      paddingBottom: '0rem',
+    },
+  },
 });
 
 export const section = style({
   display: 'flex',
   flexDirection: 'column',
   gap: '3.2rem',
+  '@media': {
+    [media.mobile]: {
+      gap: '5rem',
+    },
+  },
 });
 
 export const sectionTitle = style({
   color: themeVars.color.grayscale.white,
   ...typography.h2_bd_30,
+  '@media': {
+    [media.mobile]: {
+      ...typography.h4_bd_24,
+    },
+  },
 });
 
 export const sectionDescription = style({
   color: themeVars.color.grayscale[400],
   ...typography.text_rg_14,
   marginTop: '-1.4rem',
+  '@media': {
+    [media.mobile]: {
+      marginTop: '-3.5rem',
+    },
+  },
 });
 
 export const groupContainer = style({
@@ -38,6 +61,11 @@ export const row = style({
   display: 'flex',
   gap: '2.4rem',
   width: '100%',
+  '@media': {
+    [media.mobile]: {
+      gap: '1.2rem',
+    },
+  },
 });
 
 export const radioButton = style({
@@ -45,6 +73,11 @@ export const radioButton = style({
   flexDirection: 'column',
   gap: '2rem',
   marginTop: '0.8rem',
+  '@media': {
+    [media.mobile]: {
+      gap: '1.6rem',
+    },
+  },
 });
 
 export const footer = style({
@@ -60,6 +93,12 @@ export const footer = style({
     },
     '&:active': {
       transform: 'scale(0.98)',
+    },
+  },
+
+  '@media': {
+    [media.mobile]: {
+      ...typography.body5_rg_16,
     },
   },
 });

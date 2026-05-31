@@ -1,5 +1,7 @@
 import { globalStyle, style } from '@vanilla-extract/css';
 
+import { media } from '@/shared/styles/breakpoints';
+
 import { themeVars } from '@/shared/styles/theme.css';
 import { typography } from '@/shared/styles/typography.css';
 
@@ -8,6 +10,11 @@ export const container = style({
   flexDirection: 'column',
   gap: '10rem',
   width: '100%',
+  '@media': {
+    [media.mobile]: {
+      gap: '6rem',
+    },
+  },
 });
 
 export const trackSection = style({
@@ -46,6 +53,11 @@ export const footer = style({
   display: 'flex',
   flexDirection: 'column',
   gap: '2.4rem',
+  '@media': {
+    [media.mobile]: {
+      gap: '2.3rem',
+    },
+  },
 });
 
 export const checkboxRow = style({
@@ -53,6 +65,11 @@ export const checkboxRow = style({
   alignItems: 'center',
   gap: '1rem',
   cursor: 'pointer',
+  '@media': {
+    [media.mobile]: {
+      gap: '1.6rem',
+    },
+  },
 });
 
 export const checkbox = style({
@@ -61,11 +78,22 @@ export const checkbox = style({
   accentColor: '#7964F9',
   cursor: 'pointer',
   flexShrink: 0,
+  '@media': {
+    [media.mobile]: {
+      width: '2rem',
+      height: '2rem',
+    },
+  },
 });
 
 export const checkboxLabel = style({
   ...typography.body3_bd_18,
   color: themeVars.color.grayscale.white,
+  '@media': {
+    [media.mobile]: {
+      ...typography.body5_rg_16,
+    },
+  },
 });
 
 export const viewFullButton = style({
@@ -76,6 +104,13 @@ export const viewFullButton = style({
   padding: '0.4rem 1.2rem',
   marginLeft: '1.6rem',
   flexShrink: 0,
+  '@media': {
+    [media.mobile]: {
+      ...typography.body6_rg_10,
+      padding: '0.4rem 0.8rem',
+      marginLeft: 'auto',
+    },
+  },
 });
 
 export const consentWrapper = style({
@@ -100,12 +135,22 @@ export const consentDetailOpen = style({
   maxHeight: '100rem',
   padding: '2rem',
   border: `1px solid ${themeVars.color.grayscale[600]}`,
+  '@media': {
+    [media.mobile]: {
+      padding: '1.4rem 1.2rem',
+    },
+  },
 });
 
 export const consentIntro = style({
   ...typography.body5_rg_16,
   color: themeVars.color.grayscale[200],
   lineHeight: '1.6',
+  '@media': {
+    [media.mobile]: {
+      ...typography.body6_rg_10,
+    },
+  },
 });
 
 export const consentTable = style({
@@ -113,7 +158,13 @@ export const consentTable = style({
   borderCollapse: 'collapse',
   ...typography.text_rg_14,
   color: themeVars.color.grayscale[200],
+  '@media': {
+    [media.mobile]: {
+      ...typography.body6_rg_10,
+    },
+  },
 });
+
 globalStyle(`${consentTable} th`, {
   padding: '0.8rem 1.2rem',
   backgroundColor: themeVars.color.grayscale[800],
@@ -121,18 +172,34 @@ globalStyle(`${consentTable} th`, {
   textAlign: 'left',
   fontWeight: themeVars.fontWeight.semibold,
   whiteSpace: 'nowrap',
+  '@media': {
+    [`screen and (max-width: 768px)`]: {
+      whiteSpace: 'normal',
+      padding: '0.6rem 0.8rem',
+    },
+  },
 });
 
 globalStyle(`${consentTable} td`, {
   padding: '0.8rem 1.2rem',
   border: `1px solid ${themeVars.color.grayscale[600]}`,
   lineHeight: '1.5',
+  '@media': {
+    [`screen and (max-width: 768px)`]: {
+      padding: '0.6rem 0.8rem',
+    },
+  },
 });
 
 export const consentNote = style({
   ...typography.text_rg_14,
   color: themeVars.color.grayscale[400],
   lineHeight: '1.6',
+  '@media': {
+    [media.mobile]: {
+      ...typography.body6_rg_10,
+    },
+  },
 });
 
 export const consentLink = style({

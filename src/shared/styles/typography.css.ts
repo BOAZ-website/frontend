@@ -54,6 +54,12 @@ export const typography = {
     lineHeight: themeVars.lineHeight.tight,
     letterSpacing: themeVars.letterSpacing.normal,
   },
+  h3_bd_28: {
+    fontSize: themeVars.fontSize[28],
+    fontWeight: themeVars.fontWeight.bold,
+    lineHeight: themeVars.lineHeight.tight,
+    letterSpacing: themeVars.letterSpacing.normal,
+  },
   h4_bd_24: {
     fontSize: themeVars.fontSize[24],
     fontWeight: themeVars.fontWeight.bold,
