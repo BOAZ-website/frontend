@@ -10,8 +10,9 @@ export const instance = axios.create({
 });
 
 instance.interceptors.request.use((config) => {
+  const isRefreshEndpoint = config.url?.includes('/auth/user/refresh');
   const token = tokenStorage.get();
-  if (token) {
+  if (token && !isRefreshEndpoint) {
     config.headers['Authorization'] = `Bearer ${token}`;
   }
   return config;
