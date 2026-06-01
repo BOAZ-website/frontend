@@ -11,9 +11,10 @@ interface TrackCardProps {
   title: string;
   description: string;
   icon: ComponentType<SVGProps<SVGSVGElement>>;
+  isActive?: boolean;
 }
 
-const TrackCard = ({ title, description, icon: Icon }: TrackCardProps) => {
+const TrackCard = ({ title, description, icon: Icon, isActive = false }: TrackCardProps) => {
   const navigate = useNavigate();
   const isMobile = useIsMobile();
   const iconSize = isMobile ? 233 : 241;
@@ -28,7 +29,12 @@ const TrackCard = ({ title, description, icon: Icon }: TrackCardProps) => {
       </div>
 
       <div className={styles.cardButtonWrapper}>
-        <Button preset="small-round_primary" responsive onClick={() => navigate(ROUTE_PATH.APPLY)}>
+        <Button
+          preset="small-round_primary"
+          responsive
+          onClick={() => navigate(ROUTE_PATH.APPLY)}
+          disabled={!isActive}
+        >
           지원하기
         </Button>
       </div>

@@ -25,7 +25,7 @@ export const fixedTab = recipe({
     color: themeVars.color.grayscale.black,
     '@media': {
       [media.mobile]: {
-        width: 'auto',
+        width: '10rem',
         padding: '1.65rem 2.25rem',
         ...typography.h5_sm_16,
         flexShrink: 0,

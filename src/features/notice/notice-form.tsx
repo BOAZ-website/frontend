@@ -17,54 +17,51 @@ const SERVER_ERROR_MESSAGES: Record<string, string> = {
 
 const NoticeForm = () => {
   const [email, setEmail] = useState('');
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const { mutate, isSuccess, isPending } = useSubscribe();
+  const { mutate, isPending } = useSubscribe();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
-    setErrorMessage(null);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const doSubmit = () => {
     if (isPending) {
       return;
     }
 
     if (!email.trim()) {
-      setErrorMessage('이메일을 입력해주세요.');
+      alert('이메일을 입력해주세요.');
       return;
     }
     if (!isValidEmail(email)) {
-      setErrorMessage('유효하지 않은 이메일 형식입니다.');
+      alert('유효하지 않은 이메일 형식입니다.');
       return;
     }
 
     mutate(
       { email: email.trim() },
       {
+        onSuccess: () => {
+          alert('신청이 완료되었습니다! 모집 시작 시 이메일로 알려드릴게요.');
+        },
         onError: (error) => {
           if (isAxiosError(error)) {
             const errorCode = (error.response?.data as { error_code?: string })?.error_code;
-            setErrorMessage(
+            alert(
               SERVER_ERROR_MESSAGES[errorCode ?? ''] ??
                 '서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.'
             );
           } else {
-            setErrorMessage('서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+            alert('서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
           }
         },
       }
     );
   };
 
-  if (isSuccess) {
-    return (
-      <p className={styles.successMessage}>
-        신청이 완료되었습니다! 모집 시작 시 이메일로 알려드릴게요.
-      </p>
-    );
-  }
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    doSubmit();
+  };
 
   return (
     <div className={styles.wrapper}>
@@ -76,11 +73,10 @@ const NoticeForm = () => {
           value={email}
           onChange={handleChange}
         />
-        <Button preset="medium-round_primary" responsive disabled={isPending}>
+        <Button preset="medium-round_primary" responsive disabled={isPending} onClick={doSubmit}>
           {isPending ? '신청 중...' : '사전 알림 신청'}
         </Button>
       </form>
-      {errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
     </div>
   );
 };

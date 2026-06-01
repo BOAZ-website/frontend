@@ -272,9 +272,10 @@ const ApplyPage = () => {
   const buildAnswers = (): AnswerRequest[] => {
     const result: AnswerRequest[] = [];
     for (const [key, value] of Object.entries(answers)) {
-      const isExtra = key.includes('__extra_');
-      const baseId = isExtra ? key.split('__extra_')[0] : key;
-      const question = allQuestions.find((q) => String(q.question_id) === baseId);
+      if (key.includes('__extra_')) {
+        continue;
+      }
+      const question = allQuestions.find((q) => String(q.question_id) === key);
       let answer: unknown = value;
       if (question?.type === 'TABLE') {
         try {
@@ -283,7 +284,7 @@ const ApplyPage = () => {
           answer = value;
         }
       }
-      result.push({ question_id: parseInt(baseId, 10), answer });
+      result.push({ question_id: parseInt(key, 10), answer });
     }
     return result;
   };
@@ -294,6 +295,10 @@ const ApplyPage = () => {
   };
 
   const handleSubmit = () => {
+    const confirmed = window.confirm('제출하면 중복 제출이 불가합니다. 제출하시겠습니까?');
+    if (!confirmed) {
+      return;
+    }
     const personalPayload = personalInfo.toApiPayload();
     submitMutation.mutate({
       ...personalPayload,
@@ -306,6 +311,11 @@ const ApplyPage = () => {
     onAnswerChange: setAnswer,
     onPrev: handlePrev,
   };
+
+  // TODO: 모집 기간이 아닐 때 접근 못하도록
+  if (status && status.is_active === false) {
+    return <Navigate to={ROUTE_PATH.HOME} replace />;
+  }
 
   // 403 - 이미 제출된 경우
   // TODO: 제출 완료 전용 컴포넌트로 교체

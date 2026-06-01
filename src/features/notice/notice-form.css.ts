@@ -13,7 +13,6 @@ export const wrapper = style({
   '@media': {
     [media.mobile]: {
       width: '100%',
-      padding: '0 2rem',
     },
   },
 });
@@ -31,8 +30,9 @@ export const container = style({
   '@media': {
     [media.mobile]: {
       width: '100%',
-      height: '4.5rem',
-      padding: '1rem 0.8rem 1rem 1.5rem',
+      flex: 1,
+      height: '4.4rem',
+      padding: '0.4rem 0.4rem 0.4rem 0.8rem',
     },
   },
 });
@@ -46,26 +46,6 @@ export const inputField = style({
   '::placeholder': {
     color: themeVars.color.grayscale[400],
   },
-  '@media': {
-    [media.mobile]: {
-      ...typography.body6_rg_10,
-    },
-  },
-});
-
-export const errorMessage = style({
-  color: themeVars.color.error.red_100,
-  ...typography.text_rg_14,
-  '@media': {
-    [media.mobile]: {
-      ...typography.body6_rg_10,
-    },
-  },
-});
-
-export const successMessage = style({
-  color: themeVars.color.grayscale.white,
-  ...typography.text_rg_14,
   '@media': {
     [media.mobile]: {
       ...typography.body6_rg_10,

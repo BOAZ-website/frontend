@@ -53,16 +53,6 @@ export const valueSection = style({
   },
 });
 
-export const timelineSection = style({
-  marginTop: '25rem',
-  width: '100%',
-  '@media': {
-    [media.mobile]: {
-      marginTop: '10rem',
-    },
-  },
-});
-
 export const applySection = style({
   marginTop: '25rem',
   flexDirection: 'row',

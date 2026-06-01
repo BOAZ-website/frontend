@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
-import { Link, useNavigate } from 'react-router';
+import { Link, NavLink, useNavigate } from 'react-router';
 
 import { logoutApi } from '@/features/auth/api/logout';
 import { useAuth } from '@/features/auth/model/auth-context';
@@ -89,13 +89,15 @@ const TabBar = () => {
             <ul className={styles.navList}>
               {NAV_MENU_LIST.map((menu) => (
                 <li key={menu.id}>
-                  <Link
+                  <NavLink
                     to={menu.path}
-                    className={styles.navItem}
+                    className={({ isActive }) =>
+                      `${styles.navItem}${isActive ? ` ${styles.navItemActive}` : ''}`
+                    }
                     aria-label={`${menu.label}으로 이동`}
                   >
                     {menu.label}
-                  </Link>
+                  </NavLink>
                 </li>
               ))}
             </ul>
@@ -157,9 +159,15 @@ const TabBar = () => {
               <ul className={styles.drawerNavList}>
                 {NAV_MENU_LIST.map((menu) => (
                   <li key={menu.id}>
-                    <Link to={menu.path} className={styles.drawerNavItem} onClick={closeDrawer}>
+                    <NavLink
+                      to={menu.path}
+                      className={({ isActive }) =>
+                        `${styles.drawerNavItem}${isActive ? ` ${styles.drawerNavItemActive}` : ''}`
+                      }
+                      onClick={closeDrawer}
+                    >
                       {menu.label}
-                    </Link>
+                    </NavLink>
                   </li>
                 ))}
               </ul>

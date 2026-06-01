@@ -19,14 +19,15 @@ export const wrapper = style({
 
 export const thumbnail = style({
   width: '47.3rem',
+  flexShrink: 0,
   height: '26.6rem',
   objectFit: 'cover',
-  flexShrink: 0,
   backgroundColor: themeVars.color.grayscale.white,
   '@media': {
     [media.mobile]: {
       width: '100%',
-      height: '20rem',
+      flexShrink: 1,
+      height: 'auto',
     },
   },
 });
@@ -37,6 +38,7 @@ export const content = style({
   gap: '2.5rem',
   '@media': {
     [media.mobile]: {
+      width: '100%',
       gap: '1.6rem',
       alignItems: 'center',
       textAlign: 'center',

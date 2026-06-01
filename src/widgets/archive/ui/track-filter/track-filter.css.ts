@@ -45,9 +45,7 @@ export const trigger = style({
 });
 
 export const overlay = style({
-  position: 'absolute',
-  top: 'calc(100% + 3.8rem)',
-  right: 0,
+  position: 'fixed',
   zIndex: 100,
   display: 'flex',
   flexDirection: 'column',
