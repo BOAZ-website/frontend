@@ -13,7 +13,6 @@ export const wrapper = style({
   '@media': {
     [media.mobile]: {
       width: '100%',
-      padding: '0 2rem',
     },
   },
 });
@@ -31,8 +30,9 @@ export const container = style({
   '@media': {
     [media.mobile]: {
       width: '100%',
-      height: '4.5rem',
-      padding: '1rem 0.8rem 1rem 1.5rem',
+      flex: 1,
+      height: '4.4rem',
+      padding: '0.4rem 0.4rem 0.4rem 0.8rem',
     },
   },
 });
