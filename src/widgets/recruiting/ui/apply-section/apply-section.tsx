@@ -2,6 +2,7 @@ import AnalyzeIcon from '@/shared/assets/icons/ic_analyze.svg?react';
 import EngineeringIcon from '@/shared/assets/icons/ic_engineering.svg?react';
 import VisualizationIcon from '@/shared/assets/icons/ic_visualization.svg?react';
 import Section from '@/shared/components/section/section';
+import { useRecruitmentStatus } from '@/shared/queries/use-recruitment-status';
 
 import * as styles from './apply-section.css';
 
@@ -25,6 +26,9 @@ const track = [
 ];
 
 const ApplySection = () => {
+  const { data: status } = useRecruitmentStatus();
+  const isActive = status?.is_active ?? false;
+
   return (
     <Section subTitle={'Apply'} title={'부문별 소개 및 지원하기'}>
       <div className={styles.trackList}>
@@ -34,6 +38,7 @@ const ApplySection = () => {
             title={item.track}
             description={item.description}
             icon={item.icon}
+            isActive={isActive}
           />
         ))}
       </div>
