@@ -52,23 +52,3 @@ export const inputField = style({
     },
   },
 });
-
-export const errorMessage = style({
-  color: themeVars.color.error.red_100,
-  ...typography.text_rg_14,
-  '@media': {
-    [media.mobile]: {
-      ...typography.body6_rg_10,
-    },
-  },
-});
-
-export const successMessage = style({
-  color: themeVars.color.grayscale.white,
-  ...typography.text_rg_14,
-  '@media': {
-    [media.mobile]: {
-      ...typography.body6_rg_10,
-    },
-  },
-});
