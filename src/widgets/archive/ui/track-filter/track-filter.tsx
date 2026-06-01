@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 
 import type { ArchiveTrack } from '@/shared/api/archive';
 import AnalyzeIcon from '@/shared/assets/icons/ic_analyze.svg?react';
@@ -27,15 +28,31 @@ interface TrackFilterOverlayProps {
 
 const TrackFilterOverlay = ({ value, onChange }: TrackFilterOverlayProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
+  const [overlayPos, setOverlayPos] = useState<{ top: number; right: number } | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const overlayRef = useRef<HTMLDivElement>(null);
   const isMobile = useIsMobile();
   const iconSize = isMobile ? 16 : 28;
 
   const selectedOption = TRACK_OPTIONS.find((opt) => opt.value === value) ?? TRACK_OPTIONS[0];
 
+  const handleToggle = () => {
+    if (!isOpen && containerRef.current) {
+      const rect = containerRef.current.getBoundingClientRect();
+      const rootFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
+      const gap = isMobile ? 1 * rootFontSize : 3.8 * rootFontSize;
+      setOverlayPos({
+        top: rect.bottom + gap,
+        right: window.innerWidth - rect.right,
+      });
+    }
+    setIsOpen((prev) => !prev);
+  };
+
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) {
+      const target = e.target as Node;
+      if (!containerRef.current?.contains(target) && !overlayRef.current?.contains(target)) {
         setIsOpen(false);
       }
     };
@@ -45,9 +62,8 @@ const TrackFilterOverlay = ({ value, onChange }: TrackFilterOverlayProps) => {
 
   return (
     <>
-      {isOpen && <div className={styles.backdrop} onClick={() => setIsOpen(false)} />}
-      <div className={styles.container} ref={ref}>
-        <button type="button" className={styles.trigger} onClick={() => setIsOpen(!isOpen)}>
+      <div className={styles.container} ref={containerRef}>
+        <button type="button" className={styles.trigger} onClick={handleToggle}>
           {selectedOption.Icon && (
             <selectedOption.Icon width={iconSize} height={iconSize} className={styles.icon} />
           )}
@@ -58,28 +74,37 @@ const TrackFilterOverlay = ({ value, onChange }: TrackFilterOverlayProps) => {
             <ChevronUpIcon className={styles.chevronIcon} />
           )}
         </button>
-
-        {isOpen && (
-          <div className={styles.overlay}>
-            {TRACK_OPTIONS.filter((opt) => opt.value !== value).map((opt) => (
-              <button
-                key={opt.label}
-                type="button"
-                className={styles.option.default}
-                onClick={() => {
-                  onChange(opt.value);
-                  setIsOpen(false);
-                }}
-              >
-                {opt.Icon ? (
-                  <opt.Icon width={iconSize} height={iconSize} className={styles.icon} />
-                ) : null}
-                {opt.label}
-              </button>
-            ))}
-          </div>
-        )}
       </div>
+
+      {isOpen &&
+        createPortal(
+          <>
+            <div className={styles.backdrop} onClick={() => setIsOpen(false)} />
+            <div
+              ref={overlayRef}
+              className={styles.overlay}
+              style={overlayPos ? { top: overlayPos.top, right: overlayPos.right } : undefined}
+            >
+              {TRACK_OPTIONS.filter((opt) => opt.value !== value).map((opt) => (
+                <button
+                  key={opt.label}
+                  type="button"
+                  className={styles.option.default}
+                  onClick={() => {
+                    onChange(opt.value);
+                    setIsOpen(false);
+                  }}
+                >
+                  {opt.Icon ? (
+                    <opt.Icon width={iconSize} height={iconSize} className={styles.icon} />
+                  ) : null}
+                  {opt.label}
+                </button>
+              ))}
+            </div>
+          </>,
+          document.body
+        )}
     </>
   );
 };
