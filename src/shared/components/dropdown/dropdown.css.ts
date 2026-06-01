@@ -6,8 +6,11 @@ import { typography } from '@/shared/styles/typography.css';
 export const container = style({
   position: 'relative',
   width: '100%',
-  maxWidth: '25.2rem',
   borderBottom: `1px solid ${themeVars.color.grayscale[400]}`,
+});
+
+export const containerError = style({
+  borderBottom: `1px solid ${themeVars.color.error.red_100}`,
 });
 
 export const trigger = style({

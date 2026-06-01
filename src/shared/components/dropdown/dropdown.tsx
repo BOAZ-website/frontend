@@ -7,14 +7,15 @@ interface DropdownProps {
   value: string;
   placeholder?: string;
   onChange: (value: string) => void;
+  isError?: boolean;
 }
 
-const Dropdown = ({ options, value, placeholder, onChange }: DropdownProps) => {
+const Dropdown = ({ options, value, placeholder, onChange, isError }: DropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const isEmpty = value === '';
 
   return (
-    <div className={styles.container}>
+    <div className={isError ? styles.containerError : styles.container}>
       <button
         type="button"
         className={`${styles.trigger}${isEmpty ? ` ${styles.triggerPlaceholder}` : ''}`}
