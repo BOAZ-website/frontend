@@ -13,26 +13,26 @@ const RecruitmentStatusSection = () => {
   const { data: status } = useQuery(RECRUITMENT_QUERY_OPTIONS.STATUS());
   const { data: recruitment } = useQuery(RECRUITMENT_QUERY_OPTIONS.DETAIL(status?.term));
 
-  if (!status || !recruitment) {
+  if (!status) {
     return null;
   }
 
   const { is_active } = status;
-  const { start_date, end_date } = recruitment;
-
-  if (!start_date || !end_date) {
-    return null;
-  }
+  const start_date = recruitment?.start_date;
+  const end_date = recruitment?.end_date;
 
   return (
     <section className={styles.container}>
-      <h2 className={styles.recruitDate}>{formatRecruitDate(start_date, end_date)}</h2>
+      {start_date && end_date && (
+        <h2 className={styles.recruitDate}>{formatRecruitDate(start_date, end_date)}</h2>
+      )}
       {is_active ? (
-        <CountdownTimer deadline={end_date} />
+        end_date ? (
+          <CountdownTimer deadline={end_date} />
+        ) : null
       ) : (
         <>
-          <DDayCounter startDate={start_date} />
-          <NoticeForm />
+          {start_date && <DDayCounter startDate={start_date} />} <NoticeForm />
         </>
       )}
     </section>

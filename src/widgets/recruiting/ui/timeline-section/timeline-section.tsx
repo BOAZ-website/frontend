@@ -16,12 +16,18 @@ const TimelineSection = () => {
 
   const steps = toRecruitmentSteps((recruitment?.schedule as ScheduleStep[]) ?? []);
 
+  if (steps.length === 0) {
+    return null;
+  }
+
   return (
-    <div className={styles.container}>
-      <Section title="모집 일정" subTitle="Timeline">
-        <RecruitmentTimeline steps={steps} />
-      </Section>
-    </div>
+    <section className={styles.wrapper}>
+      <div className={styles.container}>
+        <Section title="모집 일정" subTitle="Timeline">
+          <RecruitmentTimeline steps={steps} />
+        </Section>
+      </div>
+    </section>
   );
 };
 
