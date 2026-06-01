@@ -33,7 +33,7 @@ const TrackCard = ({ title, description, icon: Icon, isActive = false }: TrackCa
           preset="small-round_primary"
           responsive
           onClick={() => navigate(ROUTE_PATH.APPLY)}
-          //disabled={!isActive}
+          disabled={!isActive}
         >
           지원하기
         </Button>

@@ -312,10 +312,10 @@ const ApplyPage = () => {
     onPrev: handlePrev,
   };
 
-  // 모집 기간이 아닐 때 접근 못하도록
-  //  if (status && status.is_active === false) {
-  //    return <Navigate to={ROUTE_PATH.HOME} replace />;
-  //  }
+  // TODO: 모집 기간이 아닐 때 접근 못하도록
+  if (status && status.is_active === false) {
+    return <Navigate to={ROUTE_PATH.HOME} replace />;
+  }
 
   // 403 - 이미 제출된 경우
   // TODO: 제출 완료 전용 컴포넌트로 교체
