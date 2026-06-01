@@ -8,7 +8,7 @@ import { typography } from '@/shared/styles/typography.css';
 export const cardWrapper = style({
   backgroundColor: themeVars.color.grayscale.white,
   borderRadius: '10px',
-  width: '50rem',
+  width: '100%',
   height: '20.8rem',
   padding: '2.85rem 4.2rem 3.5rem',
   display: 'flex',

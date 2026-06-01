@@ -139,6 +139,9 @@ export const reviewContent = style({
   width: '100%',
   maxWidth: '104.3rem',
   padding: '0 2rem',
+  justifyContent: 'center',
+  alignItems: 'center',
+  alignContent: 'center',
 });
 
 export const archiveButtonIcon = style({
