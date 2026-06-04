@@ -31,6 +31,25 @@ import * as styles from './apply-page.css';
 const STEPS = ['지원자 정보 입력', '공통 질문', '부문 질문'] as const;
 const LAST_STEP = STEPS.length;
 
+// 임시 목데이터
+const MOCK_INTERVIEW_QUESTION = {
+  question_id: 9999,
+  label: '면접 가능 시간',
+  category: 'COMMON' as const,
+  type: 'TABLE' as const,
+  content: '면접 가능 시간 (복수 선택)',
+  limit_length: undefined,
+  order_num: 999,
+  metadata: {
+    rows: ['7월 4일(토)', '7월 5일(일)'],
+    columns: ['11:00-13:00', '13:00-15:00', '15:00-17:00', '17:00-19:00', '19:00-21:00'],
+    multiple: true,
+  },
+};
+
+const MOCK_INTERVIEW_DESCRIPTION =
+  '면접은 대면으로 진행될 예정입니다. 가능한 면접 시간을 모두 체크해주시기 바랍니다.\n응답이 없을 경우, 모든 면접 시간이 불가능한 것으로 간주될 수 있으니 반드시 작성 부탁드립니다.';
+
 const ApplyPage = () => {
   const { data: deadline } = useRecruitmentDeadline();
   const { data: status } = useRecruitmentStatus();
@@ -233,7 +252,6 @@ const ApplyPage = () => {
     draftRestoredRef.current ||
     (draftQueryState.state !== 'loading' && draftQueryState.state === 'empty');
 
-  // 로컬스토리지 자동저장 (500ms debounce)
   useSaveDraft({
     recruitmentId,
     personalInfo: form,
@@ -241,7 +259,6 @@ const ApplyPage = () => {
     enabled: isRestoredOrEmpty && currentStep > 0,
   });
 
-  // 서버 동기화 (10초 interval + beforeunload flush + 버튼 클릭)
   const { handleClickSaveDraft, isPutDraftPending, isSaveSuccess } = usePutDraft({
     recruitmentId,
     draft: draftPayload,
@@ -275,7 +292,9 @@ const ApplyPage = () => {
       if (key.includes('__extra_')) {
         continue;
       }
-      const question = allQuestions.find((q) => String(q.question_id) === key);
+      const question =
+        allQuestions.find((q) => String(q.question_id) === key) ??
+        (key === String(MOCK_INTERVIEW_QUESTION.question_id) ? MOCK_INTERVIEW_QUESTION : undefined);
       let answer: unknown = value;
       if (question?.type === 'TABLE') {
         try {
@@ -312,10 +331,10 @@ const ApplyPage = () => {
     onPrev: handlePrev,
   };
 
-  // TODO: 모집 기간이 아닐 때 접근 못하도록
-  if (status && status.is_active === false) {
-    return <Navigate to={ROUTE_PATH.HOME} replace />;
-  }
+  // 모집 기간이 아닐 때 접근 못하도록
+  // if (status && status.is_active === false) {
+  //   return <Navigate to={ROUTE_PATH.HOME} replace />;
+  // }
 
   // 403 - 이미 제출된 경우
   // TODO: 제출 완료 전용 컴포넌트로 교체
@@ -356,6 +375,10 @@ const ApplyPage = () => {
             formContext={personalInfo}
             onNext={handlePersonalInfoNext}
             onTrackChange={handleTrackChange}
+            interviewQuestion={MOCK_INTERVIEW_QUESTION}
+            interviewAnswer={answers[String(MOCK_INTERVIEW_QUESTION.question_id)] ?? ''}
+            onInterviewAnswerChange={setAnswer}
+            interviewDescription={MOCK_INTERVIEW_DESCRIPTION}
           />
         )}
         {currentStep === 2 && (
@@ -365,6 +388,7 @@ const ApplyPage = () => {
             onAnswerChange={setAnswer}
             onPrev={handlePrev}
             onNext={handleNext}
+            supportsTable
           />
         )}
         {currentStep === 3 && (

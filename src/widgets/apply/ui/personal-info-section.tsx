@@ -9,7 +9,8 @@ import {
   SEMESTERS,
 } from '@/widgets/apply/apply-dropdown';
 import { usePersonalInfoForm } from '@/widgets/apply/model/use-personal-info-form';
-import type { MilitaryStatus, Track } from '@/shared/api/types';
+import TableQuestion from '@/widgets/apply/ui/table-question';
+import type { MilitaryStatus, QuestionResponse, Track } from '@/shared/api/types';
 import ArrowRight from '@/shared/assets/icons/ic_arrow_right.svg?react';
 import WarningIcon from '@/shared/assets/icons/ic_warning.svg?react';
 import DropdownField from '@/shared/components/dropdown/dropdownField';
@@ -65,9 +66,21 @@ interface PersonalInfoSectionProps {
   formContext: ReturnType<typeof usePersonalInfoForm>;
   onNext: (track: Track) => void;
   onTrackChange?: () => void;
+  interviewQuestion?: QuestionResponse;
+  interviewAnswer?: string;
+  onInterviewAnswerChange?: (questionId: string, value: string) => void;
+  interviewDescription?: string;
 }
 
-const PersonalInfoSection = ({ formContext, onNext, onTrackChange }: PersonalInfoSectionProps) => {
+const PersonalInfoSection = ({
+  formContext,
+  onNext,
+  onTrackChange,
+  interviewQuestion,
+  interviewAnswer = '',
+  onInterviewAnswerChange,
+  interviewDescription,
+}: PersonalInfoSectionProps) => {
   const { form, setField, addDegree, setDegree, removeDegree } = formContext;
   const [submitted, setSubmitted] = useState(false);
   const [emailTouched, setEmailTouched] = useState(false);
@@ -362,6 +375,20 @@ const PersonalInfoSection = ({ formContext, onNext, onTrackChange }: PersonalInf
           <FieldError show={submitted && form.gradSchoolPlan === null} />
         </div>
       </section>
+
+      {interviewQuestion && onInterviewAnswerChange && (
+        <section className={styles.interviewSection}>
+          <h2 className={styles.sectionTitle}>{interviewQuestion.content}</h2>
+          {interviewDescription && (
+            <p className={styles.interviewDescription}>{interviewDescription}</p>
+          )}
+          <TableQuestion
+            question={interviewQuestion}
+            answer={interviewAnswer}
+            onChange={onInterviewAnswerChange}
+          />
+        </section>
+      )}
 
       <div className={styles.footer} onClick={handleNext}>
         <div>다음페이지</div> <ArrowRight />
