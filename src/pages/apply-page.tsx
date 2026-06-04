@@ -28,7 +28,7 @@ import { formatKoreanDate } from '@/shared/utils/date-formatter';
 
 import * as styles from './apply-page.css';
 
-const STEPS = ['지원자 정보 입력', '공통 질문', '부문 질문'] as const;
+const STEPS = ['지원자 정보 입력', '공통 질문', '부문 질문', '추가 정보'] as const;
 const LAST_STEP = STEPS.length;
 
 const ApplyPage = () => {
@@ -248,7 +248,7 @@ const ApplyPage = () => {
 
   const { data: allQuestions = [] } = useQuery({
     ...APPLY_QUERY_OPTIONS.QUESTIONS(recruitmentId, track ?? 'ANALYSIS'),
-    enabled: recruitmentId > 0 && !!track,
+    enabled: recruitmentId > 0,
   });
 
   // 면접 가능 시간 질문: COMMON TABLE multiple=true 인 질문을 step 1에 표시
@@ -258,8 +258,12 @@ const ApplyPage = () => {
       q.type === 'TABLE' &&
       (q.metadata as unknown as { multiple?: boolean })?.multiple === true
   );
+  // order_num=99인 선택 공통 질문(공통6)은 마지막 별도 스텝으로 분리
+  const optionalCommonQuestion = allQuestions.find(
+    (q) => q.category === 'COMMON' && (q.order_num ?? 0) >= 99
+  );
   const commonQuestions = allQuestions.filter(
-    (q) => q.category === 'COMMON' && q !== interviewQuestion
+    (q) => q.category === 'COMMON' && q !== interviewQuestion && q !== optionalCommonQuestion
   );
   const trackQuestions = allQuestions.filter((q) => q.category !== 'COMMON');
 
@@ -318,9 +322,9 @@ const ApplyPage = () => {
   };
 
   // 모집 기간이 아닐 때 접근 못하도록
-  // if (status && status.is_active === false) {
-  //   return <Navigate to={ROUTE_PATH.HOME} replace />;
-  // }
+  if (status && status.is_active === false) {
+    return <Navigate to={ROUTE_PATH.HOME} replace />;
+  }
 
   // 403 - 이미 제출된 경우
   // TODO: 제출 완료 전용 컴포넌트로 교체
@@ -379,15 +383,26 @@ const ApplyPage = () => {
             onPrev={handlePrev}
             onNext={handleNext}
             supportsTable
+            track={track ?? undefined}
           />
         )}
         {currentStep === 3 && (
           <QuestionSection
             {...trackSectionProps}
             questions={trackQuestions}
+            onNext={handleNext}
+            supportsTable={track === 'ENGINEERING' || track === 'VISUALIZATION'}
+          />
+        )}
+        {currentStep === 4 && (
+          <QuestionSection
+            questions={optionalCommonQuestion ? [optionalCommonQuestion] : []}
+            answers={answers}
+            onAnswerChange={setAnswer}
+            onPrev={handlePrev}
             onNext={handleSubmit}
             nextLabel="제출하기"
-            supportsTable={track === 'ENGINEERING' || track === 'VISUALIZATION'}
+            track={track ?? undefined}
           />
         )}
       </section>

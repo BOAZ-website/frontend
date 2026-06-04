@@ -10,6 +10,7 @@ export const container = style({
   cursor: 'pointer',
   width: 'fit-content',
 });
+
 export const hiddenInput = style({
   position: 'absolute',
   width: '0.1rem',
@@ -20,30 +21,34 @@ export const hiddenInput = style({
   clip: 'rect(0, 0, 0, 0)',
   border: 0,
 });
+
 export const radioCircle = style({
   position: 'relative',
   width: '1.6rem',
   height: '1.6rem',
   borderRadius: '50%',
-  border: `0.1rem solid ${themeVars.color.primary[100]}`,
-  transition: 'all 0.2s ease',
+  border: `0.1rem solid ${themeVars.color.grayscale[400]}`,
+  transition: 'border-color 0.2s ease',
   backgroundColor: 'transparent',
   flexShrink: 0,
   '::after': {
     content: '""',
     position: 'absolute',
-    top: '50%',
-    left: '50%',
+    inset: 0,
+    margin: 'auto',
     width: '1rem',
     height: '1rem',
     borderRadius: '50%',
     backgroundColor: themeVars.color.primary[100],
-    transform: 'translate(-50%, -50%) scale(0)',
+    transform: 'scale(0)',
     transition: 'transform 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
   },
   selectors: {
+    [`${hiddenInput}:checked + &`]: {
+      borderColor: themeVars.color.primary[100],
+    },
     [`${hiddenInput}:checked + &::after`]: {
-      transform: 'translate(-50%, -50%) scale(1)',
+      transform: 'scale(1)',
     },
   },
 });

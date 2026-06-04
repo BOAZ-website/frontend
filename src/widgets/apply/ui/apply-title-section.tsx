@@ -42,7 +42,7 @@ const ApplyTitleSection = ({
             disabled={isSavePending || isSaveSuccess}
           >
             <SaveIcon width={20} height={20} />
-            {isSavePending ? '저장 중...' : isSaveSuccess ? '저장 완료 ✓' : '임시저장'}
+            {isSavePending ? '저장 중...' : isSaveSuccess ? '저장 완료 ✓' : '전체 임시저장'}
           </Button>
         )}
       </span>
