@@ -27,8 +27,8 @@ export const cardContainer = style({
 });
 
 export const iconWrapper = style({
-  width: '9.7rem',
-  height: '9.7rem',
+  width: '13.1rem',
+  height: '13.1rem',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',

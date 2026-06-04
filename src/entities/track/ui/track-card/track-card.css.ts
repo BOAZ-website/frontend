@@ -16,8 +16,8 @@ export const cardContainer = style({
   flexDirection: 'column',
   overflow: 'hidden',
   whiteSpace: 'pre-wrap',
-
-  backgroundColor: themeVars.color.grayscale.white,
+  color: themeVars.color.grayscale.white,
+  backgroundColor: themeVars.color.grayscale[800],
   transition: 'background-color 0.3s ease-in-out',
 
   selectors: {
@@ -38,7 +38,6 @@ export const cardTitle = style({
   ...typography.h2_bd_30,
   marginBottom: '1.2rem',
 
-  color: themeVars.color.grayscale.black,
   transition: 'color 0.3s ease-in-out',
 
   selectors: {
@@ -58,8 +57,6 @@ export const cardTitle = style({
 export const cardDesc = style({
   ...typography.body4_rg_18,
   lineHeight: '1.2',
-
-  color: themeVars.color.grayscale.white,
   opacity: 0,
   transition: 'opacity 0.3s ease-in-out',
 
@@ -82,6 +79,13 @@ export const cardIcon = style({
   right: '-4.6em',
   bottom: '-2.7rem',
   zIndex: themeVars.zIndex.icon,
+  opacity: 1,
+  transition: 'opacity 0.3s ease-in-out',
+  selectors: {
+    [`${cardContainer}:hover &`]: {
+      opacity: 0,
+    },
+  },
   '@media': {
     [media.mobile]: {
       right: '-4.6rem',
