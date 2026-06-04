@@ -6,7 +6,7 @@ interface ProgressBarSectionProps {
   currentStep: number;
 }
 
-const STEPS = ['지원자 정보', '공통 질문', '부문 질문'] as const;
+const STEPS = ['지원자 정보', '공통 질문', '부문 질문', '추가 정보'] as const;
 
 const ProgressBarSection = ({ currentStep }: ProgressBarSectionProps) => {
   return (

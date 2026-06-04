@@ -41,6 +41,7 @@ const NoticeForm = () => {
       { email: email.trim() },
       {
         onSuccess: () => {
+          setEmail('');
           alert('신청이 완료되었습니다! 모집 시작 시 이메일로 알려드릴게요.');
         },
         onError: (error) => {
