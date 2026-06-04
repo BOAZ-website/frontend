@@ -64,9 +64,9 @@ const ConferenceSection = () => {
         </div>
       </div>
       <div className={styles.content}>
-        <h2 className={styles.title}>기업 컨택 및 컨퍼런스 진행</h2>
+        <h2 className={styles.title}>ADV 기업 컨택 및 컨퍼런스 진행</h2>
         <p className={styles.description}>
-          {`BOAZ는 뛰어난 인재들이 모여 여러 기구\n기업 컨택을 진행합니다.\n현 산업체 고수들과 함께 진행됩니다.\n그리고 최종적으로 컨퍼런스에서 그 성과를 발표해요.`}
+          {`BOAZ 컨퍼런스는 1년 간의 여정을 마무리하는 마침표입니다. 지금까지 배우고 탐구했던 모든 것을 담아 하나의 프로젝트로 선보입니다. 또한, 다양한 기업과의 컨택을 통해 협업 기회를 모색할 수 있습니다.`}
         </p>
         <Button preset="medium_white" hasIcon responsive onClick={() => navigate('/archive')}>
           자세히 보기
