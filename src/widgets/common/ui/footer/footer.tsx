@@ -32,7 +32,7 @@ const Footer = () => {
           <HSpaceLogo width={122} height={18} />
           <div className={styles.mobileContact}>
             <span className={styles.mobileContactLabel}>Contact</span>
-            <small className={styles.email}>boaz.bigdata@gmail.com</small>
+            <small className={styles.email}>boaz.bigdata@naver.com</small>
           </div>
           <ul className={styles.mobileSnsGrid}>
             {SNS_LINKS.map(({ Icon, label, href }) => (
