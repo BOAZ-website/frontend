@@ -18,13 +18,6 @@ export const cardContainer = style({
   whiteSpace: 'pre-wrap',
   color: themeVars.color.grayscale.white,
   backgroundColor: themeVars.color.grayscale[800],
-  transition: 'background-color 0.3s ease-in-out',
-
-  selectors: {
-    '&:hover': {
-      backgroundColor: themeVars.color.grayscale[800],
-    },
-  },
 
   '@media': {
     [media.mobile]: {
@@ -37,14 +30,6 @@ export const cardContainer = style({
 export const cardTitle = style({
   ...typography.h2_bd_30,
   marginBottom: '1.2rem',
-
-  transition: 'color 0.3s ease-in-out',
-
-  selectors: {
-    [`${cardContainer}:hover &`]: {
-      color: themeVars.color.grayscale.white,
-    },
-  },
 
   '@media': {
     [media.mobile]: {
@@ -76,20 +61,27 @@ export const cardDesc = style({
 
 export const cardIcon = style({
   position: 'absolute',
-  right: '-4.6em',
-  bottom: '-2.7rem',
-  zIndex: themeVars.zIndex.icon,
+  right: '-6.6rem',
+  bottom: '1.7rem',
+  width: '30rem',
+  height: '30rem',
+  // 텍스트보다 뒤에 위치
+  zIndex: 0,
   opacity: 1,
   transition: 'opacity 0.3s ease-in-out',
+
   selectors: {
     [`${cardContainer}:hover &`]: {
       opacity: 0,
     },
   },
+
   '@media': {
     [media.mobile]: {
       right: '-4.6rem',
       bottom: '-2rem',
+      width: '20rem',
+      height: '20rem',
     },
   },
 });
@@ -98,7 +90,7 @@ export const cardButtonWrapper = style({
   position: 'absolute',
   bottom: '3rem',
   left: '2.7rem',
-  zIndex: themeVars.zIndex.button,
+  zIndex: 1,
   '@media': {
     [media.mobile]: {
       bottom: '2rem',

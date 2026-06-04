@@ -1,23 +1,20 @@
-import type { ComponentType, SVGProps } from 'react';
+import type { ComponentType, ReactNode, SVGProps } from 'react';
 import { useNavigate } from 'react-router';
 
 import Button from '@/shared/components/button/button';
-import useIsMobile from '@/shared/hooks/use-is-mobile';
 import { ROUTE_PATH } from '@/shared/router/paths';
 
 import * as styles from './track-card.css';
 
 interface TrackCardProps {
   title: string;
-  description: string;
+  description: ReactNode;
   icon: ComponentType<SVGProps<SVGSVGElement>>;
   isActive?: boolean;
 }
 
 const TrackCard = ({ title, description, icon: Icon, isActive = false }: TrackCardProps) => {
   const navigate = useNavigate();
-  const isMobile = useIsMobile();
-  const iconSize = isMobile ? 233 : 241;
 
   return (
     <article className={styles.cardContainer}>
@@ -25,7 +22,7 @@ const TrackCard = ({ title, description, icon: Icon, isActive = false }: TrackCa
       <p className={styles.cardDesc}>{description}</p>
 
       <div className={styles.cardIcon}>
-        <Icon width={iconSize} height={iconSize} />
+        <Icon width="100%" height="100%" />
       </div>
 
       <div className={styles.cardButtonWrapper}>
