@@ -6,13 +6,21 @@ interface RadioButtonProps {
   name: string;
   checked: boolean;
   onChange: (value: string) => void;
+  type?: 'radio' | 'checkbox';
 }
 
-const RadioButton = ({ label, value, name, checked, onChange }: RadioButtonProps) => {
+const RadioButton = ({
+  label,
+  value,
+  name,
+  checked,
+  onChange,
+  type = 'radio',
+}: RadioButtonProps) => {
   return (
     <label className={styles.container}>
       <input
-        type="radio"
+        type={type}
         name={name}
         checked={checked}
         onChange={() => onChange(value)}

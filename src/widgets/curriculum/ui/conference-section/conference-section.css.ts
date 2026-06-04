@@ -17,18 +17,66 @@ export const wrapper = style({
   },
 });
 
-export const thumbnail = style({
+export const sliderWrapper = style({
+  position: 'relative',
   width: '47.3rem',
-  height: '26.6rem',
-  objectFit: 'cover',
   flexShrink: 0,
-  backgroundColor: themeVars.color.grayscale.white,
+  height: '26.6rem',
+  overflow: 'hidden',
+  userSelect: 'none',
   '@media': {
     [media.mobile]: {
       width: '100%',
-      height: '20rem',
+      flexShrink: 1,
+      height: '18rem',
     },
   },
+});
+
+export const sliderTrack = style({
+  display: 'flex',
+  flexDirection: 'row',
+  height: '100%',
+  transition: 'transform 0.6s ease',
+});
+
+export const sliderSlide = style({
+  flexShrink: 0,
+  width: '100%',
+  height: '100%',
+});
+
+export const sliderImage = style({
+  width: '100%',
+  height: '100%',
+  objectFit: 'cover',
+  display: 'block',
+  pointerEvents: 'none',
+});
+
+export const dotsWrapper = style({
+  position: 'absolute',
+  bottom: '1rem',
+  left: '50%',
+  transform: 'translateX(-50%)',
+  display: 'flex',
+  flexDirection: 'row',
+  gap: '0.5rem',
+});
+
+export const dot = style({
+  width: '0.6rem',
+  height: '0.6rem',
+  borderRadius: '50%',
+  backgroundColor: 'rgba(255, 255, 255, 0.5)',
+  border: 'none',
+  cursor: 'pointer',
+  padding: 0,
+  transition: 'background-color 0.3s ease',
+});
+
+export const dotActive = style({
+  backgroundColor: themeVars.color.grayscale.white,
 });
 
 export const content = style({
@@ -37,6 +85,7 @@ export const content = style({
   gap: '2.5rem',
   '@media': {
     [media.mobile]: {
+      width: '100%',
       gap: '1.6rem',
       alignItems: 'center',
       textAlign: 'center',

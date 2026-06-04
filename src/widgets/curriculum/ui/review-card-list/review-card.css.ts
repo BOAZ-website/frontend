@@ -6,9 +6,9 @@ import { themeVars } from '@/shared/styles/theme.css';
 import { typography } from '@/shared/styles/typography.css';
 
 export const cardWrapper = style({
-  backgroundColor: themeVars.color.grayscale.white,
+  backgroundColor: themeVars.color.grayscale[900],
   borderRadius: '10px',
-  width: '50rem',
+  width: '100%',
   height: '20.8rem',
   padding: '2.85rem 4.2rem 3.5rem',
   display: 'flex',
@@ -35,7 +35,7 @@ export const cardHeader = style({
 });
 
 export const title = style({
-  color: themeVars.color.grayscale.black,
+  color: themeVars.color.grayscale.white,
   ...typography.body2_bd_20,
   '@media': {
     [media.mobile]: {
@@ -45,7 +45,7 @@ export const title = style({
 });
 
 export const subTitle = style({
-  color: themeVars.color.grayscale[400],
+  color: themeVars.color.primary[100],
   ...typography.body3_bd_18,
   '@media': {
     [media.mobile]: {
@@ -55,7 +55,7 @@ export const subTitle = style({
 });
 
 export const descriptionText = style({
-  color: themeVars.color.grayscale.black,
+  color: themeVars.color.grayscale.white,
   ...typography.body5_rg_16,
   lineHeight: '1.4',
   '@media': {

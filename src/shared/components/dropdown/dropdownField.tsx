@@ -7,9 +7,10 @@ interface DropdownFieldProps {
   options: string[];
   defaultValue?: string;
   onChange?: (value: string) => void;
+  isError?: boolean;
 }
 
-const DropdownField = ({ label, options, defaultValue, onChange }: DropdownFieldProps) => {
+const DropdownField = ({ label, options, defaultValue, onChange, isError }: DropdownFieldProps) => {
   const [selectedValue, setSelectedValue] = useState(defaultValue ?? '');
 
   const handleChange = (value: string) => {
@@ -18,7 +19,13 @@ const DropdownField = ({ label, options, defaultValue, onChange }: DropdownField
   };
 
   return (
-    <Dropdown options={options} value={selectedValue} placeholder={label} onChange={handleChange} />
+    <Dropdown
+      options={options}
+      value={selectedValue}
+      placeholder={label}
+      onChange={handleChange}
+      isError={isError}
+    />
   );
 };
 

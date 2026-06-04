@@ -21,9 +21,7 @@ const RecruitingPage = () => {
       <section className={styles.valueSection}>
         <ValueSection />
       </section>
-      <section className={styles.timelineSection}>
-        <TimelineSection />
-      </section>
+      <TimelineSection />
       <section className={styles.applySection}>
         <ApplySection />
       </section>

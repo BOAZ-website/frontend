@@ -32,6 +32,7 @@ export const dividerRow = style({
 
 export const dividerText = style({
   ...typography.h2_bd_30,
+  textAlign: 'center',
   '@media': {
     [media.mobile]: {
       ...typography.h5_sm_18,

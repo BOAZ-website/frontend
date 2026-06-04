@@ -59,6 +59,10 @@ export const navItem = style({
   },
 });
 
+export const navItemActive = style({
+  ...typography.body3_bd_18,
+});
+
 export const userGroup = style({
   display: 'flex',
   alignItems: 'center',
@@ -173,6 +177,10 @@ export const drawerNavItem = style({
   ':hover': {
     ...typography.body3_bd_18,
   },
+});
+
+export const drawerNavItemActive = style({
+  ...typography.body3_bd_18,
 });
 
 export const drawerLogoutButton = style({

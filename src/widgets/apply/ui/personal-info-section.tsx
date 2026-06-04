@@ -9,7 +9,8 @@ import {
   SEMESTERS,
 } from '@/widgets/apply/apply-dropdown';
 import { usePersonalInfoForm } from '@/widgets/apply/model/use-personal-info-form';
-import type { MilitaryStatus, Track } from '@/shared/api/types';
+import TableQuestion from '@/widgets/apply/ui/table-question';
+import type { MilitaryStatus, QuestionResponse, Track } from '@/shared/api/types';
 import ArrowRight from '@/shared/assets/icons/ic_arrow_right.svg?react';
 import WarningIcon from '@/shared/assets/icons/ic_warning.svg?react';
 import DropdownField from '@/shared/components/dropdown/dropdownField';
@@ -65,9 +66,21 @@ interface PersonalInfoSectionProps {
   formContext: ReturnType<typeof usePersonalInfoForm>;
   onNext: (track: Track) => void;
   onTrackChange?: () => void;
+  interviewQuestion?: QuestionResponse;
+  interviewAnswer?: string;
+  onInterviewAnswerChange?: (questionId: string, value: string) => void;
+  interviewDescription?: string;
 }
 
-const PersonalInfoSection = ({ formContext, onNext, onTrackChange }: PersonalInfoSectionProps) => {
+const PersonalInfoSection = ({
+  formContext,
+  onNext,
+  onTrackChange,
+  interviewQuestion,
+  interviewAnswer = '',
+  onInterviewAnswerChange,
+  interviewDescription,
+}: PersonalInfoSectionProps) => {
   const { form, setField, addDegree, setDegree, removeDegree } = formContext;
   const [submitted, setSubmitted] = useState(false);
   const [emailTouched, setEmailTouched] = useState(false);
@@ -122,6 +135,9 @@ const PersonalInfoSection = ({ formContext, onNext, onTrackChange }: PersonalInf
       !form.track ||
       hasEmptyRequired ||
       hasFormatError ||
+      !form.birthYear ||
+      !form.birthMonth ||
+      !form.birthDay ||
       form.militaryStatus === null ||
       form.gradSchoolPlan === null ||
       !form.academicGrade ||
@@ -164,25 +180,37 @@ const PersonalInfoSection = ({ formContext, onNext, onTrackChange }: PersonalInf
           />
           <FieldError show={submitted && !form.name.trim()} />
         </div>
-        <div className={styles.row}>
-          <DropdownField
-            label="연도"
-            options={BIRTH_YEARS}
-            defaultValue={form.birthYear}
-            onChange={(v) => setField('birthYear', v)}
-          />
-          <DropdownField
-            label="월"
-            options={MONTHS}
-            defaultValue={form.birthMonth}
-            onChange={(v) => setField('birthMonth', v)}
-          />
-          <DropdownField
-            label="일"
-            options={DAYS}
-            defaultValue={form.birthDay}
-            onChange={(v) => setField('birthDay', v)}
-          />
+        <div className={styles.groupContainer}>
+          <div className={styles.row}>
+            <div className={styles.dropdownWrapper}>
+              <DropdownField
+                label="연도"
+                options={BIRTH_YEARS}
+                defaultValue={form.birthYear}
+                isError={submitted && !form.birthYear}
+                onChange={(v) => setField('birthYear', v)}
+              />
+            </div>
+            <div className={styles.dropdownWrapper}>
+              <DropdownField
+                label="월"
+                options={MONTHS}
+                defaultValue={form.birthMonth}
+                isError={submitted && !form.birthMonth}
+                onChange={(v) => setField('birthMonth', v)}
+              />
+            </div>
+            <div className={styles.dropdownWrapper}>
+              <DropdownField
+                label="일"
+                options={DAYS}
+                defaultValue={form.birthDay}
+                isError={submitted && !form.birthDay}
+                onChange={(v) => setField('birthDay', v)}
+              />
+            </div>
+          </div>
+          <FieldError show={submitted && (!form.birthYear || !form.birthMonth || !form.birthDay)} />
         </div>
       </section>
 
@@ -278,38 +306,56 @@ const PersonalInfoSection = ({ formContext, onNext, onTrackChange }: PersonalInf
       {/* 마지막 재학 학기 */}
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>마지막 재학 학기</h2>
-        <div className={styles.row}>
-          <DropdownField
-            label="학년"
-            options={ACADEMIC_GRADES}
-            defaultValue={form.academicGrade}
-            onChange={(v) => setField('academicGrade', v)}
-          />
-          <DropdownField
-            label="학기"
-            options={SEMESTERS}
-            defaultValue={form.semester}
-            onChange={(v) => setField('semester', v)}
-          />
+        <div className={styles.groupContainer}>
+          <div className={styles.row}>
+            <div className={styles.dropdownWrapper}>
+              <DropdownField
+                label="학년"
+                options={ACADEMIC_GRADES}
+                defaultValue={form.academicGrade}
+                isError={submitted && !form.academicGrade}
+                onChange={(v) => setField('academicGrade', v)}
+              />
+            </div>
+            <div className={styles.dropdownWrapper}>
+              <DropdownField
+                label="학기"
+                options={SEMESTERS}
+                defaultValue={form.semester}
+                isError={submitted && !form.semester}
+                onChange={(v) => setField('semester', v)}
+              />
+            </div>
+          </div>
+          <FieldError show={submitted && (!form.academicGrade || !form.semester)} />
         </div>
       </section>
 
       {/* 졸업 예정시점 */}
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>졸업 예정시점</h2>
-        <div className={styles.row}>
-          <DropdownField
-            label="졸업년도"
-            options={GRADUATION_YEARS}
-            defaultValue={form.graduationYear}
-            onChange={(v) => setField('graduationYear', v)}
-          />
-          <DropdownField
-            label="졸업월"
-            options={MONTHS}
-            defaultValue={form.graduationMonth}
-            onChange={(v) => setField('graduationMonth', v)}
-          />
+        <div className={styles.groupContainer}>
+          <div className={styles.row}>
+            <div className={styles.dropdownWrapper}>
+              <DropdownField
+                label="졸업년도"
+                options={GRADUATION_YEARS}
+                defaultValue={form.graduationYear}
+                isError={submitted && !form.graduationYear}
+                onChange={(v) => setField('graduationYear', v)}
+              />
+            </div>
+            <div className={styles.dropdownWrapper}>
+              <DropdownField
+                label="졸업월"
+                options={MONTHS}
+                defaultValue={form.graduationMonth}
+                isError={submitted && !form.graduationMonth}
+                onChange={(v) => setField('graduationMonth', v)}
+              />
+            </div>
+          </div>
+          <FieldError show={submitted && (!form.graduationYear || !form.graduationMonth)} />
         </div>
       </section>
 
@@ -329,6 +375,20 @@ const PersonalInfoSection = ({ formContext, onNext, onTrackChange }: PersonalInf
           <FieldError show={submitted && form.gradSchoolPlan === null} />
         </div>
       </section>
+
+      {interviewQuestion && onInterviewAnswerChange && (
+        <section className={styles.interviewSection}>
+          <h2 className={styles.sectionTitle}>{interviewQuestion.content}</h2>
+          {interviewDescription && (
+            <p className={styles.interviewDescription}>{interviewDescription}</p>
+          )}
+          <TableQuestion
+            question={interviewQuestion}
+            answer={interviewAnswer}
+            onChange={onInterviewAnswerChange}
+          />
+        </section>
+      )}
 
       <div className={styles.footer} onClick={handleNext}>
         <div>다음페이지</div> <ArrowRight />
