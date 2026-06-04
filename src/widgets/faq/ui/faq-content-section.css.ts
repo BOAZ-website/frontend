@@ -34,11 +34,6 @@ const tabBase = style({
   backgroundColor: 'transparent',
   cursor: 'pointer',
   padding: '2.9rem 13.3rem 2.9rem 1.6rem',
-  selectors: {
-    '&:hover': {
-      backgroundColor: themeVars.color.grayscale[900],
-    },
-  },
   '@media': {
     [media.mobile]: {
       flex: '1',
