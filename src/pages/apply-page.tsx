@@ -379,6 +379,7 @@ const ApplyPage = () => {
             onPrev={handlePrev}
             onNext={handleNext}
             supportsTable
+            track={track ?? undefined}
           />
         )}
         {currentStep === 3 && (
@@ -388,6 +389,7 @@ const ApplyPage = () => {
             onNext={handleSubmit}
             nextLabel="제출하기"
             supportsTable={track === 'ENGINEERING' || track === 'VISUALIZATION'}
+            track={track ?? undefined}
           />
         )}
       </section>
