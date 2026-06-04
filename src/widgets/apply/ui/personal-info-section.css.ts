@@ -132,6 +132,24 @@ export const fieldError = style({
   color: themeVars.color.error.red_100,
 });
 
+export const interviewSection = style({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '1.6rem',
+});
+
+export const interviewDescription = style({
+  color: themeVars.color.grayscale[400],
+  ...typography.text_rg_14,
+  whiteSpace: 'pre-line',
+  lineHeight: '1.6',
+  '@media': {
+    [media.mobile]: {
+      ...typography.body6_rg_10,
+    },
+  },
+});
+
 export const degreeRow = style({
   display: 'flex',
   alignItems: 'center',

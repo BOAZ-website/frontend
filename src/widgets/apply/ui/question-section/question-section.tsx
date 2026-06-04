@@ -26,7 +26,7 @@ const isTableAnswerComplete = (
   question: QuestionResponse,
   answers: Record<string, string>
 ): boolean => {
-  const metadata = question.metadata as unknown as { rows: string[] };
+  const metadata = question.metadata as unknown as { rows: string[]; multiple?: boolean };
   if (!metadata?.rows) {
     return false;
   }
@@ -35,6 +35,10 @@ const isTableAnswerComplete = (
     return false;
   }
   try {
+    if (metadata.multiple) {
+      const parsed = JSON.parse(tableData) as Record<string, string[]>;
+      return Object.values(parsed).some((arr) => arr.length > 0);
+    }
     const parsed = JSON.parse(tableData) as Record<string, string>;
     return metadata.rows.every((row) => !!parsed[row]);
   } catch {
@@ -88,6 +92,7 @@ const QuestionSection = ({
 
         if (supportsTable && question.type === 'TABLE') {
           const tableIncomplete = submitted && !isTableAnswerComplete(question, answers);
+          const isMultiple = !!(question.metadata as unknown as { multiple?: boolean })?.multiple;
           return (
             <div key={qId} className={styles.tableSection}>
               <div className={styles.sectionExperienceTitle}>{question.content}</div>
@@ -98,7 +103,11 @@ const QuestionSection = ({
                 radioClassName={styles.radioButton}
                 stackClassName={styles.stackQuestion}
               />
-              {tableIncomplete && <p className={styles.errorText}>모든 항목을 선택해 주세요.</p>}
+              {tableIncomplete && (
+                <p className={styles.errorText}>
+                  {isMultiple ? '최소 하나의 시간을 선택해 주세요.' : '모든 항목을 선택해 주세요.'}
+                </p>
+              )}
             </div>
           );
         }

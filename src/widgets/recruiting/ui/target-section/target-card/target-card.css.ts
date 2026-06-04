@@ -14,7 +14,6 @@ export const cardContainer = style({
   alignItems: 'center',
   justifyContent: 'center',
   backgroundColor: themeVars.color.grayscale[800],
-  gap: '3rem',
   padding: '3.8rem 3rem 4.5rem',
   '@media': {
     [media.mobile]: {
@@ -28,8 +27,8 @@ export const cardContainer = style({
 });
 
 export const iconWrapper = style({
-  width: '9.7rem',
-  height: '9.7rem',
+  width: '13.9rem',
+  height: '13.9rem',
   display: 'flex',
   justifyContent: 'center',
   flexShrink: 0,
