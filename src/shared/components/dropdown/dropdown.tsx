@@ -27,7 +27,6 @@ const Dropdown = ({ options, value, placeholder, onChange, isError }: DropdownPr
 
   return (
     <div ref={containerRef} className={isError ? styles.containerError : styles.container}>
-      {' '}
       <button
         type="button"
         className={`${styles.trigger}${isEmpty ? ` ${styles.triggerPlaceholder}` : ''}`}
