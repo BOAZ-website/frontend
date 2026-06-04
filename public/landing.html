@@ -1,0 +1,2978 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>BOAZ — Gradation Hero</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&display=swap">
+  <link rel="stylesheet" as="style" crossorigin
+    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
+
+  <style>
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      min-height: 100%;
+      overflow-x: hidden;
+      scrollbar-width: none;
+      background: #000;
+      color: #fff;
+    }
+
+    html::-webkit-scrollbar,
+    body::-webkit-scrollbar {
+      display: none;
+    }
+
+    html {
+      min-height: 1100vh;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      --content-margin: 200px;
+      --grid-gutter: 10px;
+      min-height: 1100vh;
+      font-family: "Pretendard", system-ui, sans-serif;
+    }
+
+    html.is-intro-locked,
+    html.is-intro-locked body {
+      overflow: hidden;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    #stage {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      display: block;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .background-frame {
+      --color-bg1: rgb(72, 22, 132);
+      --color-bg2: rgb(4, 18, 78);
+      --color1: 54, 142, 255;
+      --color2: 182, 88, 255;
+      --color3: 112, 218, 255;
+      --color4: 94, 56, 210;
+      --color5: 154, 202, 255;
+      --color-interactive: 138, 96, 255;
+      --circle-size: 80%;
+      --blending: hard-light;
+      --hero-bg-reveal: 0;
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      background: linear-gradient(40deg, var(--color-bg1), var(--color-bg2));
+      opacity: var(--hero-bg-reveal);
+      will-change: transform, opacity;
+    }
+
+    .background-frame::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 4;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse 52% 78% at 98% 0%, rgba(140, 40, 210, 0.88) 0%, rgba(72, 22, 150, 0.44) 42%, transparent 68%),
+        radial-gradient(ellipse 42% 62% at 88% 20%, rgba(40, 110, 255, 0.82) 0%, transparent 60%),
+        radial-gradient(ellipse 36% 50% at 95% 42%, rgba(90, 190, 255, 0.65) 0%, transparent 54%);
+    }
+
+    .background-frame::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 12;
+      pointer-events: none;
+      background:
+        linear-gradient(to right,
+          rgba(0, 0, 0, calc(1 - var(--vignette-p, 0))) 0%,
+          rgba(0, 0, 0, calc(1 - var(--vignette-p, 0))) 5%,
+          transparent 100%),
+        linear-gradient(to left,
+          rgba(0, 0, 0, var(--vignette-p, 0)) 0%,
+          rgba(0, 0, 0, var(--vignette-p, 0)) 5%,
+          transparent 100%),
+        linear-gradient(to top,
+          rgba(0, 0, 0, calc(1 - var(--vignette-p, 0))) 0%,
+          rgba(0, 0, 0, calc(0.4 * (1 - var(--vignette-p, 0)))) 20%,
+          rgba(0, 0, 0, calc(0.08 * (1 - var(--vignette-p, 0)))) 45%,
+          transparent 100%),
+        linear-gradient(to bottom,
+          rgba(0, 0, 0, var(--vignette-p, 0)) 0%,
+          rgba(0, 0, 0, calc(0.4 * var(--vignette-p, 0))) 20%,
+          rgba(0, 0, 0, calc(0.08 * var(--vignette-p, 0))) 45%,
+          transparent 100%);
+    }
+
+    @keyframes bgMoveInCircle {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      50% {
+        transform: rotate(180deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes bgMoveVertical {
+      0% {
+        transform: translateY(-50%);
+      }
+
+      50% {
+        transform: translateY(50%);
+      }
+
+      100% {
+        transform: translateY(-50%);
+      }
+    }
+
+    @keyframes bgMoveHorizontal {
+      0% {
+        transform: translateX(-50%) translateY(-10%);
+      }
+
+      50% {
+        transform: translateX(50%) translateY(10%);
+      }
+
+      100% {
+        transform: translateX(-50%) translateY(-10%);
+      }
+    }
+
+    .bg-gradient {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      background: linear-gradient(40deg, var(--color-bg1), var(--color-bg2));
+    }
+
+    .bg-gradient svg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .bg-gradients-container {
+      width: 100%;
+      height: 100%;
+    }
+
+    .bg-gradients-container {
+      transform: translate(44%, -32%);
+    }
+
+    .bg-blob {
+      position: absolute;
+      width: var(--circle-size);
+      height: var(--circle-size);
+      top: calc(50% - var(--circle-size) / 2);
+      left: calc(50% - var(--circle-size) / 2);
+      mix-blend-mode: var(--blending);
+      opacity: 1;
+    }
+
+    .bg-g1 {
+      background: radial-gradient(circle at center, rgba(var(--color1), 0.8) 0, rgba(var(--color1), 0) 50%) no-repeat;
+      transform-origin: center center;
+      animation: bgMoveVertical 30s ease infinite;
+    }
+
+    .bg-g2 {
+      background: radial-gradient(circle at center, rgba(var(--color2), 0.8) 0, rgba(var(--color2), 0) 50%) no-repeat;
+      transform-origin: calc(50% - 400px);
+      animation: bgMoveInCircle 20s reverse infinite;
+    }
+
+    .bg-g3 {
+      top: calc(50% - var(--circle-size) / 2 + 200px);
+      left: calc(50% - var(--circle-size) / 2 - 500px);
+      background: radial-gradient(circle at center, rgba(var(--color3), 0.8) 0, rgba(var(--color3), 0) 50%) no-repeat;
+      transform-origin: calc(50% + 400px);
+      animation: bgMoveInCircle 40s linear infinite;
+    }
+
+    .bg-g4 {
+      background: radial-gradient(circle at center, rgba(var(--color4), 0.8) 0, rgba(var(--color4), 0) 50%) no-repeat;
+      transform-origin: calc(50% - 200px);
+      animation: bgMoveHorizontal 40s ease infinite;
+      opacity: 0.7;
+    }
+
+    .bg-g5 {
+      width: calc(var(--circle-size) * 2);
+      height: calc(var(--circle-size) * 2);
+      top: calc(50% - var(--circle-size));
+      left: calc(50% - var(--circle-size));
+      background: radial-gradient(circle at center, rgba(var(--color5), 0.8) 0, rgba(var(--color5), 0) 50%) no-repeat;
+      transform-origin: calc(50% - 800px) calc(50% + 200px);
+      animation: bgMoveInCircle 20s ease infinite;
+    }
+
+    .bg-interactive {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: -50%;
+      left: -50%;
+      background: radial-gradient(circle at center, rgba(var(--color-interactive), 0.8) 0, rgba(var(--color-interactive), 0) 50%) no-repeat;
+      mix-blend-mode: var(--blending);
+      opacity: 0.7;
+      will-change: transform;
+    }
+
+    .bg-blur-layer {
+      position: absolute;
+      inset: 0;
+      z-index: 5;
+      pointer-events: none;
+      backdrop-filter: blur(180px);
+      -webkit-backdrop-filter: blur(180px);
+    }
+
+    .bg-gradient-wash {
+      position: absolute;
+      inset: 0;
+      z-index: 6;
+      pointer-events: none;
+      background:
+        linear-gradient(122deg,
+          rgba(142, 104, 255, 0.16) 0%,
+          rgba(115, 190, 255, 0.13) 46%,
+          rgba(58, 34, 145, 0.18) 100%);
+      mix-blend-mode: screen;
+    }
+
+    .bg-noise-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 10;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      mix-blend-mode: soft-light;
+      opacity: 0.18;
+    }
+
+    .scroll-space {
+      height: 1100vh;
+      pointer-events: none;
+    }
+
+    .statistics-stage {
+      position: fixed;
+      top: 0;
+      left: var(--content-margin);
+      right: var(--content-margin);
+      z-index: 2;
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      column-gap: var(--grid-gutter);
+      width: auto;
+      pointer-events: auto;
+      will-change: transform;
+    }
+
+    .mission-stage {
+      grid-column: 7 / span 6;
+      align-self: end;
+      width: 100%;
+      --mission-font-size: clamp(36px, 4.7vw, 86px);
+      --mission-line-height: 1.12;
+      color: #fff;
+      pointer-events: none;
+      will-change: transform;
+    }
+
+    .mission-title {
+      margin: 0;
+      font-size: var(--mission-font-size);
+      font-weight: 800;
+      line-height: var(--mission-line-height);
+      letter-spacing: -0.06em;
+      word-break: keep-all;
+    }
+
+    .mission-title span {
+      --line-progress: 0;
+      position: relative;
+      display: inline-block;
+      color: rgba(247, 247, 247, 0.22);
+      white-space: nowrap;
+    }
+
+    .mission-title span::after {
+      content: attr(data-text);
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      color: #ffffff;
+      clip-path: inset(0 calc((1 - var(--line-progress)) * 100%) 0 0);
+    }
+
+    .section-heading {
+      margin: 0 0 clamp(34px, 5vh, 58px);
+      color: #fff;
+      pointer-events: none;
+    }
+
+    .section-eyebrow {
+      display: block;
+      margin: 0 0 18px;
+      color: rgba(247, 247, 247, 0.42);
+      font-size: clamp(18px, 1.8vw, 28px);
+      font-weight: 200;
+      line-height: 1;
+      letter-spacing: -0.04em;
+    }
+
+    .section-title {
+      margin: 0;
+      color: rgba(247, 247, 247, 0.96);
+      font-size: clamp(28px, 3.6vw, 54px);
+      font-weight: 600;
+      line-height: 1.08;
+      letter-spacing: -0.06em;
+      word-break: keep-all;
+    }
+
+    .statistics-stage .section-heading {
+      grid-column: 1 / span 4;
+      align-self: end;
+      margin: 0;
+      transform: none;
+    }
+
+    .statistics-stage .section-eyebrow {
+      display: none;
+    }
+
+    .statistics-stage .section-title {
+      font-size: clamp(76px, 7.2vw, 128px);
+      font-weight: 800;
+      line-height: 0.92;
+      letter-spacing: -0.07em;
+    }
+
+    .statistics {
+      --bg: #000;
+      --white: #f2f4ff;
+      --line: rgba(242, 244, 255, 0.38);
+      --number-size: clamp(84px, min(10.92vw, 14.7vh), 144px);
+      --label-size: clamp(20px, 1.9vw, 28px);
+      --body-size: 17.5px;
+      --row-height: calc(52vh / 3);
+      --hover-lift: clamp(44px, 6vh, 74px);
+      --label-bottom-gap: 12px;
+      --label-top-hover: clamp(16px, 2.8vh, 28px);
+      --hover-duration: 520ms;
+      --hover-ease: cubic-bezier(0.16, 1, 0.3, 1);
+      --reveal-duration: 900ms;
+      --reveal-ease: cubic-bezier(0.16, 1, 0.3, 1);
+      --stat-col: calc((100% - var(--grid-gutter) * 7) / 8);
+      grid-column: 5 / span 8;
+      width: 100%;
+      min-height: 52vh;
+      margin: clamp(78px, 10vh, 128px) 0 0;
+      padding: 0;
+      background: transparent;
+      color: var(--white);
+    }
+
+    .stat-row {
+      position: relative;
+      height: var(--row-height);
+      min-height: 0;
+      overflow: hidden;
+      transition: height var(--hover-duration) var(--hover-ease);
+    }
+
+    .row-content {
+      position: absolute;
+      inset: 0;
+      height: var(--row-height);
+    }
+
+    .row-content::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 4;
+      height: 1px;
+      background: var(--line);
+      transform: translateY(0);
+      transition: transform var(--hover-duration) var(--hover-ease);
+    }
+
+    .stat-row:first-child {
+      border-top: 0;
+    }
+
+    .label {
+      position: absolute;
+      top: calc(var(--row-height) - var(--label-size) - var(--label-bottom-gap));
+      z-index: 2;
+      margin: 0;
+      color: var(--white);
+      font-size: var(--label-size);
+      font-weight: 600;
+      line-height: 1;
+      letter-spacing: -0.05em;
+      text-transform: uppercase;
+      transition:
+        top var(--hover-duration) var(--hover-ease),
+        transform var(--hover-duration) var(--hover-ease);
+    }
+
+    .reveal-target {
+      opacity: 0;
+      filter: blur(12px);
+      transform: translateY(0.36em);
+      transition:
+        opacity var(--reveal-duration) var(--reveal-ease),
+        filter var(--reveal-duration) var(--reveal-ease),
+        transform var(--reveal-duration) var(--reveal-ease);
+      transition-delay: var(--reveal-delay, 0ms);
+      will-change: opacity, filter, transform;
+    }
+
+    .stat-row.is-visible .reveal-target {
+      opacity: 1;
+      filter: blur(0);
+      transform: translateY(0);
+    }
+
+    .label.left {
+      left: 0;
+    }
+
+    .label.right {
+      right: 0;
+    }
+
+    .label-copy {
+      display: inline-block;
+    }
+
+    .number {
+      position: absolute;
+      top: calc(var(--row-height) - 15px);
+      z-index: 1;
+      margin: 0;
+      color: var(--white);
+      font-family: "Pretendard", system-ui, sans-serif;
+      font-size: var(--number-size);
+      font-weight: 700;
+      line-height: 0.72;
+      letter-spacing: -0.035em;
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+      width: calc(var(--stat-col) * 4 + var(--grid-gutter) * 3);
+      transform: translateY(-72%);
+      transition:
+        color 260ms ease,
+        filter 360ms var(--hover-ease),
+        text-shadow 360ms var(--hover-ease);
+    }
+
+    .number.left {
+      left: 0;
+    }
+
+    .number.right {
+      right: 0;
+      text-align: right;
+    }
+
+    .number.reveal-target {
+      transition:
+        opacity var(--reveal-duration) var(--reveal-ease),
+        filter var(--reveal-duration) var(--reveal-ease),
+        transform var(--reveal-duration) var(--reveal-ease),
+        color 260ms ease,
+        text-shadow 360ms var(--hover-ease);
+      transition-delay: var(--reveal-delay, 0ms);
+      transform: translateY(calc(-72% + 0.36em));
+    }
+
+    .stat-row.is-visible .number.reveal-target {
+      transform: translateY(-72%);
+    }
+
+    .description {
+      position: absolute;
+      left: 0;
+      bottom: clamp(10px, 1.5vh, 16px);
+      z-index: 2;
+      width: calc(var(--stat-col) * 3 + var(--grid-gutter) * 2);
+      margin: 0;
+      color: rgba(247, 247, 247, 0.82);
+      font-size: var(--body-size);
+      font-weight: 200;
+      line-height: 1.42;
+      letter-spacing: -0.035em;
+      word-break: keep-all;
+      opacity: 0;
+      filter: blur(12px);
+      transform: translateY(0.36em);
+      transition:
+        opacity var(--reveal-duration) var(--reveal-ease),
+        filter var(--reveal-duration) var(--reveal-ease),
+        transform var(--reveal-duration) var(--reveal-ease);
+      pointer-events: none;
+    }
+
+    .description.right {
+      left: 0;
+      right: auto;
+      text-align: left;
+    }
+
+    .stat-row:hover .row-content::after {
+      transform: translateY(var(--hover-lift));
+    }
+
+    .stat-row:hover {
+      height: calc(var(--row-height) + var(--hover-lift));
+    }
+
+    .stat-row:hover .label {
+      top: var(--label-top-hover);
+      transform: translateY(0);
+    }
+
+    .stat-row:hover .description {
+      opacity: 1;
+      filter: blur(0);
+      transform: translateY(0);
+    }
+
+    .division-stage {
+      position: fixed;
+      top: 0;
+      left: var(--content-margin);
+      right: var(--content-margin);
+      z-index: 2;
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      column-gap: var(--grid-gutter);
+      pointer-events: auto;
+      will-change: transform;
+    }
+
+    .division-stage .section-heading {
+      display: grid;
+      grid-column: 4 / span 6;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      column-gap: var(--grid-gutter);
+      margin: 0 0 clamp(78px, 10vh, 132px);
+      text-align: center;
+    }
+
+    .division-stage .section-eyebrow {
+      grid-column: 3 / span 2;
+      justify-self: center;
+      width: max-content;
+      margin: 0 auto 18px;
+      color: #7A64F9;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .division-stage .section-title {
+      grid-column: 1 / -1;
+      text-align: center;
+    }
+
+    .division-row {
+      --card-gap: var(--grid-gutter);
+      --card-height: auto;
+      --card-hover-extra: 28px;
+      display: grid;
+      grid-column: 1 / span 12;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      width: 100%;
+      align-items: center;
+      gap: var(--card-gap);
+    }
+
+    .division-card {
+      position: relative;
+      grid-column: span 4;
+      height: var(--card-height);
+      transition: transform 720ms cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: transform;
+    }
+
+    .division-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      border: 1px solid #333;
+      border-radius: 14px;
+      pointer-events: none;
+      transform: scaleX(1);
+      transition:
+        border-color 720ms cubic-bezier(0.16, 1, 0.3, 1),
+        transform 720ms cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: transform, border-color;
+    }
+
+    .division-row[data-active="0"] .division-card:nth-child(2),
+    .division-row[data-active="0"] .division-card:nth-child(3) {
+      transform: translateX(calc(var(--card-hover-extra) / 2));
+    }
+
+    .division-row[data-active="1"] .division-card:nth-child(1) {
+      transform: translateX(calc(var(--card-hover-extra) / -2));
+    }
+
+    .division-row[data-active="1"] .division-card:nth-child(3) {
+      transform: translateX(calc(var(--card-hover-extra) / 2));
+    }
+
+    .division-row[data-active="2"] .division-card:nth-child(1),
+    .division-row[data-active="2"] .division-card:nth-child(2) {
+      transform: translateX(calc(var(--card-hover-extra) / -2));
+    }
+
+    .division-surface {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      padding: 34px 28px;
+      border-radius: 14px;
+      background: transparent;
+      opacity: 0;
+      filter: blur(12px);
+      transform: translateY(34px);
+      transition:
+        opacity 720ms cubic-bezier(0.16, 1, 0.3, 1),
+        filter 720ms cubic-bezier(0.16, 1, 0.3, 1),
+        transform 720ms cubic-bezier(0.16, 1, 0.3, 1);
+      transition-delay: var(--division-reveal-delay, 0ms);
+      will-change: opacity, filter, transform;
+    }
+
+    .division-stage.is-visible .division-surface {
+      opacity: 1;
+      filter: blur(0);
+      transform: translateY(0);
+    }
+
+    .division-row[data-active="0"] .division-card:nth-child(1)::before,
+    .division-row[data-active="1"] .division-card:nth-child(2)::before,
+    .division-row[data-active="2"] .division-card:nth-child(3)::before {
+      border-color: #666;
+      transform: scaleX(var(--card-hover-scale, 1.07));
+    }
+
+    .division-copy {
+      position: absolute;
+      right: 28px;
+      bottom: 26px;
+      left: 28px;
+      z-index: 2;
+    }
+
+    .division-title {
+      margin: 14px 0 0;
+      color: rgba(255, 255, 255, 0.86);
+      font-size: clamp(28px, 2.4vw, 42px);
+      font-weight: 700;
+      line-height: 1.08;
+      letter-spacing: -0.08em;
+      word-break: keep-all;
+      white-space: nowrap;
+    }
+
+    .division-description {
+      margin: 0;
+      width: calc(((100% - var(--grid-gutter) * 3) / 4) * 3 + var(--grid-gutter) * 2);
+      color: rgba(255, 255, 255, 0.70);
+      font-size: clamp(14px, 1.05vw, 20px);
+      font-weight: 700;
+      line-height: 1.35;
+      letter-spacing: -0.05em;
+      word-break: keep-all;
+    }
+
+    .division-chip-marquee {
+      position: absolute;
+      right: 0;
+      left: 0;
+      display: flex;
+      width: max-content;
+      gap: 10px;
+      opacity: 0.72;
+      animation: chipMoveRight 18s linear infinite;
+      animation-duration: var(--chip-duration, 20s);
+      will-change: transform;
+    }
+
+    .division-chip-marquee.row-one {
+      top: -4px;
+    }
+
+    .division-chip-marquee.row-two {
+      top: 38px;
+      animation-delay: -6s;
+    }
+
+    .division-chip-group {
+      display: flex;
+      gap: 10px;
+      padding-right: 10px;
+    }
+
+    .division-chip {
+      display: inline-flex;
+      min-width: max-content;
+      align-items: center;
+      justify-content: center;
+      padding: 5px 16px;
+      border: 0.8px solid rgba(255, 255, 255, 0.32);
+      border-radius: 999px;
+      color: rgba(255, 255, 255, 0.36);
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 1;
+      letter-spacing: -0.05em;
+      white-space: nowrap;
+      opacity: 0;
+      filter: blur(12px);
+      transform: translateY(34px);
+      transition:
+        opacity 620ms cubic-bezier(0.16, 1, 0.3, 1),
+        filter 620ms cubic-bezier(0.16, 1, 0.3, 1),
+        transform 620ms cubic-bezier(0.16, 1, 0.3, 1);
+      transition-delay: var(--reveal-delay, 0ms);
+      will-change: opacity, filter, transform;
+    }
+
+    .division-card.is-chip-visible .division-chip {
+      opacity: 1;
+      filter: blur(0);
+      transform: translateY(0);
+    }
+
+    .division-arrow {
+      position: absolute;
+      right: 28px;
+      bottom: 26px;
+      z-index: 3;
+      width: clamp(26px, 2.1vw, 38px);
+      height: auto;
+      opacity: 0;
+      filter: blur(12px);
+      transform: translateX(-34px);
+      transition:
+        opacity 620ms cubic-bezier(0.16, 1, 0.3, 1),
+        filter 620ms cubic-bezier(0.16, 1, 0.3, 1),
+        transform 620ms cubic-bezier(0.16, 1, 0.3, 1);
+      transition-delay: var(--arrow-reveal-delay, 120ms);
+      pointer-events: none;
+      will-change: opacity, filter, transform;
+    }
+
+    .division-card.is-chip-visible .division-arrow {
+      opacity: 1;
+      filter: blur(0);
+      transform: translateX(0);
+    }
+
+    @keyframes chipMoveRight {
+      from {
+        transform: translateX(-50%);
+      }
+
+      to {
+        transform: translateX(0);
+      }
+    }
+
+    /* ── Activity Stage ─────────────────────────── */
+    .activity-stage {
+      position: fixed;
+      top: 0;
+      left: var(--content-margin);
+      right: var(--content-margin);
+      z-index: 2;
+      pointer-events: auto;
+      will-change: transform;
+    }
+
+    .activity-shell {
+      --activity-col: calc((100% - var(--grid-gutter) * 11) / 12);
+      --activity-title-size: clamp(28px, 2.4vw, 42px);
+      --activity-body-size: 17.5px;
+      display: grid;
+      width: 100%;
+      min-height: 80vh;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      column-gap: var(--grid-gutter);
+      align-items: center;
+    }
+
+    .activity-nav-viewport {
+      position: relative;
+      grid-column: 1 / span 6;
+      height: 80vh;
+      overflow: visible;
+    }
+
+    .activity-nav {
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: flex;
+      width: 100%;
+      flex-direction: column;
+      gap: clamp(76px, 10vh, 132px);
+      will-change: transform;
+    }
+
+    .activity-tab {
+      position: relative;
+      display: flex;
+      width: 100%;
+      align-items: flex-start;
+      justify-content: flex-start;
+      flex-direction: column;
+      padding: 0 0 clamp(32px, 4.4vh, 54px);
+      border: 0;
+      background: transparent;
+      color: rgba(242, 244, 255, 0.42);
+      cursor: pointer;
+      font: inherit;
+      font-size: var(--activity-title-size);
+      font-weight: 700;
+      line-height: 1.08;
+      letter-spacing: -0.08em;
+      text-align: left;
+      word-break: keep-all;
+      white-space: nowrap;
+      opacity: 0;
+      filter: blur(12px);
+      transform: translate3d(0, 0.36em, 0);
+      transition:
+        color 260ms ease,
+        opacity 620ms cubic-bezier(0.16, 1, 0.3, 1),
+        filter 620ms cubic-bezier(0.16, 1, 0.3, 1),
+        transform 620ms cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: transform, opacity, filter;
+    }
+
+    .activity-tab.is-tab-visible {
+      opacity: 0.58;
+      filter: blur(0);
+      transform: translate3d(0, 0, 0);
+    }
+
+    .activity-tab.is-tab-after {
+      opacity: 0;
+      filter: blur(12px);
+      transform: translate3d(0, -0.36em, 0);
+    }
+
+    .activity-tab.is-tab-visible.is-active {
+      color: #f2f4ff;
+      opacity: 1;
+    }
+
+    .activity-tab-description {
+      position: absolute;
+      top: calc(var(--activity-title-size) * 1.08 + 10px);
+      left: 0;
+      width: calc(var(--activity-col) * 4 + var(--grid-gutter) * 3);
+      margin: 0;
+      color: rgba(247, 247, 247, 0.82);
+      font-size: var(--activity-body-size);
+      font-weight: 200;
+      line-height: 1.42;
+      letter-spacing: -0.035em;
+      text-align: left;
+      word-break: keep-all;
+      white-space: nowrap;
+      opacity: 0;
+      filter: blur(10px);
+      transform: translateY(0.4em);
+      transition:
+        opacity 520ms cubic-bezier(0.16, 1, 0.3, 1),
+        filter 520ms cubic-bezier(0.16, 1, 0.3, 1),
+        transform 520ms cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: none;
+    }
+
+    .activity-tab.is-active .activity-tab-description {
+      opacity: 1;
+      filter: blur(0);
+      transform: translateY(0);
+    }
+
+    .activity-panel {
+      grid-column: 7 / span 6;
+      align-self: center;
+      justify-self: end;
+      width: 100%;
+      pointer-events: none;
+    }
+
+    .activity-card {
+      --reveal-duration: 900ms;
+      --reveal-ease: cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      background: transparent;
+    }
+
+    .activity-card.is-visible {
+      pointer-events: auto;
+    }
+
+    .activity-card .section-heading {
+      position: absolute;
+      right: 0;
+      bottom: calc(100% + clamp(20px, 3vh, 36px));
+      width: 100%;
+      margin: 0;
+      text-align: right;
+      opacity: 0;
+      filter: blur(12px);
+      transition:
+        opacity var(--reveal-duration) var(--reveal-ease),
+        filter var(--reveal-duration) var(--reveal-ease);
+      will-change: opacity, filter;
+    }
+
+    .activity-stage.is-heading-visible .activity-card .section-heading {
+      opacity: 1;
+      filter: blur(0);
+    }
+
+    .activity-image {
+      --activity-index: 0;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      border-radius: 24px;
+      background: rgba(242, 244, 255, 0.08);
+      box-shadow: 0 28px 90px rgba(0, 0, 0, 0.36);
+      opacity: 0;
+      filter: blur(12px);
+      transform: translateY(34px);
+      transition:
+        opacity var(--reveal-duration) var(--reveal-ease),
+        filter var(--reveal-duration) var(--reveal-ease),
+        transform var(--reveal-duration) var(--reveal-ease);
+      will-change: opacity, filter, transform;
+    }
+
+    .activity-image-track {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      flex-direction: column;
+      transform: translate3d(0, calc(var(--activity-index) * -100%), 0);
+      transition: transform 720ms cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: transform;
+    }
+
+    .activity-image img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      flex: 0 0 100%;
+      object-fit: cover;
+    }
+
+    .activity-description {
+      display: none;
+    }
+
+    .activity-card.is-visible .activity-image {
+      opacity: 1;
+      filter: blur(0);
+      transform: translateY(0);
+    }
+
+    /* ── Review Stage ─────────────────────────── */
+    .review-stage {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 2;
+      width: 100%;
+      height: 145vh;
+      overflow: visible;
+      pointer-events: auto;
+      will-change: transform;
+    }
+
+    .review-stage .section-heading {
+      position: fixed;
+      top: 0;
+      left: var(--content-margin);
+      z-index: 4;
+      margin: 0;
+      visibility: hidden;
+      transition: visibility 0s linear 760ms;
+      pointer-events: none;
+    }
+
+    .review-stage .section-heading>* {
+      opacity: 0;
+      filter: blur(12px);
+      transform: translateY(0.45em);
+      transition:
+        opacity 760ms cubic-bezier(0.16, 1, 0.3, 1),
+        filter 760ms cubic-bezier(0.16, 1, 0.3, 1),
+        transform 760ms cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, filter, transform;
+    }
+
+    .review-stage .section-heading .section-title {
+      transition-delay: 90ms;
+    }
+
+    .review-stage.is-review-visible .section-heading {
+      visibility: visible;
+      transition-delay: 0s;
+    }
+
+    .review-stage.is-review-visible .section-heading>* {
+      opacity: 1;
+      filter: blur(0);
+      transform: translateY(0);
+    }
+
+    .review-marquee-page {
+      position: relative;
+      display: flex;
+      min-height: 145vh;
+      flex-direction: column;
+      justify-content: flex-start;
+      gap: clamp(58px, 9vh, 96px);
+      padding: clamp(150px, 21vh, 220px) 0 clamp(110px, 16vh, 180px);
+      overflow: visible;
+    }
+
+    .review-marquee-page::before,
+    .review-marquee-page::after {
+      position: absolute;
+      z-index: 2;
+      top: 0;
+      bottom: 0;
+      width: min(14vw, 180px);
+      pointer-events: none;
+      content: "";
+    }
+
+    .review-marquee-page::before {
+      left: 0;
+      background: linear-gradient(90deg, #000 0%, rgba(0, 0, 0, 0) 100%);
+    }
+
+    .review-marquee-page::after {
+      right: 0;
+      background: linear-gradient(270deg, #000 0%, rgba(0, 0, 0, 0) 100%);
+    }
+
+    .marquee-row {
+      width: 138vw;
+      margin-left: -19vw;
+      overflow: visible;
+      transform: rotate(-8deg);
+      transform-origin: center;
+    }
+
+    .marquee-track {
+      display: flex;
+      width: max-content;
+      align-items: center;
+      gap: 52px;
+      transform: translate3d(0, 0, 0);
+      will-change: transform;
+    }
+
+    .marquee-set {
+      display: flex;
+      align-items: center;
+      gap: 52px;
+      padding-right: 52px;
+    }
+
+    .review-item {
+      display: flex;
+      flex: 0 0 auto;
+      align-items: flex-end;
+      gap: 24px;
+    }
+
+    .sector {
+      flex: 0 0 auto;
+      color: #f7f7f7;
+      font-size: clamp(31px, 4.2vw, 64px);
+      font-weight: 600;
+      line-height: 0.9;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .sector,
+    .review-card {
+      opacity: 0;
+      filter: blur(12px);
+      transform: translateY(34px);
+      transition:
+        opacity 900ms cubic-bezier(0.16, 1, 0.3, 1),
+        filter 900ms cubic-bezier(0.16, 1, 0.3, 1),
+        transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
+      transition-delay: var(--reveal-delay, 0ms);
+      will-change: opacity, filter, transform;
+    }
+
+    .review-marquee-page.is-review-visible .sector,
+    .review-marquee-page.is-review-visible .review-card {
+      opacity: 1;
+      filter: blur(0);
+      transform: translateY(0);
+    }
+
+    .review-card {
+      display: grid;
+      flex: 0 0 auto;
+      width: 500px;
+      height: 208px;
+      grid-template-rows: auto 1fr;
+      gap: 10px;
+      padding: 28.5px 42px 35px;
+      overflow: hidden;
+      border-radius: 12px;
+      background: #1a1a1a;
+    }
+
+    .review-author {
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      line-height: 1.2;
+      white-space: nowrap;
+    }
+
+    .review-name {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    .review-meta {
+      color: #7a64f9;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    .review-body {
+      align-self: center;
+      width: 100%;
+      margin: 0;
+      color: rgba(247, 247, 247, 0.72);
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.48;
+      letter-spacing: 0;
+      overflow-wrap: break-word;
+      word-break: keep-all;
+      transition:
+        color 220ms ease,
+        text-shadow 220ms ease;
+    }
+
+    .review-card:hover .review-body,
+    .review-card:focus-within .review-body {
+      color: #f7f7f7;
+      text-shadow: 0 0 14px rgba(247, 247, 247, 0.14);
+    }
+
+    .activity-card .section-eyebrow,
+    .review-stage .section-eyebrow {
+      color: #7A64F9;
+    }
+
+    @media (max-width: 768px) {
+      .activity-shell {
+        grid-template-columns: 1fr;
+      }
+
+      .activity-nav-viewport,
+      .activity-panel {
+        grid-column: 1 / -1;
+      }
+
+      .activity-card .section-heading {
+        text-align: left;
+      }
+
+      .activity-tab {
+        padding-bottom: 18px;
+        font-size: 28px;
+        white-space: normal;
+      }
+
+      .activity-tab-description {
+        top: calc(28px * 1.08 + 10px);
+        width: 100%;
+        font-size: 12px;
+        white-space: normal;
+      }
+
+      .activity-nav {
+        gap: 18px;
+      }
+
+      .activity-image {
+        border-radius: 18px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      body {
+        --content-margin: 24px;
+        --grid-gutter: 4px;
+      }
+
+      /* 통계 섹션 — 12컬럼 유지, 세로 스택 */
+      .statistics-stage {
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+      }
+
+      /* About BOAZ — 오른쪽 8컬럼 */
+      .statistics-stage .section-heading {
+        grid-column: 5 / span 8;
+        align-self: start;
+        margin: 0 0 clamp(24px, 5vw, 40px);
+      }
+
+      .statistics-stage .section-title {
+        font-size: clamp(52px, 13.3vw, 76px);
+        line-height: 0.92;
+      }
+
+      /* 본문 — 왼쪽 8컬럼 */
+      .mission-stage {
+        grid-column: 1 / span 8;
+        align-self: start;
+      }
+
+      /* 통계 수치 — 전체 12컬럼 */
+      .statistics {
+        grid-column: 1 / -1;
+        margin-top: clamp(32px, 6vw, 56px);
+        --number-size: clamp(56px, 14.4vw, 80px);
+      }
+
+      /* 모바일: 숫자 width를 6 stat-col로 확장 (기본 4→6) */
+      .number {
+        width: calc(var(--stat-col) * 6 + var(--grid-gutter) * 5);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="background-frame">
+    <div class="bg-gradient">
+      <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <filter id="bg-goo">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+            <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -8" result="goo" />
+            <feBlend in="SourceGraphic" in2="goo" />
+          </filter>
+        </defs>
+      </svg>
+      <div class="bg-gradients-container">
+        <div class="bg-blob bg-g1"></div>
+        <div class="bg-blob bg-g2"></div>
+        <div class="bg-blob bg-g3"></div>
+        <div class="bg-blob bg-g4"></div>
+        <div class="bg-blob bg-g5"></div>
+        <div class="bg-interactive"></div>
+      </div>
+    </div>
+    <div class="bg-blur-layer" aria-hidden="true"></div>
+    <div class="bg-gradient-wash" aria-hidden="true"></div>
+    <canvas class="bg-noise-overlay" aria-hidden="true"></canvas>
+  </div>
+  <canvas id="stage"></canvas>
+  <div class="statistics-stage" id="statistics-stage">
+    <header class="section-heading">
+      <span class="section-eyebrow">Moments of BOAZ</span>
+      <h2 class="section-title">About<br>BOAZ</h2>
+    </header>
+    <section class="mission-stage" aria-label="BOAZ introduction">
+      <h2 class="mission-title">
+        <span data-text="데이터로부터 가능성을 발견하고">데이터로부터 가능성을 발견하고</span><br>
+        <span data-text="분석, 시각화, 엔지니어링을 통해">분석, 시각화, 엔지니어링을 통해</span><br>
+        <span data-text="함께 성장하는 사람들의 커뮤니티,">함께 성장하는 사람들의 커뮤니티,</span><br>
+        <span data-text="BOAZ입니다.">BOAZ입니다.</span>
+      </h2>
+    </section>
+    <main class="statistics" aria-label="BOAZ statistics">
+      <section class="stat-row" aria-label="Since 2013">
+        <div class="row-content">
+          <h2 class="label left"><span class="label-copy reveal-target">Since</span></h2>
+          <p class="number right reveal-target" data-start="2026" data-target="2013" data-duration="2600"
+            data-format="plain">2026</p>
+        </div>
+        <p class="description">국내 최초 빅데이터 동아리<br>2013년부터 시작해<br>데이터로 가능성을 넓혀왔습니다.</p>
+      </section>
+
+      <section class="stat-row" aria-label="More than 800 people">
+        <div class="row-content">
+          <h2 class="label left"><span class="label-copy reveal-target">People</span></h2>
+          <p class="number right reveal-target" data-start="0" data-target="800" data-duration="1400" data-prefix="+">+0
+          </p>
+        </div>
+        <p class="description">다양한 분야의 사람들이 모여<br>데이터를 배우고 나누며<br>함께 성장합니다.</p>
+      </section>
+
+      <section class="stat-row" aria-label="More than 120 awards">
+        <div class="row-content">
+          <h2 class="label left"><span class="label-copy reveal-target">Award</span></h2>
+          <p class="number right reveal-target" data-start="0" data-target="120" data-duration="1400" data-prefix="+">+0
+          </p>
+        </div>
+        <p class="description">프로젝트와 공모전에서<br>쌓아온 성과들이<br>BOAZ의 다음을 만듭니다.</p>
+      </section>
+    </main>
+  </div>
+  <section class="division-stage" aria-label="BOAZ divisions">
+    <header class="section-heading">
+      <span class="section-eyebrow">Our Divisions</span>
+      <h2 class="section-title">데이터의 흐름을 나누고, 함께 완성합니다</h2>
+    </header>
+    <main class="division-row">
+      <section class="division-card">
+        <a class="division-surface" href="/curriculum?tab=분석" target="_parent" style="text-decoration:none;">
+          <div class="division-chip-marquee row-one" aria-hidden="true">
+            <div class="division-chip-group">
+              <span class="division-chip">AI Agent</span>
+              <span class="division-chip">Computer Vision</span>
+              <span class="division-chip">LLM</span>
+              <span class="division-chip">NLP</span>
+              <span class="division-chip">Medical AI</span>
+            </div>
+            <div class="division-chip-group">
+              <span class="division-chip">AI Agent</span>
+              <span class="division-chip">Computer Vision</span>
+              <span class="division-chip">LLM</span>
+              <span class="division-chip">NLP</span>
+              <span class="division-chip">Medical AI</span>
+            </div>
+          </div>
+          <div class="division-chip-marquee row-two" aria-hidden="true">
+            <div class="division-chip-group">
+              <span class="division-chip">Regression</span>
+              <span class="division-chip">Clustering</span>
+              <span class="division-chip">Forecasting</span>
+              <span class="division-chip">Recommendation</span>
+              <span class="division-chip">A/B Test</span>
+            </div>
+            <div class="division-chip-group">
+              <span class="division-chip">Regression</span>
+              <span class="division-chip">Clustering</span>
+              <span class="division-chip">Forecasting</span>
+              <span class="division-chip">Recommendation</span>
+              <span class="division-chip">A/B Test</span>
+            </div>
+          </div>
+          <div class="division-copy">
+            <p class="division-description">데이터를 기반으로 문제를 정의하고<br>인사이트를 찾아내는 부문입니다.</p>
+            <h2 class="division-title">데이터 분석</h2>
+          </div>
+          <img class="division-arrow" src="아이콘/오른쪽 화살표.svg" alt="" aria-hidden="true">
+        </a>
+      </section>
+      <section class="division-card">
+        <a class="division-surface" href="/curriculum?tab=시각화" target="_parent" style="text-decoration:none;">
+          <div class="division-chip-marquee row-one" aria-hidden="true">
+            <div class="division-chip-group">
+              <span class="division-chip">Dashboard</span>
+              <span class="division-chip">Insight</span>
+              <span class="division-chip">Chart</span>
+              <span class="division-chip">Storytelling</span>
+              <span class="division-chip">Tableau</span>
+            </div>
+            <div class="division-chip-group">
+              <span class="division-chip">Dashboard</span>
+              <span class="division-chip">Insight</span>
+              <span class="division-chip">Chart</span>
+              <span class="division-chip">Storytelling</span>
+              <span class="division-chip">Tableau</span>
+            </div>
+          </div>
+          <div class="division-chip-marquee row-two" aria-hidden="true">
+            <div class="division-chip-group">
+              <span class="division-chip">D3.js</span>
+              <span class="division-chip">Figma</span>
+              <span class="division-chip">Color System</span>
+              <span class="division-chip">Interaction</span>
+              <span class="division-chip">Infographic</span>
+            </div>
+            <div class="division-chip-group">
+              <span class="division-chip">D3.js</span>
+              <span class="division-chip">Figma</span>
+              <span class="division-chip">Color System</span>
+              <span class="division-chip">Interaction</span>
+              <span class="division-chip">Infographic</span>
+            </div>
+          </div>
+          <div class="division-copy">
+            <p class="division-description">복잡한 데이터를 시각적으로 풀어내고<br>더 잘 전달되는 경험을 만듭니다.</p>
+            <h2 class="division-title">데이터 시각화</h2>
+          </div>
+          <img class="division-arrow" src="아이콘/오른쪽 화살표.svg" alt="" aria-hidden="true">
+        </a>
+      </section>
+      <section class="division-card">
+        <a class="division-surface" href="/curriculum?tab=엔지니어링" target="_parent" style="text-decoration:none;">
+          <div class="division-chip-marquee row-one" aria-hidden="true">
+            <div class="division-chip-group">
+              <span class="division-chip">Data Pipeline</span>
+              <span class="division-chip">Spark</span>
+              <span class="division-chip">Airflow</span>
+              <span class="division-chip">Cloud</span>
+              <span class="division-chip">MLOps</span>
+            </div>
+            <div class="division-chip-group">
+              <span class="division-chip">Data Pipeline</span>
+              <span class="division-chip">Spark</span>
+              <span class="division-chip">Airflow</span>
+              <span class="division-chip">Cloud</span>
+              <span class="division-chip">MLOps</span>
+            </div>
+          </div>
+          <div class="division-chip-marquee row-two" aria-hidden="true">
+            <div class="division-chip-group">
+              <span class="division-chip">Docker</span>
+              <span class="division-chip">Kubernetes</span>
+              <span class="division-chip">Kafka</span>
+              <span class="division-chip">Database</span>
+              <span class="division-chip">API</span>
+            </div>
+            <div class="division-chip-group">
+              <span class="division-chip">Docker</span>
+              <span class="division-chip">Kubernetes</span>
+              <span class="division-chip">Kafka</span>
+              <span class="division-chip">Database</span>
+              <span class="division-chip">API</span>
+            </div>
+          </div>
+          <div class="division-copy">
+            <p class="division-description">안정적인 데이터 흐름을 설계하고<br>서비스 가능한 구조로 구현합니다.</p>
+            <h2 class="division-title">데이터 엔지니어링</h2>
+          </div>
+          <img class="division-arrow" src="아이콘/오른쪽 화살표.svg" alt="" aria-hidden="true">
+        </a>
+      </section>
+    </main>
+  </section>
+  <section class="activity-stage" aria-label="BOAZ activity photos">
+    <div class="activity-shell">
+      <div class="activity-nav-viewport">
+        <nav class="activity-nav" aria-label="BOAZ activities">
+          <button class="activity-tab" type="button" data-activity="homecoming">홈커밍데이<span
+              class="activity-tab-description">선후배가 한자리에 모여 지식과 경험을 나누는<br>네트워킹의 장입니다.</span></button>
+          <button class="activity-tab" type="button" data-activity="conferenceTalk">컨퍼런스톡<span
+              class="activity-tab-description">선배 기수를 초청해 데이터 인사이트를<br>깊게 공유하는 자리입니다.</span></button>
+          <button class="activity-tab" type="button" data-activity="hackathon">해커톤<span
+              class="activity-tab-description">제한된 시간 동안 밀도 있게 몰입하여<br>데이터로 문제를 해결하는 시간입니다.</span></button>
+          <button class="activity-tab" type="button" data-activity="session">정기 세션 및 세미나<span
+              class="activity-tab-description">체계적인 커리큘럼을 바탕으로 핵심 이론과<br>실무 역량을 다집니다.</span></button>
+          <button class="activity-tab" type="button" data-activity="mentoring">멘토 및 멘티 활동<span
+              class="activity-tab-description">선배 기수와의 매칭을 통해 커리어와 프로젝트의<br>실질적인 성장을 도모합니다.</span></button>
+          <button class="activity-tab" type="button" data-activity="conference">컨퍼런스<span
+              class="activity-tab-description">장기간 진행한 프로젝트를 서로 공유하며<br>배움과 성과를 연결하는 자리입니다.</span></button>
+        </nav>
+      </div>
+      <div class="activity-panel">
+        <section class="activity-card" aria-live="polite">
+          <header class="section-heading">
+            <span class="section-eyebrow">Moments of BOAZ</span>
+            <h2 class="section-title">함께 쌓아온 순간들</h2>
+          </header>
+          <div class="activity-image">
+            <div class="activity-image-track" aria-hidden="true">
+              <img src="활동사진/홈커밍.png" alt="">
+              <img src="활동사진/컨퍼런스톡.png" alt="">
+              <img src="활동사진/해커톤.png" alt="">
+              <img src="활동사진/세션.png" alt="">
+              <img src="활동사진/멘멘.png" alt="">
+              <img src="활동사진/컨퍼런스.png" alt="">
+            </div>
+          </div>
+          <p class="activity-description" id="activityDescription">
+            선후배가 한자리에 모여 지식과 경험을 나누는 네트워킹의 장입니다.
+          </p>
+        </section>
+      </div>
+    </div>
+  </section>
+  <section class="review-stage" aria-label="BOAZ reviews">
+    <header class="section-heading">
+      <span class="section-eyebrow">Voices of Our Journey</span>
+      <h2 class="section-title">함께 성장한 사람들의 목소리</h2>
+    </header>
+    <main class="review-marquee-page" aria-label="BOAZ reviews">
+      <section class="marquee-row to-right" data-duration="38">
+        <div class="marquee-track">
+          <div class="marquee-set">
+            <div class="review-item"><span class="sector">ANALYTICS</span>
+              <article class="review-card">
+                <header class="review-author"><span class="review-name">손**</span><span class="review-meta">24기
+                    분석</span></header>
+                <p class="review-body">AI에 진심인 부원들과 관심사를 나누고 협업하며 함께 성장한 시간이었습니다. 새로운 기술과 최신 논문, 그리고 다양한 시각을 통해 배움의 폭을
+                  넓힌 것은 물론, 함께 피크닉도 즐기고 여행도 다녀오며 배움 이상의 소중한 인연까지 쌓은 1년이었습니다. 다들 지원해BOAZ!</p>
+              </article>
+            </div>
+            <div class="review-item"><span class="sector">VISUALIZATION</span>
+              <article class="review-card">
+                <header class="review-author"><span class="review-name">민**</span><span class="review-meta">24기
+                    시각화</span></header>
+                <p class="review-body">실제 기업과 협업하며 실무 데이터를 다루고, 컨택부터 대시보드 설계까지 기업의 요구사항을 해결하여 비즈니스 인사이트를 도출하는 프로젝트를
+                  진행했습니다. 이를 통해 실무적인 역량을 향상시킬 수 있었고 나아가 취업 준비에도 직접적인 도움이 되었습니다.</p>
+              </article>
+            </div>
+            <div class="review-item"><span class="sector">ENGINEERING</span>
+              <article class="review-card">
+                <header class="review-author"><span class="review-name">정**</span><span class="review-meta">24기
+                    엔지니어링</span></header>
+                <p class="review-body">BOAZ 24기 데이터 엔지니어링 부문으로 활동하며 값진 경험을 쌓을 수 있었습니다. 엔지니어링 학습은 물론, 함께 성장하는 좋은 사람들과의
+                  소중한 인연도 만들 수 있었습니다. 열정적인 환경 속에서 함께한 모든 순간들이 행복했습니다. BOAZ 최강 엔지 파이팅!!!✌️</p>
+              </article>
+            </div>
+            <div class="review-item"><span class="sector">ANALYTICS</span>
+              <article class="review-card">
+                <header class="review-author"><span class="review-name">김**</span><span class="review-meta">24기
+                    분석</span></header>
+                <p class="review-body">보아즈는 데이터 관련 지식과 경험을 얻어가기에도, 같은 관심사를 가진 좋은 사람들을 얻어가기에도 좋은 최고의 동아리입니다! 대학원, 개발자,
+                  기획자 더 나아가 창업까지 어떤 진로를 꿈꾸시든 배울 기회도 많고 함께 성장하는 느낌이라 적극 추천합니다!!</p>
+              </article>
+            </div>
+          </div>
+          <div class="marquee-set" aria-hidden="true">
+            <div class="review-item"><span class="sector">ANALYTICS</span>
+              <article class="review-card">
+                <header class="review-author"><span class="review-name">손**</span><span class="review-meta">24기
+                    분석</span></header>
+                <p class="review-body">AI에 진심인 부원들과 관심사를 나누고 협업하며 함께 성장한 시간이었습니다. 새로운 기술과 최신 논문, 그리고 다양한 시각을 통해 배움의 폭을
+                  넓힌 것은 물론, 함께 피크닉도 즐기고 여행도 다녀오며 배움 이상의 소중한 인연까지 쌓은 1년이었습니다. 다들 지원해BOAZ!</p>
+              </article>
+            </div>
+            <div class="review-item"><span class="sector">VISUALIZATION</span>
+              <article class="review-card">
+                <header class="review-author"><span class="review-name">민**</span><span class="review-meta">24기
+                    시각화</span></header>
+                <p class="review-body">실제 기업과 협업하며 실무 데이터를 다루고, 컨택부터 대시보드 설계까지 기업의 요구사항을 해결하여 비즈니스 인사이트를 도출하는 프로젝트를
+                  진행했습니다. 이를 통해 실무적인 역량을 향상시킬 수 있었고 나아가 취업 준비에도 직접적인 도움이 되었습니다.</p>
+              </article>
+            </div>
+            <div class="review-item"><span class="sector">ENGINEERING</span>
+              <article class="review-card">
+                <header class="review-author"><span class="review-name">정**</span><span class="review-meta">24기
+                    엔지니어링</span></header>
+                <p class="review-body">BOAZ 24기 데이터 엔지니어링 부문으로 활동하며 값진 경험을 쌓을 수 있었습니다. 엔지니어링 학습은 물론, 함께 성장하는 좋은 사람들과의
+                  소중한 인연도 만들 수 있었습니다. 열정적인 환경 속에서 함께한 모든 순간들이 행복했습니다. BOAZ 최강 엔지 파이팅!!!✌️</p>
+              </article>
+            </div>
+            <div class="review-item"><span class="sector">ANALYTICS</span>
+              <article class="review-card">
+                <header class="review-author"><span class="review-name">김**</span><span class="review-meta">24기
+                    분석</span></header>
+                <p class="review-body">보아즈는 데이터 관련 지식과 경험을 얻어가기에도, 같은 관심사를 가진 좋은 사람들을 얻어가기에도 좋은 최고의 동아리입니다! 대학원, 개발자,
+                  기획자 더 나아가 창업까지 어떤 진로를 꿈꾸시든 배울 기회도 많고 함께 성장하는 느낌이라 적극 추천합니다!!</p>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="marquee-row to-left" data-duration="40">
+        <div class="marquee-track">
+          <div class="marquee-set">
+            <div class="review-item"><span class="sector">VISUALIZATION</span>
+              <article class="review-card">
+                <header class="review-author"><span class="review-name">오**</span><span class="review-meta">24기
+                    시각화</span></header>
+                <p class="review-body">데이터 분석 직무에 막연한 관심만 있었지만 BOAZ에서 다양한 프로젝트를 경험하며 진로를 구체화할 수 있었습니다. 또한 Figma, QGIS,
+                  Tableau 등 여러 툴을 활용하며 데이터 분석과 시각화 역량을 키울 수 있었습니다.</p>
+              </article>
+            </div>
+            <div class="review-item"><span class="sector">ENGINEERING</span>
+              <article class="review-card">
+                <header class="review-author"><span class="review-name">김**</span><span class="review-meta">24기
+                    엔지니어링</span></header>
+                <p class="review-body">데이터 엔지니어링 부문에서 스터디와 프로젝트를 통해 데이터 파이프라인 구축 지식과 협업 경험을 쌓을 수 있었습니다. 수료 이후에도 채용 정보나
+                  스터디 등의 네트워크로 이어지는 점이 BOAZ의 큰 장점입니다.</p>
+              </article>
+            </div>
+            <div class="review-item"><span class="sector">ANALYTICS</span>
+              <article class="review-card">
+                <header class="review-author"><span class="review-name">조**</span><span class="review-meta">24기
+                    분석</span></header>
+                <p class="review-body">AI 대학원을 준비하는 과정에서 CV에 도움이 될만한 여러가지 프로젝트를 진행할 수 있어서 좋았습니다! 대학원 준비하는 친구들도 많아서 같이
+                  이야기 나누며 도움을 많이 얻었던 것 같아요. 무엇보다 제일 소중한 인연 24기 분석분들을 만날 수 있어 행복했습니다.</p>
+              </article>
+            </div>
+            <div class="review-item"><span class="sector">VISUALIZATION</span>
+              <article class="review-card">
+                <header class="review-author"><span class="review-name">송**</span><span class="review-meta">23기
+                    시각화</span></header>
+                <p class="review-body">저희 보아즈는요... 진심인 사람들이 한데 모여 열정 가득한 시간을 보낼 수 있습니다! 보아즈인들의 열정과 경험으로 멋진 결과를 창출해내고,
+                  서로의 관심사를 나누고, 수료한 지금까지도 선후배•동기수 네트워킹이 매우 끈끈하다는 점까지 모두 매력적인 곳입니다.🐘🐍</p>
+              </article>
+            </div>
+          </div>
+          <div class="marquee-set" aria-hidden="true">
+            <div class="review-item"><span class="sector">VISUALIZATION</span>
+              <article class="review-card">
+                <header class="review-author"><span class="review-name">오**</span><span class="review-meta">24기
+                    시각화</span></header>
+                <p class="review-body">데이터 분석 직무에 막연한 관심만 있었지만 BOAZ에서 다양한 프로젝트를 경험하며 진로를 구체화할 수 있었습니다. 또한 Figma, QGIS,
+                  Tableau 등 여러 툴을 활용하며 데이터 분석과 시각화 역량을 키울 수 있었습니다.</p>
+              </article>
+            </div>
+            <div class="review-item"><span class="sector">ENGINEERING</span>
+              <article class="review-card">
+                <header class="review-author"><span class="review-name">김**</span><span class="review-meta">24기
+                    엔지니어링</span></header>
+                <p class="review-body">데이터 엔지니어링 부문에서 스터디와 프로젝트를 통해 데이터 파이프라인 구축 지식과 협업 경험을 쌓을 수 있었습니다. 수료 이후에도 채용 정보나
+                  스터디 등의 네트워크로 이어지는 점이 BOAZ의 큰 장점입니다.</p>
+              </article>
+            </div>
+            <div class="review-item"><span class="sector">ANALYTICS</span>
+              <article class="review-card">
+                <header class="review-author"><span class="review-name">조**</span><span class="review-meta">24기
+                    분석</span></header>
+                <p class="review-body">AI 대학원을 준비하는 과정에서 CV에 도움이 될만한 여러가지 프로젝트를 진행할 수 있어서 좋았습니다! 대학원 준비하는 친구들도 많아서 같이
+                  이야기 나누며 도움을 많이 얻었던 것 같아요. 무엇보다 제일 소중한 인연 24기 분석분들을 만날 수 있어 행복했습니다.</p>
+              </article>
+            </div>
+            <div class="review-item"><span class="sector">VISUALIZATION</span>
+              <article class="review-card">
+                <header class="review-author"><span class="review-name">송**</span><span class="review-meta">23기
+                    시각화</span></header>
+                <p class="review-body">저희 보아즈는요... 진심인 사람들이 한데 모여 열정 가득한 시간을 보낼 수 있습니다! 보아즈인들의 열정과 경험으로 멋진 결과를 창출해내고,
+                  서로의 관심사를 나누고, 수료한 지금까지도 선후배•동기수 네트워킹이 매우 끈끈하다는 점까지 모두 매력적인 곳입니다.🐘🐍</p>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="marquee-row to-right" data-duration="42">
+        <div class="marquee-track">
+          <div class="marquee-set">
+            <div class="review-item"><span class="sector">ENGINEERING</span>
+              <article class="review-card">
+                <header class="review-author"><span class="review-name">유**</span><span class="review-meta">24기
+                    엔지니어링</span></header>
+                <p class="review-body">BOAZ는 데이터라는 공통의 관심사를 가진 사람들이 함께 공부하며 실력을 쌓을 수 있는 동아리입니다. 스터디와 프로젝트를 통해 실제 데이터를
+                  다루는 경험을 할 수 있었고, 다양한 배경을 가진 사람들과 인사이트를 나누며 많이 성장할 수 있었습니다.</p>
+              </article>
+            </div>
+            <div class="review-item"><span class="sector">VISUALIZATION</span>
+              <article class="review-card">
+                <header class="review-author"><span class="review-name">김**</span><span class="review-meta">24기
+                    시각화</span></header>
+                <p class="review-body">BOAZ에서의 1년은 태블로를 비롯한 다양한 기술들을 접하고 직접 활용해보며, 제 역량의 폭을 넓히는 시간이었습니다. 특히 프로젝트를 거듭하는
+                  과정에서 열정 넘치는 팀원들과 서로에게 좋은 자극을 주고받으며 함께 고민하고 성장할 수 있었습니다 !</p>
+              </article>
+            </div>
+            <div class="review-item"><span class="sector">ANALYTICS</span>
+              <article class="review-card">
+                <header class="review-author"><span class="review-name">정**</span><span class="review-meta">24기
+                    분석</span></header>
+                <p class="review-body">Boaz는 단언컨데 제가 대학에 들어오고 내린 선택 중 제게 가장 큰 도움이 되었습니다. 논문을 심도깊게 읽고 그에대해서 논의하는 경험을 처음
+                  해본게 이곳이었습니다. 그리고 프로젝트에서도 예상치 못한 문제를 마주치고 그를 해결하기위해 노력하는 경험도 매우 값졌었습니다.</p>
+              </article>
+            </div>
+            <div class="review-item"><span class="sector">ENGINEERING</span>
+              <article class="review-card">
+                <header class="review-author"><span class="review-name">김**</span><span class="review-meta">24기
+                    엔지니어링</span></header>
+                <p class="review-body">BOAZ를 통해 엔지니어로 사고하고 문제를 해결하는 경험을 할 수 있었습니다. BOAZ에 들어오신다면, 최고의 선후배·동기들과 밀도 높은 스터디와
+                  프로젝트를 통해 또 하나의 대학교를 나온 것 같은 성장을 하실 수 있을 겁니다.</p>
+              </article>
+            </div>
+          </div>
+          <div class="marquee-set" aria-hidden="true">
+            <div class="review-item"><span class="sector">ENGINEERING</span>
+              <article class="review-card">
+                <header class="review-author"><span class="review-name">유**</span><span class="review-meta">24기
+                    엔지니어링</span></header>
+                <p class="review-body">BOAZ는 데이터라는 공통의 관심사를 가진 사람들이 함께 공부하며 실력을 쌓을 수 있는 동아리입니다. 스터디와 프로젝트를 통해 실제 데이터를
+                  다루는 경험을 할 수 있었고, 다양한 배경을 가진 사람들과 인사이트를 나누며 많이 성장할 수 있었습니다.</p>
+              </article>
+            </div>
+            <div class="review-item"><span class="sector">VISUALIZATION</span>
+              <article class="review-card">
+                <header class="review-author"><span class="review-name">김**</span><span class="review-meta">24기
+                    시각화</span></header>
+                <p class="review-body">BOAZ에서의 1년은 태블로를 비롯한 다양한 기술들을 접하고 직접 활용해보며, 제 역량의 폭을 넓히는 시간이었습니다. 특히 프로젝트를 거듭하는
+                  과정에서 열정 넘치는 팀원들과 서로에게 좋은 자극을 주고받으며 함께 고민하고 성장할 수 있었습니다 !</p>
+              </article>
+            </div>
+            <div class="review-item"><span class="sector">ANALYTICS</span>
+              <article class="review-card">
+                <header class="review-author"><span class="review-name">정**</span><span class="review-meta">24기
+                    분석</span></header>
+                <p class="review-body">Boaz는 단언컨데 제가 대학에 들어오고 내린 선택 중 제게 가장 큰 도움이 되었습니다. 논문을 심도깊게 읽고 그에대해서 논의하는 경험을 처음
+                  해본게 이곳이었습니다. 그리고 프로젝트에서도 예상치 못한 문제를 마주치고 그를 해결하기위해 노력하는 경험도 매우 값졌었습니다.</p>
+              </article>
+            </div>
+            <div class="review-item"><span class="sector">ENGINEERING</span>
+              <article class="review-card">
+                <header class="review-author"><span class="review-name">김**</span><span class="review-meta">24기
+                    엔지니어링</span></header>
+                <p class="review-body">BOAZ를 통해 엔지니어로 사고하고 문제를 해결하는 경험을 할 수 있었습니다. BOAZ에 들어오신다면, 최고의 선후배·동기들과 밀도 높은 스터디와
+                  프로젝트를 통해 또 하나의 대학교를 나온 것 같은 성장을 하실 수 있을 겁니다.</p>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </section>
+  <div class="scroll-space" aria-hidden="true"></div>
+
+  <script>
+    (() => {
+      const frames = [...document.querySelectorAll('.background-frame')];
+      const interactiveBubbles = frames
+        .map((frame) => frame.querySelector('.bg-interactive'))
+        .filter(Boolean);
+      let curX = 0;
+      let curY = 0;
+      let tgX = window.innerWidth / 2;
+      let tgY = window.innerHeight / 2;
+
+      function move() {
+        curX += (tgX - curX) / 20;
+        curY += (tgY - curY) / 20;
+        interactiveBubbles.forEach((bubble) => {
+          bubble.style.transform = `translate(${Math.round(curX)}px, ${Math.round(curY)}px)`;
+        });
+        requestAnimationFrame(move);
+      }
+
+      function buildNoise() {
+        frames.forEach((frame) => {
+          const noiseCanvas = frame.querySelector('.bg-noise-overlay');
+          const noiseCtx = noiseCanvas?.getContext('2d');
+          if (!noiseCanvas || !noiseCtx) return;
+
+          const rect = frame.getBoundingClientRect();
+          const dpr = 1;
+          const width = Math.max(1, Math.round(rect.width * dpr));
+          const height = Math.max(1, Math.round(rect.height * dpr));
+
+          noiseCanvas.width = width;
+          noiseCanvas.height = height;
+          noiseCanvas.style.width = `${rect.width}px`;
+          noiseCanvas.style.height = `${rect.height}px`;
+
+          const imageData = noiseCtx.createImageData(width, height);
+          const data = imageData.data;
+
+          for (let i = 0; i < data.length; i += 4) {
+            const value = 112 + Math.random() * 143;
+            data[i] = value;
+            data[i + 1] = value;
+            data[i + 2] = value;
+            data[i + 3] = 255;
+          }
+
+          noiseCtx.putImageData(imageData, 0, 0);
+        });
+      }
+
+      window.addEventListener('mousemove', (event) => {
+        const rect = frames[0]?.getBoundingClientRect() || { left: 0, top: 0 };
+        tgX = event.clientX - rect.left;
+        tgY = event.clientY - rect.top;
+      });
+
+      window.addEventListener('resize', buildNoise);
+      buildNoise();
+      move();
+    })();
+
+    (() => {
+      const canvas = document.getElementById('stage');
+      const ctx = canvas.getContext('2d', { alpha: true });
+
+      let W = 0;
+      let H = 0;
+      let DPR = 1;
+      let startT = 0;
+      let heroState = 'intro';
+      let introScrollLocked = true;
+      let noiseCanvas = null;
+      let noiseCtx = null;
+      let pointerTargetX = 0;
+      let pointerTargetY = 0;
+      let pointerX = 0;
+      let pointerY = 0;
+      let smoothScrollY = 0;
+      let vignetteScrollY = 0;
+      const characterImages = {};
+      const characterParallaxState = {};
+
+      const MOVE_START = 700;
+      const MOVE_END = 1950;
+      const KEY_COLOR_START = 520;
+      const KEY_COLOR_DURATION = 520;
+      const REVEAL_START = 1720;
+      const REVEAL_END = 3230;
+      const BACKGROUND_REVEAL_START = REVEAL_END + 420;
+      const BACKGROUND_REVEAL_DURATION = 1400;
+      const INTRO_END = BACKGROUND_REVEAL_START + BACKGROUND_REVEAL_DURATION + 360;
+      const SCROLL_DISTANCE = 520;
+      const STATISTICS_STAGE_TOP = 1.1;
+      const DIVISION_STAGE_TOP = 2.8;
+      const DIVISION_STAGE_HEIGHT = 1.05;
+      const DIVISION_ROW_SPEEDS = { rowOne: 34, rowTwo: 42 };
+      const REVIEW_STAGE_TOP = 7.9;
+      const REVIEW_STAGE_HEIGHT = 1.45;
+      const ACTIVITY_STAGE_TOP = 4.0;
+      const ACTIVITY_ENTER_LENGTH = 0;
+      const ACTIVITY_PIN_LENGTH = 2.4;
+      const ACTIVITY_EXIT_LENGTH = 0.9;
+      const ACTIVITY_SECTION_LENGTH = ACTIVITY_ENTER_LENGTH + ACTIVITY_PIN_LENGTH + ACTIVITY_EXIT_LENGTH;
+      const ACTIVITIES = {
+        homecoming: { description: "선후배가 한자리에 모여 지식과 경험을 나누는 네트워킹의 장입니다." },
+        conferenceTalk: { description: "선배기수를 초청해 데이터 인사이트를 깊게 공유하는 자리입니다." },
+        hackathon: { description: "제한된 시간 동안 밀도 있게 몰입하여 데이터로 문제를 해결하는 시간입니다." },
+        session: { description: "체계적인 커리큘럼을 바탕으로 핵심 이론과 실무 역량을 다집니다." },
+        mentoring: { description: "선배 기수와의 매칭을 통해 실질적인 성장을 도모합니다." },
+        conference: { description: "이전에 배운 역량을 활용하여 장기간 진행한 프로젝트를 서로 공유하는 자리입니다." }
+      };
+      let activeActivityKey = "";
+      const GRADIENT_START = REVEAL_START + (REVEAL_END - REVEAL_START) * 0.72;
+      const GRADIENT_DURATION = 1800;
+      const NOISE_OPACITY = 0.18;
+      const MISSION_TITLE_LINES = [
+        '데이터로부터 가능성을 발견하고',
+        '분석, 시각화, 엔지니어링을 통해',
+        '함께 성장하는 사람들의 커뮤니티,',
+        'BOAZ입니다.',
+      ];
+      const GRADIENT_BLOBS = [
+        { x: 0.18, y: 0.82, rx: 0.48, ry: 0.4, phase: 1.2, strength: 0.68, mouseDepth: 34 },
+        { x: 0.82, y: 0.14, rx: 0.46, ry: 0.34, phase: 3.8, strength: 0.62, mouseDepth: -42 },
+      ];
+      const BIG_TYPE_CHARACTERS = [
+        { key: 'ana', src: '캐릭터/ana_bt.png', size: 1.02, floatPhase: 0.4, alpha: { left: 0.163, top: 0.15, right: 0.824, bottom: 0.835 } },
+        { key: 'vis', src: '캐릭터/vis_bt.png', size: 0.96, floatPhase: 2.2, alpha: { left: 0.151, top: 0.14, right: 0.85, bottom: 0.91 } },
+        { key: 'eng', src: '캐릭터/eng_bt.png', size: 0.96, floatPhase: 4.1, alpha: { left: 0.171, top: 0.217, right: 0.835, bottom: 0.809 } },
+      ];
+      const CHARACTER_PARALLAX_STRENGTH = 2.2;
+      const CHARACTER_PARALLAX_IN = 0.16;
+      const CHARACTER_PARALLAX_OUT = 0.1;
+      const CHARACTER_PARALLAX_RADIUS = 260;
+      const BIG_TYPE_SCALE = 1.1;
+
+      const FONT_WEIGHT = 700;
+      const FONT_FAMILY = '"Pretendard", system-ui, sans-serif';
+      const getFont = (size) => `${FONT_WEIGHT} ${size}px ${FONT_FAMILY}`;
+      const getWeightedFont = (weight, size) => `${weight} ${size}px ${FONT_FAMILY}`;
+
+      function resize() {
+        DPR = Math.min(window.devicePixelRatio || 1, 2);
+        W = window.innerWidth;
+        H = window.innerHeight;
+        pointerTargetX = W / 2;
+        pointerTargetY = H / 2;
+        pointerX = W / 2;
+        pointerY = H / 2;
+        canvas.width = Math.floor(W * DPR);
+        canvas.height = Math.floor(H * DPR);
+        canvas.style.width = W + 'px';
+        canvas.style.height = H + 'px';
+        ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+        buildNoise();
+        syncDivisionLayout();
+        updateBackgroundFrame(smoothScrollY, startT ? performance.now() - startT : 0);
+        updateStatisticsStage(smoothScrollY);
+        updateDivisionStage(smoothScrollY);
+        updateActivityStage(smoothScrollY);
+        updateReviewStage(smoothScrollY);
+        updateMissionStage();
+      }
+
+      async function init() {
+        resize();
+        loadCharacterImages();
+        setupDivisionCards();
+        setupActivityTabs();
+        if (document.fonts && document.fonts.ready) await document.fonts.ready;
+        lockIntroScroll();
+        startT = performance.now();
+        window.setTimeout(unlockIntroScroll, INTRO_END);
+        requestAnimationFrame(frame);
+      }
+
+      function loadCharacterImages() {
+        for (const character of BIG_TYPE_CHARACTERS) {
+          const image = new Image();
+          image.src = character.src;
+          characterImages[character.key] = image;
+        }
+      }
+
+      function frame(now) {
+        const t = now - startT;
+        updateHeroState(now, t);
+        if (introScrollLocked && window.scrollY !== 0) {
+          window.scrollTo(0, 0);
+        }
+
+        if (heroState === 'intro') {
+          smoothScrollY = 0;
+          updateBackgroundFrame(smoothScrollY, t);
+          updateStatisticsStage(smoothScrollY);
+          updateDivisionStage(smoothScrollY);
+          updateActivityStage(smoothScrollY);
+          updateReviewStage(smoothScrollY);
+          updateMissionStage();
+          drawGradientBackground(now, t, smoothScrollY);
+          drawTypography(t);
+        } else {
+          smoothScrollY += (window.scrollY - smoothScrollY) * 0.14;
+          if (Math.abs(window.scrollY - smoothScrollY) < 0.1) smoothScrollY = window.scrollY;
+          vignetteScrollY += (window.scrollY - vignetteScrollY) * 0.04;
+          const scrollT = easeOut(clamp01(smoothScrollY / SCROLL_DISTANCE));
+          drawGradientBackground(now, t, smoothScrollY);
+          drawFinalTypography('hide', scrollT, smoothScrollY);
+          drawBigTypeCharacters(1 - scrollT, smoothScrollY, now);
+          updateBackgroundFrame(smoothScrollY, t);
+          updateStatisticsStage(smoothScrollY);
+          updateDivisionStage(smoothScrollY);
+          updateActivityStage(smoothScrollY);
+          updateReviewStage(smoothScrollY);
+          updateMissionStage();
+        }
+
+        requestAnimationFrame(frame);
+      }
+
+      function buildNoise() {
+        const width = Math.max(1, Math.round(W * DPR));
+        const height = Math.max(1, Math.round(H * DPR));
+        noiseCanvas = document.createElement('canvas');
+        noiseCanvas.width = width;
+        noiseCanvas.height = height;
+        noiseCtx = noiseCanvas.getContext('2d');
+
+        const imageData = noiseCtx.createImageData(width, height);
+        const data = imageData.data;
+
+        for (let i = 0; i < data.length; i += 4) {
+          const value = 112 + Math.random() * 143;
+          data[i] = value;
+          data[i + 1] = value;
+          data[i + 2] = value;
+          data[i + 3] = 255;
+        }
+
+        noiseCtx.putImageData(imageData, 0, 0);
+      }
+
+      function updateStatisticsStage(scrollOffset) {
+        const stage = document.querySelector('.statistics-stage');
+        if (!stage) return;
+
+        const stageHeight = stage.offsetHeight;
+        const centeredY = (H - stageHeight) / 2;
+        const y = H * STATISTICS_STAGE_TOP - scrollOffset + centeredY;
+        stage.style.transform = `translate3d(0, ${y}px, 0)`;
+      }
+
+      function getFirstStatisticNumberTop() {
+        const number = document.querySelector('.stat-row:first-child .number');
+        if (!number) return H * STATISTICS_STAGE_TOP;
+
+        return number.getBoundingClientRect().top;
+      }
+
+      function updateMissionStage() {
+        const stage = document.querySelector('.mission-stage');
+        if (!stage) return;
+
+        const maxTextWidth = Math.max(260, stage.clientWidth);
+        const titleSize = fitTextSize(MISSION_TITLE_LINES, 800, Math.min(W * 0.032, H * 0.052), maxTextWidth);
+
+        // 문단 등장 시작(섹션 진입) → 통계 중앙(scroll = H×1.1) 사이에 4줄 순서대로 reveal
+        const REVEAL_START = H * (STATISTICS_STAGE_TOP - 0.8); // ≈ H×0.3
+        const REVEAL_END = H * STATISTICS_STAGE_TOP;          // = H×1.1
+        const readingProgress = easeInOut(clamp01((smoothScrollY - REVEAL_START) / (REVEAL_END - REVEAL_START)));
+
+        stage.style.width = '100%';
+        stage.style.setProperty('--mission-font-size', `${titleSize}px`);
+        stage.style.setProperty('--mission-line-height', '1.12');
+        stage.style.opacity = '1';
+        stage.style.transform = 'none';
+
+        stage.querySelectorAll('.mission-title span').forEach((line, index) => {
+          const lineProgress = easeInOut(clamp01((readingProgress - index * 0.25) / 0.25));
+          line.style.setProperty('--line-progress', lineProgress.toFixed(4));
+        });
+      }
+
+      function updateDivisionStage(scrollOffset) {
+        const stage = document.querySelector('.division-stage');
+        if (!stage) return;
+
+        const y = H * DIVISION_STAGE_TOP - scrollOffset;
+        stage.style.transform = `translate3d(0, ${y}px, 0)`;
+        stage.classList.toggle('is-visible', y < H * 0.72 && y > -H * DIVISION_STAGE_HEIGHT);
+      }
+
+      function syncDivisionLayout() {
+        const row = document.querySelector('.division-row');
+        if (!row) return;
+
+        const gap = parseFloat(getComputedStyle(row).getPropertyValue('--card-gap')) || 20;
+        const cardWidth = (row.clientWidth - gap * 2) / 3;
+        row.style.setProperty('--card-height', `${cardWidth * 5 / 6}px`);
+        row.style.setProperty('--card-hover-scale', `${((cardWidth + 28) / cardWidth).toFixed(4)}`);
+
+        document.querySelectorAll('.division-chip-marquee').forEach((marquee) => {
+          const distance = marquee.scrollWidth / 2;
+          const speed = marquee.classList.contains('row-two') ? DIVISION_ROW_SPEEDS.rowTwo : DIVISION_ROW_SPEEDS.rowOne;
+          marquee.style.setProperty('--chip-duration', `${Math.max(distance / speed, 1)}s`);
+        });
+      }
+
+      function setupDivisionCards() {
+        const row = document.querySelector('.division-row');
+        if (!row) return;
+
+        row.querySelectorAll('.division-card').forEach((card, index) => {
+          card.style.setProperty('--division-reveal-delay', `${index * 120}ms`);
+          card.addEventListener('mouseenter', () => {
+            const previousActive = row.dataset.active;
+            row.dataset.active = String(index);
+            if (previousActive !== String(index)) {
+              row.querySelectorAll('.division-card').forEach((item) => {
+                item.classList.remove('is-chip-visible');
+              });
+              shuffleDivisionRevealDelays(card);
+              card.classList.add('is-chip-visible');
+            }
+          });
+        });
+
+        row.addEventListener('mouseleave', () => {
+          delete row.dataset.active;
+          row.querySelectorAll('.division-card').forEach((card) => {
+            card.classList.remove('is-chip-visible');
+          });
+        });
+
+        syncDivisionLayout();
+      }
+
+      function shuffleDivisionRevealDelays(card) {
+        card.querySelectorAll('.division-chip').forEach((chip) => {
+          const delay = Math.round(Math.random() * 360);
+          chip.style.setProperty('--reveal-delay', `${delay}ms`);
+        });
+
+        const arrow = card.querySelector('.division-arrow');
+        if (arrow) {
+          const delay = 120 + Math.round(Math.random() * 220);
+          arrow.style.setProperty('--arrow-reveal-delay', `${delay}ms`);
+        }
+      }
+
+      function updateBackgroundFrame(scrollOffset, introT = INTRO_END) {
+        const frame = document.querySelector('.background-frame');
+        if (!frame) return;
+
+        const reveal = easeInOut(clamp01((introT - BACKGROUND_REVEAL_START) / BACKGROUND_REVEAL_DURATION));
+        const vignetteP = easeInOut(clamp01(vignetteScrollY / (H * 2.2)));
+
+        // 통계 중앙(H×1.1) → 부문 중앙(H×2.8) 구간에서 그라데이션 fade out
+        const FADE_START = H * STATISTICS_STAGE_TOP;
+        const FADE_END = H * DIVISION_STAGE_TOP;
+        const scrollFade = 1 - easeInOut(clamp01((scrollOffset - FADE_START) / (FADE_END - FADE_START)));
+
+        frame.style.setProperty('--hero-bg-reveal', (reveal * scrollFade).toFixed(4));
+        frame.style.setProperty('--vignette-p', vignetteP.toFixed(4));
+      }
+
+      function drawGradientBackground(now, introT, scrollOffset = 0) {
+        updatePointerParallax();
+        ctx.save();
+        ctx.globalAlpha = 1;
+        ctx.globalCompositeOperation = 'source-over';
+        ctx.filter = 'none';
+        ctx.clearRect(0, 0, W, H);
+        ctx.restore();
+      }
+
+      function updatePointerParallax() {
+        pointerX += (pointerTargetX - pointerX) * 0.06;
+        pointerY += (pointerTargetY - pointerY) * 0.06;
+      }
+
+      function handlePointerMove(event) {
+        pointerTargetX = event.clientX;
+        pointerTargetY = event.clientY;
+      }
+
+      function updateHeroState(now, introT) {
+        if (heroState === 'intro' && introT >= INTRO_END) {
+          heroState = 'scroll';
+          unlockIntroScroll();
+        }
+      }
+
+      function lockIntroScroll() {
+        introScrollLocked = true;
+        document.documentElement.classList.add('is-intro-locked');
+        window.scrollTo(0, 0);
+      }
+
+      function unlockIntroScroll() {
+        introScrollLocked = false;
+        document.documentElement.classList.remove('is-intro-locked');
+      }
+
+      function preventIntroScroll(event) {
+        if (!introScrollLocked) return;
+        event.preventDefault();
+        window.scrollTo(0, 0);
+      }
+
+      function preventIntroKeys(event) {
+        if (!introScrollLocked) return;
+        const keys = [' ', 'ArrowDown', 'ArrowUp', 'PageDown', 'PageUp', 'Home', 'End'];
+        if (!keys.includes(event.key)) return;
+        event.preventDefault();
+        window.scrollTo(0, 0);
+      }
+
+      function drawTypography(t) {
+        const boaz = getBoazLayout();
+        const landing = getLandingLayout();
+        const resetFade = 1;
+
+        ctx.save();
+        ctx.fillStyle = '#fff';
+        ctx.textAlign = 'left';
+        ctx.textBaseline = 'middle';
+
+        ctx.font = getFont(landing.fontSize);
+        drawRevealingLandingLetters(t, landing, resetFade);
+
+        const keyOrder = ['B', 'O', 'A', 'Z'];
+        for (let i = 0; i < keyOrder.length; i++) {
+          const key = keyOrder[i];
+          const keyDelay = i * 95;
+          const revealDelay = i * 45;
+          const revealP = easeOut(clamp01((t - revealDelay) / MOVE_START));
+          if (revealP <= 0) continue;
+          const moveT = easeInOut(clamp01((t - MOVE_START - keyDelay) / (MOVE_END - MOVE_START)));
+          const from = boaz.positions[key];
+          const to = landing.keyPositions[key];
+          const fontSize = mix(boaz.fontSize, landing.fontSize, moveT);
+          const x = mix(from.x, to.x, moveT);
+          const y = mix(from.y, to.y, moveT);
+          const lift = (1 - revealP) * fontSize * 0.22;
+          const blur = (1 - revealP) * 8;
+          const colorP = easeInOut(clamp01((t - KEY_COLOR_START - keyDelay * 0.18) / KEY_COLOR_DURATION));
+
+          ctx.globalAlpha = resetFade * revealP;
+          ctx.filter = `blur(${blur}px)`;
+          ctx.font = getFont(fontSize);
+          ctx.fillStyle = '#fff';
+          ctx.fillText(key, x, y + lift);
+
+          if (colorP > 0) {
+            ctx.globalAlpha = resetFade * revealP * colorP;
+            ctx.fillStyle = getMissionTextGradient(x, y + lift, fontSize, ctx.measureText(key).width);
+            ctx.fillText(key, x, y + lift);
+          }
+        }
+
+        ctx.filter = 'none';
+        ctx.globalAlpha = 1;
+        ctx.restore();
+
+        const characterReveal = easeOut(clamp01((t - REVEAL_END + 420) / 640));
+        drawBigTypeCharacters(characterReveal * resetFade, 0, performance.now());
+      }
+
+      function drawFinalTypography(mode, progress, scrollOffset = 0) {
+        const landing = getLandingLayout();
+        const blockOffsetY = -scrollOffset;
+
+        ctx.save();
+        ctx.font = getFont(landing.fontSize);
+        ctx.fillStyle = '#fff';
+        ctx.textAlign = 'left';
+        ctx.textBaseline = 'middle';
+
+        for (const line of landing.lines) {
+          ctx.save();
+          ctx.beginPath();
+          ctx.rect(
+            line.x - landing.fontSize * 0.04,
+            line.y + blockOffsetY - landing.lineHeight * 0.52,
+            line.width + landing.fontSize * 0.08,
+            landing.lineHeight * 1.04
+          );
+          ctx.clip();
+
+          for (const item of line.items) {
+            const delayMs = item.lineIndex * 150 + item.visibleIndex * 24;
+            const delay = delayMs / (REVEAL_END - REVEAL_START);
+            const local = mode === 'hide'
+              ? easeOut(clamp01((progress - delay) / 1))
+              : easeOut(clamp01((progress - delay) / 1));
+            const visible = mode === 'hide' ? 1 - local : local;
+            if (visible <= 0) continue;
+
+            const travel = mode === 'hide' ? -local : 1 - local;
+            const y = item.y + blockOffsetY + travel * landing.fontSize * 0.34;
+            const blur = (1 - visible) * 8;
+            ctx.globalAlpha = visible;
+            ctx.filter = `blur(${blur}px)`;
+            ctx.fillStyle = item.key
+              ? getMissionTextGradient(item.x, y, landing.fontSize, ctx.measureText(item.ch).width)
+              : '#fff';
+            ctx.fillText(item.ch, item.x, y);
+          }
+
+          ctx.restore();
+        }
+
+        ctx.filter = 'none';
+        ctx.globalAlpha = 1;
+        ctx.restore();
+      }
+
+      function drawBigTypeCharacters(alpha, scrollOffset = 0, now = performance.now()) {
+        if (alpha <= 0) return;
+
+        const landing = getLandingLayout();
+        const blockOffsetY = -scrollOffset;
+        const mouseX = W ? pointerX / W - 0.5 : 0;
+        const mouseY = H ? pointerY / H - 0.5 : 0;
+        const parallaxX = -mouseX * landing.fontSize * 0.08 * CHARACTER_PARALLAX_STRENGTH;
+        const parallaxY = -mouseY * landing.fontSize * 0.06 * CHARACTER_PARALLAX_STRENGTH;
+        const placements = [];
+        let closest = null;
+
+        ctx.save();
+        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingQuality = 'high';
+
+        for (const character of BIG_TYPE_CHARACTERS) {
+          const image = characterImages[character.key];
+          if (!image || !image.complete || !image.naturalWidth) continue;
+
+          const size = landing.fontSize * character.size;
+          const placement = getBigTypeCharacterPlacement(character, landing, size, blockOffsetY);
+          if (!placement) continue;
+          const centerX = placement.x + size / 2;
+          const centerY = placement.y + size / 2;
+          const distance = Math.hypot(pointerX - centerX, pointerY - centerY);
+          const item = { character, image, size, placement, centerX, centerY, distance };
+          placements.push(item);
+          if (!closest || distance < closest.distance) closest = item;
+        }
+
+        placements
+          .slice()
+          .sort((a, b) => a.centerY - b.centerY)
+          .forEach((item, index) => {
+            item.revealOrder = index;
+          });
+
+        for (const item of placements) {
+          const { image, size, placement } = item;
+          const localReveal = easeOut(clamp01((alpha - item.revealOrder * 0.14) / 0.58));
+          if (localReveal <= 0) continue;
+          const revealLift = (1 - localReveal) * landing.fontSize * 0.18;
+          const revealScale = mix(0.86, 1, localReveal);
+          const isClosest = closest && item.character.key === closest.character.key;
+          const parallaxState = getCharacterParallaxState(item.character.key);
+          const distanceInfluence = isClosest
+            ? easeOut(clamp01(1 - item.distance / (landing.fontSize * 2.1 + CHARACTER_PARALLAX_RADIUS)))
+            : 0;
+          const targetX = isClosest ? parallaxX * distanceInfluence : 0;
+          const targetY = isClosest ? parallaxY * distanceInfluence : 0;
+          const targetScale = 1 + distanceInfluence * 0.035;
+          const targetRotation = clamp(targetX / Math.max(landing.fontSize, 1) * 0.16, -0.08, 0.08);
+          const easing = isClosest ? CHARACTER_PARALLAX_IN : CHARACTER_PARALLAX_OUT;
+          parallaxState.x += (targetX - parallaxState.x) * easing;
+          parallaxState.y += (targetY - parallaxState.y) * easing;
+          parallaxState.scale += (targetScale - parallaxState.scale) * easing;
+          parallaxState.rotation += (targetRotation - parallaxState.rotation) * easing;
+          parallaxState.influence += (distanceInfluence - parallaxState.influence) * easing;
+          const floatY = Math.sin(now * 0.0014 + item.character.floatPhase) * landing.fontSize * 0.012 * (1 + parallaxState.influence * 0.85);
+
+          ctx.save();
+          ctx.globalAlpha = localReveal;
+          ctx.filter = `blur(${(1 - localReveal) * 6}px)`;
+          ctx.translate(
+            placement.x + size / 2 + parallaxState.x,
+            placement.y + size / 2 + parallaxState.y + revealLift + floatY
+          );
+          ctx.rotate(parallaxState.rotation);
+          ctx.scale(revealScale * parallaxState.scale, revealScale * parallaxState.scale);
+          ctx.drawImage(image, -size / 2, -size / 2, size, size);
+          ctx.restore();
+        }
+
+        ctx.filter = 'none';
+        ctx.globalAlpha = 1;
+        ctx.restore();
+      }
+
+      function getCharacterParallaxState(key) {
+        if (!characterParallaxState[key]) {
+          characterParallaxState[key] = { x: 0, y: 0, scale: 1, rotation: 0, influence: 0 };
+        }
+        return characterParallaxState[key];
+      }
+
+      function getBigTypeCharacterPlacement(character, landing, size, blockOffsetY) {
+        const visualGap = landing.fontSize * 0.05;
+        const { key, alpha } = character;
+
+        if (key === 'vis') {
+          const a = getLandingItem(landing, 2, 'A');
+          if (!a) return null;
+          const aBounds = getLandingItemBounds(a, landing, blockOffsetY);
+          return {
+            x: aBounds.left + aBounds.width * 0.28 - size * ((alpha.left + alpha.right) / 2),
+            y: aBounds.top - visualGap - size * alpha.bottom,
+          };
+        }
+
+        if (key === 'eng') {
+          const z = getLandingItem(landing, 2, 'Z');
+          if (!z) return null;
+          const zBounds = getLandingItemBounds(z, landing, blockOffsetY);
+          return {
+            x: zBounds.right + landing.fontSize * 0.05 - size * alpha.left,
+            y: zBounds.bottom - size * alpha.bottom,
+          };
+        }
+
+        if (key === 'ana') {
+          const d = getLandingItem(landing, 0, 'D');
+          if (!d) return null;
+          const dBounds = getLandingItemBounds(d, landing, blockOffsetY);
+          return {
+            x: dBounds.left + dBounds.width * 0.48 - size * ((alpha.left + alpha.right) / 2),
+            y: dBounds.top - visualGap - size * alpha.bottom,
+          };
+        }
+
+        return null;
+      }
+
+      function getLandingItem(landing, lineIndex, char) {
+        return landing.lines[lineIndex]?.items.find(item => item.ch === char);
+      }
+
+      function getLandingItemBounds(item, landing, blockOffsetY = 0) {
+        ctx.save();
+        ctx.font = getFont(landing.fontSize);
+        const width = ctx.measureText(item.ch).width;
+        ctx.restore();
+        return {
+          left: item.x,
+          right: item.x + width,
+          top: item.y + blockOffsetY - landing.fontSize * 0.45,
+          bottom: item.y + blockOffsetY + landing.fontSize * 0.37,
+          width,
+        };
+      }
+
+      function getMissionTextGradient(x, y, fontSize, width) {
+        const gradient = ctx.createLinearGradient(x, y - fontSize * 0.5, x + width, y + fontSize * 0.5);
+        gradient.addColorStop(0, '#ffffff');
+        gradient.addColorStop(0.32, '#bfeaff');
+        gradient.addColorStop(0.66, '#dfe5ff');
+        gradient.addColorStop(1, '#f7f9ff');
+        return gradient;
+      }
+
+      function drawRevealingLandingLetters(t, landing, resetFade) {
+        ctx.save();
+        ctx.font = getFont(landing.fontSize);
+        ctx.fillStyle = '#fff';
+        ctx.textAlign = 'left';
+        ctx.textBaseline = 'middle';
+
+        for (const line of landing.lines) {
+          ctx.save();
+          ctx.beginPath();
+          ctx.rect(
+            line.x - landing.fontSize * 0.04,
+            line.y - landing.lineHeight * 0.52,
+            line.width + landing.fontSize * 0.08,
+            landing.lineHeight * 1.04
+          );
+          ctx.clip();
+
+          for (const item of line.items) {
+            if (item.key) continue;
+            const delay = item.lineIndex * 150 + item.visibleIndex * 24;
+            const p = easeOut(clamp01((t - REVEAL_START - delay) / (REVEAL_END - REVEAL_START)));
+            if (p <= 0) continue;
+
+            const lift = (1 - p) * landing.fontSize * 0.34;
+            ctx.globalAlpha = p * resetFade;
+            ctx.filter = `blur(${(1 - p) * 8}px)`;
+            ctx.fillText(item.ch, item.x, item.y + lift);
+          }
+
+          ctx.restore();
+        }
+
+        ctx.filter = 'none';
+        ctx.globalAlpha = 1;
+        ctx.restore();
+      }
+
+      function getLandingLayout() {
+        const lines = ['BIGDATA', 'IS OUR', 'A TO Z'];
+        const keySlots = {
+          '0-0': 'B',
+          '1-3': 'O',
+          '2-0': 'A',
+          '2-5': 'Z',
+        };
+        const fontSize = Math.min(W * 0.126, H * 0.165) * BIG_TYPE_SCALE;
+        const tracking = fontSize * -0.018;
+        const wordGap = fontSize * 0.34;
+        const lineHeight = fontSize * 0.86;
+        const lineAlignments = ['left', 'right', 'center'];
+
+        ctx.save();
+        ctx.font = getFont(fontSize);
+        ctx.textAlign = 'left';
+        ctx.textBaseline = 'middle';
+
+        const lineWidths = lines.map((line, li) => measureLine(line, li, tracking, wordGap, fontSize));
+        const maxW = Math.max(...lineWidths);
+        const blockX = getContentMargin();
+        const startY = H / 2 - lineHeight + H * 0.05;
+        const items = [];
+        const lineLayouts = [];
+        const keyPositions = {};
+
+        for (let li = 0; li < lines.length; li++) {
+          const align = lineAlignments[li];
+          let lineX = blockX;
+          if (align === 'right') lineX = blockX + maxW - lineWidths[li] + 50;
+          if (align === 'center') lineX = blockX + (maxW - lineWidths[li]) / 2;
+          let x = lineX;
+          const y = startY + li * lineHeight;
+          const line = lines[li];
+          const lineItems = [];
+          let visibleIndex = 0;
+          for (let ci = 0; ci < line.length; ci++) {
+            const ch = line[ci];
+            const key = keySlots[`${li}-${ci}`] || '';
+            const charW = ctx.measureText(ch).width;
+
+            if (ch === ' ') {
+              x += (li === 2 ? wordGap * 0.5 : wordGap);
+              continue;
+            }
+
+            const item = { ch, x, y, key, lineIndex: li, visibleIndex };
+            items.push(item);
+            lineItems.push(item);
+            if (key) keyPositions[key] = item;
+            visibleIndex++;
+
+            const currentTracking = (li === 0 && (ci + 1) >= 4 && (ci + 1) <= 6) ? tracking - fontSize * 0.05 : tracking;
+            x += charW + currentTracking;
+          }
+          lineLayouts.push({
+            text: line,
+            x: lineX,
+            y,
+            width: lineWidths[li],
+            items: lineItems,
+          });
+        }
+
+        ctx.restore();
+        return { fontSize, tracking, wordGap, lineHeight, items, lines: lineLayouts, keyPositions };
+      }
+
+      function measureLine(line, li, tracking, wordGap, fontSize) {
+        let width = 0;
+        let drawnChars = 0;
+        for (let i = 0; i < line.length; i++) {
+          const ch = line[i];
+          if (ch === ' ') {
+            width += (li === 2 ? wordGap * 0.5 : wordGap);
+          } else {
+            width += ctx.measureText(ch).width;
+            drawnChars++;
+            if (drawnChars > 1) {
+              const currentTracking = (li === 0 && i >= 4 && i <= 6) ? tracking - fontSize * 0.05 : tracking;
+              width += currentTracking;
+            }
+          }
+        }
+        return width;
+      }
+
+      function getBoazLayout() {
+        const chars = ['B', 'O', 'A', 'Z'];
+        const fontSize = Math.min(W * 0.18, H * 0.45) * BIG_TYPE_SCALE;
+        const tracking = fontSize * 0;
+
+        ctx.save();
+        ctx.font = getFont(fontSize);
+        ctx.textAlign = 'left';
+        ctx.textBaseline = 'middle';
+
+        const widths = chars.map(ch => ctx.measureText(ch).width);
+        const totalW = widths.reduce((sum, width) => sum + width, 0) + tracking * (chars.length - 1);
+        let x = (W - totalW) / 2;
+        const y = H / 2 + H * 0.05;
+        const positions = {};
+
+        for (let i = 0; i < chars.length; i++) {
+          positions[chars[i]] = { x, y };
+          x += widths[i] + tracking;
+        }
+
+        ctx.restore();
+        return { fontSize, positions };
+      }
+
+      function getContentMargin() {
+        const value = parseFloat(getComputedStyle(document.body).getPropertyValue('--content-margin'));
+        return Number.isFinite(value) ? value : 200;
+      }
+
+      function fitTextSize(lines, weight, preferredSize, maxWidth) {
+        let size = preferredSize;
+
+        ctx.save();
+        ctx.font = getWeightedFont(weight, size);
+        const widest = Math.max(...lines.map(line => ctx.measureText(line).width));
+        ctx.restore();
+
+        if (widest > maxWidth) {
+          size *= maxWidth / widest;
+        }
+
+        return size;
+      }
+
+      function mixColor(from, to, t) {
+        const fromRgb = hexToRgb(from);
+        const toRgb = hexToRgb(to);
+        const r = Math.round(mix(fromRgb.r, toRgb.r, t));
+        const g = Math.round(mix(fromRgb.g, toRgb.g, t));
+        const b = Math.round(mix(fromRgb.b, toRgb.b, t));
+        return `rgb(${r}, ${g}, ${b})`;
+      }
+
+      function hexToRgb(hex) {
+        const value = hex.replace('#', '');
+        return {
+          r: parseInt(value.slice(0, 2), 16),
+          g: parseInt(value.slice(2, 4), 16),
+          b: parseInt(value.slice(4, 6), 16),
+        };
+      }
+
+      function easeInOut(t) {
+        return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+      }
+
+      function easeOut(t) {
+        return 1 - Math.pow(1 - t, 3);
+      }
+
+      function mix(a, b, t) {
+        return a + (b - a) * t;
+      }
+
+      function clamp01(t) {
+        return Math.max(0, Math.min(1, t));
+      }
+
+      function clamp(t, min, max) {
+        return Math.max(min, Math.min(max, t));
+      }
+
+      function updateReviewStage(scrollOffset) {
+        const stage = document.querySelector('.review-stage');
+        if (!stage) return;
+
+        const y = H * REVIEW_STAGE_TOP - scrollOffset;
+        stage.style.transform = `translate3d(0, ${y}px, 0)`;
+        const page = stage.querySelector('.review-marquee-page');
+        const isVisible = y < H * 0.88 && y > -H * REVIEW_STAGE_HEIGHT;
+        if (page) page.classList.toggle('is-review-visible', isVisible);
+        stage.classList.toggle('is-review-visible', isVisible);
+      }
+
+      function getActivityMotion(scrollOffset) {
+        const sectionStart = H * ACTIVITY_STAGE_TOP;
+        const distance = scrollOffset - sectionStart;
+        const enterLength = H * ACTIVITY_ENTER_LENGTH;
+        const pinLength = H * ACTIVITY_PIN_LENGTH;
+        const exitLength = H * ACTIVITY_EXIT_LENGTH;
+        const pinTop = H * 0.1;
+        const pinnedHeight = H * 0.8;
+        const enterProgress = enterLength > 0 ? clamp01(distance / enterLength) : (distance >= 0 ? 1 : 0);
+        const pinProgress = clamp01((distance - enterLength) / pinLength);
+        const exitProgress = clamp01((distance - enterLength - pinLength) / exitLength);
+        let y = H + (pinTop - H) * enterProgress;
+
+        if (distance < 0) {
+          y = H - distance * 0.18;
+        } else if (distance > enterLength + pinLength) {
+          y = pinTop + (-pinnedHeight - pinTop) * exitProgress;
+        }
+
+        return { distance, enterLength, pinLength, exitLength, pinProgress, y };
+      }
+
+      function updateActivityStage(scrollOffset) {
+        const stage = document.querySelector('.activity-stage');
+        if (!stage) return;
+
+        const motion = getActivityMotion(scrollOffset);
+        stage.style.transform = `translate3d(0, ${motion.y}px, 0)`;
+        updateActivityContent(
+          stage,
+          motion.y,
+          scrollOffset,
+          motion.pinProgress,
+          motion.distance >= 0 && motion.distance <= motion.enterLength + motion.pinLength + motion.exitLength
+        );
+      }
+
+      function updateActivityContent(stage, stageY, scrollOffset, pinProgress = 0, isWithinOuterRange = false) {
+        const nav = stage.querySelector('.activity-nav');
+        const navViewport = stage.querySelector('.activity-nav-viewport');
+        const tabs = [...stage.querySelectorAll('.activity-tab')];
+        const card = stage.querySelector('.activity-card');
+        const imageFrame = stage.querySelector('.activity-image');
+        const description = stage.querySelector('#activityDescription');
+        if (!nav || !navViewport || !tabs.length || !card || !imageFrame || !description) return;
+
+        const viewportHeight = navViewport.getBoundingClientRect().height || H;
+        const startY = viewportHeight + 80;
+        const lastTab = tabs[tabs.length - 1];
+        const lastOffset = lastTab.offsetTop;
+        const endScreenY = -lastOffset;
+        const navScreenY = startY + (endScreenY - startY) * pinProgress;
+        const currentY = navScreenY;
+        const selectionLineRatio = 0.5;
+        const firstSelectionLineRatio = 0.72;
+
+        nav.style.transform = `translateY(${currentY}px)`;
+
+        const firstTab = tabs[0];
+        const secondTab = tabs[1];
+        const firstCenter = stageY + currentY + firstTab.offsetTop + firstTab.offsetHeight / 2;
+        const secondCenter = secondTab ? stageY + currentY + secondTab.offsetTop + secondTab.offsetHeight / 2 : Infinity;
+        const firstTop = stageY + currentY + firstTab.offsetTop;
+        const lastTop = stageY + currentY + lastTab.offsetTop;
+        const lastBottom = lastTop + lastTab.offsetHeight;
+        const shouldShowHeading = isWithinOuterRange && firstTop <= H * 0.8 && lastBottom >= H * 0.2;
+        const isWithinActivityRange = isWithinOuterRange && pinProgress > 0 && pinProgress < 1 && stageY < H * 0.72;
+        let activeIndex = -1;
+
+        stage.classList.toggle('is-heading-visible', shouldShowHeading);
+
+        if (firstCenter <= H * firstSelectionLineRatio && lastBottom > 0) {
+          if (secondCenter > H * selectionLineRatio) {
+            activeIndex = 0;
+          } else {
+            activeIndex = tabs.reduce((closestIndex, tab, index) => {
+              const tabCenter = stageY + currentY + tab.offsetTop + tab.offsetHeight / 2;
+              const closestCenter = stageY + currentY + tabs[closestIndex].offsetTop + tabs[closestIndex].offsetHeight / 2;
+              return Math.abs(tabCenter - H * selectionLineRatio) < Math.abs(closestCenter - H * selectionLineRatio)
+                ? index : closestIndex;
+            }, 0);
+          }
+        }
+
+        if (isWithinActivityRange && lastBottom > 0 && activeIndex < 0 && activeActivityKey) {
+          activeIndex = Math.max(0, tabs.findIndex((tab) => tab.dataset.activity === activeActivityKey));
+        }
+
+        const panel = stage.querySelector('.activity-panel');
+        if (panel) panel.style.transform = 'none';
+
+        const isInSection = isWithinActivityRange && activeIndex >= 0;
+        stage.classList.toggle('is-active', isInSection);
+        card.classList.toggle('is-visible', isInSection);
+
+        if (!isInSection) {
+          activeActivityKey = "";
+          tabs.forEach((tab) => {
+            tab.classList.remove('is-active');
+            updateActivityTabReveal(tab, stageY, currentY, false);
+          });
+          return;
+        }
+
+        const key = tabs[activeIndex].dataset.activity;
+        const activity = ACTIVITIES[key];
+        if (!activity) return;
+
+        tabs.forEach((tab) => {
+          const isActive = tab.dataset.activity === key;
+          tab.classList.toggle('is-active', isActive);
+          updateActivityTabReveal(tab, stageY, currentY, isActive);
+        });
+
+        if (activeActivityKey === key) return;
+        activeActivityKey = key;
+        imageFrame.style.setProperty('--activity-index', String(activeIndex));
+        description.classList.add('is-changing');
+        window.setTimeout(() => {
+          if (activeActivityKey !== key) return;
+          description.textContent = activity.description;
+          requestAnimationFrame(() => description.classList.remove('is-changing'));
+        }, 180);
+      }
+
+      function updateActivityTabReveal(tab, stageY, navY, isActive) {
+        const tabTop = stageY + navY + tab.offsetTop;
+        const tabBottom = tabTop + tab.offsetHeight;
+        const isBefore = tabTop > H * 0.8;
+        const isAfter = tabBottom < H * 0.2;
+        const isVisible = !isBefore && !isAfter;
+
+        tab.classList.toggle('is-tab-visible', isVisible);
+        tab.classList.toggle('is-tab-after', isAfter);
+        tab.style.pointerEvents = isVisible ? '' : 'none';
+      }
+
+      function setupActivityTabs() {
+        const stage = document.querySelector('.activity-stage');
+        const nav = stage?.querySelector('.activity-nav');
+        const navViewport = stage?.querySelector('.activity-nav-viewport');
+        const tabs = [...(stage?.querySelectorAll('.activity-tab') || [])];
+        if (!stage || !nav || !navViewport || !tabs.length) return;
+
+        tabs.forEach((tab) => {
+          tab.addEventListener('click', () => {
+            const index = tabs.indexOf(tab);
+            const sectionStart = H * ACTIVITY_STAGE_TOP;
+            const enterLength = H * ACTIVITY_ENTER_LENGTH;
+            const pinLength = H * ACTIVITY_PIN_LENGTH;
+            const viewportHeight = navViewport.getBoundingClientRect().height || H;
+            const startY = viewportHeight + 80;
+            const tabCenter = tab.offsetTop + tab.offsetHeight / 2;
+            const lastTab = tabs[tabs.length - 1];
+            const endScreenY = -lastTab.offsetTop;
+            const targetProgress = clamp01(
+              (viewportHeight * 0.45 - startY - tabCenter) / (endScreenY - startY)
+            );
+            const targetY = sectionStart + enterLength + pinLength * targetProgress;
+            window.scrollTo({ top: targetY, behavior: 'smooth' });
+          });
+        });
+      }
+
+      window.addEventListener('resize', resize);
+      window.addEventListener('pointermove', handlePointerMove);
+      window.addEventListener('wheel', preventIntroScroll, { passive: false });
+      window.addEventListener('touchmove', preventIntroScroll, { passive: false });
+      window.addEventListener('keydown', preventIntroKeys);
+      init();
+    })();
+  </script>
+  <script>
+    (() => {
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+      if (reduceMotion.matches) return;
+
+      document.querySelectorAll(".sector, .review-card").forEach((target) => {
+        const delay = Math.round(Math.random() * 620);
+        target.style.setProperty("--reveal-delay", `${delay}ms`);
+      });
+
+      const rows = [...document.querySelectorAll(".marquee-row")].map((row) => {
+        const track = row.querySelector(".marquee-track");
+        const direction = row.classList.contains("to-right") ? 1 : -1;
+        const duration = Number(row.dataset.duration || 40);
+        const state = { row, track, direction, duration, cycleWidth: 0, x: 0, speed: 0, baseSpeed: 0, targetSpeed: 0, isPaused: false };
+
+        const setPaused = (isPaused) => {
+          state.isPaused = isPaused;
+          state.targetSpeed = isPaused ? 0 : state.baseSpeed;
+        };
+
+        row.querySelectorAll(".review-card").forEach((card) => {
+          card.addEventListener("pointerenter", () => setPaused(true));
+          card.addEventListener("pointerleave", () => setPaused(false));
+          card.addEventListener("focusin", () => setPaused(true));
+          card.addEventListener("focusout", () => setPaused(false));
+        });
+
+        return state;
+      });
+
+      const measureRows = () => {
+        rows.forEach((state) => {
+          const previousCycle = state.cycleWidth || 1;
+          const progress = state.direction === 1
+            ? (state.x + previousCycle) / previousCycle
+            : -state.x / previousCycle;
+          state.cycleWidth = state.track.scrollWidth / 2;
+          state.baseSpeed = state.direction * (state.cycleWidth / state.duration);
+          state.targetSpeed = state.isPaused ? 0 : state.baseSpeed;
+          state.speed = state.baseSpeed;
+          state.x = state.direction === 1
+            ? -state.cycleWidth + progress * state.cycleWidth
+            : -progress * state.cycleWidth;
+        });
+      };
+
+      measureRows();
+      window.addEventListener("resize", measureRows);
+
+      let lastTime = performance.now();
+      const animate = (time) => {
+        const deltaSeconds = Math.min((time - lastTime) / 1000, 0.05);
+        lastTime = time;
+        rows.forEach((state) => {
+          const smoothing = 1 - Math.exp(-deltaSeconds / 0.42);
+          state.speed += (state.targetSpeed - state.speed) * smoothing;
+          state.x += state.speed * deltaSeconds;
+          if (state.direction === -1 && state.x <= -state.cycleWidth) state.x += state.cycleWidth;
+          if (state.direction === 1 && state.x >= 0) state.x -= state.cycleWidth;
+          state.track.style.transform = `translate3d(${state.x}px, 0, 0)`;
+        });
+        requestAnimationFrame(animate);
+      };
+      requestAnimationFrame(animate);
+    })();
+  </script>
+  <script>
+    (() => {
+      const rows = [...document.querySelectorAll('.stat-row')];
+
+      function clamp01(value) {
+        return Math.max(0, Math.min(1, value));
+      }
+
+      function easeOut(value) {
+        return 1 - Math.pow(1 - value, 3);
+      }
+
+      function formatNumber(value, element) {
+        const prefix = element.dataset.prefix || '';
+        const format = element.dataset.format || 'locale';
+        const text = format === 'plain'
+          ? String(value)
+          : value.toLocaleString('ko-KR');
+        return prefix + text;
+      }
+
+      function animateNumber(element, delay = 0) {
+        if (element.dataset.counted === 'true') return;
+        element.dataset.counted = 'true';
+
+        const startValue = Number(element.dataset.start || 0);
+        const targetValue = Number(element.dataset.target || 0);
+        const duration = Number(element.dataset.duration || 1400);
+        const startTime = performance.now() + delay;
+
+        function tick(now) {
+          const progress = easeOut(clamp01((now - startTime) / duration));
+          const current = Math.round(startValue + (targetValue - startValue) * progress);
+          element.textContent = formatNumber(current, element);
+
+          if (progress < 1) requestAnimationFrame(tick);
+        }
+
+        requestAnimationFrame(tick);
+      }
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+
+          const row = entry.target;
+          const rowIndex = rows.indexOf(row);
+          const rowDelay = rowIndex * 120;
+          row.style.setProperty('--reveal-delay', `${rowDelay}ms`);
+          row.classList.add('is-visible');
+
+          const number = row.querySelector('.number[data-target]');
+          if (number) animateNumber(number, rowDelay);
+
+          observer.unobserve(row);
+        });
+      }, {
+        threshold: 0.45,
+        rootMargin: '0px 0px -8% 0px'
+      });
+
+      rows.forEach((row) => observer.observe(row));
+    })();
+  </script>
+</body>
+
+</html>
