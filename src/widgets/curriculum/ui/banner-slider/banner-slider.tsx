@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
 
-import banner1 from '@/shared/assets/temp_banner/banner1.webp';
-import banner2 from '@/shared/assets/temp_banner/banner2.webp';
-import banner3 from '@/shared/assets/temp_banner/banner3.webp';
-import banner4 from '@/shared/assets/temp_banner/banner4.webp';
-import banner5 from '@/shared/assets/temp_banner/banner5.webp';
+import banner1 from '@/shared/assets/banner-img/1.webp';
+import banner2 from '@/shared/assets/banner-img/2.webp';
+import banner3 from '@/shared/assets/banner-img/3.webp';
+import banner4 from '@/shared/assets/banner-img/4.webp';
+import banner5 from '@/shared/assets/banner-img/5.webp';
 
 import * as styles from './banner-slider.css';
 
