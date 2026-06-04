@@ -2168,6 +2168,7 @@ export interface components {
        * @enum {string}
        */
       category?: 'COMMON' | 'ANALYSIS' | 'VISUALIZATION' | 'ENGINEERING';
+      description?: string;
       /**
        * @description 질문 유형
        * @example TEXT
@@ -2192,6 +2193,7 @@ export interface components {
        * @example 1
        */
       order_num?: number;
+      is_required?: boolean;
       /**
        * @description 필수 여부
        * @example true
