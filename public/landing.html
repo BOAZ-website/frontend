@@ -286,6 +286,113 @@
       pointer-events: none;
     }
 
+    .side-scroll-indicator {
+      --side-label-y: 50%;
+      position: fixed;
+      right: clamp(28px, 3.2vw, 54px);
+      top: 50%;
+      z-index: 30;
+      width: 160px;
+      height: min(78vh, 760px);
+      opacity: 0;
+      filter: blur(8px);
+      transform: translateY(-50%) translateX(10px);
+      transition:
+        opacity 520ms cubic-bezier(0.16, 1, 0.3, 1),
+        filter 520ms cubic-bezier(0.16, 1, 0.3, 1),
+        transform 520ms cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: none;
+    }
+
+    .side-scroll-indicator.is-visible {
+      opacity: 1;
+      filter: blur(0);
+      transform: translateY(-50%) translateX(0);
+    }
+
+    .side-scroll-indicator.is-visible.is-idle {
+      opacity: 0;
+      filter: blur(8px);
+      transform: translateY(-50%) translateX(10px);
+    }
+
+    .side-scroll-indicator.is-idle {
+      opacity: 0;
+      filter: blur(8px);
+      transform: translateY(-50%) translateX(10px);
+    }
+
+    .side-scroll-label {
+      position: absolute;
+      top: var(--side-label-y);
+      right: 32px;
+      min-width: 96px;
+      color: rgba(247, 247, 247, 0.96);
+      font-size: clamp(12px, 1.6vw, 16px);
+      font-weight: 300;
+      line-height: 1;
+      letter-spacing: -0.04em;
+      text-align: right;
+      opacity: 0;
+      filter: blur(8px);
+      transform: translateY(calc(-50% + 0.36em));
+      transition:
+        opacity 520ms cubic-bezier(0.16, 1, 0.3, 1),
+        filter 520ms cubic-bezier(0.16, 1, 0.3, 1),
+        transform 520ms cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: none;
+    }
+
+    .side-scroll-label.is-active {
+      opacity: 1;
+      filter: blur(0);
+      transform: translateY(-50%);
+    }
+
+    .side-scroll-track {
+      position: absolute;
+      top: 0;
+      right: 0;
+      display: flex;
+      width: 2px;
+      height: 100%;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .side-scroll-segment {
+      --section-length: 1;
+      --segment-progress: 0;
+      position: relative;
+      display: block;
+      width: 100%;
+      flex-grow: var(--section-length);
+      overflow: hidden;
+      background: rgba(247, 247, 247, 0.12);
+      transition: background 320ms ease;
+    }
+
+    .side-scroll-segment::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: calc(var(--segment-progress) * 100%);
+      background: rgba(247, 247, 247, 0.96);
+      transition: height 180ms ease-out;
+    }
+
+    .side-scroll-segment.is-active {
+      background: rgba(247, 247, 247, 0.18);
+    }
+
+    @media (max-width: 900px) {
+      .side-scroll-indicator {
+        display: none;
+      }
+    }
+
     .statistics-stage {
       position: fixed;
       top: 0;
@@ -1779,6 +1886,20 @@
       </section>
     </main>
   </section>
+
+  <aside class="side-scroll-indicator" aria-hidden="true">
+    <span class="side-scroll-label" data-section-label="about">About</span>
+    <span class="side-scroll-label" data-section-label="division">Divisions</span>
+    <span class="side-scroll-label" data-section-label="gallery">Gallery</span>
+    <span class="side-scroll-label" data-section-label="review">Review</span>
+    <div class="side-scroll-track">
+      <span class="side-scroll-segment" data-section="about"></span>
+      <span class="side-scroll-segment" data-section="division"></span>
+      <span class="side-scroll-segment" data-section="gallery"></span>
+      <span class="side-scroll-segment" data-section="review"></span>
+    </div>
+  </aside>
+
   <div class="scroll-space" aria-hidden="true"></div>
 
   <footer style="
@@ -1899,6 +2020,12 @@
       const characterImages = {};
       const characterParallaxState = {};
 
+      //사이드 스크롤 관련 변수
+      const SIDE_SCROLL_IDLE_DELAY = 900;
+      const SIDE_SCROLL_MOVEMENT_THRESHOLD = 0.5;
+      let sideScrollIdleTimer = null;
+      let lastSideScrollOffset = 0;
+
       const MOVE_START = 700;
       const MOVE_END = 1950;
       const KEY_COLOR_START = 520;
@@ -1979,6 +2106,7 @@
         updateActivityStage(smoothScrollY);
         updateReviewStage(smoothScrollY);
         updateMissionStage();
+        updateSideScrollIndicator(smoothScrollY);
       }
 
       async function init() {
@@ -2016,6 +2144,7 @@
           updateActivityStage(smoothScrollY);
           updateReviewStage(smoothScrollY);
           updateMissionStage();
+          updateSideScrollIndicator(smoothScrollY);
           drawGradientBackground(now, t, smoothScrollY);
           drawTypography(t);
         } else {
@@ -2032,6 +2161,7 @@
           updateActivityStage(smoothScrollY);
           updateReviewStage(smoothScrollY);
           updateMissionStage();
+          updateSideScrollIndicator(smoothScrollY);
         }
 
         requestAnimationFrame(frame);
@@ -2704,6 +2834,89 @@
         const isVisible = y < H * 0.88 && y > -H * REVIEW_STAGE_HEIGHT;
         if (page) page.classList.toggle('is-review-visible', isVisible);
         stage.classList.toggle('is-review-visible', isVisible);
+      }
+
+      function updateSideScrollIndicator(scrollOffset) {
+        const indicator = document.querySelector('.side-scroll-indicator');
+        if (!indicator) return;
+
+        const labels = [...indicator.querySelectorAll('.side-scroll-label')];
+        const segments = [...indicator.querySelectorAll('.side-scroll-segment')];
+
+        const sections = [
+          {
+            key: 'about',
+            start: STATISTICS_STAGE_TOP,
+            end: DIVISION_STAGE_TOP,
+          },
+          {
+            key: 'division',
+            start: DIVISION_STAGE_TOP,
+            end: ACTIVITY_STAGE_TOP,
+          },
+          {
+            key: 'gallery',
+            start: ACTIVITY_STAGE_TOP,
+            end: REVIEW_STAGE_TOP - 1,
+          },
+          {
+            key: 'review',
+            start: REVIEW_STAGE_TOP - 1,
+            end: REVIEW_STAGE_TOP + REVIEW_STAGE_HEIGHT,
+          },
+        ];
+
+        const scrollUnit = scrollOffset / Math.max(H, 1);
+        const active = sections.find((section) => (
+          scrollUnit >= section.start && scrollUnit < section.end
+        ));
+
+        indicator.classList.toggle('is-visible', Boolean(active));
+
+        const hasActiveSection = Boolean(active);
+        const didScrollMove = Math.abs(scrollOffset - lastSideScrollOffset) > SIDE_SCROLL_MOVEMENT_THRESHOLD;
+
+        if (!hasActiveSection) {
+          window.clearTimeout(sideScrollIdleTimer);
+          indicator.classList.add('is-idle');
+          lastSideScrollOffset = scrollOffset;
+        } else if (didScrollMove) {
+          indicator.classList.remove('is-idle');
+          lastSideScrollOffset = scrollOffset;
+
+          window.clearTimeout(sideScrollIdleTimer);
+          sideScrollIdleTimer = window.setTimeout(() => {
+            indicator.classList.add('is-idle');
+          }, SIDE_SCROLL_IDLE_DELAY);
+        }
+
+        segments.forEach((segment) => {
+          const section = sections.find((item) => item.key === segment.dataset.section);
+          if (!section) return;
+
+          const length = Math.max(section.end - section.start, 0.001);
+          const localProgress = Math.min(
+            Math.max((scrollUnit - section.start) / length, 0),
+            1
+          );
+
+          segment.style.setProperty('--section-length', length.toFixed(3));
+          segment.style.setProperty('--segment-progress', localProgress.toFixed(4));
+          segment.classList.toggle('is-active', active?.key === section.key);
+        });
+
+        labels.forEach((item) => {
+          const section = sections.find((entry) => entry.key === item.dataset.sectionLabel);
+          const segment = section
+            ? indicator.querySelector(`.side-scroll-segment[data-section="${section.key}"]`)
+            : null;
+
+          if (!section || !segment) return;
+
+          const labelY = segment.offsetTop + segment.offsetHeight / 2;
+          item.style.top = `${labelY}px`;
+          item.classList.toggle('is-active', active?.key === section.key);
+        });
       }
 
       function getActivityMotion(scrollOffset) {
