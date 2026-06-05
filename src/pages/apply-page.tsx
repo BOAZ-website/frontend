@@ -119,7 +119,8 @@ const ApplyPage = () => {
           if (question_id == null || answer == null) {
             return;
           }
-          restoredAnswers[String(question_id)] = String(answer);
+          restoredAnswers[String(question_id)] =
+            typeof answer === 'object' ? JSON.stringify(answer) : String(answer);
         });
         // eslint-disable-next-line react-hooks/set-state-in-effect
         setAnswers(restoredAnswers);
