@@ -36,10 +36,14 @@ const BannerSlider = () => {
 
   // 복제본(index 5)에 도달하면 transition 없이 index 0으로 순간이동
   useEffect(() => {
-    if (current === BANNERS.length) {
+    if (current >= BANNERS.length) {
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+      }
       const id = setTimeout(() => {
         setAnimated(false);
         setCurrent(0);
+        startTimer();
       }, 600); // transition 시간과 맞춤
       return () => clearTimeout(id);
     }

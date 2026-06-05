@@ -65,7 +65,7 @@ const QuestionSection = ({
 }: QuestionSectionProps) => {
   const resolveContent = (content: string | undefined) => {
     const withTrack = track
-      ? (content ?? '').replace(/\{Track\}/g, TRACK_LABEL[track])
+      ? (content ?? '').replace(/\{부문\}/g, TRACK_LABEL[track])
       : (content ?? '');
     return withTrack.replace(/\s*\(공백\s*포함\s*\d+자\s*이내\)\s*/g, '').trim();
   };
