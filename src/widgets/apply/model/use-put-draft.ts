@@ -22,6 +22,7 @@ export const usePutDraft = ({
   onError,
 }: UsePutDraftParams) => {
   const draftRef = useRef<DraftRequest>(draft);
+  const lastSavedRef = useRef<string | null>(null);
   const [isSaveSuccess, setIsSaveSuccess] = useState(false);
   const successTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -40,7 +41,8 @@ export const usePutDraft = ({
 
   const { mutate: putDraft, isPending: isPutDraftPending } = useMutation({
     mutationFn: (data: DraftRequest) => saveDraftApi(recruitmentId, data),
-    onSuccess: () => {
+    onSuccess: (_, data) => {
+      lastSavedRef.current = JSON.stringify(data);
       setIsSaveSuccess(true);
       if (successTimerRef.current) {
         clearTimeout(successTimerRef.current);
@@ -53,6 +55,13 @@ export const usePutDraft = ({
     },
   });
 
+  const putDraftIfChanged = (data: DraftRequest) => {
+    if (lastSavedRef.current === JSON.stringify(data)) {
+      return;
+    }
+    putDraft(data);
+  };
+
   // 주기적 서버 동기화
   useEffect(() => {
     if (!enabled || recruitmentId === 0) {
@@ -60,7 +69,7 @@ export const usePutDraft = ({
     }
 
     const timer = setInterval(() => {
-      putDraft(draftRef.current);
+      putDraftIfChanged(draftRef.current);
     }, SYNC_INTERVAL_MS);
 
     // 페이지 이탈 시 즉시 flush
@@ -82,7 +91,7 @@ export const usePutDraft = ({
 
   // 임시저장 버튼 클릭 시 수동 저장
   const handleClickSaveDraft = () => {
-    putDraft(draft);
+    putDraftIfChanged(draft);
   };
 
   return { handleClickSaveDraft, isPutDraftPending, isSaveSuccess };
