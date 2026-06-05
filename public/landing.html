@@ -868,9 +868,9 @@
       align-items: center;
       justify-content: center;
       padding: 5px 16px;
-      border: 0.8px solid rgba(255, 255, 255, 0.32);
+      border: 0.8px solid #666666;
       border-radius: 999px;
-      color: rgba(255, 255, 255, 0.36);
+      color: #666666;
       font-size: 18px;
       font-weight: 600;
       line-height: 1;
@@ -882,9 +882,32 @@
       transition:
         opacity 620ms cubic-bezier(0.16, 1, 0.3, 1),
         filter 620ms cubic-bezier(0.16, 1, 0.3, 1),
-        transform 620ms cubic-bezier(0.16, 1, 0.3, 1);
+        transform 620ms cubic-bezier(0.16, 1, 0.3, 1),
+        color 620ms cubic-bezier(0.16, 1, 0.3, 1),
+        border-color 620ms cubic-bezier(0.16, 1, 0.3, 1),
+        background-color 620ms cubic-bezier(0.16, 1, 0.3, 1);
       transition-delay: var(--reveal-delay, 0ms);
       will-change: opacity, filter, transform;
+    }
+
+    .division-card:nth-child(1) {
+      --chip-highlight-border: #6250C7;
+      --chip-highlight-text: #6250C7;
+    }
+
+    .division-card:nth-child(2) {
+      --chip-highlight-border: #5DCDC2;
+      --chip-highlight-text: #5DCDC2;
+    }
+
+    .division-card:nth-child(3) {
+      --chip-highlight-border: #74B8FB;
+      --chip-highlight-text: #74B8FB;
+    }
+
+    .division-chip.is-highlighted {
+      border-color: var(--chip-highlight-border);
+      color: var(--chip-highlight-text);
     }
 
     .division-card.is-chip-visible .division-chip {
@@ -1500,38 +1523,38 @@
         <a class="division-surface" href="/curriculum?tab=분석" target="_parent" style="text-decoration:none;">
           <div class="division-chip-marquee row-one" aria-hidden="true">
             <div class="division-chip-group">
-              <span class="division-chip">AI Agent</span>
-              <span class="division-chip">Computer Vision</span>
-              <span class="division-chip">LLM</span>
               <span class="division-chip">NLP</span>
-              <span class="division-chip">Medical AI</span>
+              <span class="division-chip">LLM</span>
+              <span class="division-chip">Computer Vision</span>
+              <span class="division-chip">Multimodal</span>
+              <span class="division-chip">RecSys</span>
             </div>
             <div class="division-chip-group">
-              <span class="division-chip">AI Agent</span>
-              <span class="division-chip">Computer Vision</span>
-              <span class="division-chip">LLM</span>
               <span class="division-chip">NLP</span>
-              <span class="division-chip">Medical AI</span>
+              <span class="division-chip">LLM</span>
+              <span class="division-chip">Computer Vision</span>
+              <span class="division-chip">Multimodal</span>
+              <span class="division-chip">RecSys</span>
             </div>
           </div>
           <div class="division-chip-marquee row-two" aria-hidden="true">
             <div class="division-chip-group">
+              <span class="division-chip">Time-series</span>
+              <span class="division-chip">AI Agent</span>
+              <span class="division-chip">Medical AI</span>
               <span class="division-chip">Regression</span>
-              <span class="division-chip">Clustering</span>
               <span class="division-chip">Forecasting</span>
-              <span class="division-chip">Recommendation</span>
-              <span class="division-chip">A/B Test</span>
             </div>
             <div class="division-chip-group">
+              <span class="division-chip">Time-series</span>
+              <span class="division-chip">AI Agent</span>
+              <span class="division-chip">Medical AI</span>
               <span class="division-chip">Regression</span>
-              <span class="division-chip">Clustering</span>
               <span class="division-chip">Forecasting</span>
-              <span class="division-chip">Recommendation</span>
-              <span class="division-chip">A/B Test</span>
             </div>
           </div>
           <div class="division-copy">
-            <p class="division-description">데이터를 기반으로 문제를 정의하고<br>인사이트를 찾아내는 부문입니다.</p>
+            <p class="division-description">인공지능을 기반으로 문제를 정의하고<br>인사이트를 도출하는 부문입니다.</p>
             <h2 class="division-title">데이터 분석</h2>
           </div>
           <img class="division-arrow" src="아이콘/오른쪽 화살표.svg" alt="" aria-hidden="true">
@@ -2026,6 +2049,9 @@
       let sideScrollIdleTimer = null;
       let lastSideScrollOffset = 0;
 
+      //부문 알약 칩 관련 변수
+      const DIVISION_HIGHLIGHT_CHIP_COUNT = 4;
+
       const MOVE_START = 700;
       const MOVE_END = 1950;
       const KEY_COLOR_START = 520;
@@ -2269,6 +2295,7 @@
                 item.classList.remove('is-chip-visible');
               });
               shuffleDivisionRevealDelays(card);
+              highlightRandomDivisionChips(card);
               card.classList.add('is-chip-visible');
             }
           });
@@ -2278,6 +2305,7 @@
           delete row.dataset.active;
           row.querySelectorAll('.division-card').forEach((card) => {
             card.classList.remove('is-chip-visible');
+            clearDivisionHighlightedChips(card);
           });
         });
 
@@ -2295,6 +2323,36 @@
           const delay = 120 + Math.round(Math.random() * 220);
           arrow.style.setProperty('--arrow-reveal-delay', `${delay}ms`);
         }
+      }
+
+      function highlightRandomDivisionChips(card) {
+        const chips = [...card.querySelectorAll('.division-chip')];
+        const chipNames = [...new Set(chips.map((chip) => chip.textContent.trim()))];
+
+        clearDivisionHighlightedChips(card);
+
+        const shuffledNames = [...chipNames];
+
+        for (let i = shuffledNames.length - 1; i > 0; i -= 1) {
+          const randomIndex = Math.floor(Math.random() * (i + 1));
+          [shuffledNames[i], shuffledNames[randomIndex]] = [shuffledNames[randomIndex], shuffledNames[i]];
+        }
+
+        const selectedNames = shuffledNames.slice(0, DIVISION_HIGHLIGHT_CHIP_COUNT);
+
+        chips.forEach((chip) => {
+          const chipName = chip.textContent.trim();
+
+          if (selectedNames.includes(chipName)) {
+            chip.classList.add('is-highlighted');
+          }
+        });
+      }
+
+      function clearDivisionHighlightedChips(card) {
+        card.querySelectorAll('.division-chip').forEach((chip) => {
+          chip.classList.remove('is-highlighted');
+        });
       }
 
       function updateBackgroundFrame(scrollOffset, introT = INTRO_END) {
