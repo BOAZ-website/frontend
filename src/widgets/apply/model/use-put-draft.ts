@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 
 import { saveDraftApi } from '@/shared/api/recruitment';
@@ -55,12 +55,15 @@ export const usePutDraft = ({
     },
   });
 
-  const putDraftIfChanged = (data: DraftRequest) => {
-    if (lastSavedRef.current === JSON.stringify(data)) {
-      return;
-    }
-    putDraft(data);
-  };
+  const putDraftIfChanged = useCallback(
+    (data: DraftRequest) => {
+      if (lastSavedRef.current === JSON.stringify(data)) {
+        return;
+      }
+      putDraft(data);
+    },
+    [putDraft]
+  );
 
   // 주기적 서버 동기화
   useEffect(() => {
@@ -87,7 +90,7 @@ export const usePutDraft = ({
       clearInterval(timer);
       window.removeEventListener('beforeunload', handleBeforeUnload);
     };
-  }, [enabled, recruitmentId, putDraft]);
+  }, [enabled, recruitmentId, putDraftIfChanged]);
 
   // 임시저장 버튼 클릭 시 수동 저장
   const handleClickSaveDraft = () => {
