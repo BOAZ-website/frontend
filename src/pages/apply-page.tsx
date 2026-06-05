@@ -192,6 +192,31 @@ const ApplyPage = () => {
   const { form } = personalInfo;
   const track = form.track;
 
+  const { data: allQuestions = [] } = useQuery({
+    ...APPLY_QUERY_OPTIONS.QUESTIONS(recruitmentId, track ?? 'ANALYSIS'),
+    enabled: recruitmentId > 0,
+  });
+
+  const buildAnswers = (): AnswerRequest[] => {
+    const result: AnswerRequest[] = [];
+    for (const [key, value] of Object.entries(answers)) {
+      if (key.includes('__extra_')) {
+        continue;
+      }
+      const question = allQuestions.find((q) => String(q.question_id) === key);
+      let answer: unknown = value;
+      if (question?.type === 'TABLE') {
+        try {
+          answer = JSON.parse(value);
+        } catch {
+          answer = value;
+        }
+      }
+      result.push({ question_id: parseInt(key, 10), answer });
+    }
+    return result;
+  };
+
   const draftPayload: DraftRequest = {
     track: track ?? undefined,
     name: form.name || undefined,
@@ -218,12 +243,7 @@ const ApplyPage = () => {
         return {};
       }
     })(),
-    answers: Object.entries(answers)
-      .filter(([key]) => !key.includes('__extra_'))
-      .map(([key, value]) => ({
-        question_id: parseInt(key, 10),
-        answer: value,
-      })),
+    answers: buildAnswers(),
   };
 
   const isRestoredOrEmpty =
@@ -245,11 +265,6 @@ const ApplyPage = () => {
   });
 
   const submitMutation = useSubmitApplication(recruitmentId);
-
-  const { data: allQuestions = [] } = useQuery({
-    ...APPLY_QUERY_OPTIONS.QUESTIONS(recruitmentId, track ?? 'ANALYSIS'),
-    enabled: recruitmentId > 0,
-  });
 
   // 면접 가능 시간 질문: COMMON TABLE multiple=true 인 질문을 step 1에 표시
   const interviewQuestion = allQuestions.find(
@@ -276,26 +291,6 @@ const ApplyPage = () => {
 
   const handleTrackChange = () => {
     setAnswers({});
-  };
-
-  const buildAnswers = (): AnswerRequest[] => {
-    const result: AnswerRequest[] = [];
-    for (const [key, value] of Object.entries(answers)) {
-      if (key.includes('__extra_')) {
-        continue;
-      }
-      const question = allQuestions.find((q) => String(q.question_id) === key);
-      let answer: unknown = value;
-      if (question?.type === 'TABLE') {
-        try {
-          answer = JSON.parse(value);
-        } catch {
-          answer = value;
-        }
-      }
-      result.push({ question_id: parseInt(key, 10), answer });
-    }
-    return result;
   };
 
   const handlePersonalInfoNext = (selectedTrack: Track) => {
