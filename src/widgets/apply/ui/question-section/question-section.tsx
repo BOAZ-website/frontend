@@ -138,7 +138,7 @@ const QuestionSection = ({
               <h2 className={styles.sectionTitle}>{resolveContent(question.content)}</h2>
               {question.limit_length && (
                 <p className={styles.sectionDescription}>
-                  (공백 포함 {question.limit_length}자 이내)
+                  공백 포함 {question.limit_length}자 이내
                 </p>
               )}
             </div>
