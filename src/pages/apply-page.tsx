@@ -28,7 +28,7 @@ import { formatKoreanDate } from '@/shared/utils/date-formatter';
 
 import * as styles from './apply-page.css';
 
-const STEPS = ['지원자 정보 입력', '공통 질문', '부문 질문'] as const;
+const STEPS = ['지원자 정보 입력', '공통 질문', '부문 질문', '추가 정보'] as const;
 const LAST_STEP = STEPS.length;
 
 const ApplyPage = () => {
@@ -119,7 +119,8 @@ const ApplyPage = () => {
           if (question_id == null || answer == null) {
             return;
           }
-          restoredAnswers[String(question_id)] = String(answer);
+          restoredAnswers[String(question_id)] =
+            typeof answer === 'object' ? JSON.stringify(answer) : String(answer);
         });
         // eslint-disable-next-line react-hooks/set-state-in-effect
         setAnswers(restoredAnswers);
@@ -192,6 +193,31 @@ const ApplyPage = () => {
   const { form } = personalInfo;
   const track = form.track;
 
+  const { data: allQuestions = [] } = useQuery({
+    ...APPLY_QUERY_OPTIONS.QUESTIONS(recruitmentId, track ?? 'ANALYSIS'),
+    enabled: recruitmentId > 0,
+  });
+
+  const buildAnswers = (): AnswerRequest[] => {
+    const result: AnswerRequest[] = [];
+    for (const [key, value] of Object.entries(answers)) {
+      if (key.includes('__extra_')) {
+        continue;
+      }
+      const question = allQuestions.find((q) => String(q.question_id) === key);
+      let answer: unknown = value;
+      if (question?.type === 'TABLE') {
+        try {
+          answer = JSON.parse(value);
+        } catch {
+          answer = value;
+        }
+      }
+      result.push({ question_id: parseInt(key, 10), answer });
+    }
+    return result;
+  };
+
   const draftPayload: DraftRequest = {
     track: track ?? undefined,
     name: form.name || undefined,
@@ -218,12 +244,7 @@ const ApplyPage = () => {
         return {};
       }
     })(),
-    answers: Object.entries(answers)
-      .filter(([key]) => !key.includes('__extra_'))
-      .map(([key, value]) => ({
-        question_id: parseInt(key, 10),
-        answer: value,
-      })),
+    answers: buildAnswers(),
   };
 
   const isRestoredOrEmpty =
@@ -246,11 +267,6 @@ const ApplyPage = () => {
 
   const submitMutation = useSubmitApplication(recruitmentId);
 
-  const { data: allQuestions = [] } = useQuery({
-    ...APPLY_QUERY_OPTIONS.QUESTIONS(recruitmentId, track ?? 'ANALYSIS'),
-    enabled: recruitmentId > 0 && !!track,
-  });
-
   // 면접 가능 시간 질문: COMMON TABLE multiple=true 인 질문을 step 1에 표시
   const interviewQuestion = allQuestions.find(
     (q) =>
@@ -258,8 +274,12 @@ const ApplyPage = () => {
       q.type === 'TABLE' &&
       (q.metadata as unknown as { multiple?: boolean })?.multiple === true
   );
+  // order_num=99인 선택 공통 질문(공통6)은 마지막 별도 스텝으로 분리
+  const optionalCommonQuestion = allQuestions.find(
+    (q) => q.category === 'COMMON' && (q.order_num ?? 0) >= 99
+  );
   const commonQuestions = allQuestions.filter(
-    (q) => q.category === 'COMMON' && q !== interviewQuestion
+    (q) => q.category === 'COMMON' && q !== interviewQuestion && q !== optionalCommonQuestion
   );
   const trackQuestions = allQuestions.filter((q) => q.category !== 'COMMON');
 
@@ -272,26 +292,6 @@ const ApplyPage = () => {
 
   const handleTrackChange = () => {
     setAnswers({});
-  };
-
-  const buildAnswers = (): AnswerRequest[] => {
-    const result: AnswerRequest[] = [];
-    for (const [key, value] of Object.entries(answers)) {
-      if (key.includes('__extra_')) {
-        continue;
-      }
-      const question = allQuestions.find((q) => String(q.question_id) === key);
-      let answer: unknown = value;
-      if (question?.type === 'TABLE') {
-        try {
-          answer = JSON.parse(value);
-        } catch {
-          answer = value;
-        }
-      }
-      result.push({ question_id: parseInt(key, 10), answer });
-    }
-    return result;
   };
 
   const handlePersonalInfoNext = (selectedTrack: Track) => {
@@ -318,9 +318,9 @@ const ApplyPage = () => {
   };
 
   // 모집 기간이 아닐 때 접근 못하도록
-  // if (status && status.is_active === false) {
-  //   return <Navigate to={ROUTE_PATH.HOME} replace />;
-  // }
+  if (status && status.is_active === false) {
+    return <Navigate to={ROUTE_PATH.HOME} replace />;
+  }
 
   // 403 - 이미 제출된 경우
   // TODO: 제출 완료 전용 컴포넌트로 교체
@@ -379,15 +379,26 @@ const ApplyPage = () => {
             onPrev={handlePrev}
             onNext={handleNext}
             supportsTable
+            track={track ?? undefined}
           />
         )}
         {currentStep === 3 && (
           <QuestionSection
             {...trackSectionProps}
             questions={trackQuestions}
+            onNext={handleNext}
+            supportsTable={track === 'ENGINEERING' || track === 'VISUALIZATION'}
+          />
+        )}
+        {currentStep === 4 && (
+          <QuestionSection
+            questions={optionalCommonQuestion ? [optionalCommonQuestion] : []}
+            answers={answers}
+            onAnswerChange={setAnswer}
+            onPrev={handlePrev}
             onNext={handleSubmit}
             nextLabel="제출하기"
-            supportsTable={track === 'ENGINEERING' || track === 'VISUALIZATION'}
+            track={track ?? undefined}
           />
         )}
       </section>

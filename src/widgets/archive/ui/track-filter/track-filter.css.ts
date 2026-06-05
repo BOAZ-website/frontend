@@ -22,7 +22,8 @@ export const trigger = style({
   alignItems: 'center',
   justifyContent: 'flex-end',
   gap: '0.8rem',
-  padding: '0.9rem 1.4rem',
+  height: '4.8rem',
+  padding: '0 1.4rem',
   borderRadius: '20px',
   width: 'fit-content',
   backgroundColor: themeVars.color.grayscale[900],
@@ -38,8 +39,9 @@ export const trigger = style({
   '@media': {
     [media.mobile]: {
       ...typography.body6_rg_12,
-      padding: '0.64rem 0.4rem 0.64rem 0.8rem',
+      padding: '0 0.4rem 0 0.8rem',
       gap: '0.4rem',
+      height: '3.2rem',
     },
   },
 });
@@ -61,6 +63,7 @@ export const overlay = style({
 const optionBase = style({
   display: 'flex',
   alignItems: 'center',
+  height: '4.8rem',
   gap: '1rem',
   padding: '1rem 1.6rem',
   cursor: 'pointer',
@@ -73,7 +76,8 @@ const optionBase = style({
   '@media': {
     [media.mobile]: {
       ...typography.body6_rg_12,
-      padding: '0.8rem 1.2rem',
+      height: '3.2rem',
+      padding: '0 1.2rem',
     },
   },
 });

@@ -72,7 +72,7 @@ const Footer = () => {
         </section>
         <section className={styles.col.right}>
           <h4 className={styles.heading}>Contact</h4>
-          <small className={styles.email}>boaz.bigdata@gmail.com</small>
+          <small className={styles.email}>boaz.bigdata@naver.com</small>
         </section>
       </div>
     </footer>

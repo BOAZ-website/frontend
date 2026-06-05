@@ -131,6 +131,20 @@ const PersonalInfoSection = ({
       (form.email.trim() && !isValidEmail(form.email)) ||
       (form.phone.trim() && !isValidPhone(form.phone));
 
+    const hasNoInterviewAnswer =
+      interviewQuestion?.is_required &&
+      (() => {
+        if (!interviewAnswer) {
+          return true;
+        }
+        try {
+          const parsed = JSON.parse(interviewAnswer) as Record<string, string[]>;
+          return !Object.values(parsed).some((arr) => arr.length > 0);
+        } catch {
+          return true;
+        }
+      })();
+
     if (
       !form.track ||
       hasEmptyRequired ||
@@ -141,7 +155,8 @@ const PersonalInfoSection = ({
       form.militaryStatus === null ||
       form.gradSchoolPlan === null ||
       !form.academicGrade ||
-      !form.semester
+      !form.semester ||
+      hasNoInterviewAnswer
     ) {
       window.alert(
         '입력하지 않은 항목이 있거나 형식이 올바르지 않습니다.\n항목을 다시 확인해 주세요.'
@@ -380,7 +395,9 @@ const PersonalInfoSection = ({
         <section className={styles.interviewSection}>
           <h2 className={styles.sectionTitle}>{interviewQuestion.content}</h2>
           {interviewDescription && (
-            <p className={styles.interviewDescription}>{interviewDescription}</p>
+            <p className={styles.interviewDescription}>
+              {interviewDescription.replace(/\\n/g, '\n')}
+            </p>
           )}
           <TableQuestion
             question={interviewQuestion}

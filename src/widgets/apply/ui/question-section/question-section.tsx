@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import type { QuestionResponse } from '@/shared/api/types';
+import type { QuestionResponse, Track } from '@/shared/api/types';
 import ArrowLeft from '@/shared/assets/icons/ic_arrow_left.svg?react';
 import ArrowRight from '@/shared/assets/icons/ic_arrow_right.svg?react';
 import Button from '@/shared/components/button/button';
@@ -12,6 +12,12 @@ import * as styles from './question-section.css';
 
 const ADDABLE_LABEL = '프로젝트';
 
+const TRACK_LABEL: Record<Track, string> = {
+  ANALYSIS: '데이터 분석',
+  VISUALIZATION: '데이터 시각화',
+  ENGINEERING: '데이터 엔지니어링',
+};
+
 interface QuestionSectionProps {
   questions: QuestionResponse[];
   answers: Record<string, string>;
@@ -20,6 +26,7 @@ interface QuestionSectionProps {
   onNext: () => void;
   nextLabel?: string;
   supportsTable?: boolean;
+  track?: Track;
 }
 
 const isTableAnswerComplete = (
@@ -54,7 +61,14 @@ const QuestionSection = ({
   onNext,
   nextLabel = '다음 페이지',
   supportsTable = false,
+  track,
 }: QuestionSectionProps) => {
+  const resolveContent = (content: string | undefined) => {
+    const withTrack = track
+      ? (content ?? '').replace(/\{부문\}/g, TRACK_LABEL[track])
+      : (content ?? '');
+    return withTrack.replace(/\s*\(공백\s*포함\s*\d+자\s*이내\)\s*/g, '').trim();
+  };
   const [extraCounts, setExtraCounts] = useState<Record<string, number>>({});
   const [submitted, setSubmitted] = useState(false);
 
@@ -95,7 +109,9 @@ const QuestionSection = ({
           const isMultiple = !!(question.metadata as unknown as { multiple?: boolean })?.multiple;
           return (
             <div key={qId} className={styles.tableSection}>
-              <div className={styles.sectionExperienceTitle}>{question.content}</div>
+              <div className={styles.sectionExperienceTitle}>
+                {resolveContent(question.content)}
+              </div>
               <TableQuestion
                 question={question}
                 answer={answers[qId] ?? ''}
@@ -119,10 +135,10 @@ const QuestionSection = ({
         return (
           <section key={qId} className={styles.section}>
             <div className={styles.titleContainer}>
-              <h2 className={styles.sectionTitle}>{question.content}</h2>
+              <h2 className={styles.sectionTitle}>{resolveContent(question.content)}</h2>
               {question.limit_length && (
                 <p className={styles.sectionDescription}>
-                  (공백 포함 {question.limit_length}자 이내)
+                  공백 포함 {question.limit_length}자 이내
                 </p>
               )}
             </div>

@@ -11,16 +11,18 @@ import Button from '@/shared/components/button/button';
 import * as styles from './conference-section.css';
 
 const IMAGES = [conferenceThumbnail1, conferenceThumbnail2, conferenceThumbnail3];
+const SLIDES = [...IMAGES, conferenceThumbnail1];
 const INTERVAL_MS = 3000;
 
 const ConferenceSection = () => {
   const navigate = useNavigate();
   const [current, setCurrent] = useState(0);
+  const [animated, setAnimated] = useState(true);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const startTimer = () => {
     timerRef.current = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % IMAGES.length);
+      setCurrent((prev) => prev + 1);
     }, INTERVAL_MS);
   };
 
@@ -33,7 +35,26 @@ const ConferenceSection = () => {
     };
   }, []);
 
+  useEffect(() => {
+    if (current >= IMAGES.length) {
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+      }
+      const id = setTimeout(() => {
+        setAnimated(false);
+        setCurrent(0);
+        startTimer();
+      }, 600);
+      return () => clearTimeout(id);
+    }
+    if (!animated) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setAnimated(true);
+    }
+  }, [current, animated]);
+
   const handleDotClick = (index: number) => {
+    setAnimated(true);
     setCurrent(index);
     if (timerRef.current) {
       clearInterval(timerRef.current);
@@ -41,13 +62,25 @@ const ConferenceSection = () => {
     startTimer();
   };
 
+  const dotIndex = current >= IMAGES.length ? 0 : current;
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.sliderWrapper}>
-        <div className={styles.sliderTrack} style={{ transform: `translateX(-${current * 100}%)` }}>
-          {IMAGES.map((src, i) => (
+        <div
+          className={styles.sliderTrack}
+          style={{
+            transform: `translateX(-${current * 100}%)`,
+            transition: animated ? undefined : 'none',
+          }}
+        >
+          {SLIDES.map((src, i) => (
             <div key={i} className={styles.sliderSlide}>
-              <img src={src} alt={`컨퍼런스 ${i + 1}`} className={styles.sliderImage} />
+              <img
+                src={src}
+                alt={`컨퍼런스 ${(i % IMAGES.length) + 1}`}
+                className={styles.sliderImage}
+              />
             </div>
           ))}
         </div>
@@ -56,7 +89,7 @@ const ConferenceSection = () => {
             <button
               key={i}
               type="button"
-              className={clsx(styles.dot, i === current && styles.dotActive)}
+              className={clsx(styles.dot, i === dotIndex && styles.dotActive)}
               onClick={() => handleDotClick(i)}
               aria-label={`이미지 ${i + 1}로 이동`}
             />
@@ -64,9 +97,9 @@ const ConferenceSection = () => {
         </div>
       </div>
       <div className={styles.content}>
-        <h2 className={styles.title}>기업 컨택 및 컨퍼런스 진행</h2>
+        <h2 className={styles.title}>ADV 기업 컨택 및 컨퍼런스 진행</h2>
         <p className={styles.description}>
-          {`BOAZ는 뛰어난 인재들이 모여 여러 기구\n기업 컨택을 진행합니다.\n현 산업체 고수들과 함께 진행됩니다.\n그리고 최종적으로 컨퍼런스에서 그 성과를 발표해요.`}
+          {`BOAZ 컨퍼런스는 1년 간의 여정을 마무리하는 마침표입니다. 지금까지 배우고 탐구했던 모든 것을 담아 하나의 프로젝트로 선보입니다. 또한, 다양한 기업과의 컨택을 통해 협업 기회를 모색할 수 있습니다.`}
         </p>
         <Button preset="medium_white" hasIcon responsive onClick={() => navigate('/archive')}>
           자세히 보기

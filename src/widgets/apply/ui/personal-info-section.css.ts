@@ -145,7 +145,8 @@ export const interviewDescription = style({
   lineHeight: '1.6',
   '@media': {
     [media.mobile]: {
-      ...typography.body6_rg_10,
+      ...typography.text_rg_14,
+      lineHeight: '1.4',
     },
   },
 });

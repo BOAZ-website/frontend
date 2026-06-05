@@ -21,7 +21,8 @@ export const trigger = style({
   display: 'flex',
   alignItems: 'center',
   gap: '0.6rem',
-  padding: '0.9rem 1.4rem',
+  height: '4.8rem',
+  padding: '0 1.4rem',
   borderRadius: '20px',
   backgroundColor: themeVars.color.grayscale[900],
   border: `1px solid ${themeVars.color.grayscale[800]}`,
@@ -37,7 +38,8 @@ export const trigger = style({
   '@media': {
     [media.mobile]: {
       ...typography.body6_rg_12,
-      padding: '0.64rem 0.4rem 0.64rem 0.8rem',
+      height: '3.2rem',
+      padding: '0 0.4rem 0 0.8rem',
       gap: '0.4rem',
     },
   },

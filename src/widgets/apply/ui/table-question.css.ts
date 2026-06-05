@@ -25,7 +25,7 @@ export const multiHeaderCell = style({
   paddingTop: '4.1rem',
   '@media': {
     [media.mobile]: {
-      ...typography.body6_rg_10,
+      ...typography.text_rg_14,
       paddingBottom: '1.2rem',
     },
   },
@@ -40,7 +40,8 @@ export const multiRowLabel = style({
   paddingBottom: '2rem',
   '@media': {
     [media.mobile]: {
-      ...typography.body6_rg_10,
+      ...typography.text_rg_14,
+      lineHeight: '1.4',
       paddingTop: '1.4rem',
       paddingBottom: '1.4rem',
     },

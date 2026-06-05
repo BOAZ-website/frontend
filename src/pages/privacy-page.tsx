@@ -174,7 +174,7 @@ const PrivacyPage = () => {
           <h2 className={styles.sectionTitle}>10. 개인정보 보호책임자 및 문의처</h2>
           <ul className={styles.list}>
             <li className={styles.listItem}>개인정보 보호책임자: 문혁준 (25기 대표)</li>
-            <li className={styles.listItem}>이메일: boaz.bigdata@gmail.com</li>
+            <li className={styles.listItem}>이메일: boaz.bigdata@naver.com</li>
           </ul>
         </section>
 
