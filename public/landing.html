@@ -1373,6 +1373,115 @@
       color: #7A64F9;
     }
 
+    .landing-footer {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      box-sizing: border-box;
+      padding: 33px 49px 30px 60px;
+      background-color: #ffffff;
+      color: #000000;
+    }
+
+    .landing-footer-desktop {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 43px;
+    }
+
+    .landing-footer-mobile {
+      display: none;
+    }
+
+    .landing-footer-column {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .landing-footer-column:first-child {
+      flex: 1;
+      gap: 15px;
+    }
+
+    .landing-footer-column:nth-child(2) {
+      gap: 8px;
+    }
+
+    .landing-footer-column:nth-child(3) {
+      gap: 9px;
+    }
+
+    .landing-footer-logo,
+    .landing-footer-icon {
+      display: block;
+      flex: 0 0 auto;
+    }
+
+    .landing-footer-heading {
+      margin: 0;
+      color: #000000;
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .landing-footer-sns-list {
+      display: flex;
+      gap: 7px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .landing-footer-sns-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px 0;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .landing-footer-link {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      color: #000000;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.4;
+      text-decoration: none;
+    }
+
+    .landing-footer-contact {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .landing-footer-contact-label {
+      color: #666666;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.4;
+    }
+
+    .landing-footer-email {
+      color: #000000;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.4;
+    }
+
+    .landing-footer-copyright {
+      color: #999999;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.4;
+    }
+
     @media (max-width: 768px) {
       .activity-shell {
         grid-template-columns: 1fr;
@@ -1549,6 +1658,20 @@
 
       .activity-nav-viewport {
         order: 2;
+      }
+
+      .landing-footer {
+        padding: 24px 20px;
+      }
+
+      .landing-footer-desktop {
+        display: none;
+      }
+
+      .landing-footer-mobile {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
       }
 
     }
@@ -2035,39 +2158,99 @@
 
   <div class="scroll-space" aria-hidden="true"></div>
 
-  <footer style="
-    width: 100%;
-    box-sizing: border-box;
-    background-color: #ffffff;
-    padding: 33px 49px 30px 60px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 43px;
-    position: relative;
-    z-index: 10;
-  ">
-    <section style="display:flex; flex-direction:column; gap:15px;">
-      <span style="font-size:18px; font-weight:700; color:#000;">BOAZ</span>
-      <small style="font-size:16px; color:#999;">© 2026 BOAZ. All rights reserved.</small>
-    </section>
-    <section style="display:flex; flex-direction:column; gap:8px;">
-      <h4 style="font-size:18px; font-weight:700; color:#000; margin:0;">SNS</h4>
-      <ul style="display:flex; gap:7px; list-style:none; margin:0; padding:0;">
-        <li><a href="https://www.instagram.com/boaz_bigdata" target="_blank"
-            style="color:#000; font-size:16px;">Instagram</a></li>
-        <li><a href="https://www.youtube.com/@bigdataboaz4452" target="_blank"
-            style="color:#000; font-size:16px;">YouTube</a></li>
-        <li><a href="https://medium.com/@boaz.team.research" target="_blank"
-            style="color:#000; font-size:16px;">Medium</a></li>
-        <li><a href="https://www.slideshare.net/BOAZbigdata" target="_blank"
-            style="color:#000; font-size:16px;">SlideShare</a></li>
+  <footer class="landing-footer">
+    <div class="landing-footer-desktop">
+      <section class="landing-footer-column">
+        <img class="landing-footer-logo" src="public/assets/images/footer/hspace-logo.svg" alt="BOAZ" width="122"
+          height="18">
+        <small class="landing-footer-copyright">© 2026 BOAZ. All rights reserved.</small>
+      </section>
+      <section class="landing-footer-column">
+        <h4 class="landing-footer-heading">SNS</h4>
+        <ul class="landing-footer-sns-list">
+          <li>
+            <a class="landing-footer-link" href="https://www.instagram.com/boaz_bigdata" target="_blank"
+              rel="noopener noreferrer">
+              <img class="landing-footer-icon" src="public/assets/images/footer/instagram.svg" alt="" width="16"
+                height="16">
+              Instagram
+            </a>
+          </li>
+          <li>
+            <a class="landing-footer-link" href="https://www.youtube.com/@bigdataboaz4452" target="_blank"
+              rel="noopener noreferrer">
+              <img class="landing-footer-icon" src="public/assets/images/footer/youtube.svg" alt="" width="16"
+                height="16">
+              YouTube
+            </a>
+          </li>
+          <li>
+            <a class="landing-footer-link" href="https://medium.com/@boaz.team.research" target="_blank"
+              rel="noopener noreferrer">
+              <img class="landing-footer-icon" src="public/assets/images/footer/medium.svg" alt="" width="16"
+                height="16">
+              Medium
+            </a>
+          </li>
+          <li>
+            <a class="landing-footer-link" href="https://www.slideshare.net/BOAZbigdata" target="_blank"
+              rel="noopener noreferrer">
+              <img class="landing-footer-icon" src="public/assets/images/footer/slideshare.svg" alt="" width="16"
+                height="16">
+              SlideShare
+            </a>
+          </li>
+        </ul>
+      </section>
+      <section class="landing-footer-column">
+        <h4 class="landing-footer-heading">Contact</h4>
+        <small class="landing-footer-email">boaz.bigdata@naver.com</small>
+      </section>
+    </div>
+
+    <div class="landing-footer-mobile">
+      <img class="landing-footer-logo" src="public/assets/images/footer/hspace-logo.svg" alt="BOAZ" width="122"
+        height="18">
+      <div class="landing-footer-contact">
+        <span class="landing-footer-contact-label">Contact</span>
+        <small class="landing-footer-email">boaz.bigdata@naver.com</small>
+      </div>
+      <ul class="landing-footer-sns-grid">
+        <li>
+          <a class="landing-footer-link" href="https://www.instagram.com/boaz_bigdata" target="_blank"
+            rel="noopener noreferrer">
+            <img class="landing-footer-icon" src="public/assets/images/footer/instagram.svg" alt="" width="16"
+              height="16">
+            Instagram
+          </a>
+        </li>
+        <li>
+          <a class="landing-footer-link" href="https://www.youtube.com/@bigdataboaz4452" target="_blank"
+            rel="noopener noreferrer">
+            <img class="landing-footer-icon" src="public/assets/images/footer/youtube.svg" alt="" width="16"
+              height="16">
+            YouTube
+          </a>
+        </li>
+        <li>
+          <a class="landing-footer-link" href="https://medium.com/@boaz.team.research" target="_blank"
+            rel="noopener noreferrer">
+            <img class="landing-footer-icon" src="public/assets/images/footer/medium.svg" alt="" width="16"
+              height="16">
+            Medium
+          </a>
+        </li>
+        <li>
+          <a class="landing-footer-link" href="https://www.slideshare.net/BOAZbigdata" target="_blank"
+            rel="noopener noreferrer">
+            <img class="landing-footer-icon" src="public/assets/images/footer/slideshare.svg" alt="" width="16"
+              height="16">
+            SlideShare
+          </a>
+        </li>
       </ul>
-    </section>
-    <section style="display:flex; flex-direction:column; gap:9px;">
-      <h4 style="font-size:18px; font-weight:700; color:#000; margin:0;">Contact</h4>
-      <small style="font-size:16px; color:#000;">boaz.bigdata@gmail.com</small>
-    </section>
+      <small class="landing-footer-copyright">© 2026 BOAZ. All rights reserved.</small>
+    </div>
   </footer>
 
   <script>
