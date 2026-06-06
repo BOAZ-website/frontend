@@ -1,31 +1,64 @@
 <!doctype html>
 <html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/webp" href="/src/shared/assets/pabicon.webp" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<head>
-  <meta charset="UTF-8" />
-  <link rel="icon" type="image/webp" href="/src/shared/assets/pabicon.webp" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="preload"
+      as="style"
+      crossorigin
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css"
+      onload="this.rel = 'stylesheet'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css"
+      />
+    </noscript>
 
-  <link rel="preload" as="style" crossorigin
-    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css"
-    onload="this.rel = 'stylesheet'" />
-  <noscript>
-    <link rel="stylesheet"
-      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
-  </noscript>
+    <link
+      rel="preload"
+      as="style"
+      crossorigin
+      href="https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy.css"
+      onload="this.rel = 'stylesheet'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy.css"
+      />
+    </noscript>
 
-  <link rel="preload" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy.css"
-    onload="this.rel = 'stylesheet'" />
-  <noscript>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy.css" />
-  </noscript>
+    <title>BOAZ | 국내 최초 빅데이터 동아리</title>
+    <meta
+      name="description"
+      content="데이터로부터 가능성을 발견하고 함께 성장하는 사람들의 커뮤니티, BOAZ입니다."
+    />
+    <meta property="og:title" content="BOAZ | 국내 최초 빅데이터 동아리" />
+    <meta
+      property="og:description"
+      content="데이터로부터 가능성을 발견하고 함께 성장하는 사람들의 커뮤니티, BOAZ입니다."
+    />
+    <meta property="og:image" content="https://www.bigdataboaz.com/assets/images/og.png" />
+    <meta property="og:url" content="https://www.bigdataboaz.com" />
+    <meta property="og:type" content="website" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "BOAZ",
+        "url": "https://www.bigdataboaz.com",
+        "logo": "https://www.bigdataboaz.com/assets/images/BOAZ_logo.svg"
+      }
+    </script>
+  </head>
 
-  <title>boaz-website</title>
-</head>
-
-<body>
-  <div id="root"></div>
-  <script type="module" src="/src/app/main.tsx"></script>
-</body>
-
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/app/main.tsx"></script>
+  </body>
 </html>
