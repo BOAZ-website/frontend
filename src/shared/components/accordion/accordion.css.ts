@@ -18,6 +18,7 @@ export const questionStyle = style({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
+  gap: '1.2rem',
   padding: '3.9rem 2.4rem 3.9rem 0',
   color: themeVars.color.grayscale.white,
   '@media': {
@@ -30,6 +31,7 @@ export const questionStyle = style({
 export const questionText = recipe({
   base: {
     ...typography.body3_bd_18,
+    flex: 1,
     color: themeVars.color.grayscale.white,
     transition: `color ${TRANSITION}`,
     '@media': {
