@@ -10,25 +10,27 @@ import * as styles from './recruiting-page.css';
 
 const RecruitingPage = () => {
   return (
-    <main className={styles.page}>
+    <>
       <RecruitingHeroSection />
-      <section className={styles.statusSection}>
-        <RecruitmentStatusSection />
-      </section>
-      <section className={styles.targetSection}>
-        <TargetSection />
-      </section>
-      <section className={styles.valueSection}>
-        <ValueSection />
-      </section>
-      <TimelineSection />
-      <section className={styles.applySection}>
-        <ApplySection />
-      </section>
-      <section className={styles.bottomSection}>
-        <RecruitingBottomSection />
-      </section>
-    </main>
+      <main className={styles.page}>
+        <section className={styles.statusSection}>
+          <RecruitmentStatusSection />
+        </section>
+        <section className={styles.targetSection}>
+          <TargetSection />
+        </section>
+        <section className={styles.valueSection}>
+          <ValueSection />
+        </section>
+        <TimelineSection />
+        <section className={styles.applySection}>
+          <ApplySection />
+        </section>
+        <section className={styles.bottomSection}>
+          <RecruitingBottomSection />
+        </section>
+      </main>
+    </>
   );
 };
 
