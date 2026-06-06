@@ -7,6 +7,7 @@ import { typography } from '@/shared/styles/typography.css';
 
 export const dDay = style({
   color: themeVars.color.primary[100],
+  fontFamily: themeVars.fontFamily.paperlogy,
   ...typography.display2_bd_72,
   '@media': {
     [media.mobile]: {
