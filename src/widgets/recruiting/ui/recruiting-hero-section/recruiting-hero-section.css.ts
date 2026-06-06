@@ -29,6 +29,7 @@ export const content = style({
 
 export const title = style({
   ...typography.display2_bd_72,
+  fontFamily: themeVars.fontFamily.paperlogy,
   color: themeVars.color.grayscale.white,
   margin: 0,
 });
