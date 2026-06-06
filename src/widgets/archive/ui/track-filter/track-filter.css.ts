@@ -26,6 +26,8 @@ export const trigger = style({
   padding: '0 1.4rem',
   borderRadius: '20px',
   width: 'fit-content',
+  flexShrink: 0,
+  WebkitAppearance: 'none',
   backgroundColor: themeVars.color.grayscale[900],
   border: `1px solid ${themeVars.color.grayscale[800]}`,
   color: themeVars.color.grayscale.white,
