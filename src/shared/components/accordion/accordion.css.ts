@@ -32,6 +32,7 @@ export const questionText = recipe({
   base: {
     ...typography.body3_bd_18,
     flex: 1,
+    textAlign: 'left',
     color: themeVars.color.grayscale.white,
     transition: `color ${TRANSITION}`,
     '@media': {
