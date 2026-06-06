@@ -10,6 +10,7 @@ import { typography } from '@/shared/styles/typography.css';
 const TRANSITION = `${ACCORDION_DURATION_MS}ms ease`;
 
 export const itemStyle = style({
+  width: '100%',
   borderBottom: `0.5px solid ${themeVars.color.grayscale[400]}`,
 });
 
