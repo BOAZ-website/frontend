@@ -1478,6 +1478,51 @@
         filter: blur(0);
         transform: translateY(0);
       }
+
+      .division-stage .section-heading {
+        grid-column: 1 / -1;
+        grid-template-columns: 1fr;
+        width: 100%;
+        margin: 0 0 clamp(40px, 10vw, 64px);
+        text-align: center;
+      }
+
+      .division-stage .section-eyebrow {
+        grid-column: 1 / -1;
+        justify-self: center;
+        margin: 0 auto 18px;
+        text-align: center;
+      }
+
+      .division-stage .section-title {
+        grid-column: 1 / -1;
+        max-width: 100%;
+        text-align: center;
+        font-size: clamp(30px, 8.8vw, 48px);
+        line-height: 1.08;
+      }
+
+      .division-row {
+        grid-column: 1 / -1;
+        grid-template-columns: 1fr;
+        gap: 20px;
+        --card-hover-scale: 1;
+      }
+
+      .division-card {
+        grid-column: 1 / -1;
+        width: 100%;
+        height: var(--card-height);
+      }
+
+      .division-row[data-active="0"] .division-card:nth-child(2),
+      .division-row[data-active="0"] .division-card:nth-child(3),
+      .division-row[data-active="1"] .division-card:nth-child(1),
+      .division-row[data-active="1"] .division-card:nth-child(3),
+      .division-row[data-active="2"] .division-card:nth-child(1),
+      .division-row[data-active="2"] .division-card:nth-child(2) {
+        transform: none;
+      }
     }
   </style>
 </head>
@@ -1553,7 +1598,7 @@
   <section class="division-stage" aria-label="BOAZ divisions">
     <header class="section-heading">
       <span class="section-eyebrow">Our Tracks</span>
-      <h2 class="section-title">데이터의 흐름을 나누고, 함께 완성합니다</h2>
+      <h2 class="section-title">데이터의 흐름을 나누고 함께 완성합니다</h2>
     </header>
     <main class="division-row">
       <section class="division-card">
@@ -2267,35 +2312,84 @@
       function updateMobileActiveStatRow() {
         const rows = [...document.querySelectorAll('.stat-row')];
 
-        if (W > 768) {
-          rows.forEach((row) => {
-            row.classList.remove('is-mobile-active');
+        updateMobileScrollActiveItems(rows, {
+          activationPointsFromBottom: [0.4, 0.5, 0.6],
+          threshold: 0.34,
+        });
+      }
+
+      function updateMobileActiveDivisionCard() {
+        const row = document.querySelector('.division-row');
+        if (!row || W > 768) return;
+
+        const cards = [...row.querySelectorAll('.division-card')];
+        const activeIndex = updateMobileScrollActiveItems(cards, {
+          activationPointsFromBottom: [0.42, 0.5, 0.58],
+          threshold: 0.36,
+        });
+
+        if (activeIndex < 0) {
+          delete row.dataset.mobileActiveIndex;
+          delete row.dataset.active;
+          cards.forEach((card) => {
+            card.classList.remove('is-chip-visible');
+            clearDivisionHighlightedChips(card);
           });
           return;
         }
 
-        if (!rows.length) return;
+        if (row.dataset.mobileActiveIndex === String(activeIndex)) return;
 
-        const activationPointsFromBottom = [0.4, 0.5, 0.6];
-        let activeRow = null;
+        row.dataset.mobileActiveIndex = String(activeIndex);
+        row.dataset.active = String(activeIndex);
+
+        cards.forEach((card, index) => {
+          card.classList.remove('is-chip-visible');
+          clearDivisionHighlightedChips(card);
+
+          if (index === activeIndex) {
+            shuffleDivisionRevealDelays(card);
+            highlightRandomDivisionChips(card);
+            card.classList.add('is-chip-visible');
+          }
+        });
+      }
+
+      function updateMobileScrollActiveItems(items, {
+        activeClass = 'is-mobile-active',
+        activationPointsFromBottom = [],
+        threshold = 0.34,
+      } = {}) {
+        if (W > 768) {
+          items.forEach((item) => item.classList.remove(activeClass));
+          return -1;
+        }
+
+        if (!items.length) return -1;
+
+        let activeIndex = -1;
         let closestDistance = Infinity;
 
-        rows.forEach((row, index) => {
-          const rect = row.getBoundingClientRect();
-          const rowCenter = rect.top + rect.height / 2;
+        items.forEach((item, index) => {
+          const rect = item.getBoundingClientRect();
+          const itemCenter = rect.top + rect.height / 2;
           const pointFromBottom = activationPointsFromBottom[index] ?? 0.5;
           const targetY = H * (1 - pointFromBottom);
-          const distance = Math.abs(rowCenter - targetY);
+          const distance = Math.abs(itemCenter - targetY);
 
           if (distance < closestDistance) {
             closestDistance = distance;
-            activeRow = row;
+            activeIndex = index;
           }
         });
 
-        rows.forEach((row) => {
-          row.classList.toggle('is-mobile-active', row === activeRow && closestDistance < H * 0.34);
+        const shouldActivate = closestDistance < H * threshold;
+
+        items.forEach((item, index) => {
+          item.classList.toggle(activeClass, shouldActivate && index === activeIndex);
         });
+
+        return shouldActivate ? activeIndex : -1;
       }
 
       function getFirstStatisticNumberTop() {
@@ -2336,6 +2430,10 @@
         const y = H * DIVISION_STAGE_TOP - scrollOffset;
         stage.style.transform = `translate3d(0, ${y}px, 0)`;
         stage.classList.toggle('is-visible', y < H * 0.72 && y > -H * DIVISION_STAGE_HEIGHT);
+
+        if (W <= 768) {
+          updateMobileActiveDivisionCard();
+        }
       }
 
       function syncDivisionLayout() {
@@ -2343,9 +2441,10 @@
         if (!row) return;
 
         const gap = parseFloat(getComputedStyle(row).getPropertyValue('--card-gap')) || 20;
-        const cardWidth = (row.clientWidth - gap * 2) / 3;
+        const isMobile = W <= 768;
+        const cardWidth = isMobile ? row.clientWidth : (row.clientWidth - gap * 2) / 3;
         row.style.setProperty('--card-height', `${cardWidth * 5 / 6}px`);
-        row.style.setProperty('--card-hover-scale', `${((cardWidth + 28) / cardWidth).toFixed(4)}`);
+        row.style.setProperty('--card-hover-scale', isMobile ? '1' : `${((cardWidth + 28) / cardWidth).toFixed(4)}`);
 
         document.querySelectorAll('.division-chip-marquee').forEach((marquee) => {
           const distance = marquee.scrollWidth / 2;
