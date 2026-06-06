@@ -640,12 +640,12 @@
       left: 0;
       bottom: clamp(10px, 1.5vh, 16px);
       z-index: 2;
-      width: calc(var(--stat-col) * 3 + var(--grid-gutter) * 2);
+      width: calc(var(--stat-col) * 5 + var(--grid-gutter) * 4);
       margin: 0;
       color: rgba(247, 247, 247, 0.82);
       font-size: var(--body-size);
       font-weight: 200;
-      line-height: 1.42;
+      line-height: 1.32;
       letter-spacing: -0.035em;
       word-break: keep-all;
       opacity: 0;
@@ -1420,34 +1420,63 @@
         grid-template-columns: repeat(12, minmax(0, 1fr));
       }
 
-      /* About BOAZ — 오른쪽 8컬럼 */
       .statistics-stage .section-heading {
-        grid-column: 5 / span 8;
+        grid-column: 1 / -1;
+        justify-self: end;
         align-self: start;
         margin: 0 0 clamp(24px, 5vw, 40px);
+        text-align: right;
       }
 
       .statistics-stage .section-title {
-        font-size: clamp(52px, 13.3vw, 76px);
-        line-height: 0.92;
+        font-size: clamp(68px, 18vw, 96px);
+        line-height: 0.88;
       }
 
-      /* 본문 — 왼쪽 8컬럼 */
+      /* 본문 — 24px 좌측 마진 */
       .mission-stage {
-        grid-column: 1 / span 8;
+        grid-column: 1 / -1;
+        justify-self: start;
         align-self: start;
+        width: 100%;
+        margin-top: clamp(24px, 7vw, 48px);
+      }
+
+      .mission-title {
+        --mission-font-size: clamp(20px, 6vw, 40px);
+        line-height: 1.08;
       }
 
       /* 통계 수치 — 전체 12컬럼 */
       .statistics {
         grid-column: 1 / -1;
         margin-top: clamp(32px, 6vw, 56px);
-        --number-size: clamp(56px, 14.4vw, 80px);
+        --number-size: clamp(66px, 18vw, 96px);
+        --body-size: 13px;
       }
 
       /* 모바일: 숫자 width를 6 stat-col로 확장 (기본 4→6) */
       .number {
         width: calc(var(--stat-col) * 6 + var(--grid-gutter) * 5);
+      }
+
+      .stat-row.is-mobile-active {
+        height: calc(var(--row-height) + var(--hover-lift));
+      }
+
+      .stat-row.is-mobile-active .row-content::after {
+        transform: translateY(var(--hover-lift));
+      }
+
+      .stat-row.is-mobile-active .label {
+        top: var(--label-top-hover);
+        transform: translateY(0);
+      }
+
+      .stat-row.is-mobile-active .description {
+        opacity: 1;
+        filter: blur(0);
+        transform: translateY(0);
       }
     }
   </style>
@@ -1523,7 +1552,7 @@
   </div>
   <section class="division-stage" aria-label="BOAZ divisions">
     <header class="section-heading">
-      <span class="section-eyebrow">Our Divisions</span>
+      <span class="section-eyebrow">Our Tracks</span>
       <h2 class="section-title">데이터의 흐름을 나누고, 함께 완성합니다</h2>
     </header>
     <main class="division-row">
@@ -1946,25 +1975,20 @@
     z-index: 10;
   ">
     <section style="display:flex; flex-direction:column; gap:15px;">
-      <img src="public/assets/images/footer/hspace-logo.svg" alt="BOAZ" width="122" height="18"
-        style="display:block;">
+      <span style="font-size:18px; font-weight:700; color:#000;">BOAZ</span>
       <small style="font-size:16px; color:#999;">© 2026 BOAZ. All rights reserved.</small>
     </section>
     <section style="display:flex; flex-direction:column; gap:8px;">
       <h4 style="font-size:18px; font-weight:700; color:#000; margin:0;">SNS</h4>
       <ul style="display:flex; gap:7px; list-style:none; margin:0; padding:0;">
         <li><a href="https://www.instagram.com/boaz_bigdata" target="_blank"
-            style="display:flex; align-items:center; gap:7px; color:#000; font-size:16px; text-decoration:none;">
-            <img src="public/assets/images/footer/instagram.svg" alt="" width="16" height="16">Instagram</a></li>
+            style="color:#000; font-size:16px;">Instagram</a></li>
         <li><a href="https://www.youtube.com/@bigdataboaz4452" target="_blank"
-            style="display:flex; align-items:center; gap:7px; color:#000; font-size:16px; text-decoration:none;">
-            <img src="public/assets/images/footer/youtube.svg" alt="" width="16" height="16">YouTube</a></li>
+            style="color:#000; font-size:16px;">YouTube</a></li>
         <li><a href="https://medium.com/@boaz.team.research" target="_blank"
-            style="display:flex; align-items:center; gap:7px; color:#000; font-size:16px; text-decoration:none;">
-            <img src="public/assets/images/footer/medium.svg" alt="" width="16" height="16">Medium</a></li>
+            style="color:#000; font-size:16px;">Medium</a></li>
         <li><a href="https://www.slideshare.net/BOAZbigdata" target="_blank"
-            style="display:flex; align-items:center; gap:7px; color:#000; font-size:16px; text-decoration:none;">
-            <img src="public/assets/images/footer/slideshare.svg" alt="" width="16" height="16">SlideShare</a></li>
+            style="color:#000; font-size:16px;">SlideShare</a></li>
       </ul>
     </section>
     <section style="display:flex; flex-direction:column; gap:9px;">
@@ -2236,6 +2260,42 @@
         const centeredY = (H - stageHeight) / 2;
         const y = H * STATISTICS_STAGE_TOP - scrollOffset + centeredY;
         stage.style.transform = `translate3d(0, ${y}px, 0)`;
+
+        updateMobileActiveStatRow();
+      }
+
+      function updateMobileActiveStatRow() {
+        const rows = [...document.querySelectorAll('.stat-row')];
+
+        if (W > 768) {
+          rows.forEach((row) => {
+            row.classList.remove('is-mobile-active');
+          });
+          return;
+        }
+
+        if (!rows.length) return;
+
+        const activationPointsFromBottom = [0.4, 0.5, 0.6];
+        let activeRow = null;
+        let closestDistance = Infinity;
+
+        rows.forEach((row, index) => {
+          const rect = row.getBoundingClientRect();
+          const rowCenter = rect.top + rect.height / 2;
+          const pointFromBottom = activationPointsFromBottom[index] ?? 0.5;
+          const targetY = H * (1 - pointFromBottom);
+          const distance = Math.abs(rowCenter - targetY);
+
+          if (distance < closestDistance) {
+            closestDistance = distance;
+            activeRow = row;
+          }
+        });
+
+        rows.forEach((row) => {
+          row.classList.toggle('is-mobile-active', row === activeRow && closestDistance < H * 0.34);
+        });
       }
 
       function getFirstStatisticNumberTop() {
@@ -2631,7 +2691,7 @@
           if (!a) return null;
           const aBounds = getLandingItemBounds(a, landing, blockOffsetY);
           return {
-            x: aBounds.left + aBounds.width * 0.28 - size * ((alpha.left + alpha.right) / 2),
+            x: aBounds.left + aBounds.width * 0.28 - size * ((alpha.left + alpha.right) / 2) - landing.fontSize * 0.3,
             y: aBounds.top - visualGap - size * alpha.bottom,
           };
         }
@@ -2724,6 +2784,27 @@
         ctx.restore();
       }
 
+      function fitFontSizeToWidth(preferredSize, maxWidth, measureWidth) {
+        let size = preferredSize;
+
+        for (let i = 0; i < 16; i++) {
+          const width = measureWidth(size);
+
+          if (width <= maxWidth) {
+            return size;
+          }
+
+          size *= maxWidth / width;
+        }
+
+        return size;
+      }
+
+      function getCenteredBlockX(width, margin = getContentMargin()) {
+        const availableWidth = W - margin * 2;
+        return margin + Math.max((availableWidth - width) / 2, 0);
+      }
+
       function getLandingLayout() {
         const lines = ['BIGDATA', 'IS OUR', 'A TO Z'];
         const keySlots = {
@@ -2732,7 +2813,27 @@
           '2-0': 'A',
           '2-5': 'Z',
         };
-        const fontSize = Math.min(W * 0.126, H * 0.165) * BIG_TYPE_SCALE;
+
+        const contentMargin = getContentMargin();
+        const isMobile = W <= 768;
+        const availableWidth = W - contentMargin * 2;
+
+        const baseFontSize = Math.min(W * 0.126, H * 0.165) * BIG_TYPE_SCALE;
+        const mobilePreferredFontSize = Math.min(W * 0.32, H * 0.2);
+        const fontSize = isMobile
+          ? fitFontSizeToWidth(mobilePreferredFontSize, availableWidth, (size) => {
+            const tracking = size * -0.018;
+            const wordGap = size * 0.34;
+
+            ctx.save();
+            ctx.font = getFont(size);
+            const widths = lines.map((line, li) => measureLine(line, li, tracking, wordGap, size));
+            ctx.restore();
+
+            return Math.max(...widths);
+          })
+          : baseFontSize;
+
         const tracking = fontSize * -0.018;
         const wordGap = fontSize * 0.34;
         const lineHeight = fontSize * 0.86;
@@ -2745,8 +2846,13 @@
 
         const lineWidths = lines.map((line, li) => measureLine(line, li, tracking, wordGap, fontSize));
         const maxW = Math.max(...lineWidths);
-        const blockX = getContentMargin();
-        const startY = H / 2 - lineHeight + H * 0.05;
+
+        const blockX = isMobile ? getCenteredBlockX(maxW, contentMargin) : contentMargin;
+
+        const startY = isMobile
+          ? H / 2 - lineHeight
+          : H / 2 - lineHeight + H * 0.05;
+
         const items = [];
         const lineLayouts = [];
         const keyPositions = {};
@@ -2754,32 +2860,47 @@
         for (let li = 0; li < lines.length; li++) {
           const align = lineAlignments[li];
           let lineX = blockX;
-          if (align === 'right') lineX = blockX + maxW - lineWidths[li] + 50;
-          if (align === 'center') lineX = blockX + (maxW - lineWidths[li]) / 2;
+
+          if (align === 'right') {
+            lineX = blockX + maxW - lineWidths[li] + (isMobile ? 0 : 50);
+          }
+
+          if (align === 'center') {
+            lineX = blockX + (maxW - lineWidths[li]) / 2;
+          }
+
           let x = lineX;
           const y = startY + li * lineHeight;
           const line = lines[li];
           const lineItems = [];
           let visibleIndex = 0;
+
           for (let ci = 0; ci < line.length; ci++) {
             const ch = line[ci];
             const key = keySlots[`${li}-${ci}`] || '';
             const charW = ctx.measureText(ch).width;
 
             if (ch === ' ') {
-              x += (li === 2 ? wordGap * 0.5 : wordGap);
+              x += li === 2 ? wordGap * 0.5 : wordGap;
               continue;
             }
 
             const item = { ch, x, y, key, lineIndex: li, visibleIndex };
             items.push(item);
             lineItems.push(item);
-            if (key) keyPositions[key] = item;
+
+            if (key) {
+              keyPositions[key] = item;
+            }
+
             visibleIndex++;
 
-            const currentTracking = (li === 0 && (ci + 1) >= 4 && (ci + 1) <= 6) ? tracking - fontSize * 0.05 : tracking;
+            const currentTracking =
+              li === 0 && ci + 1 >= 4 && ci + 1 <= 6 ? tracking - fontSize * 0.05 : tracking;
+
             x += charW + currentTracking;
           }
+
           lineLayouts.push({
             text: line,
             x: lineX,
@@ -2790,7 +2911,16 @@
         }
 
         ctx.restore();
-        return { fontSize, tracking, wordGap, lineHeight, items, lines: lineLayouts, keyPositions };
+
+        return {
+          fontSize,
+          tracking,
+          wordGap,
+          lineHeight,
+          items,
+          lines: lineLayouts,
+          keyPositions,
+        };
       }
 
       function measureLine(line, li, tracking, wordGap, fontSize) {
@@ -2814,7 +2944,23 @@
 
       function getBoazLayout() {
         const chars = ['B', 'O', 'A', 'Z'];
-        const fontSize = Math.min(W * 0.18, H * 0.45) * BIG_TYPE_SCALE;
+        const contentMargin = getContentMargin();
+        const isMobile = W <= 768;
+        const availableWidth = W - contentMargin * 2;
+
+        const baseFontSize = Math.min(W * 0.18, H * 0.45) * BIG_TYPE_SCALE;
+        const mobilePreferredFontSize = Math.min(W * 0.42, H * 0.28);
+        const fontSize = isMobile
+          ? fitFontSizeToWidth(mobilePreferredFontSize, availableWidth, (size) => {
+            ctx.save();
+            ctx.font = getFont(size);
+            const widths = chars.map(ch => ctx.measureText(ch).width);
+            ctx.restore();
+
+            return widths.reduce((sum, width) => sum + width, 0);
+          })
+          : baseFontSize;
+
         const tracking = fontSize * 0;
 
         ctx.save();
@@ -2824,8 +2970,12 @@
 
         const widths = chars.map(ch => ctx.measureText(ch).width);
         const totalW = widths.reduce((sum, width) => sum + width, 0) + tracking * (chars.length - 1);
-        let x = (W - totalW) / 2;
-        const y = H / 2 + H * 0.05;
+
+        let x = isMobile
+          ? getCenteredBlockX(totalW, contentMargin)
+          : (W - totalW) / 2;
+
+        const y = H / 2 + H * 0.01;
         const positions = {};
 
         for (let i = 0; i < chars.length; i++) {
