@@ -73,6 +73,9 @@ const QuestionSection = ({
   const [submitted, setSubmitted] = useState(false);
 
   const isQuestionComplete = (q: QuestionResponse): boolean => {
+    if (!q.is_required) {
+      return true;
+    }
     if (supportsTable && q.type === 'TABLE') {
       return isTableAnswerComplete(q, answers);
     }
@@ -130,7 +133,7 @@ const QuestionSection = ({
 
         const isAddable = question.label?.includes(ADDABLE_LABEL) ?? false;
         const extraCount = extraCounts[qId] ?? 0;
-        const isEmpty = submitted && !answers[qId]?.trim();
+        const isEmpty = submitted && !!question.is_required && !answers[qId]?.trim();
 
         return (
           <section key={qId} className={styles.section}>
