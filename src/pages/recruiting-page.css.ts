@@ -15,7 +15,7 @@ export const page = style({
 });
 
 export const statusSection = style({
-  marginTop: '17rem',
+  marginTop: '10rem',
   '@media': {
     [media.mobile]: {
       marginTop: '6rem',

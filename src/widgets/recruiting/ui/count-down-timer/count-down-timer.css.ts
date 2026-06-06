@@ -31,6 +31,7 @@ export const unit = style({
 
 export const label = style({
   ...typography.body5_rg_16,
+  fontFamily: themeVars.fontFamily.paperlogy,
   color: themeVars.color.primary[200],
   '@media': {
     [media.mobile]: {
@@ -41,6 +42,7 @@ export const label = style({
 
 export const value = style({
   ...typography.display2_bd_72,
+  fontFamily: themeVars.fontFamily.paperlogy,
   '@media': {
     [media.mobile]: {
       ...typography.h2_bd_30,
@@ -50,10 +52,13 @@ export const value = style({
 
 export const separator = style({
   ...typography.display2_bd_72,
+  fontFamily: themeVars.fontFamily.paperlogy,
   alignSelf: 'center',
+  paddingTop: '1.8rem',
   '@media': {
     [media.mobile]: {
       ...typography.h2_bd_30,
+      paddingTop: '1.4rem',
     },
   },
 });
