@@ -54,9 +54,11 @@ export const separator = style({
   ...typography.display2_bd_72,
   fontFamily: themeVars.fontFamily.paperlogy,
   alignSelf: 'center',
+  paddingTop: '1.8rem',
   '@media': {
     [media.mobile]: {
       ...typography.h2_bd_30,
+      paddingTop: '1.4rem',
     },
   },
 });
