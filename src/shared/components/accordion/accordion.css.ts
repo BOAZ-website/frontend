@@ -11,10 +11,15 @@ const TRANSITION = `${ACCORDION_DURATION_MS}ms ease`;
 
 export const itemStyle = style({
   borderBottom: `0.5px solid ${themeVars.color.grayscale[400]}`,
+  width: '100%',
+  display: 'flex',
+  flexDirection: 'column',
+  flex: 1,
 });
 
 export const questionStyle = style({
   width: '100%',
+  WebkitAppearance: 'none',
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
@@ -30,6 +35,10 @@ export const questionStyle = style({
 export const questionText = recipe({
   base: {
     ...typography.body3_bd_18,
+    flex: 1,
+    alignSelf: 'flex-start',
+    alignItems: 'center',
+    display: 'flex',
     color: themeVars.color.grayscale.white,
     transition: `color ${TRANSITION}`,
     '@media': {
@@ -46,6 +55,10 @@ export const questionText = recipe({
     },
   },
   defaultVariants: { open: false },
+});
+
+export const icon = style({
+  flexShrink: 0,
 });
 
 export const answerWrapper = recipe({

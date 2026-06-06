@@ -41,9 +41,10 @@ const TrackFilterOverlay = ({ value, onChange }: TrackFilterOverlayProps) => {
       const rect = containerRef.current.getBoundingClientRect();
       const rootFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
       const gap = isMobile ? 1 * rootFontSize : 3.8 * rootFontSize;
+      const viewportWidth = document.documentElement.clientWidth;
       setOverlayPos({
         top: rect.bottom + gap,
-        right: window.innerWidth - rect.right,
+        right: viewportWidth - rect.right,
       });
     }
     setIsOpen((prev) => !prev);

@@ -1,3 +1,8 @@
+export const fontFamily = {
+  pretendard: "'Pretendard Variable', Pretendard, sans-serif",
+  paperlogy: "'Paperlogy', 'Pretendard Variable', Pretendard, sans-serif",
+} as const;
+
 export const fontSize = {
   8: '0.8rem',
   10: '1rem',
