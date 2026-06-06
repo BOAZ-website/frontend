@@ -24,6 +24,8 @@ export const trigger = style({
   height: '4.8rem',
   padding: '0 1.4rem',
   borderRadius: '20px',
+  flexShrink: 0,
+  WebkitAppearance: 'none',
   backgroundColor: themeVars.color.grayscale[900],
   border: `1px solid ${themeVars.color.grayscale[800]}`,
   color: themeVars.color.grayscale.white,

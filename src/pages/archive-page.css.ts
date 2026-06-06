@@ -97,6 +97,7 @@ export const filterGroup = style({
   display: 'flex',
   gap: '0.8rem',
   alignItems: 'center',
+  flexShrink: 0,
 });
 
 export const cardGrid = style({
