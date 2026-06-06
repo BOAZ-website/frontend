@@ -1401,7 +1401,7 @@
       }
 
       .activity-nav {
-        gap: 18px;
+        gap: 50px;
       }
 
       .activity-image {
@@ -1523,6 +1523,34 @@
       .division-row[data-active="2"] .division-card:nth-child(2) {
         transform: none;
       }
+
+      .activity-card .section-heading {
+        position: static;
+        width: 100%;
+        margin: 0 0 clamp(40px, 10vw, 64px);
+        text-align: center;
+      }
+
+      .activity-card .section-eyebrow {
+        margin: 0 auto 18px;
+        text-align: center;
+      }
+
+      .activity-card .section-title {
+        max-width: 100%;
+        text-align: center;
+        font-size: clamp(30px, 8.8vw, 48px);
+        line-height: 1.08;
+      }
+
+      .activity-panel {
+        order: 1;
+      }
+
+      .activity-nav-viewport {
+        order: 2;
+      }
+
     }
   </style>
 </head>
@@ -3292,8 +3320,9 @@
         const endScreenY = -lastOffset;
         const navScreenY = startY + (endScreenY - startY) * pinProgress;
         const currentY = navScreenY;
-        const selectionLineRatio = 0.5;
-        const firstSelectionLineRatio = 0.72;
+        const isMobile = W <= 768;
+        const selectionLineRatio = isMobile ? 0.35 : 0.5;
+        const firstSelectionLineRatio = isMobile ? 0.35 : 0.72;
 
         nav.style.transform = `translateY(${currentY}px)`;
 
