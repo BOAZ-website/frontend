@@ -23,7 +23,8 @@ export const hiddenInput = style({
 });
 
 export const radioCircle = style({
-  position: 'relative',
+  display: 'grid',
+  placeItems: 'center',
   width: '1.6rem',
   height: '1.6rem',
   borderRadius: '50%',
@@ -33,11 +34,8 @@ export const radioCircle = style({
   flexShrink: 0,
   '::after': {
     content: '""',
-    position: 'absolute',
-    inset: 0,
-    margin: 'auto',
-    width: '1rem',
-    height: '1rem',
+    width: '62.5%',
+    height: '62.5%',
     borderRadius: '50%',
     backgroundColor: themeVars.color.primary[100],
     transform: 'scale(0)',
