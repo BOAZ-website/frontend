@@ -74,9 +74,11 @@ export const tabVariants = styleVariants({
 
 export const listSection = style({
   flex: 1,
+  width: '100%',
 });
 
 export const accordionContainer = style({
   display: 'flex',
   flexDirection: 'column',
+  width: '100%',
 });

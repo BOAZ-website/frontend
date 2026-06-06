@@ -19,7 +19,7 @@ const Accordion = ({ trigger, children }: AccordionProps) => {
     <div className={styles.itemStyle}>
       <button type="button" className={styles.questionStyle} onClick={toggle}>
         <span className={styles.questionText({ open: isOpen })}>{trigger}</span>
-        <Icon width={16} height={16} />
+        <Icon className={styles.icon} width={16} height={16} />
       </button>
 
       <div className={styles.answerWrapper({ open: isOpen })}>
