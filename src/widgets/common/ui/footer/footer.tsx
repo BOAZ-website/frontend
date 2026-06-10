@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router';
 
 import HSpaceLogo from '@/shared/assets/icons/hspace_logo.svg?react';
 import InstagramIcon from '@/shared/assets/icons/ic_instagram.svg?react';
 import MediumIcon from '@/shared/assets/icons/ic_medium.svg?react';
 import SlideShareIcon from '@/shared/assets/icons/ic_slideshare.svg?react';
 import YouTubeIcon from '@/shared/assets/icons/ic_youtube.svg?react';
+import { ROUTE_PATH } from '@/shared/router/paths';
 
 import * as styles from './footer.css';
 
@@ -44,6 +46,9 @@ const Footer = () => {
               </li>
             ))}
           </ul>
+          <Link className={styles.privacyLink} to={ROUTE_PATH.PRIVACY}>
+            개인정보처리방침
+          </Link>
           <small className={styles.copyright}>© 2026 BOAZ. All rights reserved.</small>
         </div>
       </footer>
@@ -55,6 +60,9 @@ const Footer = () => {
       <div className={styles.desktopInner}>
         <section className={styles.col.left}>
           <HSpaceLogo width={122} height={18} />
+          <Link className={styles.privacyLink} to={ROUTE_PATH.PRIVACY}>
+            개인정보처리방침
+          </Link>
           <small className={styles.copyright}>© 2026 BOAZ. All rights reserved.</small>
         </section>
         <section className={styles.col.center}>
