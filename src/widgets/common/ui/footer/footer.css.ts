@@ -104,3 +104,9 @@ export const copyright = style({
   ...typography.body5_rg_16,
   color: themeVars.color.grayscale[400],
 });
+
+export const privacyLink = style({
+  ...typography.body5_rg_16,
+  color: themeVars.color.grayscale[400],
+  textDecoration: 'underline',
+});
