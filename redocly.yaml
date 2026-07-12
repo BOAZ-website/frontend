@@ -1,0 +1,10 @@
+# openapi-typescript(내부 @redocly/openapi-core)가 원격 스펙을 가져올 때
+# Swagger Basic 인증 헤더를 함께 보내기 위한 설정입니다.
+# 실제 값은 .env의 SWAGGER_BASIC_AUTH 에서 읽어옵니다.
+
+resolve:
+  http:
+    headers:
+      - matches: https://api.bigdataboaz.com/**
+        name: Authorization
+        envVariable: SWAGGER_BASIC_AUTH
