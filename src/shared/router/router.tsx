@@ -15,6 +15,8 @@ import { ROUTE_PATH } from '@/shared/router/paths';
 
 import ProtectedRoute from './protected-route';
 
+import ButtonCapturePage from '@/temp-button-capture/button-capture-page';
+
 export const router = createBrowserRouter([
   {
     Component: GlobalLayout,
@@ -32,4 +34,6 @@ export const router = createBrowserRouter([
     ],
   },
   { path: ROUTE_PATH.AUTH_CALLBACK, Component: AuthCallbackPage },
+  // TEMP: 캡처용 라우트 — 스크린샷 촬영 후 제거
+  { path: '/__temp-button-capture', Component: ButtonCapturePage },
 ]);
