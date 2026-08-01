@@ -110,3 +110,10 @@ export const privacyLink = style({
   color: themeVars.color.grayscale[400],
   textDecoration: 'underline',
 });
+
+export const logoRow = style({
+  display: 'flex',
+  alignItems: 'center',
+  gap: '2.3rem',
+  flexWrap: 'wrap',
+});
