@@ -21,6 +21,30 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
+  '/api/v1/admin/recruitment/applicants/{applicantId}/evaluations/me': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * 개인 평가 조회
+     * @description 로그인한 평가자 본인이 이 지원자에 매긴 평가를 반환합니다. 미평가 시 data=null.
+     */
+    get: operations['getMyEvaluation'];
+    /**
+     * 개인 평가 저장 (upsert)
+     * @description 로그인한 평가자 본인의 평가를 저장합니다. 본인 부문 지원자만 가능, SUBMITTED만 가능.
+     */
+    put: operations['saveMyEvaluation'];
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
   '/api/v1/admin/curriculums/{curriculumId}': {
     parameters: {
       query?: never;
@@ -252,7 +276,10 @@ export interface paths {
     };
     get?: never;
     put?: never;
-    /** 지원서 CSV 파일 생성 */
+    /**
+     * 지원서 CSV 파일 생성
+     * @description term 공고의 지원서를 부문별 CSV로 생성합니다. decision으로 합격(PASS)/불합격(FAIL)/전체(ALL) 추출 범위를 지정합니다.
+     */
     post: operations['downloadApplications'];
     delete?: never;
     options?: never;
@@ -471,6 +498,26 @@ export interface paths {
      * @description 등록된 지원서 질문을 부분 수정합니다. type 변경 시 연관 필드 함께 처리.
      */
     patch: operations['updateQuestion'];
+    trace?: never;
+  };
+  '/api/v1/admin/recruitment/applicants/{applicantId}/final-decision': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    /**
+     * 최종 평가 수정 (대표진 전용)
+     * @description 현재 대표진 또는 차기대표진(role=SUPER)만 지원자의 최종 평가(final_decision)를 수정합니다. 현재 대표진은 본인 부문만, 차기대표진은 전 부문.
+     */
+    patch: operations['updateFinalDecision'];
     trace?: never;
   };
   '/api/v1/admin/faqs/{faqId}': {
@@ -879,6 +926,50 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
+  '/api/v1/admin/recruitment/{recruitmentId}/applicants': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * 전체 지원서 조회 (지원자 대시보드)
+     * @description 공고 내 전체 지원서를 반환합니다. DRAFT 포함, 정렬·필터·검색은 프론트에서 처리. 차기대표진은 전 부문, 그 외(현재 대표진 포함)는 본인 부문만 조회.
+     */
+    get: operations['getApplicants'];
+    put?: never;
+    post?: never;
+    /**
+     * 지원서 전체 삭제
+     * @description 특정 모집 공고의 지원서를 전체 삭제합니다. 모집 진행 중인 경우 삭제 불가.
+     */
+    delete: operations['deleteApplicants'];
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/admin/recruitment/{recruitmentId}/applicants/evaluations': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * 전체 지원서 및 평가 조회 (평가 대시보드)
+     * @description 공고 내 SUBMITTED 지원서 + 평가 집계(합격/보류/불합 개수·총점) + 최종 평가를 반환합니다. 차기대표진은 전 부문, 그 외(현재 대표진 포함)는 본인 부문만 조회.
+     */
+    get: operations['getApplicantEvaluations'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
   '/api/v1/admin/recruitment/subscriptions': {
     parameters: {
       query?: never;
@@ -903,21 +994,81 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
-  '/api/v1/admin/recruitment/{recruitmentId}/applicants': {
+  '/api/v1/admin/recruitment/applicants/{applicantId}/interview-questions': {
     parameters: {
       query?: never;
       header?: never;
       path?: never;
       cookie?: never;
     };
-    get?: never;
+    /**
+     * 지원서별 면접 질문 조회
+     * @description 한 지원자에 대한 해당 부문 평가자별 면접 질문을 반환합니다. 미작성 평가자는 null로 포함. 차기대표진 외(현재 대표진 포함)에는 본인 부문 지원자만 조회.
+     */
+    get: operations['getApplicantInterviewQuestions'];
     put?: never;
     post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/admin/recruitment/applicants/{applicantId}/evaluations': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
     /**
-     * 지원서 전체 삭제
-     * @description 특정 모집 공고의 지원서를 전체 삭제합니다. 모집 진행 중인 경우 삭제 불가.
+     * 지원서별 평가 조회
+     * @description 한 지원자에 대한 해당 부문 평가자 전체의 평가를 반환합니다. 미평가 평가자는 null로 포함. 차기대표진 외(현재 대표진 포함)에는 본인 부문 지원자만 조회.
      */
-    delete: operations['deleteApplicants'];
+    get: operations['getApplicantEvaluators'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/admin/recruitment/applicants/{applicantId}/answers': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * 지원서 답변 조회
+     * @description 한 지원자가 작성한 문항별 답변을 문항 정보(질문 내용·유형)와 함께 문항 순서대로 반환합니다. (평가 사이드바 지원서 본문) 차기대표진 외(현재 대표진 포함)에는 본인 부문 지원자만 조회.
+     */
+    get: operations['getApplicantAnswers'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/admin/accounts/me': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * 내 계정 정보 조회
+     * @description 인증된 본인의 id, 소속, 이름을 반환.
+     */
+    get: operations['getMe'];
+    put?: never;
+    post?: never;
+    delete?: never;
     options?: never;
     head?: never;
     patch?: never;
@@ -1032,6 +1183,33 @@ export interface components {
        * @example 42
        */
       applicant_id?: number;
+    };
+    EvaluationSaveRequest: {
+      /** @enum {string} */
+      decision: 'PASS' | 'FAIL' | 'HOLD' | 'PENDING';
+      /** Format: int32 */
+      score?: number;
+      memo?: string;
+      interview_question?: string;
+    };
+    ApiResponseMyEvaluationResponse: {
+      /** Format: int32 */
+      status?: number;
+      data?: components['schemas']['MyEvaluationResponse'];
+      error_code?: string;
+      message?: string;
+    };
+    MyEvaluationResponse: {
+      /** Format: int64 */
+      evaluation_id?: number;
+      /** Format: int64 */
+      applicant_id?: number;
+      /** @enum {string} */
+      decision?: 'PASS' | 'FAIL' | 'HOLD' | 'PENDING';
+      /** Format: int32 */
+      score?: number;
+      memo?: string;
+      interview_question?: string;
     };
     /** @description 커리큘럼 단계 목록 (전체 교체) */
     CurriculumStepRequest: {
@@ -1429,6 +1607,11 @@ export interface components {
        */
       content: string;
       /**
+       * @description 질문 보조 설명 (선택)
+       * @example 면접은 대면으로 진행될 예정입니다.
+       */
+      description?: string;
+      /**
        * Format: int32
        * @description 답변 최대 글자 수 (type=TEXT일 때 필수)
        * @example 500
@@ -1586,7 +1769,7 @@ export interface components {
        * @description 콘텐츠 날짜
        * @example 2024-07-01
        */
-      content_date?: string;
+      content_date: string;
       /**
        * @description 상/하반기 (활동사진만 사용)
        * @example 26-1
@@ -1641,6 +1824,7 @@ export interface components {
        */
       team_name:
         | '대표진'
+        | '차기대표진'
         | '디자인팀'
         | '자료연구팀'
         | '운영지원팀'
@@ -1648,6 +1832,7 @@ export interface components {
         | '대외협력팀'
         | '서비스운영팀'
         | '대표진'
+        | '차기대표진'
         | '디자인팀'
         | '자료연구팀'
         | '운영지원팀'
@@ -1798,6 +1983,8 @@ export interface components {
        * @example 자기소개와 BOAZ에 지원한 동기를 서술해주세요.
        */
       content?: string;
+      /** @description 질문 보조 설명 (null 전송 시 삭제) */
+      description?: string;
       /**
        * Format: int32
        * @description 답변 최대 글자 수 (null 전송 시 삭제)
@@ -1831,6 +2018,23 @@ export interface components {
        * @example 1
        */
       question_id?: number;
+    };
+    FinalDecisionUpdateRequest: {
+      /** @enum {string} */
+      final_decision: 'PASS' | 'FAIL' | 'HOLD' | 'PENDING';
+    };
+    ApiResponseFinalDecisionResponse: {
+      /** Format: int32 */
+      status?: number;
+      data?: components['schemas']['FinalDecisionResponse'];
+      error_code?: string;
+      message?: string;
+    };
+    FinalDecisionResponse: {
+      /** Format: int64 */
+      applicant_id?: number;
+      /** @enum {string} */
+      final_decision?: 'PASS' | 'FAIL' | 'HOLD' | 'PENDING';
     };
     FaqUpdateRequest: {
       /**
@@ -1934,6 +2138,7 @@ export interface components {
        */
       team_name?:
         | '대표진'
+        | '차기대표진'
         | '디자인팀'
         | '자료연구팀'
         | '운영지원팀'
@@ -2168,7 +2373,6 @@ export interface components {
        * @enum {string}
        */
       category?: 'COMMON' | 'ANALYSIS' | 'VISUALIZATION' | 'ENGINEERING';
-      description?: string;
       /**
        * @description 질문 유형
        * @example TEXT
@@ -2180,6 +2384,8 @@ export interface components {
        * @example 자신을 소개해주세요.
        */
       content?: string;
+      /** @description 질문 보조 설명 */
+      description?: string;
       /**
        * Format: int32
        * @description 글자 수 제한 (TEXT 유형인 경우)
@@ -2193,7 +2399,6 @@ export interface components {
        * @example 1
        */
       order_num?: number;
-      is_required?: boolean;
       /**
        * @description 필수 여부
        * @example true
@@ -2350,12 +2555,157 @@ export interface components {
       error_code?: string;
       message?: string;
     };
+    ApiResponseListApplicantSummaryResponse: {
+      /** Format: int32 */
+      status?: number;
+      data?: components['schemas']['ApplicantSummaryResponse'][];
+      error_code?: string;
+      message?: string;
+    };
+    ApplicantSummaryResponse: {
+      /** Format: int64 */
+      id?: number;
+      /** Format: int64 */
+      user_id?: number;
+      /** @enum {string} */
+      status?: 'DRAFT' | 'SUBMITTED';
+      /** @enum {string} */
+      track?: 'ALL' | 'ANALYSIS' | 'VISUALIZATION' | 'ENGINEERING';
+      name?: string;
+      email?: string;
+      phone?: string;
+      university?: string;
+      major?: string;
+      minor_double_major?: string[];
+      /** Format: int32 */
+      last_semester?: number;
+      /** @enum {string} */
+      military_status?: 'COMPLETED_OR_EXEMPT' | 'NOT_COMPLETED';
+      /** Format: date */
+      birth_date?: string;
+      graduation_date?: string;
+      grad_school_plan?: boolean;
+      /** Format: date-time */
+      submitted_at?: string;
+    };
+    ApiResponseListApplicantEvaluationResponse: {
+      /** Format: int32 */
+      status?: number;
+      data?: components['schemas']['ApplicantEvaluationResponse'][];
+      error_code?: string;
+      message?: string;
+    };
+    ApplicantEvaluationResponse: {
+      /** Format: int64 */
+      id?: number;
+      /** Format: int64 */
+      user_id?: number;
+      /** @enum {string} */
+      track?: 'ALL' | 'ANALYSIS' | 'VISUALIZATION' | 'ENGINEERING';
+      name?: string;
+      email?: string;
+      phone?: string;
+      university?: string;
+      major?: string;
+      minor_double_major?: string[];
+      /** Format: int32 */
+      last_semester?: number;
+      /** @enum {string} */
+      military_status?: 'COMPLETED_OR_EXEMPT' | 'NOT_COMPLETED';
+      /** Format: date */
+      birth_date?: string;
+      graduation_date?: string;
+      grad_school_plan?: boolean;
+      /** Format: date-time */
+      submitted_at?: string;
+      /** Format: int32 */
+      pass_count?: number;
+      /** Format: int32 */
+      hold_count?: number;
+      /** Format: int32 */
+      fail_count?: number;
+      /** Format: int32 */
+      total_score?: number;
+      /** @enum {string} */
+      final_decision?: 'PASS' | 'FAIL' | 'HOLD' | 'PENDING';
+      /** @enum {string} */
+      my_decision?: 'PASS' | 'FAIL' | 'HOLD' | 'PENDING';
+    };
     ApiResponseListSubscriptionResponse: {
       /** Format: int32 */
       status?: number;
       data?: components['schemas']['SubscriptionResponse'][];
       error_code?: string;
       message?: string;
+    };
+    ApiResponseApplicantInterviewQuestionsResponse: {
+      /** Format: int32 */
+      status?: number;
+      data?: components['schemas']['ApplicantInterviewQuestionsResponse'];
+      error_code?: string;
+      message?: string;
+    };
+    ApplicantInterviewQuestionsResponse: {
+      /** Format: int64 */
+      applicant_id?: number;
+      interview_questions?: components['schemas']['EvaluatorInterviewQuestionResponse'][];
+    };
+    EvaluatorInterviewQuestionResponse: {
+      /** Format: int64 */
+      admin_id?: number;
+      name?: string;
+      /** @enum {string} */
+      track?: 'ALL' | 'ANALYSIS' | 'VISUALIZATION' | 'ENGINEERING';
+      interview_question?: string;
+    };
+    ApiResponseApplicantEvaluatorsResponse: {
+      /** Format: int32 */
+      status?: number;
+      data?: components['schemas']['ApplicantEvaluatorsResponse'];
+      error_code?: string;
+      message?: string;
+    };
+    ApplicantEvaluatorsResponse: {
+      /** Format: int64 */
+      applicant_id?: number;
+      evaluations?: components['schemas']['EvaluatorEvaluationResponse'][];
+    };
+    EvaluatorEvaluationResponse: {
+      /** Format: int64 */
+      admin_id?: number;
+      name?: string;
+      /** @enum {string} */
+      track?: 'ALL' | 'ANALYSIS' | 'VISUALIZATION' | 'ENGINEERING';
+      /** @enum {string} */
+      decision?: 'PASS' | 'FAIL' | 'HOLD' | 'PENDING';
+      /** Format: int32 */
+      score?: number;
+      memo?: string;
+    };
+    AnswerDetailResponse: {
+      /** Format: int64 */
+      question_id?: number;
+      label?: string;
+      /** @enum {string} */
+      category?: 'COMMON' | 'ANALYSIS' | 'VISUALIZATION' | 'ENGINEERING';
+      /** @enum {string} */
+      type?: 'TEXT' | 'TABLE';
+      content?: string;
+      /** Format: int32 */
+      order_num?: number;
+      answer?: components['schemas']['JsonNode'];
+    };
+    ApiResponseApplicantAnswersResponse: {
+      /** Format: int32 */
+      status?: number;
+      data?: components['schemas']['ApplicantAnswersResponse'];
+      error_code?: string;
+      message?: string;
+    };
+    ApplicantAnswersResponse: {
+      /** Format: int64 */
+      applicant_id?: number;
+      answers?: components['schemas']['AnswerDetailResponse'][];
     };
     AdminAccountResponse: {
       /**
@@ -2436,6 +2786,39 @@ export interface components {
       error_code?: string;
       message?: string;
     };
+    AdminMeResponse: {
+      /**
+       * Format: int64
+       * @description 계정 ID
+       * @example 1
+       */
+      id?: number;
+      /**
+       * @description 직책/소속
+       * @example 대표진
+       * @enum {string}
+       */
+      team_name?:
+        | '대표진'
+        | '디자인팀'
+        | '자료연구팀'
+        | '운영지원팀'
+        | '기획팀'
+        | '대외협력팀'
+        | '서비스운영팀';
+      /**
+       * @description 이름
+       * @example 문혁준
+       */
+      name?: string;
+    };
+    ApiResponseAdminMeResponse: {
+      /** Format: int32 */
+      status?: number;
+      data?: components['schemas']['AdminMeResponse'];
+      error_code?: string;
+      message?: string;
+    };
   };
   responses: never;
   parameters: never;
@@ -2467,6 +2850,54 @@ export interface operations {
         };
         content: {
           '*/*': components['schemas']['ApiResponseDraftApplicationResponse'];
+        };
+      };
+    };
+  };
+  getMyEvaluation: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        applicantId: number;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ApiResponseMyEvaluationResponse'];
+        };
+      };
+    };
+  };
+  saveMyEvaluation: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        applicantId: number;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['EvaluationSaveRequest'];
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ApiResponseMyEvaluationResponse'];
         };
       };
     };
@@ -2773,6 +3204,7 @@ export interface operations {
     parameters: {
       query: {
         term: number;
+        decision?: 'PASS' | 'FAIL' | 'ALL';
       };
       header?: never;
       path?: never;
@@ -2849,9 +3281,9 @@ export interface operations {
     requestBody?: {
       content: {
         'multipart/form-data': {
-          data: components['schemas']['ArchiveCreateRequest'];
+          data?: components['schemas']['ArchiveCreateRequest'];
           /** Format: binary */
-          image: string;
+          image?: string;
         };
       };
     };
@@ -2877,9 +3309,9 @@ export interface operations {
     requestBody?: {
       content: {
         'multipart/form-data': {
-          data: components['schemas']['ArchiveCreateRequest'];
+          data?: components['schemas']['ArchiveCreateRequest'];
           /** Format: binary */
-          image: string;
+          image?: string;
         };
       };
     };
@@ -2905,9 +3337,9 @@ export interface operations {
     requestBody?: {
       content: {
         'multipart/form-data': {
-          data: components['schemas']['ArchiveCreateRequest'];
+          data?: components['schemas']['ArchiveCreateRequest'];
           /** Format: binary */
-          image: string;
+          image?: string;
         };
       };
     };
@@ -3131,6 +3563,32 @@ export interface operations {
         };
         content: {
           '*/*': components['schemas']['ApiResponseQuestionIdResponse'];
+        };
+      };
+    };
+  };
+  updateFinalDecision: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        applicantId: number;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['FinalDecisionUpdateRequest'];
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ApiResponseFinalDecisionResponse'];
         };
       };
     };
@@ -3747,6 +4205,72 @@ export interface operations {
       };
     };
   };
+  getApplicants: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        recruitmentId: number;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ApiResponseListApplicantSummaryResponse'];
+        };
+      };
+    };
+  };
+  deleteApplicants: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        recruitmentId: number;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ApiResponseVoid'];
+        };
+      };
+    };
+  };
+  getApplicantEvaluations: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        recruitmentId: number;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ApiResponseListApplicantEvaluationResponse'];
+        };
+      };
+    };
+  };
   getAllSubscriptions: {
     parameters: {
       query?: never;
@@ -3787,12 +4311,12 @@ export interface operations {
       };
     };
   };
-  deleteApplicants: {
+  getApplicantInterviewQuestions: {
     parameters: {
       query?: never;
       header?: never;
       path: {
-        recruitmentId: number;
+        applicantId: number;
       };
       cookie?: never;
     };
@@ -3804,7 +4328,71 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          '*/*': components['schemas']['ApiResponseVoid'];
+          '*/*': components['schemas']['ApiResponseApplicantInterviewQuestionsResponse'];
+        };
+      };
+    };
+  };
+  getApplicantEvaluators: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        applicantId: number;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ApiResponseApplicantEvaluatorsResponse'];
+        };
+      };
+    };
+  };
+  getApplicantAnswers: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        applicantId: number;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ApiResponseApplicantAnswersResponse'];
+        };
+      };
+    };
+  };
+  getMe: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ApiResponseAdminMeResponse'];
         };
       };
     };

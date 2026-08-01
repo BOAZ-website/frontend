@@ -1,73 +1,76 @@
-# React + TypeScript + Vite
+<div align="center">
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# BOAZ 공식 홈페이지
 
-Currently, two official plugins are available:
+**국내 최초 빅데이터 동아리 BOAZ의 공식 홈페이지**
+<br />
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+<img width="1200" height="630" alt="boaz-og" src="https://github.com/user-attachments/assets/55b80705-4850-451f-b7f0-bc3e3ae8592b" />
 
-## React Compiler
+🔗 Service link: https://www.bigdataboaz.com/
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+</div>
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Framework**: React 19 + TypeScript
+- **Build Tool**: Vite
+- **Styling**: Vanilla Extract
+- **Routing**: React Router v7
+- **State Management**: TanStack Query
+- **HTTP Client**: Axios
+- **Linting**: ESLint, Prettier, Stylelint
+- **Git Hooks**: Lefthook + Commitlint
 
-```js
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
+## Getting Started 🔥
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+### Installation
+```bash
+pnpm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from "eslint-plugin-react-x";
-import reactDom from "eslint-plugin-react-dom";
-
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs["recommended-typescript"],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+### Development
+```bash
+pnpm dev
 ```
+
+### Build
+```bash
+pnpm build
+```
+
+### Lint
+```bash
+pnpm lint          # ESLint
+pnpm lint:css      # Stylelint
+pnpm format        # Prettier
+```
+
+### API 타입 생성
+> Node.js를 사용하여 OpenAPI 3.0 및 3.1 스키마를 빠르게 TypeScript로 변환해주는 [OpenAPI TypeScript](https://github.com/openapi-ts/openapi-typescript) 라이브러리를 사용합니다.
+
+```bash
+pnpm generate:types
+```
+
+## Project Structure
+> FSD 아키텍처 layers를 적용했습니다
+```
+src/
+├── app/          # 앱 설정 (라우팅, 프로바이더, 레이아웃)
+├── pages/        # 페이지 컴포넌트
+├── widgets/      # 위젯 (페이지 단위 조합 컴포넌트)
+├── features/     # 기능 단위 모듈
+├── entities/     # 엔티티 (도메인 모델)
+└── shared/       # 공통 유틸, API, UI 컴포넌트
+```
+
+## Contributors 🌱
+
+### 1기
+
+| Profile | Name | GitHub | Role |
+|---------|------|--------|------|
+| <img src="https://github.com/yooncandooit.png" width="50" height="50" /> | yooncandooit | [@yooncandooit](https://github.com/yooncandooit) | Lead |
+| <img src="https://github.com/onlyone130.png" width="50" height="50" /> | onlyone130 | [@onlyone130](https://github.com/onlyone130) | Member |
+| <img src="https://github.com/ity0526.png" width="50" height="50" /> | ity0526 | [@ity0526](https://github.com/ity0526) | Member |
