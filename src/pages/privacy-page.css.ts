@@ -23,17 +23,20 @@ export const contentWrapper = style({
   padding: '0 2rem',
 });
 
-export const pageTitle = style({
-  ...typography.h1_bd_40,
-  color: themeVars.color.grayscale.white,
+/** 제목과 시행일 선택을 한 줄에 두고, 그 아래에 구분선을 긋는다. */
+export const pageHeader = style({
+  display: 'flex',
+  flexWrap: 'wrap',
+  alignItems: 'flex-end',
+  justifyContent: 'space-between',
+  gap: '1.6rem',
   borderBottom: `1px solid ${themeVars.color.grayscale[600]}`,
   paddingBottom: '2rem',
 });
 
-export const effectiveDate = style({
-  ...typography.body5_rg_16,
-  color: themeVars.color.grayscale[400],
-  marginTop: '-2rem',
+export const pageTitle = style({
+  ...typography.h1_bd_40,
+  color: themeVars.color.grayscale.white,
 });
 
 export const intro = style({
@@ -76,6 +79,18 @@ export const listItem = style({
   color: themeVars.color.grayscale[200],
   lineHeight: '1.8',
   listStyleType: 'disc',
+});
+
+/** 목차처럼 항목 앞에 ①·② 같은 표시가 이미 있는 목록. 글머리 기호를 붙이지 않는다. */
+export const plainListItem = style([listItem, { listStyleType: 'none' }]);
+
+/** 번호를 매기는 목록(1. 2. 3.). */
+export const orderedListItem = style([listItem, { listStyleType: 'decimal' }]);
+
+/** 본문 안 링크. 지원서 동의 화면의 링크(agreement-step.css.ts의 consentLink)와 같은 모양이다. */
+export const link = style({
+  color: themeVars.color.primary[100],
+  textDecoration: 'underline',
 });
 
 export const table = style({
