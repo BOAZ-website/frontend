@@ -2,6 +2,7 @@ import ReviewCard from '@/widgets/curriculum/ui/review-card-list/review-card';
 import type { ReviewResponse } from '@/shared/api/types';
 import Pagination from '@/shared/components/pagination/pagination';
 import useIsMobile from '@/shared/hooks/use-is-mobile';
+import { getTrackLabel } from '@/shared/utils/track-label';
 
 import * as styles from './review-section.css';
 
@@ -13,12 +14,6 @@ interface ReviewSectionProps {
   currentPage: number;
   onPageChange: (page: number) => void;
 }
-
-const TRACK_LABEL: Record<string, string> = {
-  ANALYSIS: '분석',
-  VISUALIZATION: '시각화',
-  ENGINEERING: '엔지니어링',
-};
 
 const ReviewSection = ({ reviews, currentPage, onPageChange }: ReviewSectionProps) => {
   const isMobile = useIsMobile();
@@ -48,7 +43,7 @@ const ReviewSection = ({ reviews, currentPage, onPageChange }: ReviewSectionProp
             key={review.id}
             title={review.name ?? ''}
             generation={`${review.term ?? ''}기`}
-            track={TRACK_LABEL[review.track ?? ''] ?? ''}
+            track={review.track ? getTrackLabel(review.track, review.term) : ''}
             description={review.content ?? ''}
           />
         ))}

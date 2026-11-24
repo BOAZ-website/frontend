@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 import { TRACK_TABS, type TrackTab } from '@/features/track/constant/track-tabs';
 import FixedButton from '@/shared/components/fixed-tab/fixed-tab';
+import { getCurrentTrackLabel } from '@/shared/utils/track-label';
 
 import * as styles from './track-tab-group.css';
 interface TrackTabGroupProps {
@@ -9,7 +10,7 @@ interface TrackTabGroupProps {
   onTabChange?: (tab: TrackTab) => void;
 }
 
-const TrackTabGroup = ({ defaultTab = '분석', onTabChange }: TrackTabGroupProps) => {
+const TrackTabGroup = ({ defaultTab = 'ANALYSIS', onTabChange }: TrackTabGroupProps) => {
   const [activeTab, setActiveTab] = useState<TrackTab>(defaultTab);
 
   const handleTabClick = (tab: TrackTab) => {
@@ -21,7 +22,7 @@ const TrackTabGroup = ({ defaultTab = '분석', onTabChange }: TrackTabGroupProp
     <div className={styles.container}>
       {TRACK_TABS.map((tab) => (
         <FixedButton key={tab} isActive={activeTab === tab} onClick={() => handleTabClick(tab)}>
-          {tab}
+          {getCurrentTrackLabel(tab)}
         </FixedButton>
       ))}
     </div>

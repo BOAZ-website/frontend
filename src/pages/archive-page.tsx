@@ -12,6 +12,7 @@ import BlogCard from '@/shared/components/archive/blogcard';
 import ProjectCard from '@/shared/components/archive/project-card';
 import Pagination from '@/shared/components/pagination/pagination';
 import { useDebounce } from '@/shared/hooks/use-debounce';
+import { getTrackLabel } from '@/shared/utils/track-label';
 
 import * as styles from './archive-page.css';
 
@@ -25,12 +26,9 @@ type ArchiveLinks = {
   web?: string;
 };
 
-const TRACK_LABEL: Record<string, string> = {
-  ALL: '전체',
-  ANALYSIS: '분석',
-  VISUALIZATION: '시각화',
-  ENGINEERING: '엔지니어링',
-};
+/** 자료 카드의 부문 이름. 분석 부문은 그 자료의 기수로 정한다(27기 이하·기수 모름은 분석, 28기 이후는 AI). */
+const archiveTrackLabel = (track: ArchiveTrack | undefined, term: number | undefined): string =>
+  !track || track === 'ALL' ? '전체' : getTrackLabel(track, term);
 
 const formatTerm = (term: number) => (term === 0 ? '7기 이전' : `${term}기`);
 
@@ -138,7 +136,7 @@ const ArchivePage = () => {
             subTitle={item.team_name}
             title={item.title ?? ''}
             generation={formatTerm(item.term ?? 0)}
-            category={TRACK_LABEL[item.track ?? 'ALL'] ?? ''}
+            category={archiveTrackLabel(item.track, item.term)}
             githubUrl={links.github}
             slideshareUrl={links.slideshare}
           />
@@ -151,7 +149,7 @@ const ArchivePage = () => {
         const links = (item.links as ArchiveLinks) ?? {};
         const card = (
           <BlogCard
-            category={TRACK_LABEL[item.track ?? 'ALL'] ?? ''}
+            category={archiveTrackLabel(item.track, item.term)}
             title={item.title ?? ''}
             date={item.content_date ?? ''}
             imageSrc={item.image_url}

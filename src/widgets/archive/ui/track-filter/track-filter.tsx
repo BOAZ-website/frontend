@@ -8,6 +8,7 @@ import ChevronUpIcon from '@/shared/assets/icons/ic_expand_more.svg?react';
 import ChevronDownIcon from '@/shared/assets/icons/ic_keyboard_arrow_up.svg?react';
 import VisualizationIcon from '@/shared/assets/icons/ic_visualization.svg?react';
 import useIsMobile from '@/shared/hooks/use-is-mobile';
+import { ANALYSIS_ALL_TERMS_LABEL } from '@/shared/utils/track-label';
 
 import * as styles from './track-filter.css';
 
@@ -16,7 +17,7 @@ type TrackIcon = React.ComponentType<React.SVGProps<SVGSVGElement>>;
 const TRACK_OPTIONS: { label: string; value: ArchiveTrack | undefined; Icon: TrackIcon | null }[] =
   [
     { label: '전체', value: undefined, Icon: null },
-    { label: '분석', value: 'ANALYSIS', Icon: AnalyzeIcon },
+    { label: ANALYSIS_ALL_TERMS_LABEL, value: 'ANALYSIS', Icon: AnalyzeIcon },
     { label: '시각화', value: 'VISUALIZATION', Icon: VisualizationIcon },
     { label: '엔지니어링', value: 'ENGINEERING', Icon: EngineeringIcon },
   ];
