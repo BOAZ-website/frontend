@@ -20,7 +20,7 @@ const ADDABLE_LABEL = '프로젝트';
 const LIMIT_IN_TITLE = /\s*\(\s*(?:공백\s*포함\s*)?\d+\s*자\s*(?:이내|이하)\s*\)/g;
 
 /**
- * 제목의 글자 수 표기를 지우고 limit_length로 다시 안내한다(기존 방식을 다른 표기까지 넓힘).
+ * 제목의 글자 수 표기를 지우고 limit_length로 만든 안내를 제목 끝에 붙인다.
  * 실제 입력 제한과 카운터는 limit_length를 따르므로, 화면의 숫자도 항상 그 값과 같게 한다.
  */
 const splitLimit = (
@@ -167,7 +167,6 @@ const QuestionSection = ({
         const isEmpty = submitted && !!question.is_required && !answers[qId]?.trim();
 
         const description = descriptionOf(question);
-        // limit_length로 안내할 때, 설명이 있으면 설명에 묻히지 않게 제목 끝에, 없으면 제목 아래 회색 줄로.
         const { title, limitText } = splitLimit(
           resolveContent(question.content),
           question.limit_length
@@ -178,13 +177,10 @@ const QuestionSection = ({
             <div className={styles.titleContainer}>
               <h2 className={styles.sectionTitle}>
                 {title}
-                {description && limitText && ` (${limitText})`}
+                {limitText && ` (${limitText})`}
               </h2>
               {description && (
                 <DescriptionText text={description} className={styles.questionDescription} />
-              )}
-              {!description && limitText && (
-                <p className={styles.sectionDescription}>{limitText}</p>
               )}
             </div>
             <TextFieldWithCounter
