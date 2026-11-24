@@ -58,6 +58,20 @@ export const sectionDescription = style({
   },
 });
 
+/** 문항 설명. 면접 가능 시간 문항 설명(personal-info-section.css.ts의 interviewDescription)과 같은 모양이다. */
+export const questionDescription = style({
+  color: themeVars.color.grayscale[400],
+  ...typography.text_rg_14,
+  whiteSpace: 'pre-line',
+  lineHeight: '1.6',
+  '@media': {
+    [media.mobile]: {
+      ...typography.text_rg_14,
+      lineHeight: '1.4',
+    },
+  },
+});
+
 export const sectionExperienceTitle = style({
   color: themeVars.color.grayscale.white,
   ...typography.h3_sb_30,

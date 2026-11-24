@@ -8,10 +8,17 @@ import TextFieldWithCounter from '@/shared/components/textfield-with-counter/tex
 import { getTrackFullLabel } from '@/shared/utils/track-label';
 
 import TableQuestion from '../table-question';
+import DescriptionText from './description-text';
 
 import * as styles from './question-section.css';
 
 const ADDABLE_LABEL = '프로젝트';
+/** 제목 안의 글자 수 표기. 예: (공백 포함 500자 이내), (500자 이내) */
+const LIMIT_IN_TITLE = /\([^()]*\d+\s*자[^()]*\)/;
+
+/** 문항 설명. 문자열 `\n`도 줄바꿈으로 바꾸고, 비어 있으면 그리지 않도록 undefined를 돌려준다(면접 문항과 같은 방식). */
+const descriptionOf = (question: QuestionResponse): string | undefined =>
+  question.description?.replace(/\\n/g, '\n').trim() || undefined;
 
 interface QuestionSectionProps {
   questions: QuestionResponse[];
@@ -65,7 +72,7 @@ const QuestionSection = ({
     const withTrack = track
       ? (content ?? '').replace(/\{부문\}/g, getTrackFullLabel(track, term))
       : (content ?? '');
-    return withTrack.replace(/\s*\(공백\s*포함\s*\d+자\s*이내\)\s*/g, '').trim();
+    return withTrack.trim();
   };
   const [extraCounts, setExtraCounts] = useState<Record<string, number>>({});
   const [submitted, setSubmitted] = useState(false);
@@ -110,8 +117,16 @@ const QuestionSection = ({
           const isMultiple = !!(question.metadata as unknown as { multiple?: boolean })?.multiple;
           return (
             <div key={qId} className={styles.tableSection}>
-              <div className={styles.sectionExperienceTitle}>
-                {resolveContent(question.content)}
+              <div className={styles.titleContainer}>
+                <div className={styles.sectionExperienceTitle}>
+                  {resolveContent(question.content)}
+                </div>
+                {descriptionOf(question) && (
+                  <DescriptionText
+                    text={descriptionOf(question) ?? ''}
+                    className={styles.questionDescription}
+                  />
+                )}
               </div>
               <TableQuestion
                 question={question}
@@ -133,14 +148,25 @@ const QuestionSection = ({
         const extraCount = extraCounts[qId] ?? 0;
         const isEmpty = submitted && !!question.is_required && !answers[qId]?.trim();
 
+        const description = descriptionOf(question);
+        // 제목에 글자 수가 없으면 limit_length로 보충한다. 설명이 있으면 설명에 묻히지 않게 제목 끝에, 없으면 제목 아래 회색 줄로.
+        const limitText =
+          question.limit_length && !LIMIT_IN_TITLE.test(question.content ?? '')
+            ? `공백 포함 ${question.limit_length}자 이내`
+            : undefined;
+
         return (
           <section key={qId} className={styles.section}>
             <div className={styles.titleContainer}>
-              <h2 className={styles.sectionTitle}>{resolveContent(question.content)}</h2>
-              {question.limit_length && (
-                <p className={styles.sectionDescription}>
-                  공백 포함 {question.limit_length}자 이내
-                </p>
+              <h2 className={styles.sectionTitle}>
+                {resolveContent(question.content)}
+                {description && limitText && ` (${limitText})`}
+              </h2>
+              {description && (
+                <DescriptionText text={description} className={styles.questionDescription} />
+              )}
+              {!description && limitText && (
+                <p className={styles.sectionDescription}>{limitText}</p>
               )}
             </div>
             <TextFieldWithCounter
