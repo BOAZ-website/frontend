@@ -5,6 +5,7 @@ import EngineeringIcon from '@/shared/assets/icons/ic_engineering_track.svg?reac
 import VisualizationIcon from '@/shared/assets/icons/ic_visualization_track.svg?react';
 import Section from '@/shared/components/section/section';
 import { useRecruitmentStatus } from '@/shared/queries/use-recruitment-status';
+import { getCurrentTrackLabel } from '@/shared/utils/track-label';
 
 import * as styles from './apply-section.css';
 
@@ -12,16 +13,17 @@ import TrackCard from '@/entities/track/ui/track-card/track-card';
 const track: {
   track: string;
   description: ReactNode;
+  note?: string;
   icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
 }[] = [
   {
-    track: '데이터 분석',
+    track: getCurrentTrackLabel('ANALYSIS'),
+    note: "AI 부문은 28기부터 '데이터 분석'에서 명칭이 변경되었습니다.",
     description: (
       <>
-        <strong>데이터 분석</strong>은 최신 AI 모델을 활용해 데이터 속 심층적인 맥락과 패턴을
-        학습하여 최적의 해답을 도출하는 기술을 연구합니다. 단순한 수치 계산을 넘어 비정형 데이터 속
-        숨겨진 의미를 발견하고, 실제 문제 해결과 더 나아가 미래 전략 설계에 적용하는 AI 기술을
-        탐구합니다.
+        <strong>AI</strong>는 최신 AI 모델을 활용해 데이터 속 심층적인 맥락과 패턴을 학습하여 최적의
+        해답을 도출하는 기술을 연구합니다. 단순한 수치 계산을 넘어 비정형 데이터 속 숨겨진 의미를
+        발견하고, 실제 문제 해결과 더 나아가 미래 전략 설계에 적용하는 AI 기술을 탐구합니다.
       </>
     ),
     icon: AnalyzeIcon,
@@ -63,6 +65,7 @@ const ApplySection = () => {
             key={index}
             title={item.track}
             description={item.description}
+            note={item.note}
             icon={item.icon}
             isActive={isActive}
           />

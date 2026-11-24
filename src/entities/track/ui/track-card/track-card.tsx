@@ -9,16 +9,19 @@ import * as styles from './track-card.css';
 interface TrackCardProps {
   title: string;
   description: ReactNode;
+  /** 제목 아래에 항상 보이는 짧은 안내. 설명(description)은 마우스를 올려야 보인다. */
+  note?: string;
   icon: ComponentType<SVGProps<SVGSVGElement>>;
   isActive?: boolean;
 }
 
-const TrackCard = ({ title, description, icon: Icon, isActive = false }: TrackCardProps) => {
+const TrackCard = ({ title, description, note, icon: Icon, isActive = false }: TrackCardProps) => {
   const navigate = useNavigate();
 
   return (
     <article className={styles.cardContainer}>
       <h3 className={styles.cardTitle}>{title}</h3>
+      {note && <p className={styles.cardNote}>{note}</p>}
       <p className={styles.cardDesc}>{description}</p>
 
       <div className={styles.cardIcon}>

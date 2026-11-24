@@ -39,6 +39,24 @@ export const cardTitle = style({
   },
 });
 
+export const cardNote = style({
+  ...typography.body6_rg_12,
+  // 글자 크기 토큰(2px 단위)에 맞는 값이 없어 직접 지정한다.
+  fontSize: '1.25rem',
+  position: 'relative',
+  // 캐릭터 그림(cardIcon)보다 앞에 보이게 한다.
+  zIndex: 1,
+  marginTop: '-0.4rem',
+  marginBottom: '1.2rem',
+
+  '@media': {
+    [media.mobile]: {
+      fontSize: '1.1rem',
+      marginTop: '-1.2rem',
+    },
+  },
+});
+
 export const cardDesc = style({
   ...typography.body4_rg_18,
   lineHeight: '1.2',
