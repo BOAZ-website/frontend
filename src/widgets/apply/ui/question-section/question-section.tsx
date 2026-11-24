@@ -13,29 +13,26 @@ import DescriptionText from './description-text';
 import * as styles from './question-section.css';
 
 const ADDABLE_LABEL = '프로젝트';
-/** 제목 안의 글자 수 표기. 예: (공백 포함 500자 이내), (500자 이내). "(끝 4자리)" 같은 괄호는 해당하지 않는다. */
-const LIMIT_IN_TITLE = /\s*\(\s*(?:공백\s*포함\s*)?(\d+)\s*자\s*(?:이내|이하)?\s*\)/;
+/**
+ * 제목 안의 글자 수 표기. 기존 "(공백 포함 N자 이내)"에 더해 "(N자 이내)", "(N자 이하)"도 지운다.
+ * "이내"·"이하"가 있어야 하므로 "(끝 4자리)", "(500자)" 같은 괄호는 남긴다.
+ */
+const LIMIT_IN_TITLE = /\s*\(\s*(?:공백\s*포함\s*)?\d+\s*자\s*(?:이내|이하)\s*\)/g;
 
 /**
- * 제목의 글자 수가 limit_length와 같으면 제목을 그대로 쓰고, 다르거나 없으면 제목에서 지우고 limit_length로 안내한다.
+ * 제목의 글자 수 표기를 지우고 limit_length로 다시 안내한다(기존 방식을 다른 표기까지 넓힘).
  * 실제 입력 제한과 카운터는 limit_length를 따르므로, 화면의 숫자도 항상 그 값과 같게 한다.
  */
 const splitLimit = (
   content: string,
   limitLength: number | undefined
-): { title: string; limitText?: string } => {
-  if (!limitLength) {
-    return { title: content };
-  }
-  const match = content.match(LIMIT_IN_TITLE);
-  if (match && Number(match[1]) === limitLength) {
-    return { title: content };
-  }
-  return {
-    title: match ? content.replace(match[0], '').trim() : content,
-    limitText: `공백 포함 ${limitLength}자 이내`,
-  };
-};
+): { title: string; limitText?: string } =>
+  limitLength
+    ? {
+        title: content.replace(LIMIT_IN_TITLE, '').trim(),
+        limitText: `공백 포함 ${limitLength}자 이내`,
+      }
+    : { title: content };
 
 /** 문항 설명. 문자열 `\n`도 줄바꿈으로 바꾸고, 비어 있으면 그리지 않도록 undefined를 돌려준다(면접 문항과 같은 방식). */
 const descriptionOf = (question: QuestionResponse): string | undefined =>
