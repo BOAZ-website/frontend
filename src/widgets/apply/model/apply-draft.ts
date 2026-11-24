@@ -1,4 +1,8 @@
-const getDraftKey = (recruitmentId: number) => `boaz-apply-draft-${recruitmentId}`;
+import { IS_MOCK_API } from '@/shared/api/client';
+
+// 임시 API와 실제 API의 공고 ID가 같아도 같은 브라우저에서 초안이 섞이지 않게 임시 API일 때만 키를 나눈다.
+const getDraftKey = (recruitmentId: number) =>
+  `boaz-apply-draft-${IS_MOCK_API ? 'mock-' : ''}${recruitmentId}`;
 
 export interface LocalDraft {
   personalInfo: Record<string, unknown>;

@@ -9,11 +9,16 @@ export const instance = axios.create({
   withCredentials: true,
 });
 
-// 개발 서버(pnpm dev)에서 VITE_API_BASE_URL이 없을 때만 임시 API(mock/)가 응답한다.
-// pnpm build(mode production)에서는 두 조건이 모두 false라 이 분기와 mock/ 코드가 번들에서 빠진다.
-// NODE_ENV=development로 빌드해도 MODE가 production이면 켜지지 않는다.
-// TODO: 백엔드 개발 서버로 확인할 수 있게 되면 mock/ 폴더와 함께 삭제
-if (import.meta.env.DEV && import.meta.env.MODE === 'development' && !BASE_URL) {
+/**
+ * 개발 서버(pnpm dev)에서 VITE_API_BASE_URL이 없을 때만 임시 API(mock/)가 응답한다.
+ * pnpm build(mode production)에서는 두 조건이 모두 false라 이 분기와 mock/ 코드가 번들에서 빠진다.
+ * NODE_ENV=development로 빌드해도 MODE가 production이면 켜지지 않는다.
+ * TODO: 백엔드 개발 서버로 확인할 수 있게 되면 mock/ 폴더와 함께 삭제
+ */
+export const IS_MOCK_API =
+  import.meta.env.DEV && import.meta.env.MODE === 'development' && !BASE_URL;
+
+if (IS_MOCK_API) {
   instance.defaults.adapter = async (config) => {
     const { mockAdapter } = await import('./mock/mock-adapter');
     return mockAdapter(config);
