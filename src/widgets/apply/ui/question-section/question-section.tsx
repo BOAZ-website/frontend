@@ -13,8 +13,29 @@ import DescriptionText from './description-text';
 import * as styles from './question-section.css';
 
 const ADDABLE_LABEL = '프로젝트';
-/** 제목 안의 글자 수 표기. 예: (공백 포함 500자 이내), (500자 이내) */
-const LIMIT_IN_TITLE = /\([^()]*\d+\s*자[^()]*\)/;
+/** 제목 안의 글자 수 표기. 예: (공백 포함 500자 이내), (500자 이내). "(끝 4자리)" 같은 괄호는 해당하지 않는다. */
+const LIMIT_IN_TITLE = /\s*\(\s*(?:공백\s*포함\s*)?(\d+)\s*자\s*(?:이내|이하)?\s*\)/;
+
+/**
+ * 제목의 글자 수가 limit_length와 같으면 제목을 그대로 쓰고, 다르거나 없으면 제목에서 지우고 limit_length로 안내한다.
+ * 실제 입력 제한과 카운터는 limit_length를 따르므로, 화면의 숫자도 항상 그 값과 같게 한다.
+ */
+const splitLimit = (
+  content: string,
+  limitLength: number | undefined
+): { title: string; limitText?: string } => {
+  if (!limitLength) {
+    return { title: content };
+  }
+  const match = content.match(LIMIT_IN_TITLE);
+  if (match && Number(match[1]) === limitLength) {
+    return { title: content };
+  }
+  return {
+    title: match ? content.replace(match[0], '').trim() : content,
+    limitText: `공백 포함 ${limitLength}자 이내`,
+  };
+};
 
 /** 문항 설명. 문자열 `\n`도 줄바꿈으로 바꾸고, 비어 있으면 그리지 않도록 undefined를 돌려준다(면접 문항과 같은 방식). */
 const descriptionOf = (question: QuestionResponse): string | undefined =>
@@ -149,17 +170,17 @@ const QuestionSection = ({
         const isEmpty = submitted && !!question.is_required && !answers[qId]?.trim();
 
         const description = descriptionOf(question);
-        // 제목에 글자 수가 없으면 limit_length로 보충한다. 설명이 있으면 설명에 묻히지 않게 제목 끝에, 없으면 제목 아래 회색 줄로.
-        const limitText =
-          question.limit_length && !LIMIT_IN_TITLE.test(question.content ?? '')
-            ? `공백 포함 ${question.limit_length}자 이내`
-            : undefined;
+        // limit_length로 안내할 때, 설명이 있으면 설명에 묻히지 않게 제목 끝에, 없으면 제목 아래 회색 줄로.
+        const { title, limitText } = splitLimit(
+          resolveContent(question.content),
+          question.limit_length
+        );
 
         return (
           <section key={qId} className={styles.section}>
             <div className={styles.titleContainer}>
               <h2 className={styles.sectionTitle}>
-                {resolveContent(question.content)}
+                {title}
                 {description && limitText && ` (${limitText})`}
               </h2>
               {description && (
