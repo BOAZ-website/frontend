@@ -5,18 +5,13 @@ import ArrowLeft from '@/shared/assets/icons/ic_arrow_left.svg?react';
 import ArrowRight from '@/shared/assets/icons/ic_arrow_right.svg?react';
 import Button from '@/shared/components/button/button';
 import TextFieldWithCounter from '@/shared/components/textfield-with-counter/textfield-with-counter';
+import { getTrackFullLabel } from '@/shared/utils/track-label';
 
 import TableQuestion from '../table-question';
 
 import * as styles from './question-section.css';
 
 const ADDABLE_LABEL = '프로젝트';
-
-const TRACK_LABEL: Record<Track, string> = {
-  ANALYSIS: '데이터 분석',
-  VISUALIZATION: '데이터 시각화',
-  ENGINEERING: '데이터 엔지니어링',
-};
 
 interface QuestionSectionProps {
   questions: QuestionResponse[];
@@ -27,6 +22,8 @@ interface QuestionSectionProps {
   nextLabel?: string;
   supportsTable?: boolean;
   track?: Track;
+  /** 지원 중인 모집 공고의 기수. 문항의 `{부문}`을 이 기수의 부문 이름으로 바꾼다. */
+  term?: number;
 }
 
 const isTableAnswerComplete = (
@@ -62,10 +59,11 @@ const QuestionSection = ({
   nextLabel = '다음 페이지',
   supportsTable = false,
   track,
+  term,
 }: QuestionSectionProps) => {
   const resolveContent = (content: string | undefined) => {
     const withTrack = track
-      ? (content ?? '').replace(/\{부문\}/g, TRACK_LABEL[track])
+      ? (content ?? '').replace(/\{부문\}/g, getTrackFullLabel(track, term))
       : (content ?? '');
     return withTrack.replace(/\s*\(공백\s*포함\s*\d+자\s*이내\)\s*/g, '').trim();
   };

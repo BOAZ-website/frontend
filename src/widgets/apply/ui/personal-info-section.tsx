@@ -16,14 +16,11 @@ import WarningIcon from '@/shared/assets/icons/ic_warning.svg?react';
 import DropdownField from '@/shared/components/dropdown/dropdownField';
 import RadioGroup from '@/shared/components/radio-button/radio-group';
 import Textfield from '@/shared/components/textfield/textfield';
+import { getTrackFullLabel } from '@/shared/utils/track-label';
 
 import * as styles from './personal-info-section.css';
 
-const TRACK_OPTIONS = [
-  { label: '데이터 분석', value: 'ANALYSIS' },
-  { label: '데이터 시각화', value: 'VISUALIZATION' },
-  { label: '데이터 엔지니어링', value: 'ENGINEERING' },
-];
+const TRACKS: Track[] = ['ANALYSIS', 'VISUALIZATION', 'ENGINEERING'];
 
 const MILITARY_OPTIONS = [
   { label: '필 또는 면제(여성)', value: 'COMPLETED_OR_EXEMPT' },
@@ -41,11 +38,6 @@ const preventEnter = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
   if (e.key === 'Enter') {
     e.preventDefault();
   }
-};
-const TRACK_LABEL: Record<Track, string> = {
-  ANALYSIS: '데이터 분석',
-  VISUALIZATION: '데이터 시각화',
-  ENGINEERING: '데이터 엔지니어링',
 };
 
 const FieldError = ({
@@ -70,6 +62,8 @@ interface PersonalInfoSectionProps {
   interviewAnswer?: string;
   onInterviewAnswerChange?: (questionId: string, value: string) => void;
   interviewDescription?: string;
+  /** 지원 중인 모집 공고의 기수. 부문 표시 이름을 정한다. */
+  term?: number;
 }
 
 const PersonalInfoSection = ({
@@ -80,8 +74,13 @@ const PersonalInfoSection = ({
   interviewAnswer = '',
   onInterviewAnswerChange,
   interviewDescription,
+  term,
 }: PersonalInfoSectionProps) => {
   const { form, setField, addDegree, setDegree, removeDegree } = formContext;
+  const trackOptions = TRACKS.map((track) => ({
+    label: getTrackFullLabel(track, term),
+    value: track,
+  }));
   const [submitted, setSubmitted] = useState(false);
   const [emailTouched, setEmailTouched] = useState(false);
   const [phoneTouched, setPhoneTouched] = useState(false);
@@ -90,7 +89,7 @@ const PersonalInfoSection = ({
     const nextTrack = value as Track | null;
 
     if (form.track && form.track !== nextTrack) {
-      const currentLabel = TRACK_LABEL[form.track];
+      const currentLabel = getTrackFullLabel(form.track, term);
       const confirmed = window.confirm(
         `부문을 변경할 경우 ${currentLabel} 부문의 기존 임시저장 내역이 사라지게 됩니다. 계속 진행하시겠습니까?`
         // TODO: 모달 컴포넌트로 교체
@@ -174,7 +173,7 @@ const PersonalInfoSection = ({
         <div className={styles.groupContainer}>
           <RadioGroup
             name="track"
-            options={TRACK_OPTIONS}
+            options={trackOptions}
             value={form.track}
             className={styles.radioButton}
             onChange={handleTrackChange}

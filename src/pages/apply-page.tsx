@@ -315,6 +315,8 @@ const ApplyPage = () => {
     answers,
     onAnswerChange: setAnswer,
     onPrev: handlePrev,
+    track: track ?? undefined,
+    term: status?.term,
   };
 
   // 모집 기간이 아닐 때 접근 못하도록
@@ -369,6 +371,7 @@ const ApplyPage = () => {
             interviewDescription={
               (interviewQuestion as unknown as { description?: string })?.description
             }
+            term={status?.term}
           />
         )}
         {currentStep === 2 && (
@@ -380,6 +383,7 @@ const ApplyPage = () => {
             onNext={handleNext}
             supportsTable
             track={track ?? undefined}
+            term={status?.term}
           />
         )}
         {currentStep === 3 && (
@@ -399,6 +403,7 @@ const ApplyPage = () => {
             onNext={handleSubmit}
             nextLabel="제출하기"
             track={track ?? undefined}
+            term={status?.term}
           />
         )}
       </section>
