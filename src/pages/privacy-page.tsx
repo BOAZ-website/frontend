@@ -20,13 +20,25 @@ const POLICY_VERSIONS: PolicyVersion[] = [
   { effectiveDate: '2026-06-01', title: '개인정보처리방침', Content: PrivacyPolicy20260601 },
 ];
 
-const labelOf = (version: PolicyVersion): string => version.effectiveDate.replaceAll('-', '. ');
+/** 한국 시간 기준 오늘 날짜(YYYY-MM-DD). 시행일과 문자열로 비교한다. */
+const todayInSeoul = (): string => new Date().toLocaleDateString('sv', { timeZone: 'Asia/Seoul' });
+
+const isUpcoming = (version: PolicyVersion, today: string): boolean =>
+  version.effectiveDate > today;
+
+const labelOf = (version: PolicyVersion, today: string): string =>
+  `${version.effectiveDate.replaceAll('-', '. ')}${isUpcoming(version, today) ? ' (시행 예정)' : ''}`;
+
+/** 이미 시행된 버전 중 가장 최신. 시행일이 되면 다시 배포하지 않아도 새 버전이 기본이 된다. */
+const currentVersionOf = (today: string): PolicyVersion =>
+  POLICY_VERSIONS.find((version) => !isUpcoming(version, today)) ?? POLICY_VERSIONS.at(-1)!;
 
 const PrivacyPage = () => {
-  // 처음에는 가장 최신 버전을 보여 준다. 새 버전은 시행일에 맞춰 배포한다.
-  const [selectedDate, setSelectedDate] = useState(POLICY_VERSIONS[0].effectiveDate);
+  const today = todayInSeoul();
+  const [selectedDate, setSelectedDate] = useState(() => currentVersionOf(today).effectiveDate);
   const selected =
-    POLICY_VERSIONS.find((version) => version.effectiveDate === selectedDate) ?? POLICY_VERSIONS[0];
+    POLICY_VERSIONS.find((version) => version.effectiveDate === selectedDate) ??
+    currentVersionOf(today);
 
   return (
     <main className={styles.container}>
@@ -36,7 +48,7 @@ const PrivacyPage = () => {
           <VersionSelect
             options={POLICY_VERSIONS.map((version) => ({
               value: version.effectiveDate,
-              label: labelOf(version),
+              label: labelOf(version, today),
             }))}
             value={selected.effectiveDate}
             onChange={setSelectedDate}
