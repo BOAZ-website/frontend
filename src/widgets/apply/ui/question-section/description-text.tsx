@@ -22,16 +22,27 @@ interface Block {
   lines: string[];
 }
 
+/** 문단 앞뒤의 빈 줄. 목록과 문단 사이 빈 줄은 블록 구분에만 쓰고 화면에 한 줄 더 띄우지 않는다. */
+const trimBlankLines = (lines: string[]): string[] => {
+  const first = lines.findIndex((line) => line.trim());
+  const last = lines.length - 1 - [...lines].reverse().findIndex((line) => line.trim());
+  return first === -1 ? [] : lines.slice(first, last + 1);
+};
+
 /** 이어진 목록 줄(`- `·`* `로 시작)과 일반 줄을 덩어리로 묶는다. */
 const toBlocks = (text: string): Block[] =>
-  text.split('\n').reduce<Block[]>((blocks, line) => {
-    const isList = LIST_ITEM.test(line);
-    const last = blocks.at(-1);
-    if (last && last.isList === isList) {
-      return [...blocks.slice(0, -1), { isList, lines: [...last.lines, line] }];
-    }
-    return [...blocks, { isList, lines: [line] }];
-  }, []);
+  text
+    .split('\n')
+    .reduce<Block[]>((blocks, line) => {
+      const isList = LIST_ITEM.test(line);
+      const last = blocks.at(-1);
+      if (last && last.isList === isList) {
+        return [...blocks.slice(0, -1), { isList, lines: [...last.lines, line] }];
+      }
+      return [...blocks, { isList, lines: [line] }];
+    }, [])
+    .map((block) => (block.isList ? block : { ...block, lines: trimBlankLines(block.lines) }))
+    .filter((block) => block.lines.length > 0);
 
 interface DescriptionTextProps {
   text: string;

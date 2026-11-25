@@ -50,7 +50,6 @@ const ConsentItem = ({ title, checked, onCheckedChange, children }: ConsentItemP
       <div
         id={detailId}
         className={`${styles.consentDetail} ${isOpen ? styles.consentDetailOpen : ''}`}
-        aria-hidden={!isOpen}
         inert={!isOpen}
       >
         {children}

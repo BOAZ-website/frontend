@@ -133,17 +133,15 @@ const QuestionSection = ({
         if (supportsTable && question.type === 'TABLE') {
           const tableIncomplete = submitted && !isTableAnswerComplete(question, answers);
           const isMultiple = !!(question.metadata as unknown as { multiple?: boolean })?.multiple;
+          const tableDescription = descriptionOf(question);
           return (
             <div key={qId} className={styles.tableSection}>
               <div className={styles.titleContainer}>
                 <div className={styles.sectionExperienceTitle}>
                   {resolveContent(question.content)}
                 </div>
-                {descriptionOf(question) && (
-                  <DescriptionText
-                    text={descriptionOf(question) ?? ''}
-                    className={styles.questionDescription}
-                  />
+                {tableDescription && (
+                  <DescriptionText text={tableDescription} className={styles.questionDescription} />
                 )}
               </div>
               <TableQuestion
