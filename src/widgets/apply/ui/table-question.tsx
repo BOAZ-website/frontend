@@ -62,6 +62,7 @@ const TableQuestion = ({
                   type="checkbox"
                   name={`${questionId}_${row}_${col}`}
                   label=""
+                  ariaLabel={`${row} ${col}`}
                   value={col}
                   checked={(multiData[row] ?? []).includes(col)}
                   onChange={() => handleMultiRowChange(row, col)}

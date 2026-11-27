@@ -72,6 +72,19 @@ export const checkboxRow = style({
   },
 });
 
+/** 체크박스와 동의 제목. '전문 보기' 버튼은 이 라벨 밖에 둬서 눌러도 체크가 바뀌지 않게 한다. */
+export const checkboxLabelGroup = style({
+  display: 'flex',
+  alignItems: 'center',
+  gap: '1rem',
+  cursor: 'pointer',
+  '@media': {
+    [media.mobile]: {
+      gap: '1.6rem',
+    },
+  },
+});
+
 export const checkbox = style({
   width: '2.4rem',
   height: '2.4rem',
