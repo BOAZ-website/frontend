@@ -25,6 +25,9 @@ export const usePutDraft = ({
   const lastSavedRef = useRef<string | null>(null);
   const [isSaveSuccess, setIsSaveSuccess] = useState(false);
   const successTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  // 제출 중에는 자동 저장을 멈춤. 늦게 끝난 임시저장이 제출한 답변을 덮어쓰지 않게 함
+  const pausedRef = useRef(false);
+  const inflightRef = useRef<Promise<unknown> | null>(null);
 
   // 항상 최신 draft를 참조하도록 업데이트
   useEffect(() => {
@@ -39,7 +42,7 @@ export const usePutDraft = ({
     };
   }, []);
 
-  const { mutate: putDraft, isPending: isPutDraftPending } = useMutation({
+  const { mutateAsync: putDraft, isPending: isPutDraftPending } = useMutation({
     mutationFn: (data: DraftRequest) => saveDraftApi(recruitmentId, data),
     onSuccess: (_, data) => {
       lastSavedRef.current = JSON.stringify(data);
@@ -57,10 +60,17 @@ export const usePutDraft = ({
 
   const putDraftIfChanged = useCallback(
     (data: DraftRequest) => {
-      if (lastSavedRef.current === JSON.stringify(data)) {
+      if (pausedRef.current || lastSavedRef.current === JSON.stringify(data)) {
         return;
       }
-      putDraft(data);
+      const request: Promise<unknown> = putDraft(data)
+        .catch(() => undefined)
+        .finally(() => {
+          if (inflightRef.current === request) {
+            inflightRef.current = null;
+          }
+        });
+      inflightRef.current = request;
     },
     [putDraft]
   );
@@ -77,6 +87,9 @@ export const usePutDraft = ({
 
     // 페이지 이탈 시 즉시 flush
     const handleBeforeUnload = () => {
+      if (pausedRef.current) {
+        return;
+      }
       const url = `/api/v1/recruitment/${recruitmentId}/applications/draft`;
       const blob = new Blob([JSON.stringify(draftRef.current)], {
         type: 'application/json',
@@ -97,5 +110,22 @@ export const usePutDraft = ({
     putDraftIfChanged(draft);
   };
 
-  return { handleClickSaveDraft, isPutDraftPending, isSaveSuccess };
+  // 제출 직전에 호출: 자동 저장을 멈추고 진행 중인 임시저장이 끝날 때까지 기다림
+  const pauseAndWaitForDraft = useCallback(async () => {
+    pausedRef.current = true;
+    await inflightRef.current;
+  }, []);
+
+  // 제출이 실패하면 자동 저장을 다시 켬
+  const resumeDraft = useCallback(() => {
+    pausedRef.current = false;
+  }, []);
+
+  return {
+    handleClickSaveDraft,
+    isPutDraftPending,
+    isSaveSuccess,
+    pauseAndWaitForDraft,
+    resumeDraft,
+  };
 };

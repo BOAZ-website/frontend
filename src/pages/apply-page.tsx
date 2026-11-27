@@ -259,7 +259,13 @@ const ApplyPage = () => {
     enabled: isRestoredOrEmpty && currentStep > 0,
   });
 
-  const { handleClickSaveDraft, isPutDraftPending, isSaveSuccess } = usePutDraft({
+  const {
+    handleClickSaveDraft,
+    isPutDraftPending,
+    isSaveSuccess,
+    pauseAndWaitForDraft,
+    resumeDraft,
+  } = usePutDraft({
     recruitmentId,
     draft: draftPayload,
     enabled: isRestoredOrEmpty && currentStep > 0,
@@ -299,16 +305,32 @@ const ApplyPage = () => {
     handleNext();
   };
 
-  const handleSubmit = () => {
+  const isSubmittingRef = useRef(false);
+
+  const handleSubmit = async () => {
+    if (isSubmittingRef.current || submitMutation.isPending) {
+      return;
+    }
     const confirmed = window.confirm('제출하면 중복 제출이 불가합니다. 제출하시겠습니까?');
     if (!confirmed) {
       return;
     }
+    isSubmittingRef.current = true;
+    // 자동 임시저장과 제출이 겹치면 늦게 끝난 임시저장이 제출한 답변을 덮어쓸 수 있어, 저장을 멈추고 끝나기를 기다린 뒤 제출함
+    await pauseAndWaitForDraft();
     const personalPayload = personalInfo.toApiPayload();
-    submitMutation.mutate({
-      ...personalPayload,
-      answers: buildAnswers(),
-    } as ApplicationRequest);
+    submitMutation.mutate(
+      {
+        ...personalPayload,
+        answers: buildAnswers(),
+      } as ApplicationRequest,
+      {
+        onError: () => {
+          isSubmittingRef.current = false;
+          resumeDraft();
+        },
+      }
+    );
   };
 
   const trackSectionProps = {
@@ -400,7 +422,7 @@ const ApplyPage = () => {
             answers={answers}
             onAnswerChange={setAnswer}
             onPrev={handlePrev}
-            onNext={handleSubmit}
+            onNext={() => void handleSubmit()}
             nextLabel="제출하기"
             track={track ?? undefined}
             term={status?.term}
