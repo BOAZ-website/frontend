@@ -17,3 +17,9 @@ Notion 문서, PR·이슈 본문, 저장소 안 문서(README 등)를 쓰거나 
 - PR·이슈 본문은 저장소 템플릿(`.github/pull_request_template.md`, `.github/ISSUE_TEMPLATE/`)의 섹션 이름과 순서를 그대로 지킨다. 템플릿이 내용이 없으면 삭제하라고 안내한 섹션만 지울 수 있다. 템플릿에 없는 섹션을 만들지 않고, 문서 작업 중에 템플릿 파일 자체를 고치지 않는다.
 - 연결된 Notion 티켓이 있으면 템플릿의 첫 섹션(개요·Summary 등) 안에 링크를 적는다.
 - 고치지 않는 것: 회의 발언 기록 원문, 외부 자료 인용, 코드 블록, 다른 문서가 링크하는 파일·폴더 이름
+
+## 이슈와 PR 생성(engineering-playbook `conventions/issue-pr.md`)
+
+- 개발 작업은 GitHub 이슈를 먼저 만들고 Notion 티켓을 만든다. 이슈는 engineering-playbook `tools/new-issue.sh`로 만든다. Assignee, 작업 종류 라벨, Type, Priority, 보드("BOAZ-website project") 편입, Project 6개가 필수이며 스크립트가 한 번에 지정한다
+- PR 하나 = 이슈 하나. PR 본문에 `Closes #번호`를 적는다. 작업이 PR 여러 개로 나뉘면 `tools/new-issue.sh -p 상위번호`로 하위 이슈를 만들고 PR마다 하위 이슈 하나를 닫는다
+- PR은 Assignee(작성자)와 Reviewer(작성자가 아닌 사람 1명 이상)를 반드시 지정한다
