@@ -1,0 +1,69 @@
+# 이슈 필수 값 검사(원본: engineering-playbook tools/issue-check.yml, 저장소마다 .github/workflows/에 같은 파일로 둠)
+# conventions/issue-pr.md "이슈": Assignee, 작업 종류 라벨, Type, Priority, 보드 편입, Project
+# - 이슈 생성을 막지 못하므로 생성 뒤 검사함. tools/new-issue.sh가 필드를 채울 시간을 위해 90초 기다림
+# - 제목에서 알 수 있는 값(담당자=작성자, 작업 종류 라벨, Type)은 자동으로 채움
+# - Priority가 비면 작성자에게 댓글로 알림
+# - 보드 편입·Project는 저장소 토큰으로 조직 보드를 읽을 수 없어 검사하지 않음(PM 스프린트 점검 no:project)
+name: Issue Check
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  issues: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - run: sleep 90
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const number = context.issue.number;
+            const LABELS = { feat: '⭐️ FEAT', fix: '🐛 FIX', hotfix: '🚑 HOTFIX', docs: '✏️ DOCS', refactor: '🛠️ REFACTOR',
+                             style: '🧁 STYLE', test: '🔎 TEST', release: '🚀 RELEASE', chore: '🧹 CHORE' };
+            const TYPE_OF = { '⭐️ FEAT': 'Feature', '🐛 FIX': 'Bug', '🚑 HOTFIX': 'Bug' };
+
+            const q = await github.graphql(`query($o:String!,$r:String!,$n:Int!){
+              repository(owner:$o,name:$r){issue(number:$n){id title author{login}
+                assignees(first:5){totalCount} labels(first:20){nodes{name}} issueType{name}}}}`,
+              { o: owner, r: repo, n: number });
+            const issue = q.repository.issue;
+            const missing = [];
+
+            if (issue.assignees.totalCount === 0 && issue.author) {
+              await github.rest.issues.addAssignees({ owner, repo, issue_number: number, assignees: [issue.author.login] });
+            }
+
+            let typeLabel = issue.labels.nodes.map(l => l.name).find(n => Object.values(LABELS).includes(n));
+            if (!typeLabel) {
+              const m = issue.title.match(/^\[([A-Za-z]+)\]/);
+              typeLabel = m && LABELS[m[1].toLowerCase()];
+              if (typeLabel) await github.rest.issues.addLabels({ owner, repo, issue_number: number, labels: [typeLabel] });
+              else missing.push('제목 접두어와 작업 종류 라벨(`[Feat]`·`[Fix]`·`[Docs]`·`[Chore]` 등)');
+            }
+
+            if (!issue.issueType) {
+              try {
+                const t = await github.graphql(`query($o:String!){organization(login:$o){issueTypes(first:10){nodes{id name}}}}`, { o: owner });
+                const want = TYPE_OF[typeLabel] || 'Task';
+                const id = t.organization.issueTypes.nodes.find(x => x.name === want)?.id;
+                await github.graphql(`mutation($i:ID!,$t:ID!){updateIssue(input:{id:$i,issueTypeId:$t}){clientMutationId}}`, { i: issue.id, t: id });
+              } catch (e) { missing.push('Type(Feature·Bug·Task)'); }
+            }
+
+            try {
+              const f = await github.graphql(`query($i:ID!){node(id:$i){... on Issue{issueFieldValues(first:10){nodes{
+                ... on IssueFieldSingleSelectValue{field{... on IssueFieldSingleSelect{name}}}}}}}}`, { i: issue.id });
+              if (!f.node.issueFieldValues.nodes.some(v => v.field?.name === 'Priority')) missing.push('Priority(사이드바 Fields)');
+            } catch (e) { core.warning('Priority 확인 실패: ' + e.message); }
+
+            if (missing.length) {
+              await github.rest.issues.createComment({ owner, repo, issue_number: number, body:
+                `@${issue.author.login} 이슈 필수 값이 비어 있습니다: ${missing.join(', ')}.\n` +
+                `보드 "BOAZ-website project" 편입과 Project 값도 확인해 주세요. ` +
+                `AI로 만들 때는 engineering-playbook \`tools/new-issue.sh\`를 쓰면 한 번에 지정됩니다(\`conventions/issue-pr.md\` "이슈").` });
+            }
